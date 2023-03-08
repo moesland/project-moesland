@@ -1,6 +1,6 @@
 # Project Moesland
 
-## Branch Naming Convention
+## Branch naming Convention
 
 To keep our repository organized and consistent, we require that all branch names in this repository use kebab-case and that all user 
 stories with task should be separated with a forward slash ("/"). For Example `user-story-name/task-name`
