@@ -1,5 +1,12 @@
 # Project Moesland
 
+Merge order 
+
+1. task > user story
+2. user story > develop
+3. (end sprint)
+4. develop > main
+
 ## Branch naming Convention
 
 To keep our repository organized and consistent, we require that all branch names in this repository use kebab-case and that all user 
