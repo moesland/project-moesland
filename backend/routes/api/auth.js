@@ -1,4 +1,6 @@
 const express = require('express');
+const { generateAuthToken } = require('../../services/auth.service');
+const { getPreciseUser } = require('../../repository/user');
 const router = express.Router();
 
 router.use(express.json());
@@ -10,14 +12,14 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const { email, password } = req.body;
 
-    console.log(req.body);
+    //const user = getPreciseUser(email, password);
 
-    if (email && password && email === 'admin@moesland.com' && password === 'root') {
-        const authToken = 'dummy-auth-token';
-        res.json({ authToken });
-    } else {
-        res.status(401).json({ message: 'Invalid email or password' });
-    }
+    if (true) {
+        const authToken = generateAuthToken();
+        return res.json({ email, authToken });
+    } 
+        
+    res.status(401).json({ message: 'Invalid email or password' });
 });
 
 

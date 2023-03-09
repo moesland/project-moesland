@@ -1,0 +1,1 @@
+mongoose.model('User', null);
