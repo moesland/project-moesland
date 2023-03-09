@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Toolbar from './src/views/Toolbar';
+import ToolbarView from './src/views/ToolbarView';
 import NewsItemView from './src/views/NewsItemView';
 
 export default class App extends Component {
@@ -12,7 +12,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Toolbar onPressMenu={this.handleMenuPress} />
+        <ToolbarView onPressMenu={this.handleMenuPress} />
         {
           <NewsItemView />
         }

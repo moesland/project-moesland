@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header, Icon } from 'react-native-elements';
 
-const Toolbar = ({ onPressMenu }) => {
+const ToolbarView = ({ onPressMenu }) => {
   return (
     <Header
       backgroundColor="#50a038"
@@ -16,4 +16,4 @@ const Toolbar = ({ onPressMenu }) => {
   );
 };
 
-export default Toolbar;
+export default ToolbarView;
