@@ -9,12 +9,12 @@ const authTokenSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  idusers: {
-    type: Number,
-    required: true
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 
-const AuthToken = mongoose.model('AuthToken', authTokenSchema);
+module.exports = mongoose.model('AuthToken', authTokenSchema);
 
-module.exports = AuthToken;
+
