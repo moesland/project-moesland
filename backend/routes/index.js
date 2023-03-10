@@ -6,7 +6,5 @@ router.get('/', function(req, res, next) {
     res.send('hello from home route');
 });
 
-//add here all other routes
-router.use('/api/location', require('./api/location'));
 
 module.exports = router;
