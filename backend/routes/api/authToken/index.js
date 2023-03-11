@@ -29,7 +29,7 @@ router.post('/', [
       })
       .catch(err => {
         console.error(err);
-        res.status(500).send('Error saving authToken');
+        res.status(500).send('Error saving authToken ' + err);
       });
   });
 

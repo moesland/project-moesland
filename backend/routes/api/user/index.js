@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
       })
       .catch(err => {
         console.error(err);
-        res.status(500).send('Error saving user');
+        res.status(500).send('Error saving user: ' + err);
       });
   });
 
