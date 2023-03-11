@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 
 module.exports = () => {
 	if(mongoose.connection.readyState == 0){
-		const uri = 'mongodb://0.0.0.0:27017/moesland';
+		const uri = process.env.MONGODB_URI;
 		const options = {
 			db: { native_parser: true },	
 			server: { poolSize: 5 },
@@ -10,8 +12,6 @@ module.exports = () => {
 			user: 'admin',
 			pass: 'root'
 		}
-
-		//mongoose.connect(uri, options);
 		mongoose.connect(uri).catch(err => {
             console.log(err)
         });
