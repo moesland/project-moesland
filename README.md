@@ -1,11 +1,20 @@
 # Project Moesland
 
+Merge order 
+
+1. task > user story
+2. user story > develop
+3. (end sprint)
+4. develop > main
+
 ## Branch naming Convention
 
 To keep our repository organized and consistent, we require that all branch names in this repository use kebab-case and that all user 
 stories with task should be separated with a forward slash ("/"). For Example `user-story-name/task-name`
 Using a consistent naming convention for folders makes it easier for team members to find and understand the purpose of each folder. 
 It also helps to avoid naming conflicts and ensures that all folders are named in a consistent and readable way.
+
+!! please dont start with `#`
 
 ## Folder and file name convention
 
