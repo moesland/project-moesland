@@ -13,8 +13,8 @@ router.post('/', (req, res) => {
     });
   
     role.save()
-      .then(savedRol => {
-        res.status(200).send(`Role ${savedRol.rolename} saved successfully`);
+      .then(savedRole => {
+        res.status(200).send(`Role ${savedRole.rolename} saved successfully`);
       })
       .catch(err => {
         console.error(err);
