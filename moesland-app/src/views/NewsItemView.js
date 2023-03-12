@@ -8,14 +8,14 @@ export default class NewsItemView extends Component {
     return (
       <View style={[newsItemStyles.itemContainer, { flexDirection: 'row' }]}>
         <View style={{ flex: 1 }}>
-          <Text style={[newsItemStyles.date, { alignSelf: 'flex-start', marginBottom: 10 }]}>{item.date}</Text>
-          <Text style={[newsItemStyles.title, { alignSelf: 'flex-start', textAlign: 'left', marginBottom: 10 }]}>{item.title}</Text>
+          <Text style={newsItemStyles.date}>{item.date}</Text>
+          <Text style={newsItemStyles.title}>{item.title}</Text>
         </View>
         <Image source={item.image} style={newsItemStyles.image} />
       </View>
     );
   }
-  
+
   // create line between news items to increase readability
   renderSeparator = () => {
     return (
@@ -51,7 +51,9 @@ const newsItemStyles = {
   },
   date: {
     fontSize: 12,
-    color: 'gray'
+    color: 'gray', 
+    alignSelf: 'flex-start', 
+    marginBottom: 10
   },
   image: {
     width: 150,
@@ -59,7 +61,7 @@ const newsItemStyles = {
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   text: {
     fontSize: 14

@@ -1,5 +1,6 @@
 import Item from '../models/NewsItemModel.js';
 
+// TODO: replace items with data from back-end
 const items = [
   new Item(1, "07-02-2023", 'Startnummers Grote Moeslandse Optocht', 'McDonald\'s stapt in Frankrijk tijdelijk over op friet van biet, wortel en pastinaak', require('../../assets/examples/example_image_1.png')),
   new Item(2, "30-01-2023",  'Sleuteloverdracht', 'Dit zijn de antwoorden op jullie vragen over het postcovidsyndroom', require('../../assets/examples/example_image_2.png')),

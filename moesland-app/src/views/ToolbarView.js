@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header, Icon } from 'react-native-elements';
 
+// Toolbar styling
 const ToolbarView = ({ onPressMenu }) => {
   return (
     <Header
