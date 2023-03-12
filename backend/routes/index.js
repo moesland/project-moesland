@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
 router.use('/api/location', require('./api/location'));
 router.use('/api/role', require('./api/role'));
 router.use('/api/user', require('./api/user'));
+router.use('/api/user/add', require('./api/user/add'));
 router.use('/api/authToken', require('./api/authToken'));
 
 module.exports = router;

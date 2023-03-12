@@ -3,10 +3,8 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   id: {
     type: Number,
-    required: true,
     unique: true,
-    index: true,
-    primary: true
+    index: true
   },
   password: {
     type: String,
@@ -31,6 +29,21 @@ const userSchema = new mongoose.Schema({
   roleId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Role'
+  }
+});
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+  if (user.isNew) {
+    try {
+      const count = await mongoose.model('User', userSchema).countDocuments();
+      user.id = count + 1;
+      next();
+    } catch (err) {
+      return next(err);
+    }
+  } else {
+    next();
   }
 });
 
