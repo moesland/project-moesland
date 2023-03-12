@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, Image, FlatList } from 'react-native';
+import { View, Text, Image, FlatList, Pressable } from 'react-native';
 import NewsItemController from '../controllers/NewsItemController.js';
 
 export default class NewsItemListView extends Component {
   // create news item component
   renderItem = ({ item }) => {
     return (
-      <View style={[newsItemStyles.itemContainer, { flexDirection: 'row' }]}>
-        <View style={{ flex: 1 }}>
-          <Text style={newsItemStyles.date}>{item.date}</Text>
-          <Text style={newsItemStyles.title}>{item.title}</Text>
+      <Pressable onPress={() => this.props.navigation.navigate('NewsDetailPage', { item })}>
+        <View style={[newsItemStyles.itemContainer, { flexDirection: 'row' }]}>
+          <View style={{ flex: 1 }}>
+            <Text style={newsItemStyles.date}>{item.date}</Text>
+            <Text style={newsItemStyles.title}>{item.title}</Text>
+          </View>
+          <Image source={item.image} style={newsItemStyles.image} />
         </View>
-        <Image source={item.image} style={newsItemStyles.image} />
-      </View>
+      </Pressable>
     );
   }
 
@@ -51,8 +53,8 @@ const newsItemStyles = {
   },
   date: {
     fontSize: 12,
-    color: 'gray', 
-    alignSelf: 'flex-start', 
+    color: 'gray',
+    alignSelf: 'flex-start',
     marginBottom: 10
   },
   image: {
