@@ -1,53 +1,54 @@
-import React, { Component } from 'react';
-import { View, Text, Image, FlatList, Pressable } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, Image, FlatList, Pressable, StyleSheet } from 'react-native';
 import NewsItemController from '../controllers/NewsItemController.js';
 
-export default class NewsItemListView extends Component {
-  // create news item component
-  renderItem = ({ item }) => {
+const NewsItemListView = ({ navigation }) => {
+  const [items, setItems] = useState([]);
+
+  const renderItem = useCallback(({ item: { date, title, image, text } }) => {
     return (
-      <Pressable onPress={() => this.props.navigation.navigate('NewsDetailPage', { item })}>
-        <View style={[newsItemStyles.itemContainer, { flexDirection: 'row' }]}>
+      <Pressable onPress={() => navigation.navigate('NewsDetailPage', { item: { date, title, image, text } })}>
+        <View style={[styles.itemContainer, { flexDirection: 'row' }]}>
           <View style={{ flex: 1 }}>
-            <Text style={newsItemStyles.date}>{item.date}</Text>
-            <Text style={newsItemStyles.title}>{item.title}</Text>
+            <Text style={styles.date}>{date}</Text>
+            <Text style={styles.title}>{title}</Text>
           </View>
-          <Image source={item.image} style={newsItemStyles.image} />
+          <Image source={image} style={styles.image} />
         </View>
       </Pressable>
     );
-  }
+  }, []);
 
-  // create line between news items to increase readability
-  renderSeparator = () => {
+  const renderSeparator = useCallback(() => {
     return (
       <View
-        style={newsItemStyles.separator}
+        style={styles.separator}
       />
     );
-  }
+  }, []);
 
-  state = {
-    items: NewsItemController.getAllItems()
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const items = await NewsItemController.getAllItems();
+      setItems(items);
+    };
 
-  // render news item in flatlist
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        <FlatList
-          data={this.state.items}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={this.renderItem}
-          ItemSeparatorComponent={this.renderSeparator}
-        />
-      </View>
-    );
-  }
-}
+    fetchData();
+  }, []);
 
-// news item styling
-const newsItemStyles = {
+  return (
+    <View style={{ flex: 1 }}>
+      <FlatList
+        data={items}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
+        ItemSeparatorComponent={renderSeparator}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
   itemContainer: {
     padding: 5
   },
@@ -75,4 +76,6 @@ const newsItemStyles = {
     marginRight: 5,
     opacity: 0.1,
   }
-};
+});
+
+export default NewsItemListView;

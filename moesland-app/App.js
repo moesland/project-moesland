@@ -8,23 +8,22 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-export default class App extends Component {
+export default function App() {
 
   handleMenuPress = () => {
     // handle the menu press event
   };
 
-  render() {
-    return (
+  return (
 
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="NewsFeed" component={NewsItemListView} />
-          <Stack.Screen name="NewsDetailPage" component={NewsItemDetailView} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="NewsFeed" component={NewsItemListView} />
+        <Stack.Screen name="NewsDetailPage" component={NewsItemDetailView} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+
 }
 
 const styles = StyleSheet.create({

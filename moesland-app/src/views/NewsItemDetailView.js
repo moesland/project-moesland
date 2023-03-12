@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Dimensions } from 'react-native';
-import NewsItemController from '../controllers/NewsItemController.js';
 import { StyleSheet, View, ScrollView, Image, Text } from 'react-native';
 
 export default class NewsItemListView extends Component {
