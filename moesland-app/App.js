@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ToolbarView from './src/views/ToolbarView';
-import NewsItemView from './src/views/NewsItemView';
+import NewsItemListView from './src/views/NewsItemListView';
 
 export default class App extends Component {
 
@@ -14,7 +14,7 @@ export default class App extends Component {
       <View style={styles.container}>
         <ToolbarView onPressMenu={this.handleMenuPress} />
         {
-          <NewsItemView />
+          <NewsItemListView />
         }
       </View>
     );

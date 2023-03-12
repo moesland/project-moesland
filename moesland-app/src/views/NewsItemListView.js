@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, FlatList } from 'react-native';
 import NewsItemController from '../controllers/NewsItemController.js';
 
-export default class NewsItemView extends Component {
+export default class NewsItemListView extends Component {
   // create news item component
   renderItem = ({ item }) => {
     return (
