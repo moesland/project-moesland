@@ -3,8 +3,13 @@ import { View, Text, Image, FlatList, Pressable, StyleSheet } from 'react-native
 import NewsItemController from '../controllers/NewsItemController.js';
 
 const NewsItemListView = ({ navigation }) => {
+  // React Native Hook
+  // initializes 'items' as an empty array
+  // 'setItems' function is used to update state
   const [items, setItems] = useState([]);
 
+  // useCallback is a React Native Hook that memoizes a function to improve performance
+  // memoization = caching the results of a function call to improve performance by avoiding unnecessary computation
   const renderItem = useCallback(({ item: { date, title, image, text } }) => {
     return (
       <Pressable onPress={() => navigation.navigate('NewsDetailPage', { item: { date, title, image, text } })}>
@@ -27,6 +32,8 @@ const NewsItemListView = ({ navigation }) => {
     );
   }, []);
 
+  // React Native Hook
+  // fetches data async after the newsitemlistview is first rendered
   useEffect(() => {
     const fetchData = async () => {
       const items = await NewsItemController.getAllItems();
