@@ -16,17 +16,19 @@ router.post('/', async (req, res) => {
             username: username,
             roleId: adminRole._id
         });
-    
-        try {
-            await newUser.save();
-            res.status(201).send(`User ${newUser} added successfully!`);
-        } catch (err) {
-            console.error(err.message);
-            res.status(500).send(`Could not add user ${newUser}: ${err}`);
-        }
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send(`Could not add user: ${err}`);
+
+        await newUser.save()
+            .then(() => {
+                res.status(201).send(`User ${username} added successfully!`);
+            })
+            .catch((err) => {
+
+                console.error(err.message);
+                res.status(500).send(`Could not add user ${username}: ${err}`);
+            })
+    }
+    catch (err) {
+        console.error(err);
     }
 });
 

@@ -34,13 +34,18 @@ const userSchema = new mongoose.Schema({
 
 userSchema.pre('save', async function (next) {
   const user = this;
+
   if (user.isNew) {
     try {
-      const count = await mongoose.model('User', userSchema).countDocuments();
-      user.id = count + 1;
+      const maxDoc = await mongoose.model('User', userSchema)
+        .findOne({}, 'id', { sort: { id: -1 } })
+        .exec();
+
+      const nextID = maxDoc ? maxDoc.id + 1 : 1;
+      user.set('id', nextID);
       next();
     } catch (err) {
-      return next(err);
+      next(err);
     }
   } else {
     next();

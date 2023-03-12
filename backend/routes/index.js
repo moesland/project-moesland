@@ -13,6 +13,7 @@ router.use('/api/user', require('./api/user'));
 
 router.use('/api/user/add', require('./api/user/add'));
 router.use('/api/user/update', require('./api/user/update'));
+router.use('/api/user/delete', require('./api/user/delete'));
 
 router.use('/api/authToken', require('./api/authToken'));
 
