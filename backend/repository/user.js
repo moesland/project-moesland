@@ -4,7 +4,7 @@ const Users = mongoose.model('User');
 
 module.exports = {
     getPreciseUser: async function (username, password) {
-        const user = await Users.findOne({username: username})
+        const user = await Users.findOne({username: { $eq: username}})
 
         if (!user) {
             return null;
