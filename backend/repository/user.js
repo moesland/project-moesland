@@ -10,7 +10,8 @@ module.exports = {
             return null;
         }
 
-        const isPasswordMatch = await bcrypt.compare(password, user.password);
+        const isPasswordMatch = user.password == password;
+        //const isPasswordMatch = await bcrypt.compare(password, user.password);
 
         if (!isPasswordMatch) {
             return null; 

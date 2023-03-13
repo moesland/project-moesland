@@ -3,9 +3,11 @@ const Role = mongoose.model('Role');
 
 const roles_data = [
   {
+    id: 1,
     rolename: 'SuperAdmin'
   },
   {
+    id: 2,
     rolename: 'Admin'
   }
 ]

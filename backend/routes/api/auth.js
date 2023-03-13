@@ -12,14 +12,16 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const { username, password } = req.body;
 
-    const user = getPreciseUser(email, password);
+    if(!username && !password) return res.status(400).json({ message: 'username and password required'})
 
-    if (true) {
-        const authToken = generateAuthToken();
+    const user = await getPreciseUser(username, password);
+
+    if (user) {
+        const authToken = await generateAuthToken(user._id);
         return res.json({ username, authToken });
     } 
          
-    res.status(401).json({ message: 'Invalid email or password' });
+    res.status(401).json({ message: 'Invalid username or password' });
 });
 
 

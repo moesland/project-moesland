@@ -13,6 +13,7 @@ const superAdminSeed = async () => {
 
     if (!await User.findOne({ username: 'SuperAdmin' })) {
       const newSuperAdminUser = new User({
+        id: 1,
         username: 'SuperAdmin',
         password: superAdminPassword,
         email: 'superadmin@hotmail.com',
@@ -33,8 +34,9 @@ const adminSeed = async () => {
   try {
     const adminRole = await Role.findOne({ rolename: 'Admin' });
 
-    if (!await User.findOne({ id: 2 })) {
+    if (!await User.findOne({ username: 'Admin' })) {
       const newAdminUser = new User({
+        id: 2,
         username: 'Admin',
         password: adminPassword,
         email: 'admin@hotmail.com',
