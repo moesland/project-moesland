@@ -4,7 +4,7 @@ const AuthToken = mongoose.model('AuthToken');
 module.exports = {
     getPreviousAuthToken: async (userId) => {
         return await AuthToken.findOne({ userId: { $eq: userId } })
-            .then(user => { if (user) return user; })
+            .then(authToken => { if (authToken) return authToken; })
             .catch(err => console.log("Cannot find previous token in AuthToken dataset", err));
 
     },
