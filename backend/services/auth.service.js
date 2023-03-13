@@ -9,7 +9,7 @@ module.exports = AuthService = {
     const token = tokenBytes.toString('hex');
 
     const now = new Date();
-    const expires = new Date(now.getTime() + 12 * 60 * 60 * 1000);
+    const expires = new Date(now.getTime() + 12 * 60 * 60 * 1000); //12 hours.
 
     await createAuthToken(token, expires, userId);
 
