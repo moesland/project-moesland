@@ -8,5 +8,9 @@ router.get('/', function(req, res, next) {
 
 //add here all other routes
 router.use('/api/auth', require('./api/auth'));
+router.use('/api/location', require('./api/location'));
+router.use('/api/role', require('./api/role'));
+router.use('/api/user', require('./api/user'));
+router.use('/api/authToken', require('./api/authToken'));
 
 module.exports = router;
