@@ -10,15 +10,15 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    //const user = getPreciseUser(email, password);
+    const user = getPreciseUser(email, password);
 
     if (true) {
         const authToken = generateAuthToken();
-        return res.json({ email, authToken });
+        return res.json({ username, authToken });
     } 
-        
+         
     res.status(401).json({ message: 'Invalid email or password' });
 });
 
