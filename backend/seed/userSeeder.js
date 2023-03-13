@@ -9,12 +9,11 @@ const superAdminSeed = async () => {
   //const superAdminHash = await bcrypt.hash('superadmin123', Number(process.env.HASH_SALT));
 
   try {
-    const superAdminRole = await Role.findOne({ rolename: 'Super Admin' });
+    const superAdminRole = await Role.findOne({ rolename: 'SuperAdmin' });
 
-    if (!await User.findOne({ id: 1 })) {
+    if (!await User.findOne({ username: 'SuperAdmin' })) {
       const newSuperAdminUser = new User({
-        id: 1,
-        username: 'Super Admin',
+        username: 'SuperAdmin',
         password: superAdminPassword,
         email: 'superadmin@hotmail.com',
         roleId: superAdminRole._id
@@ -36,7 +35,6 @@ const adminSeed = async () => {
 
     if (!await User.findOne({ id: 2 })) {
       const newAdminUser = new User({
-        id: 2,
         username: 'Admin',
         password: adminPassword,
         email: 'admin@hotmail.com',
