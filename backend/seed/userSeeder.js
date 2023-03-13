@@ -1,5 +1,3 @@
-const bcrypt = require('bcrypt');
-
 const mongoose = require('mongoose');
 const Role = mongoose.model("Role");
 const User = mongoose.model("User");
