@@ -2,15 +2,11 @@ const express = require('express');
 const { generateAuthToken } = require('../../services/auth.service');
 const { getPreciseUser } = require('../../repository/user');
 const { requestLimiter } = require('../../middleware/security');
-const { body } = require('express-validator');
 const router = express.Router();
 
 router.use(express.json());
 
-router.post('/', requestLimiter,
-    body('username').notEmpty().trim().escape(),
-    body('password').notEmpty().trim().escape(),
-    async (req, res) => {
+router.post('/', requestLimiter, async (req, res) => {
         const { username, password } = req.body;
 
         if (!username && !password) return res.status(400).json({ message: 'username and password required' })
