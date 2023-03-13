@@ -5,10 +5,6 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.get('/', async (req, res) => {
-    res.send("hello");
-});
-
 router.post('/', async (req, res) => {
     const { username, password } = req.body;
 
