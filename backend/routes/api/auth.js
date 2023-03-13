@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
 
     if (user) {
         const authToken = await generateAuthToken(user._id);
-        return res.json({ username, authToken });
+        return res.json({ username, email: user.email , authToken });
     } 
          
     res.status(401).json({ message: 'Invalid username or password' });
