@@ -16,7 +16,7 @@ module.exports = {
         return await AuthToken.insertMany({
             token: token,
             expiredate: expires,
-            userId: { $eq: userId }
+            userId: userId 
         }).catch(err => console.log("Cannot add new token in AuthToken dataset", err))
     },
 
