@@ -1,17 +1,26 @@
 import React from 'react';
 import { Header, Icon } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 
-// Toolbar styling
-const ToolbarView = ({ onPressMenu }) => {
+const ToolbarView = ({ showBackButton, onPressMenu }) => {
+  const navigation = useNavigation();
   return (
     <Header
       backgroundColor="#50a038"
       leftComponent={
-        <Icon
-          name="menu"
-          color="#fff"
-          onPress={onPressMenu}
-        />
+        showBackButton ? (
+          <Icon
+            name="arrow-back"
+            color="#fff"
+            onPress={() => navigation.goBack()}
+          />
+        ) : (
+          <Icon
+            name="menu"
+            color="#fff"
+            onPress={onPressMenu}
+          />
+        )
       }
     />
   );

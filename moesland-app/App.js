@@ -1,5 +1,3 @@
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
 import ToolbarView from './src/views/ToolbarView';
 import NewsItemListView from './src/views/NewsItemListView';
 import NewsItemDetailView from './src/views/NewsItemDetailView';
@@ -9,25 +7,37 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 export default function App() {
-
-  handleMenuPress = () => {
+  const handleMenuPress = () => {
     // handle the menu press event
   };
 
   return (
-
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        initialRouteName="NewsFeed"
+        screenOptions={({ navigation, route }) => ({
+          header: props => (
+            <ToolbarView
+              {...props}
+              showBackButton={route.name !== "NewsFeed"}
+              onPressMenu={handleMenuPress}
+            />
+          ),
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          headerStyle: {
+            backgroundColor: '#50a038',
+          },
+        })}
+      >
         <Stack.Screen name="NewsFeed" component={NewsItemListView} />
-        <Stack.Screen name="NewsDetailPage" component={NewsItemDetailView} />
+        <Stack.Screen
+          name="NewsDetailPage"
+          component={NewsItemDetailView}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
-
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
