@@ -19,6 +19,7 @@ module.exports = {
         return user;
     },
     getUserById: async function (userId) {
-        return await Users.findOne({_id: { $eq: userId}})
+        return await Users.findById(userId)
+            .catch(err => console.log("Cannot find user by id in User dataset", err));
     }
 }

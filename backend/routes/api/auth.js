@@ -15,7 +15,7 @@ router.post('/validate', authenticateToken, async (req, res) => {
     res.status(200).json({ authorized: true });
 });
 
-router.post('/validate-middleware-role', authenticateTokenRole("SuperAdmin"), async (req, res) => { //testing route
+router.post('/validate-role', authenticateTokenRole("SuperAdmin"), async (req, res) => { //testing route
     res.status(200).json({ authorized: true });
 });
 
