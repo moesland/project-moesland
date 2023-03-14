@@ -1,22 +1,46 @@
 import React, { Component } from 'react';
-import { Dimensions } from 'react-native';
-import { StyleSheet, View, ScrollView, Image, Text } from 'react-native';
+import { Dimensions, StyleSheet, View, ScrollView, Image, Text } from 'react-native';
 
 export default class NewsItemListView extends Component {
+
+    state = {
+        imageHeight: null,
+    };
+
+    constructor(props) {
+        super(props);
+        const { item } = props.route.params;
+        this.state = {
+            item: item
+        };
+    }
+
+    handleImageLayout = event => {
+        const { width } = Dimensions.get('window');
+        const { height } = event.nativeEvent.layout;
+        const aspectRatio = this.getImageAspectRatio();
+        const imageHeight = width / aspectRatio;
+        this.setState({ imageHeight });
+    };
+
+    getImageAspectRatio = () => {
+        const { item } = this.state;
+        const source = Image.resolveAssetSource(item.bannerImage);
+        return source.width / source.height;
+    };
+
     render() {
-
-        const { route, imageDimensions } = this.props;
+        const { route } = this.props;
         const { item } = route.params;
-
-        const aspectRatio = Dimensions.get('window').width / Dimensions.get('window').height;
-        const imageHeight = screenWidth / aspectRatio;
+        const { imageHeight } = this.state;
 
         return (
             <ScrollView>
                 <View style={styles.container}>
                     <Image
-                        source={item.image}
-                        style={[styles.image, { width: screenWidth, height: imageHeight }]}
+                        source={item.bannerImage}
+                        onLayout={this.handleImageLayout}
+                        style={[styles.image, { height: imageHeight }]}
                         resizeMode="contain"
                     />
                     <Text style={styles.title}>{item.title}</Text>
@@ -27,18 +51,16 @@ export default class NewsItemListView extends Component {
     }
 }
 
-const screenWidth = Dimensions.get('window').width;
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 20,
     },
     image: {
-        resizeMode: 'cover',
-    },    
+        width: '100%',
+        marginBottom: 10,
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -47,7 +69,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         lineHeight: 24,
-        textAlign: 'justify',
         marginBottom: 20,
+        padding: 5,
     },
 });
