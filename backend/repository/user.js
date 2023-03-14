@@ -17,5 +17,8 @@ module.exports = {
         }
 
         return user;
+    },
+    getUserById: async function (userId) {
+        return await Users.findOne({_id: { $eq: userId}})
     }
 }

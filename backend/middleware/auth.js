@@ -1,30 +1,83 @@
-const VALID_AUTH_TOKEN = 'valid_token';
-const ROLE_ADMIN = 'Admin';
+const { FindAuthTokenByToken } = require("../repository/authToken");
+const { getUserById } = require("../repository/user");
+const jwt = require('jsonwebtoken');
 
-const validateAuthToken = (req, res, next) => {
-    const authToken = req.headers["authorization-token"];
+const secretKey = process.env.JWT_SECRET;
 
-    if (!authToken || authToken !== `Bearer ${VALID_AUTH_TOKEN}`) {
-        return res.status(401).json({ error: 'Invalid authorization token' });
+const validateAuthToken = async (authorizationHeader, roleName) => {
+    if (!authorizationHeader) {
+        throw new Error('Authorization header is missing');
     }
 
-    next();
+    const parts = authorizationHeader.split(' ');
+
+    if (parts.length !== 2) {
+        throw new Error('Authorization header is invalid');
+    }
+
+    if (parts[0] !== 'Bearer') {
+        throw new Error('Authorization scheme is not supported');
+    }
+
+    const token = authorizationHeader.split(' ')[1];
+    const decoded = jwt.verify(token, secretKey);
+    const userId = decoded.sub;
+
+    if (!userId || !await getUserById(userId)) {
+        throw new Error('User not valid');
+    }
+
+    if (!await FindAuthTokenByToken(token)) {
+        throw new Error('Token not valid in database.');
+    }
+
+    if(roleName) {
+        validateRole();
+
+    }
 }
 
-const validateAuthTokenRole = (roleName) => {
-    return (req, res, next) => {
-        const authToken = req.headers["authorization-token"];
+const validateRole = async (userId, roleName) => { 
+    const user = await getUserById(userId);
+    const role = await getRoleById(user.roleId);
 
-        if (!authToken || authToken !== `Bearer ${VALID_AUTH_TOKEN}`) {
-            return res.status(401).json({ error: 'Invalid authorization token' });
-        }
+    if(!role) {
+        throw new Error('Role does not exist');
+    }
 
-        if (roleName !== ROLE_ADMIN) {
-            return res.status(403).json({ error: 'Access forbidden' });
-        }
+    if(role.rolename != roleName){
+        throw new Error('user not authorized');
+    }
+
+}
+
+const authenticateToken = async (req, res, next) => {
+    try {
+        const authorizationHeader = req.headers.authorization;
+
+        await validateAuthToken(authorizationHeader);
 
         next();
+    } catch (err) {
+        return res.status(401).json({ error: 'Invalid authorization token', err });
+    }
+}
+
+const authenticateTokenRole = (roleName) => {
+    return async (req, res, next) => {
+        try {
+            const authorizationHeader = req.headers.authorization;
+
+            await validateAuthToken(authorizationHeader, roleName);
+
+            return next();
+
+        } catch (err) {
+            return res.status(401).json({ error: 'Invalid authorization token', err });
+        }
     };
 }
 
-module.exports = { validateAuthToken, validateAuthTokenRole };
+
+
+module.exports = { authenticateToken, authenticateTokenRole };

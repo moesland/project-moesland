@@ -1,5 +1,5 @@
 const express = require('express');
-const { validateAuthToken, validateAuthTokenRole } = require('../../middleware/auth');
+const { authenticateToken, authenticateTokenRole } = require('../../middleware/auth');
 const { generateAuthToken } = require('../../services/auth.service');
 const { getPreciseUser } = require('../../repository/user');
 const { requestLimiter } = require('../../middleware/security');
@@ -11,17 +11,14 @@ router.get('/', async (req, res) => {
     res.send("hello");
 });
 
-router.post('/validate', validateAuthToken, async (req, res) => {
+router.post('/validate', authenticateToken, async (req, res) => {
     res.status(200).json({ authorized: true });
 });
 
-router.post('/validate-middleware', validateAuthToken, async (req, res) => {
+router.post('/validate-middleware-role', authenticateTokenRole("SuperAdmin"), async (req, res) => { //testing route
     res.status(200).json({ authorized: true });
 });
 
-router.post('/validate-middleware-role', validateAuthTokenRole("admin"), async (req, res) => {
-    res.status(200).json({ authorized: true });
-});
 router.post('/', requestLimiter, async (req, res) => {
         const { username, password } = req.body;
 

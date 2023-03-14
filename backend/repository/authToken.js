@@ -19,5 +19,10 @@ module.exports = {
             userId: userId 
         }).catch(err => console.log("Cannot add new token in AuthToken dataset", err))
     },
+    FindAuthTokenByToken: async (token) => {
+        return await AuthToken.findOne({ token: { $eq: token } })
+            .then(authToken => { if (authToken) return authToken; })
+            .catch(err => console.log("Cannot find token in AuthToken dataset", err));
 
+    },
 }
