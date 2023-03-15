@@ -1,12 +1,13 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
 
-//default
-router.get('/', function(req, res, next) {
-    res.send('hello from home route');
+const router = express.Router();
+
+// default
+router.get('/', (req, res) => {
+  res.send('hello from home route');
 });
 
-//add here all other routes
+// add here all other routes
 router.use('/api/location', require('./api/location'));
 
 module.exports = router;
