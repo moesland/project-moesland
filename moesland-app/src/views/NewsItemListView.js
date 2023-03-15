@@ -4,9 +4,9 @@ import NewsItemController from '../controllers/NewsItemController.js';
 
 const NewsItemListView = ({ navigation }) => {
   // React Native Hook
-  // initializes 'items' as an empty array
-  // 'setItems' function is used to update state
-  const [items, setItems] = useState([]);
+  // initializes 'newsItems' as an empty array
+  // 'setNewsItems' function is used to update state
+  const [newsItems, setNewsItems] = useState([]);
 
   // useCallback is a React Native Hook that memoizes a function to improve performance
   // memoization = caching the results of a function call to improve performance by avoiding unnecessary computation
@@ -36,8 +36,8 @@ const NewsItemListView = ({ navigation }) => {
   // fetches data async after the newsitemlistview is first rendered
   useEffect(() => {
     const fetchData = async () => {
-      const items = await NewsItemController.getAllItems();
-      setItems(items);
+      const newsItems = await NewsItemController.getAllItems();
+      setNewsItems(newsItems);
     };
 
     fetchData();
@@ -46,7 +46,7 @@ const NewsItemListView = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <FlatList
-        data={items}
+        data={newsItems}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         ItemSeparatorComponent={renderSeparator}

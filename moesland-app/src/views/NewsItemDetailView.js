@@ -5,19 +5,12 @@ export default class NewsItemListView extends Component {
 
     state = {
         imageHeight: null,
+        item: this.props.route.params.item,
     };
+    
 
-    constructor(props) {
-        super(props);
-        const { item } = props.route.params;
-        this.state = {
-            item: item
-        };
-    }
-
-    handleImageLayout = event => {
+    handleImageLayout = () => {
         const { width } = Dimensions.get('window');
-        const { height } = event.nativeEvent.layout;
         const aspectRatio = this.getImageAspectRatio();
         const imageHeight = width / aspectRatio;
         this.setState({ imageHeight });
@@ -30,8 +23,7 @@ export default class NewsItemListView extends Component {
     };
 
     render() {
-        const { route } = this.props;
-        const { item } = route.params;
+        const { item } = this.props.route.params;
         const { imageHeight } = this.state;
 
         return (
@@ -63,7 +55,6 @@ export default class NewsItemListView extends Component {
                             );
                         }
                     })}
-
                 </View>
             </ScrollView>
         );
