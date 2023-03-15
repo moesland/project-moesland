@@ -7,9 +7,9 @@ const Role = require('../../../models/role');
 router.use(express.json());
 
 router.post('/', [
-    body('token').escape().trim().notEmpty(),
-    body('expiredate').escape().trim().isISO8601(),
-    body('userId').escape().trim().isAlphanumeric().notEmpty()
+    body('username').trim().isString().notEmpty(),
+    body('email').isEmail(),
+    body('password').trim().notEmpty()
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
