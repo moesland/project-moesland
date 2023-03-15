@@ -1,12 +1,26 @@
-export const BackendClient = async (url) => {
-    query = encodeURIComponent(query);
+const urlRoot = "http://localhost:5000"
+
+export const BackendClientRequest = async (path, body, headers, method) => {
+    const url = urlRoot + path;
+    const requestOptions = {
+        method,
+        headers,
+        body: JSON.stringify(body)
+    };
+    
+    console.log(requestOptions);
+    let jsonData = null;
 
     try {
-        const response = await fetch(url);
-        const result = await response.json();
-
-        return result;
+        await fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => jsonData = data)
+            .catch((err) => console.log(err));
+        
     } catch (error) {
-        console.error(error);
+        console.log(error);
     }
+
+    return jsonData;
+
 }

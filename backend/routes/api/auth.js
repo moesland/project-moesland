@@ -16,7 +16,7 @@ router.post('/validate', authenticateToken, async (req, res) => {
 });
 
 router.post('/validate-role', authenticateTokenRole("SuperAdmin"), async (req, res) => { //testing route
-    res.status(200).json({ authorized: true });
+    res.status(200).json({ authorized: true, role: 'SuperAdmin' });
 });
 
 router.post('/', requestLimiter, async (req, res) => {
