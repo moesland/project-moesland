@@ -28,24 +28,24 @@ jobs:
 
       - name: Run ESLint on backend module
         run: npx eslint ./backend
-          --config ./backend/.eslintrc.js
-          --ext .js,.jsx,.ts,.tsx
+          --config ./backend/.eslintrc.json
+          --ext .js,.jsx,.ts,.tsx, .json
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-backend.sarif
         continue-on-error: true
 
       - name: Run ESLint on management module
         run: npx eslint ./management
-          --config ./management/.eslintrc.js
-          --ext .js,.jsx,.ts,.tsx
+          --config ./management/.eslintrc.json
+          --ext .js,.jsx,.ts,.tsx, .json
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-management.sarif
         continue-on-error: true
 
       - name: Run ESLint on moesland-app module
         run: npx eslint ./moesland-app
-          --config ./moesland-app/.eslintrc.js
-          --ext .js,.jsx,.ts,.tsx
+          --config ./moesland-app/.eslintrc.json
+          --ext .js,.jsx,.ts,.tsx, .json
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-moesland-app.sarif
         continue-on-error: true
