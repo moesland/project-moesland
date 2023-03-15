@@ -1,12 +1,12 @@
-const crypto = require('crypto');
 const { getPreviousAuthToken, removeAuthTokensById, createAuthToken } = require('../repository/authToken');
+const jwt = require('jsonwebtoken');
+const secretKey = process.env.JWT_SECRET;
 
 module.exports = AuthService = {
   generateAuthToken: async (userId) => {
     await AuthService.removeOldAuthToken(userId);
-
-    const tokenBytes = crypto.randomBytes(32);
-    const token = tokenBytes.toString('hex');
+    
+    const token = jwt.sign({ sub: userId }, secretKey, { expiresIn: '12h' });
 
     const now = new Date();
     const expires = new Date(now.getTime() + 12 * 60 * 60 * 1000); //12 hours.
