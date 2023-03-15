@@ -1,6 +1,6 @@
-var express = require('express');
+const express = require('express');
 const { requestLimiter } = require('../middleware/security');
-var router = express.Router();
+const router = express.Router();
 
 //default
 router.get('/', function (req, res, next) {
@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 });
 
 //add here all other routes
-router.use('/api/location', require('./api/location'));
+router.use('/api/auth', requestLimiter, require('./api/auth'));
 router.use('/api/role', require('./api/role'));
 router.use('/api/user', require('./api/user'));
 

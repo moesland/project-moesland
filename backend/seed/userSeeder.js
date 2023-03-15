@@ -1,43 +1,54 @@
-const Role = require('../models/role');
-const User = require('../models/user');
+const mongoose = require('mongoose');
+const Role = mongoose.model("Role");
+const User = mongoose.model("User");
 
-const seedUsers = async () => {
+const superAdminSeed = async () => {
+  const superAdminPassword = 'superadmin123';
+  //const superAdminHash = await bcrypt.hash('superadmin123', Number(process.env.HASH_SALT));
+
   try {
-    const superAdminRole = await Role.findOne({ rolename: 'Super Admin' });
+    const superAdminRole = await Role.findOne({ rolename: 'SuperAdmin' });
+
+    if (!await User.findOne({ username: 'SuperAdmin' })) {
+      const newSuperAdminUser = new User({
+        id: 1,
+        username: 'SuperAdmin',
+        password: superAdminPassword,
+        email: 'superadmin@hotmail.com',
+        roleId: superAdminRole._id
+      });
+      await newSuperAdminUser.save();
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
+const adminSeed = async () => {
+  const adminPassword = 'admin123';
+  //const adminHash = await bcrypt.hash('admin123', Number(process.env.HASH_SALT));
+
+  try {
     const adminRole = await Role.findOne({ rolename: 'Admin' });
 
-    const existingSuperAdminUser = await User.findOne({ id: 1 });
-    if (existingSuperAdminUser) {
-      console.log(`User '${existingSuperAdminUser.username}' already exists and has been deleted.`);
-      await User.deleteOne({ _id: existingSuperAdminUser._id })
+    if (!await User.findOne({ username: 'Admin' })) {
+      const newAdminUser = new User({
+        id: 2,
+        username: 'Admin',
+        password: adminPassword,
+        email: 'admin@hotmail.com',
+        roleId: adminRole._id
+      });
+      await newAdminUser.save();
     }
-    const newSuperAdminUser = new User({
-      id: 1,
-      username: 'Super Admin',
-      password: 'superadmin123',
-      email: 'superadmin@hotmail.com',
-      roleId: superAdminRole._id
-    });   
-    await newSuperAdminUser.save();
 
-    const existingAdminUser = await User.findOne({ id: 2 });
-    if (existingAdminUser) {
-      console.log(`User '${existingAdminUser.username}' already exists and has been deleted.`);
-      await User.deleteOne({ _id: existingAdminUser._id })
-    } 
-    const newAdminUser = new User({
-      id: 2,
-      username: 'Admin',
-      password: 'admin123',
-      email: 'admin@hotmail.com',
-      roleId: adminRole._id
-    });
-    await newAdminUser.save();
-
-    console.log('Users seeded successfully');
   } catch (err) {
     console.error(err);
   }
 };
 
-module.exports = seedUsers;
+module.exports = async () => {
+  await superAdminSeed();
+  await adminSeed();
+}
