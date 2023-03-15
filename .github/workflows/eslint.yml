@@ -25,12 +25,11 @@ jobs:
         run: |
           npm install eslint@8.10.0
           npm install @microsoft/eslint-formatter-sarif@2.1.7
-          npm install eslint-plugin-react
 
       - name: Run ESLint on backend module
         run: npx eslint ./backend
           --config ./backend/.eslintrc.json
-          --ext .js,.jsx,.ts,.tsx,.json
+          --ext .js,.jsx,.ts,.tsx, .json
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-backend.sarif
         continue-on-error: true
@@ -38,7 +37,7 @@ jobs:
       - name: Run ESLint on management module
         run: npx eslint ./management
           --config ./management/.eslintrc.json
-          --ext .js,.jsx,.ts,.tsx,.json
+          --ext .js,.jsx,.ts,.tsx, .json
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-management.sarif
         continue-on-error: true
@@ -46,7 +45,7 @@ jobs:
       - name: Run ESLint on moesland-app module
         run: npx eslint ./moesland-app
           --config ./moesland-app/.eslintrc.json
-          --ext .js,.jsx,.ts,.tsx,.json
+          --ext .js,.jsx,.ts,.tsx, .json
           --format @microsoft/eslint-formatter-sarif
           --output-file eslint-moesland-app.sarif
         continue-on-error: true
