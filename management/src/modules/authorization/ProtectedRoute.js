@@ -1,13 +1,27 @@
-import { Navigate } from 'react-router-dom';
-import DefaultLayout from '../../layout/default';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+
+const useAuth = () => { 
+    const [isAuth, setIsAuth] = useState(null);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+
+      };          
+      
+     fetchData();
+    }, []);      
+  
+    return isAuth;
+}
 
 
-const ProtectedRoute = ({ isAuthenticated }) => {
+const ProtectedRoute = ({ isAuthenticated = true, redirectPath = "/", children }) => {
     if (isAuthenticated) {
-        return <Navigate to="/" />;
+        return <Navigate to={redirectPath} />;
     }
     
-    return <DefaultLayout />;
+    return children ? children : <Outlet/>;
 };
 
 export default ProtectedRoute;

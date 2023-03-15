@@ -3,18 +3,21 @@ import React from 'react';
 import Home from './pages/home';
 import Admin from './pages/admin';
 import ProtectedRoute from './modules/authorization/ProtectedRoute';
+import DefaultLayout from './layout/default';
 
 const Routing = () => {
   return (
-    <Routes>
-      <Route element={<ProtectedRoute isAuthenticated={true}/>}>
-        <Route path="/admin" element={<Admin />} />
-      </Route>
+    <DefaultLayout>
+      <Routes>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin" element={<Admin />} />
+        </Route>
 
-      <Route element={<ProtectedRoute isAuthenticated={false}/>}>
-        <Route path="/" element={<Home />} />
-      </Route>
-    </Routes>
+        <Route element={<ProtectedRoute isAuthenticated={false}/>}>
+          <Route path="/" element={<Home />} />
+        </Route>
+      </Routes>
+    </DefaultLayout>
   )
 }
 

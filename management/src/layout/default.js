@@ -2,11 +2,11 @@ import { Outlet } from "react-router-dom";
 import Navbar from "./navbar";
 import Footer from "./footer";
 
-const DefaultLayout = () => {
+const DefaultLayout = (props) => {
     return (
         <div className="layout">
             <Navbar/>
-            <Outlet/>
+            {props.children}
             <Footer/>
         </div>
     )
