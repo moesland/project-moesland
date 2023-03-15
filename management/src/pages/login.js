@@ -85,7 +85,8 @@ const Login = () => {
                             {errors.password && <div className="text-danger">{errors.password}</div>}
                         </div>
                         <br></br>
-                        <div class="form-group text-center">                            <input type="submit" value="Inloggen" class="btn btn-primary" />
+                        <div class="form-group text-center">                            
+                            <input type="submit" value="Inloggen" class="btn btn-success"/>
                         </div>
                     </form>
                 </div>
