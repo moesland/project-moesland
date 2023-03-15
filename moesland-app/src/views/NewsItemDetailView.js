@@ -40,11 +40,30 @@ export default class NewsItemListView extends Component {
                     <Image
                         source={item.bannerImage}
                         onLayout={this.handleImageLayout}
-                        style={[styles.image, { height: imageHeight }]}
+                        style={[styles.bannerImage, { height: imageHeight }]}
                         resizeMode="contain"
                     />
                     <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.text}>{item.text}</Text>
+                    {item.content.map((content, index) => {
+                        if (content.text) {
+                            return (
+                                <Text key={index} style={[styles.text, content.bold ? styles.boldText : null]}>
+                                    {content.text}
+                                </Text>
+                            );
+                        } else if (content.image) {
+                            return (
+                                <Image
+                                    key={index}
+                                    source={content.image}
+                                    onLayout={this.handleImageLayout}
+                                    style={[styles.bannerImage, { height: imageHeight }]}
+                                    resizeMode="contain"
+                                />
+                            );
+                        }
+                    })}
+
                 </View>
             </ScrollView>
         );
@@ -57,9 +76,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    image: {
+    bannerImage: {
         width: '100%',
         marginBottom: 10,
+    },
+    image: {
+        width: '100%',
     },
     title: {
         fontSize: 24,
@@ -72,4 +94,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         padding: 5,
     },
+    boldText: {
+        fontWeight: 'bold',
+    }
 });

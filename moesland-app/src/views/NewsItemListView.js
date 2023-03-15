@@ -10,9 +10,9 @@ const NewsItemListView = ({ navigation }) => {
 
   // useCallback is a React Native Hook that memoizes a function to improve performance
   // memoization = caching the results of a function call to improve performance by avoiding unnecessary computation
-  const renderItem = useCallback(({ item: { date, title, bannerImage, text } }) => {
+  const renderItem = useCallback(({ item: { date, title, bannerImage, content } }) => {
     return (
-      <Pressable onPress={() => navigation.navigate('NewsDetailPage', { item: { date, title, bannerImage, text } })}>
+      <Pressable onPress={() => navigation.navigate('NewsDetailPage', { item: { date, title, bannerImage, content } })}>
         <View style={[styles.itemContainer, { flexDirection: 'row' }]}>
           <View style={{ flex: 1 }}>
             <Text style={styles.date}>{date}</Text>
