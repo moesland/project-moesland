@@ -1,8 +1,8 @@
 module.exports = {
     extends: [
-      './backend/.eslintrc.json',
-      './management/.eslintrc.json',
-      './moesland-app/.eslintrc.json',
+      './backend/.eslintrc.js',
+      './management/.eslintrc.js',
+      './moesland-app/.eslintrc.js',
     ],
 };
 
