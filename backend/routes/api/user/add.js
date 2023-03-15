@@ -1,11 +1,21 @@
 const express = require('express');
+const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const User = require('../../../models/user');
 const Role = require('../../../models/role');
 
 router.use(express.json());
 
-router.post('/', async (req, res) => {
+router.post('/', [
+    body('token').escape().trim().notEmpty(),
+    body('expiredate').escape().trim().isISO8601(),
+    body('userId').escape().trim().isAlphanumeric().notEmpty()
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
         const adminRole = await Role.findOne({ rolename: 'Admin' });
 
