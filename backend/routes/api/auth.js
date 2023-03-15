@@ -2,7 +2,6 @@ const express = require('express');
 const { authenticateToken, authenticateTokenRole } = require('../../middleware/auth');
 const { generateAuthToken } = require('../../services/auth.service');
 const { getPreciseUser } = require('../../repository/user');
-const { requestLimiter } = require('../../middleware/security');
 const router = express.Router();
 
 router.use(express.json());
@@ -19,7 +18,7 @@ router.post('/validate-role', authenticateTokenRole("SuperAdmin"), async (req, r
     res.status(200).json({ authorized: true, role: 'SuperAdmin' });
 });
 
-router.post('/', requestLimiter, async (req, res) => {
+router.post('/', async (req, res) => {
         const { username, password } = req.body;
 
         if (!username && !password) return res.status(400).json({ message: 'username and password required' })
