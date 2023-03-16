@@ -5,6 +5,18 @@ const { getUserById } = require('../repository/user');
 
 const secretKey = process.env.JWT_SECRET;
 
+const validateRole = async (userId, roleName) => {
+  const user = await getUserById(userId);
+  const role = await getRoleById(user.roleId);
+
+  if (!role) {
+    throw new Error('Role does not exist');
+  }
+  if (role.rolename !== roleName) {
+    throw new Error('User by role is not authorized');
+  }
+};
+
 const validateAuthToken = async (authorizationHeader, roleName) => {
   if (!authorizationHeader) {
     throw new Error('Authorization header is missing');
@@ -36,25 +48,13 @@ const validateAuthToken = async (authorizationHeader, roleName) => {
   }
 };
 
-const validateRole = async (userId, roleName) => {
-  const user = await getUserById(userId);
-  const role = await getRoleById(user.roleId);
-
-  if (!role) {
-    throw new Error('Role does not exist');
-  }
-  if (role.rolename != roleName) {
-    throw new Error('User by role is not authorized');
-  }
-};
-
 const authenticateToken = async (req, res, next) => {
   try {
     const authorizationHeader = req.headers.authorization;
 
     await validateAuthToken(authorizationHeader);
 
-    next();
+    return next();
   } catch (err) {
     return res.status(401).json({ error: 'Invalid authorization token', err });
   }

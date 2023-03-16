@@ -10,7 +10,7 @@ module.exports = {
       return null;
     }
 
-    const isPasswordMatch = user.password == password;
+    const isPasswordMatch = user.password === password;
     // const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
@@ -20,7 +20,7 @@ module.exports = {
     return user;
   },
   async getUserById(userId) {
-    return await Users.findById(userId)
+    return Users.findById(userId)
       .catch((err) => console.log('Cannot find user by id in User dataset', err));
   },
 };

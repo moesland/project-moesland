@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
     return res.json({ username, email: user.email, authToken });
   }
 
-  res.status(401).json({ message: 'Invalid username or password' });
+  return res.status(401).json({ message: 'Invalid username or password' });
 });
 
 module.exports = router;

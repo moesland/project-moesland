@@ -3,7 +3,7 @@ const { getPreviousAuthToken, removeAuthTokensById, createAuthToken } = require(
 
 const secretKey = process.env.JWT_SECRET;
 
-module.exports = AuthService = {
+const AuthService = {
   generateAuthToken: async (userId) => {
     await AuthService.removeOldAuthToken(userId);
 
@@ -28,3 +28,5 @@ module.exports = AuthService = {
   },
 
 };
+
+module.exports = AuthService;

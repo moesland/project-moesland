@@ -9,7 +9,6 @@ const superAdminSeed = async () => {
 
   try {
     const superAdminRole = await Role.findOne({ rolename: 'SuperAdmin' });
-
     if (!await User.findOne({ username: 'SuperAdmin' })) {
       const newSuperAdminUser = new User({
         id: 1,
@@ -31,7 +30,6 @@ const adminSeed = async () => {
 
   try {
     const adminRole = await Role.findOne({ rolename: 'Admin' });
-
     if (!await User.findOne({ username: 'Admin' })) {
       const newAdminUser = new User({
         id: 2,

@@ -26,13 +26,13 @@ router.post('/', [
   });
 
   authToken.save()
-    .then((savedAuthToken) => {
-      res.status(200).send(`Authtoken ${token} saved successfully`);
-    })
+    .then(() => res.status(200).send(`Authtoken ${token} saved successfully`))
     .catch((err) => {
       console.error(err);
-      res.status(500).send(`Error saving authToken ${err}`);
+      return res.status(500).send(`Error saving authToken ${err}`);
     });
+
+  return res.status(500).send('Something went wrong');
 });
 
 module.exports = router;
