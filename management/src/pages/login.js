@@ -49,15 +49,16 @@ const Login = () => {
         let errors = {};
         let login = req;
 
+        if(!login){
+            errors.login = "Foutieve inloggegevens";
+        }
         if (username.length < 2 || username.length > 15) {
             errors.username = "Gebruikersnaam bestaat uit 2 t/m 15 tekens.";
         }
         if(password.length < 6){
             errors.password = "Wachtwoord bestaat uit minimaal 6 tekens."
         }
-        if(!login){
-            errors.login = "Gebruikersnaam en/of wachtwoord is onjuist.";
-        }
+        
         return errors;
     }
 
@@ -69,7 +70,7 @@ const Login = () => {
                         <div class="text-center">
                             <h1>Inloggen</h1>
                         </div>          
-                        {errors.login && <div className="text-danger">{errors.login}</div>}    
+                        {errors.login && <div className="text-danger fw-bold text-center">{errors.login}</div>}    
                         <div class="form-group mt-3">         
                             <label class="mb-2">
                                 Gebruikersnaam:
