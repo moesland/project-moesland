@@ -17,5 +17,6 @@ router.use('/api/user/update', requestLimiter, require('./api/user/update'));
 router.use('/api/user/delete', requestLimiter, require('./api/user/delete'));
 
 router.use('/api/authToken', require('./api/authToken'));
+router.use('/api/location', require('./api/location'));
 
 module.exports = router;
