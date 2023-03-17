@@ -22,8 +22,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    minlength: 2,
-    maxlength: 15
+    minlength: 2
   },
   roleId: {
     type: mongoose.Schema.Types.ObjectId,
