@@ -2,7 +2,7 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const User = require('../../../models/user');
-const Role = require('../../../models/role');
+const { getRoleByName } = require('../../../repository/role');
 
 router.use(express.json());
 
@@ -17,7 +17,7 @@ router.post('/', [
     }
 
     try {
-        const adminRole = await Role.findOne({ rolename: 'Admin' });
+        const adminRole = await getRoleByName('Admin');
 
         const { username, email, password } = req.body;
         const newUser = new User({
