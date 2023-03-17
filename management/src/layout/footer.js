@@ -1,8 +1,10 @@
 const Footer = () => {
   return (
-    <div className="footer-container">
-      Footer
-    </div>
+    <footer class="d-flex justify-content-center fixed-bottom bg-light">
+      <div class="mb-2 mt-2">
+        © 2023 Copyright; Moesland
+      </div>
+    </footer>
   )
 }
 
