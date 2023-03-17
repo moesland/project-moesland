@@ -1,7 +1,8 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
+const { getUserByEmail } = require('../../../repository/user');
+const { deleteUser } = require('../../../repository/user');
 const router = express.Router();
-const User = require('../../../models/user');
 
 router.use(express.json());
 
@@ -15,14 +16,17 @@ router.post('/', [
 
     const { email } = req.body;
 
-    await User.deleteOne({ email: email })
-        .then(() => {
-            res.status(201).send(`User deleted successfully!`);
-        })
-        .catch((err) => {
-            console.error(err);
-            res.status(500).send(`Could not delete user: ${err}`);
-        });
+    try {
+        const user = await getUserByEmail(email);
+        if (user) {
+            await deleteUser(user);
+            res.status(200).send(`User deleted successfully!`);
+        } else {
+            res.status(500).send(`Could not delete user.`);
+        }
+    } catch (err) {
+        res.status(500).send(`Could not delete user: ${err}`);
+    }
 });
 
 module.exports = router;

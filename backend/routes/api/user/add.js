@@ -1,8 +1,8 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
-const User = require('../../../models/user');
 const { getRoleByName } = require('../../../repository/role');
+const { addUser } = require('../../../repository/user');
 
 router.use(express.json());
 
@@ -20,22 +20,13 @@ router.post('/', [
         const adminRole = await getRoleByName('Admin');
 
         const { username, email, password } = req.body;
-        const newUser = new User({
-            password: password,
-            email: email,
-            username: username,
-            roleId: adminRole._id
-        });
 
-        await newUser.save()
-            .then(() => {
-                res.status(201).send(`User ${username} added successfully!`);
-            })
-            .catch((err) => {
-
-                console.error(err.message);
-                res.status(500).send(`Could not add user ${username}: ${err}`);
-            })
+        try {
+            const newUser = await addUser(email, username, password, adminRole);
+            res.status(200).send(`User ${newUser.username} added successfully!`);
+        } catch (err) {
+            res.status(500).send(`Could not update user: ${err}`);
+        }
     }
     catch (err) {
         console.error(err);
