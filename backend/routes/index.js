@@ -1,5 +1,5 @@
 const express = require('express');
-const { requestLimiter } = require('../middleware/security');
+const { requestLimiter } = require('../middlewares/security');
 
 const router = express.Router();
 

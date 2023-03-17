@@ -1,9 +1,9 @@
 const express = require('express');
 
-// middleware imports
+// middlewares imports
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const debugLog = require('./middleware/debug');
+const debugLog = require('./middlewares/debug');
 
 // config setup
 require('dotenv').config();
@@ -19,14 +19,14 @@ app.use(cors({
 
 // Database setup
 require('./models');
-require('./seed/dataSeeder');
+require('./seeds/dataSeeder');
 
 // Body parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // debuger mode
-if (process.env.NODE_ENV !== 'prod') {
+if (process.env.NODE_ENV === 'dev') {
   (app.use(debugLog));
 }
 
