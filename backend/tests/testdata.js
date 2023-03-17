@@ -21,6 +21,12 @@ const fakeUserData = {
   },
 };
 
+const removeFakeUsers = async () => {
+  await User.deleteMany({
+    id: { $in: [fakeUserData.admin.id, fakeUserData.superAdmin.id] },
+  });
+};
+
 const createFakeUsers = async () => {
   const adminRole = await Role.findOne({ rolename: fakeUserData.admin.roleName });
   const superAdminRole = await Role.findOne({ rolename: fakeUserData.superAdmin.roleName });
@@ -44,12 +50,6 @@ const createFakeUsers = async () => {
   }).save();
 };
 
-const removeFakeUsers = async () => {
-  await User.deleteMany({
-    id: { $in: [fakeUserData.admin.id, fakeUserData.superAdmin.id] },
-  });
-};
-
 const removeAuthToken = async () => {
   const fakeAdmin = await User.findOne({ username: fakeUserData.admin.username });
   const fakeSuperAdmin = await User.findOne({ username: fakeUserData.admin.username });
@@ -57,6 +57,7 @@ const removeAuthToken = async () => {
   if (!fakeAdmin && !fakeSuperAdmin) return console.log('Use removeAuthToken before removeFakeUsers()');
 
   await AuthToken.deleteMany({ userId: { $in: [fakeAdmin._id, fakeSuperAdmin._id] } });
+  return null;
 };
 
 module.exports = {
