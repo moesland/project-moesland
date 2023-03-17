@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../../app');
 const chai = require('chai');
-const { fakeUserData, createFakeUsers, removeFakeUsers } = require('../testdata');
+const { fakeUserData, createFakeUsers, removeFakeUsers, removeAuthToken } = require('../testdata');
 const expect = chai.expect;
 const jwt = require('jsonwebtoken');
 
@@ -13,6 +13,7 @@ describe('Authentication routes', async () => {
     });
 
     after(async () => {
+      await removeAuthToken();
       await removeFakeUsers();
     });
 

@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const authToken = require('../models/authToken');
-const { removeAuthTokensById } = require('../repository/authToken');
 const Role = mongoose.model('Role');
 const User = mongoose.model('User');
 const AuthToken = mongoose.model('AuthToken');
@@ -26,6 +24,8 @@ const createFakeUsers = async () => {
     const adminRole = await Role.findOne({ rolename: fakeUserData.admin.roleName });
     const superAdminRole = await Role.findOne({ rolename: fakeUserData.superAdmin.roleName });
 
+    await removeFakeUsers();
+
     await new User({
         id: fakeUserData.admin.id,
         username: fakeUserData.admin.username,
@@ -47,9 +47,15 @@ const removeFakeUsers = async () => {
     await User.deleteMany({
         id: { $in: [fakeUserData.admin.id, fakeUserData.superAdmin.id] }
     });
-    await AuthToken.deleteMany({ 
-        userId: { $in: [fakeUserData.admin._id, fakeUserData.superAdmin._id] } 
-    })
 };
 
-module.exports = { fakeUserData, createFakeUsers, removeFakeUsers };
+const removeAuthToken = async () => {
+    const fakeAdmin = await User.findOne({ username: fakeUserData.admin.username });
+    const fakeSuperAdmin = await User.findOne({ username: fakeUserData.admin.username });
+
+    if (!fakeAdmin && !fakeSuperAdmin) return console.log("Use removeAuthToken before removeFakeUsers()");
+
+    await AuthToken.deleteMany({ userId: { $in: [fakeAdmin._id, fakeSuperAdmin._id] } })
+}
+
+module.exports = { fakeUserData, createFakeUsers, removeFakeUsers, removeAuthToken };
