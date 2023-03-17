@@ -1,5 +1,5 @@
 const express = require('express');
-const { authenticateToken, authenticateTokenRole } = require('../../middleware/auth');
+const { authenticateToken, authenticateTokenRole } = require('../../middlewares/auth');
 const { generateAuthToken } = require('../../services/auth.service');
 const { getPreciseUser } = require('../../repository/user');
 
