@@ -39,7 +39,9 @@ export default class NewsItemListView extends Component {
                     {item.content.map((content, index) => {
                         if (content.text) {
                             return (
-                                <Text key={index} style={[styles.text, content.bold ? styles.boldText : null]}>
+                                <Text 
+                                    key={index} 
+                                    style={[styles.text, content.bold ? styles.boldText : null]}>
                                     {content.text}
                                 </Text>
                             );
@@ -64,7 +66,6 @@ export default class NewsItemListView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'center',
     },
     bannerImage: {
@@ -78,10 +79,10 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
+        textAlign: "center",
     },
     text: {
         fontSize: 16,
-        lineHeight: 24,
         marginBottom: 20,
         padding: 5,
     },
