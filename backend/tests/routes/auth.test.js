@@ -1,10 +1,12 @@
 const request = require('supertest');
-const app = require('../../app');
 const chai = require('chai');
-const { fakeUserData, createFakeUsers, removeFakeUsers, removeAuthToken } = require('../testdata');
-const expect = chai.expect;
-const jwt = require('jsonwebtoken');
+const app = require('../../app');
+const {
+  fakeUserData, createFakeUsers, removeFakeUsers, removeAuthToken,
+} = require('../testdata');
 
+const { expect } = chai;
+const jwt = require('jsonwebtoken');
 
 describe('Authentication routes', async () => {
   describe('POST /login', () => {
