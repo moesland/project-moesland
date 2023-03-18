@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button } from 'bootstrap';
-
-
+import { BackendClientRequest } from "./services/ApiClient";
 
 export default function Management() {
   //Add managers modal
@@ -75,13 +73,22 @@ export default function Management() {
       toggleModal()
     }
 
-
+    postAddManager(modalEmail, modalUser, modalPassword);
   }
 
-  function postAddManager(username, email, password) {
-    
-  }
+  async function postAddManager (email, username, password) {
+    const url = "/api/user/add";
+    const body = { email, username, password }
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    })
+    const method = "POST"
 
+    const data = await BackendClientRequest(url, body, headers, method);
+    if (data && data.authToken) {
+      localStorage.setItem('token', data.authToken.token);
+    }
+  }
 
   function deleteManager() {
     toggleDeleteModal()
