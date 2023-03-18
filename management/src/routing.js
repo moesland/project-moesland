@@ -5,6 +5,7 @@ import Admin from './pages/admin';
 import ProtectedRoute from './modules/authorization/ProtectedRoute';
 import DefaultLayout from './layout/default';
 import Login from './pages/login';
+import Management from './pages/userManagement';
 
 const Routing = () => {
   return (
@@ -14,7 +15,9 @@ const Routing = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/admin" element={<Admin />} />
         </Route>
-
+        <Route element={<ProtectedRoute isAuthenticated={true}/>}>
+          <Route path="/userManagement" element={<Management />} />
+        </Route>
         <Route element={<ProtectedRoute isAuthenticated={false}/>}>
           <Route path="/login" element={<Login />}/>
         </Route>
