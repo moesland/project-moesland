@@ -68,12 +68,43 @@ export default function Management() {
       console.log("Adding manager")
       toggleModal()
     }
+    
+    postAddManager(modalEmail, modalEmail, modalPassword)
+
   }
+
+  function postAddManager(username, email, password) {
+    fetch('http://localhost:5000/api/user/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password
+      })
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+      });
+
+  }
+
 
   function deleteManager() {
     toggleDeleteModal()
     console.log("Deleteing manager")
-
+    //deletemanager()
   }
   class Manager {
     constructor(email, userName, password) {
@@ -99,7 +130,7 @@ export default function Management() {
 
 
     for (var x = 0; x < listOfManagers.length; x++) {
-     
+
       myTableBody.appendChild(document.getElementById("dummyTr").cloneNode(true))
     }
 
