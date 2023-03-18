@@ -42,8 +42,8 @@ export default function Management() {
   var listOfManagers
 
   function addManager() {
-
-    var modalEmail = document.forms["modalAddManager"]["modalAddManagerUserName"].value;
+    var modalEmail = document.forms["modalAddManager"]["modalAddManagerEmailName"].value;
+    var modalUser = document.forms["modalAddManager"]["modalAddManagerUserName"].value;
     var modalPassword = document.forms["modalAddManager"]["modalAddManagerPasswordName"].value;
 
     var modalEmailError = document.getElementById("modalAddManagerUserError")
@@ -53,6 +53,12 @@ export default function Management() {
     var errorCount = 0;
     //TODO meer condities, ffe navragen bij de boys
     if (modalEmail == "") {
+      modalEmailError.textContent = "Het email veld mag niet leeg zijn."
+      modalEmailError.classList.remove("invisible")
+      errorCount++
+    }
+
+    if (modalUser == "") {
       modalEmailError.textContent = "Het gebruikersnaam veld mag niet leeg zijn."
       modalEmailError.classList.remove("invisible")
       errorCount++
@@ -68,36 +74,12 @@ export default function Management() {
       console.log("Adding manager")
       toggleModal()
     }
-    
-    postAddManager(modalEmail, modalEmail, modalPassword)
+
 
   }
 
   function postAddManager(username, email, password) {
-    fetch('http://localhost:5000/api/user/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username,
-        email: email,
-        password: password
-      })
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network response was not ok.');
-      })
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.error('There was an error!', error);
-      });
-
+    
   }
 
 
@@ -204,6 +186,11 @@ export default function Management() {
               </div>
               <form name="modalAddManager">
                 <div className="mx-auto  col-md-10">
+                <div class="form-group pt-3">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input class="form-control" id="exampleInputEmail1" name="modalAddManagerEmailName" aria-describedby="emailHelp" placeholder="Email"></input>
+                    <small id="modalAddManagerEmailError" class="form-text text-danger invisible">_GENERIC_ERROR_USER</small>
+                  </div>
                   <div class="form-group pt-3">
                     <label for="exampleInputEmail1">Gebruikersnaam</label>
                     <input class="form-control" id="exampleInputEmail1" name="modalAddManagerUserName" aria-describedby="emailHelp" placeholder="Gebruikersnaam"></input>
