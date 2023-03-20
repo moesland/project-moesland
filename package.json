@@ -4,7 +4,8 @@
   "description": "Merge order",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-all": "cd backend && npm install && cd ../front-end && npm install && cd ../management && npm install"
   },
   "repository": {
     "type": "git",
