@@ -66,7 +66,7 @@ export default class NewsItemListView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        
     },
     bannerImage: {
         width: '100%',
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 20,
         padding: 5,
+        textAlign: "left",
     },
     boldText: {
         fontWeight: 'bold',
