@@ -33,5 +33,4 @@ if (process.env.NODE_ENV === 'dev') {
 // all routes
 app.use('/', require('./routes'));
 
-
 module.exports = app;
