@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    mocha: true,
   },
   extends: [
     'plugin:react/recommended',
@@ -18,5 +19,8 @@ module.exports = {
     'react',
   ],
   rules: {
+    'no-underscore-dangle': 'off',
+    'no-param-reassign': 'off',
+    'no-console': 'off',
   },
 };
