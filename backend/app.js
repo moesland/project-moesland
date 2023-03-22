@@ -1,7 +1,5 @@
 const express = require('express');
-const debugLog = require('./middleware/debug');
-const cors = require('cors');
-const bodyParser = require('body-parser')
+
 
 // middlewares imports
 const cors = require('cors');

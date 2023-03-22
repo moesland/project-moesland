@@ -1,6 +1,6 @@
 const express = require('express');
-const { authenticateTokenRole } = require('../middleware/auth');
-const { requestLimiter } = require('../middleware/security');
+const { authenticateTokenRole } = require('../middlewares/auth');
+const { requestLimiter } = require('../middlewares/security');
 const router = express.Router();
 
 //default
