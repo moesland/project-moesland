@@ -3,27 +3,39 @@ const debugLog = require('./middleware/debug');
 const cors = require('cors');
 const bodyParser = require('body-parser')
 
+// middlewares imports
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const debugLog = require('./middlewares/debug');
+
+// config setup
+require('dotenv').config();
+require('./services/database')();
+
+// init server
 const app = express();
-const mongodb = require('./services/database')();
 
 // Enable CORS for GET and POST requests on all routes
 app.use(cors({
-    methods: ['GET', 'POST']
+  methods: ['GET', 'POST'],
 }));
 
 // Database setup
-require('./models.js');
-require('./seed/dataSeeder.js');
+require('./models');
+require('./seeds/dataSeeder');
 
 
 // Body parser
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-//debuger mode
-process.env.NODE_ENV != 'prod' && app.use(debugLog);
+// debuger mode
+if (process.env.NODE_ENV === 'dev') {
+  (app.use(debugLog));
+}
 
 // all routes
 app.use('/', require('./routes'));
+
 
 module.exports = app;

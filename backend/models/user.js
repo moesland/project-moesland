@@ -4,19 +4,20 @@ const userSchema = new mongoose.Schema({
   id: {
     type: Number,
     unique: true,
-    index: true
+    index: true,
+    primary: true,
   },
   password: {
     type: String,
     required: true,
-    minlength: 6
+    minlength: 6,
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    match: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-    lowercase: true
+    match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    lowercase: true,
   },
   username: {
     type: String,
@@ -26,8 +27,8 @@ const userSchema = new mongoose.Schema({
   },
   roleId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Role'
-  }
+    ref: 'Role',
+  },
 });
 
 userSchema.pre('save', async function (next) {

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const Roles = mongoose.model('Role');
 
 module.exports = {

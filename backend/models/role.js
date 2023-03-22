@@ -6,13 +6,13 @@ const rolSchema = new mongoose.Schema({
     required: true,
     unique: true,
     index: true,
-    primary: true
+    primary: true,
   },
   rolename: {
     type: String,
     required: true,
-    unique: true
-  }
+    unique: true,
+  },
 });
 
 module.exports = mongoose.model('Role', rolSchema);

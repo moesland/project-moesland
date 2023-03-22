@@ -52,4 +52,18 @@ module.exports = {
                 console.error(err);
             });
     }
-}
+
+    const isPasswordMatch = user.password === password;
+    // const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+      return null;
+    }
+
+    return user;
+  },
+  async getUserById(userId) {
+    return Users.findById(userId)
+      .catch((err) => console.log('Cannot find user by id in User dataset', err));
+  },
+};

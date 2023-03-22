@@ -1,0 +1,15 @@
+.navbar-text-color{
+  font-family: 'Fredoka One', sans-serif;
+  color:#2A6C0B !important;
+  font-weight:bold;
+}
+
+.navbar-brand{
+  font-family: 'Fredoka One', sans-serif;
+  color:#2A6C0B !important;
+  font-weight:bold;
+}
+
+.navbar-text-color:hover{
+  box-shadow: inset 0 4px 0 0 rgb(4,125,60);
+}
