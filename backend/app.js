@@ -1,6 +1,5 @@
 const express = require('express');
 
-
 // middlewares imports
 const cors = require('cors');
 const bodyParser = require('body-parser');
