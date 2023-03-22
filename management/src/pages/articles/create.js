@@ -21,7 +21,7 @@ const Create = () => {
       };
       
     const handleSubmit = async (elem) => {
-
+        // TODO -> Moesland-39
     }
 
     return (
@@ -30,7 +30,9 @@ const Create = () => {
                 <div className="h-100 d-flex align-items-center justify-content-center">           
                     <form onSubmit={handleSubmit} className="col-6">
                         <div className="text-center">
-                            <h1>Nieuwsartikel aanmaken</h1>
+                            <h1>
+                                Nieuwsartikel aanmaken
+                            </h1>
                         </div>        
                         <div className="form-group mt-3">         
                             <label className="mb-2">
@@ -46,7 +48,7 @@ const Create = () => {
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
-                            Inhoud:
+                                Inhoud:
                             </label>
                             <ReactQuill value={editorHtml} onChange={handleEditorChange} modules={modules}/>
                         </div>
@@ -63,8 +65,9 @@ const Create = () => {
                         </div>
                     </form>
                 </div>
-                </div>
-        </>)
+            </div>
+        </>
+    )
 }
 
 export default Create;
