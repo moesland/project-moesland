@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const NewsArticleContent = require('./newsArticleContent');
+const Image = require('./image');
 
 const newsArticleSchema = new mongoose.Schema({
     id: {
@@ -18,7 +19,7 @@ const newsArticleSchema = new mongoose.Schema({
         required: true
     },
     bannerImage: {
-        type: String,
+        type: Image,
         required: true
     },
     content: [NewsArticleContent]
