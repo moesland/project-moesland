@@ -10,10 +10,14 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-      const newData = new NewsArticle(req.body);
-      newData.date = Date.now();
-      await newData.save();
-      res.status(201).json(newData);
+        const newArticle = new NewsArticle({ 
+            title: req.body.title,
+            content: req.body.content,
+            bannerImage: req.body.bannerImage,
+            date: Date.now(),
+        });
+        const savedArticle = await newArticle.save();
+        res.status(201).json(savedArticle);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

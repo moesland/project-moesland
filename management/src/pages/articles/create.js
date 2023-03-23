@@ -19,30 +19,28 @@ const Create = () => {
       };
       
     const handleSubmit = async (e) => {
-            e.preventDefault();
-             const delta = quillRef.current.getEditor().getContents();
-             const content = JSON.stringify(delta);
-            console.log(content);
-            try{
-                const response = await fetch('http://localhost:5000/api/newsArticle/create', {  
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                      content,
-                      title,
-                      bannerImage
-                    })
-                  });
-                  console.log(response);
-                  return handleSubmit;
-            }
-           catch(error){
+        e.preventDefault();
+        const delta = quillRef.current.getEditor().getContents();
+        const content = JSON.stringify(delta);
+        
+        try{
+            const response = await fetch('http://localhost:5000/api/newsArticle/create', {  
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content,
+                    title,
+                    bannerImage
+                })
+            });
+            return handleSubmit;
+        }
+        catch(error){
             console.error(error);
-           }
-          };
-
+        }
+    };
     return (
         <>      
             <div className="container">
