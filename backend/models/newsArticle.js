@@ -12,11 +12,13 @@ const newsArticleSchema = new mongoose.Schema({
         required: true
     },
     bannerImage: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Image",
         required: true
     },
     content: {
-        type: String,
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "NewsArticleContent",
         default: null
     }
 });
