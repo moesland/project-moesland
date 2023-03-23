@@ -1,14 +1,8 @@
 const mongoose = require('mongoose');
 const NewsArticleContent = require('./newsArticleContent');
+const Image = require('./image');
 
 const newsArticleSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        unique: true,
-        index: true,
-        primary: true
-    },
     date: {
         type: Date,
         required: true
@@ -21,7 +15,10 @@ const newsArticleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    content: [NewsArticleContent]
+    content: {
+        type: String,
+        default: null
+    }
 });
 
 module.exports = mongoose.model('NewsArticle', newsArticleSchema);

@@ -20,19 +20,26 @@ const Create = () => {
       };
       
     const handleSubmit = async (e) => {
+            console.log(content);
             e.preventDefault();
-            const response = await fetch('http://localhost:3000/api/newsArticle/create', {  
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                content,
-                title,
-                bannerImage
-              })
-            });
-            return handleSubmit;
+            try{
+                const response = await fetch('http://localhost:5000/api/newsArticle/create', {  
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      content,
+                      title,
+                      bannerImage
+                    })
+                  });
+                  console.log(response);
+                  return handleSubmit;
+            }
+           catch(error){
+            console.error(error);
+           }
           };
 
     return (
@@ -61,8 +68,8 @@ const Create = () => {
                             <label className="mb-2">
                                 Inhoud:
                             </label>
-                            <input type="text" name="content" value={content} onChange={(e) => setContent(e.target.value)}/>
-                            {/* <ReactQuill value={content} onChange={(e) => setContent(e.target.value)} modules={modules}/> */}
+                             <input type="text" name="content" value={content} onChange={(e) => setContent(e.target.value)}/>
+                            {/* <ReactQuill value={content} onChange={(e) => setContent(e.target.value)} modules={modules}/>  */}
                         </div>
                         <br></br>
                         <div className="form-group text-left">

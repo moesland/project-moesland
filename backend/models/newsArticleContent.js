@@ -13,10 +13,10 @@ const newsArticleContentSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    image: {
-        type: Image,
-        default: null
-    }
+    // image: {
+    //     type: Image,
+    //     default: null
+    // }
 });
 
 module.exports = mongoose.model('NewsArticleContent', newsArticleContentSchema);
