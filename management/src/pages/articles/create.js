@@ -1,13 +1,12 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Quill from "quill";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const Create = () => {
-    const [content, setContent] = useState("");
-    const [date, setDate] = useState('');
     const [title, setTitle] = useState('');
     const [bannerImage, setBannerImage] = useState('');
+    const quillRef = useRef(null);
 
     const modules = {
         toolbar: [
@@ -20,8 +19,10 @@ const Create = () => {
       };
       
     const handleSubmit = async (e) => {
-            console.log(content);
             e.preventDefault();
+             const delta = quillRef.current.getEditor().getContents();
+             const content = JSON.stringify(delta);
+            console.log(content);
             try{
                 const response = await fetch('http://localhost:5000/api/newsArticle/create', {  
                     method: 'POST',
@@ -68,8 +69,7 @@ const Create = () => {
                             <label className="mb-2">
                                 Inhoud:
                             </label>
-                             <input type="text" name="content" value={content} onChange={(e) => setContent(e.target.value)}/>
-                            {/* <ReactQuill value={content} onChange={(e) => setContent(e.target.value)} modules={modules}/>  */}
+                             <ReactQuill ref={quillRef} name="conent" modules={modules}/>
                         </div>
                         <br></br>
                         <div className="form-group text-left">

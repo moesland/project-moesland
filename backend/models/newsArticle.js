@@ -17,7 +17,7 @@ const newsArticleSchema = new mongoose.Schema({
     },
     content: {
         type: String,
-        default: null
+        required: true
     }
 });
 
