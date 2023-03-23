@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const NewsArticleContent = require('./newsArticleContent');
 
 const newsArticleSchema = new mongoose.Schema({
     id: {
@@ -20,23 +21,7 @@ const newsArticleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    content: [{
-        id: {
-            type: Number,
-            required: true,
-            unique: true,
-            index: true,
-            primary: true
-        },
-        text: {
-            type: String,
-            default: null
-        },
-        image: {
-            type: String,
-            default: null
-        }
-    }]
+    content: [NewsArticleContent]
 });
 
 module.exports = mongoose.model('NewsArticle', newsArticleSchema);
