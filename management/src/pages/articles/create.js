@@ -1,8 +1,7 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import Quill from "quill";
 import React, { useState, useRef } from "react";
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 
 const Create = () => {
     const [title, setTitle] = useState('');
@@ -11,17 +10,18 @@ const Create = () => {
 
     const modules = {
         toolbar: [
-          [{ 'header': '1'}, {'header': '2'}, {'font': []}],
-          [{size: []}],
-          ['bold', 'italic', 'underline'],
-          ['link', 'image', 'video'],
-          [{ 'align': [] }],
+            [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+            [{ size: [] }],
+            ['bold', 'italic', 'underline'],
+            ['link', 'image', 'video'],
+            [{ 'align': [] }],
         ],
-      };
+    };
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
-        
+
         reader.onloadend = () => {
             setBannerImage(reader.result);
         };
@@ -32,61 +32,60 @@ const Create = () => {
         e.preventDefault();
         const delta = quillRef.current.getEditor().getContents();
         const content = JSON.stringify(delta);
-        
+    
         const imageFile = document.querySelector('input[name="image"]').files[0];
         const imageContentType = imageFile.type;
-
-        const image = { 
+    
+        const image = {
             name: 'banner',
             data: Buffer.from(bannerImage.replace(/^data:image\/\w+;base64,/, ''), 'base64'),
             contentType: imageContentType
         };
-
-        try{
-            const response = await fetch('http://localhost:5000/api/newsArticle/create', {  
+    
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('bannerImage', imageFile);
+    
+        try {
+            const response = await fetch('http://localhost:5000/api/newsArticle/create', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    content,
-                    title,
-                    bannerImage : image
-                })
+                body: formData
             });
-            return handleSubmit;
-        }
-        catch(error){
+            console.log('News article created successfully');
+            // Redirect to management page or homepage
+        } catch (error) {
             console.error(error);
         }
-    };
+    };    
+
     return (
-        <>      
+        <>
             <div className="container">
-                <div className="h-100 d-flex align-items-center justify-content-center">           
+                <div className="h-100 d-flex align-items-center justify-content-center">
                     <form onSubmit={handleSubmit} className="col-6">
                         <div className="text-center">
                             <h1>
                                 Nieuwsartikel aanmaken
                             </h1>
-                        </div>        
-                        <div className="form-group mt-3">         
+                        </div>
+                        <div className="form-group mt-3">
                             <label className="mb-2">
                                 Titel:
                             </label>
-                            <input type="text" name="title" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)}/> 
-                        </div>  
-                        <div className="form-group mt-3">         
+                            <input type="text" name="title" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} />
+                        </div>
+                        <div className="form-group mt-3">
                             <label className="mb-2">
                                 Afbeelding:
                             </label>
-                            <input type="file" name="image" accept="image/*" class="form-control" onChange={handleImageChange}/> 
+                            <input type="file" name="image" accept="image/*" class="form-control" onChange={handleImageChange} />
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
                                 Inhoud:
                             </label>
-                             <ReactQuill ref={quillRef} name="conent" modules={modules}/>
+                            <ReactQuill ref={quillRef} name="conent" modules={modules} />
                         </div>
                         <br></br>
                         <div className="form-group text-left">
