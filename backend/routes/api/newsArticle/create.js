@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    try {
+    // try {
         const newArticle = new NewsArticle({ 
             title: req.body.title,
             content: req.body.content,
@@ -18,9 +18,9 @@ router.post('/', async (req, res) => {
         });
         const savedArticle = await newArticle.save();
         res.status(201).json(savedArticle);
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
+        // } catch (err) {
+        // res.status(500).json({ message: err.message });
+        // }
 });
 
 module.exports = router;

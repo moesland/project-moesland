@@ -2,6 +2,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import Quill from "quill";
 import React, { useState, useRef } from "react";
+import { Buffer } from 'buffer';
 
 const Create = () => {
     const [title, setTitle] = useState('');
@@ -17,12 +18,30 @@ const Create = () => {
           [{ 'align': [] }],
         ],
       };
-      
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        
+        reader.onloadend = () => {
+            setBannerImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const delta = quillRef.current.getEditor().getContents();
         const content = JSON.stringify(delta);
         
+        const imageFile = document.querySelector('input[name="image"]').files[0];
+        const imageContentType = imageFile.type;
+
+        const image = { 
+            name: 'banner',
+            data: Buffer.from(bannerImage.replace(/^data:image\/\w+;base64,/, ''), 'base64'),
+            contentType: imageContentType
+        };
+
         try{
             const response = await fetch('http://localhost:5000/api/newsArticle/create', {  
                 method: 'POST',
@@ -32,7 +51,7 @@ const Create = () => {
                 body: JSON.stringify({
                     content,
                     title,
-                    bannerImage
+                    bannerImage : image
                 })
             });
             return handleSubmit;
@@ -61,7 +80,7 @@ const Create = () => {
                             <label className="mb-2">
                                 Afbeelding:
                             </label>
-                            <input type="file" name="image" accept="image/*" class="form-control" value={bannerImage} onChange={(e) => setBannerImage(e.target.value)}/> 
+                            <input type="file" name="image" accept="image/*" class="form-control" onChange={handleImageChange}/> 
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
