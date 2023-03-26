@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const NewsArticleContent = require('./newsArticleContent');
 const Image = require('./image');
 
 const newsArticleSchema = new mongoose.Schema({
