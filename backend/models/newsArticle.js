@@ -3,13 +3,6 @@ const NewsArticleContent = require('./newsArticleContent');
 const Image = require('./image');
 
 const newsArticleSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        unique: true,
-        index: true,
-        primary: true
-    },
     date: {
         type: Date,
         required: true
@@ -19,10 +12,14 @@ const newsArticleSchema = new mongoose.Schema({
         required: true
     },
     bannerImage: {
-        type: Image,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Image",
         required: true
     },
-    content: [NewsArticleContent]
+    content: {
+        type: String,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('NewsArticle', newsArticleSchema);

@@ -14,7 +14,8 @@ const newsArticleContentSchema = new mongoose.Schema({
         default: null
     },
     image: {
-        type: Image,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Image",
         default: null
     }
 });
