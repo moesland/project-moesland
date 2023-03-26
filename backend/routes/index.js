@@ -15,5 +15,7 @@ router.use('/api/user', require('./api/user'));
 router.use('/api/authToken', require('./api/authToken'));
 
 router.use('/api/newsArticle/create', require('./api/newsArticle/create'));
+router.use('/api/newsArticle/update', require('./api/newsArticle/update'));
+router.use('/api/newsArticle/delete', require('./api/newsArticle/delete'));
 
 module.exports = router;
