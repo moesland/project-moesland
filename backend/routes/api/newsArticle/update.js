@@ -8,12 +8,11 @@ router.use(express.json());
 router.post('/', [
     body('date').isDate(),
     body('title').trim().isString(),
-    body('bannerImage').isURL(),
-    body('content').isArray(),
-    body('content.*.text').trim().optional().isString(),
-    body('content.*.image.*.name').isString(),
-    body('content.*.image.*.data').isBase64(),
-    body('content.*.image.*.contentType').isMimeType()
+    body('bannerImage').isMongoId(),
+    body('bannerImage.*.name').isString(),
+    body('bannerImage.*.data').isBase64(),
+    body('bannerImage.*.contentType').isMimeType(),
+    body('content').isString()
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
