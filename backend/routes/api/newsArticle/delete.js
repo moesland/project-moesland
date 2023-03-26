@@ -1,14 +1,14 @@
 const express = require('express');
-const { getNewsArticleById, deleteNewsArticle } = require('../../../repository/newsArticle');
+const { getNewsArticleByTitle, deleteNewsArticle } = require('../../../repository/newsArticle');
 const router = express.Router();
 
 router.use(express.json());
 
 router.post('/', async (req, res) => {
-    const { id } = req.body;
+    const { title } = req.body;
 
     try {
-        const newsArticle = await getNewsArticleById(id);
+        const newsArticle = await getNewsArticleByTitle(title);
         if (newsArticle) {
             await deleteNewsArticle(newsArticle);
             res.status(200).send(`News article deleted successfully!`);
