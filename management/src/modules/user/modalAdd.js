@@ -1,34 +1,10 @@
 import React, { useState } from "react";
-import { BackendClientRequest } from "../services/ApiClient";
+import Manager from "../models/Manager";
+
+//import { BackendClientRequest } from "../services/ApiClient";
 
 
-const ModalAdd = () => {
-    class Manager {
-        constructor(id, email, userName, password) {
-          this.id = id
-          this.email = email
-          this.userName = userName
-          this.password = password
-        }
-      }
-    
-    const [modal, setModal] = useState(false);
-    const toggleModal = () => {
-        setModal(!modal);
-    };
-    if (modal) {
-        document.body.classList.add('active-modal')
-    } else {
-        document.body.classList.remove('active-modal')
-    }
-
-
-    //faked data
-    let mag = new Manager(1, "Mark@gmail.com", "MarkoftheBeast", "123123a")
-    let mam = new Manager(2, "theo@gmail.com", "swag", "12313")
-    let pam = new Manager(3, "John@gmail.com", "gamer", "12dsad3123a")
-    let listOfManagers = [mag, mam, pam]
-
+const ModalAdd = ({toggleModal}) => {
 
     async function addManager() {
         let modalEmail = document.forms["modalAddManager"]["modalAddManagerEmailName"].value;
@@ -66,37 +42,38 @@ const ModalAdd = () => {
         }
 
         if (errorCount === 0) {
-            console.log("Adding manager")
-            let myTableBody = document.getElementById("tableBody")
-            let myElement = document.getElementById("dummyTr").cloneNode(true)
-            let newManager = new Manager(listOfManagers.length + 1, modalEmail, modalUser, modalPassword)
+            // console.log("Adding manager")
+            // let myTableBody = document.getElementById("tableBody")
+            // let myElement = document.getElementById("dummyTr").cloneNode(true)
+            // let newManager = new Manager(listOfManagers.length + 1, modalEmail, modalUser, modalPassword)
 
-            myElement.classList.add(newManager.email)
-            myElement.querySelector('.id').textContent = newManager.id
-            myElement.querySelector('.email').textContent = newManager.email
-            myElement.querySelector('.userName').textContent = newManager.userName
-            myElement.querySelector('.password').textContent = newManager.password
-            myElement.querySelector('.deleteManager').addEventListener("click", function () {
-                deleteManager(newManager)
-            }, false)
-            myElement.querySelector('.editManager').addEventListener("click", function () {
-                editManager(newManager)
-            }, false)
-            myTableBody.appendChild(myElement)
+            // myElement.classList.add(newManager.email)
+            // myElement.querySelector('.id').textContent = newManager.id
+            // myElement.querySelector('.email').textContent = newManager.email
+            // myElement.querySelector('.userName').textContent = newManager.userName
+            // myElement.querySelector('.password').textContent = newManager.password
+            // myElement.querySelector('.deleteManager').addEventListener("click", function () {
+            //     //deleteManager(newManager)
+            // }, false)
+            // myElement.querySelector('.editManager').addEventListener("click", function () {
+            //     //editManager(newManager)
+            // }, false)
+            // myTableBody.appendChild(myElement)
 
-            const path = "/api/user/add"
-            const body = {
-                username: newManager.userName,
-                email: newManager.email,
-                password: newManager.password
-            }
-            const token = localStorage.getItem('token');
-            const headers = new Headers({
-                'Authorization': 'Bearer ' + token
-            })
-            await BackendClientRequest(
-                path, body, headers, "POST"
-            )
+            // const path = "/api/user/add"
+            // const body = {
+            //     username: newManager.userName,
+            //     email: newManager.email,
+            //     password: newManager.password
+            // }
+            // const token = localStorage.getItem('token');
+            // const headers = new Headers({
+            //     'Authorization': 'Bearer ' + token
+            // })
+            // await BackendClientRequest(
+            //     path, body, headers, "POST"
+            // )
+
         }
 
         toggleModal()

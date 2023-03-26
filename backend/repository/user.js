@@ -23,7 +23,7 @@ module.exports = {
             .catch(err => console.log("Cannot find user by id in User dataset", err));
     },
     getUserByEmail: async function (email) {
-        return await User.findOne({ email: { $eq: email } })
+        return await User.findOne({ email: { $eq: email } })//.find()is de lijst
             .catch(err => console.error(err));
     },
     addUser: async function (email, username, password, adminRole) {
