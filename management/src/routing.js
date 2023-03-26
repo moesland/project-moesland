@@ -12,7 +12,9 @@ const Routing = () => {
   return (
     <DefaultLayout>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Home />} />
+        </Route>
         <Route element={<ProtectedRoute />}>
           <Route path="/admin" element={<Admin />} />
         </Route>

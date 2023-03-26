@@ -24,9 +24,9 @@ router.post('/', upload.single('bannerImage'), async (req, res) => {
     try {
         const filePath = path.join(__dirname, '../../..', req.file.path);
         const imageBuffer = fs.readFileSync(filePath);
-        
+
         const existingImage = await Image.findOne({ 
-            name: req.file.originalname, 
+            name: { $eq: req.file.originalname }, 
             data: { $eq: imageBuffer },
             contentType: { $eq: req.file.mimetype }
         });
