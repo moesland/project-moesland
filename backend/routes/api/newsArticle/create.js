@@ -6,7 +6,15 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const fs = require('fs');
 
+// set up rate limiter: maximum of five requests per minute
+var RateLimit = require('express-rate-limit');
+var limiter = RateLimit({
+  windowMs: 1*60*1000, // 1 minute
+  max: 5
+});
+
 router.use(express.json());
+router.use(limiter);
 
 router.get('/', async (req, res) => {
     res.send('Nieuwsartikel aanmaken');
