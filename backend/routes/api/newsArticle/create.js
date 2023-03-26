@@ -24,8 +24,9 @@ router.post('/', upload.single('bannerImage'), async (req, res) => {
     try {
         const existingImage = await Image.findOne({ 
             name: req.file.originalname, 
-            data: fs.readFileSync(req.file.path),
-            contentType: req.file.mimetype });
+            data: { $eq: fs.readFileSync(req.file.path) },
+            contentType: { $eq: req.file.mimetype }
+        });
 
         if(existingImage){
             const newArticle = new NewsArticle({
