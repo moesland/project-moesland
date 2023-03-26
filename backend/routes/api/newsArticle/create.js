@@ -22,9 +22,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', upload.single('bannerImage'), async (req, res) => {
     try {
+        const filePath = path.join(__dirname, '../../..', req.file.path);
         const existingImage = await Image.findOne({ 
             name: req.file.originalname, 
-            data: { $eq: fs.readFileSync(req.file.path) },
+            data: { $eq: fs.readFileSync(filePath) },
             contentType: { $eq: req.file.mimetype }
         });
 
@@ -40,7 +41,7 @@ router.post('/', upload.single('bannerImage'), async (req, res) => {
         else{
             const newImage = new Image({
                 name: req.file.originalname,
-                data: fs.readFileSync(req.file.path),
+                data: fs.readFileSync(filePath),
                 contentType: req.file.mimetype
             });
             const savedImage = await newImage.save();
