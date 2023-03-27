@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import CustomPaginate from '../../modules/CustomPaginate';
 import { useNavigate } from "react-router-dom";
+import { BackendClientRequest } from "../../services/ApiClient";
 
 const ArticleOverview = () => {
     const testData = {
@@ -33,9 +34,21 @@ const ArticleOverview = () => {
         navigate('/');
     }
 
-    const deleteArticle = (e) => {
+    const deleteArticle = async (e, title) => {
         e.stopPropagation();
+
+        const url = "/api/newsArticle/delete";
+        const body = { title }
+        const headers = new Headers({
+            'Content-Type': 'application/json'
+        })
+        const method = "POST"
         
+        const data = await BackendClientRequest(url, body, headers, method);
+        if (data && data.authToken) {
+            localStorage.setItem('token', data.authToken.token);
+            navigate('/', { replace: true });
+        }
     }
 
     const openCreate = () => {
@@ -63,13 +76,13 @@ const ArticleOverview = () => {
                                 <td>{article.date}</td>
                                 <td>{article.title}</td>
                                 <td>{article.content}</td>
-                                <td><button className="btn btn-moesland" onClick={deleteArticle}>verwijderen</button></td>
+                                <td><button className="btn btn-moesland" onClick={(e) => deleteArticle(e, article.title)}>verwijderen</button></td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
 
-                <CustomPaginate pageCount={pageCount} changePage={changePage}/>       
+                <CustomPaginate pageCount={pageCount} changePage={changePage} />
             </div>
         </>
     )

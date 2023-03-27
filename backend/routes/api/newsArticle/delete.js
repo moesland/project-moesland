@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
             res.status(500).send(`Could not delete news article.`);
         }
     } catch (err) {
-        res.status(500).send(`Could not delete user: ${err}`);
+        res.status(500).send(`Could not delete news article: ${err}`);
     }
 });
 
