@@ -14,18 +14,12 @@ const Routing = () => {
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Home />} />
-        </Route>
-        <Route element={<ProtectedRoute />}>
           <Route path="/admin" element={<Admin />} />
-        </Route>
-        <Route element={<ProtectedRoute />}>
           <Route path="/articles/create" element={<ArticlesCreate />} />
-        </Route>
-        <Route element={<ProtectedRoute />}>
           <Route path="/articles/overview" element={<ArticlesOverview />} />
+          <Route path="/login" element={<Login />}/>
         </Route>
         <Route element={<ProtectedRoute isAuthenticated={false}/>}>
-          <Route path="/login" element={<Login />}/>
         </Route>
       </Routes>
     </DefaultLayout>
