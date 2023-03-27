@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 
 
-const ModalDelete = ({toggleModal}) => {
+const ModalDelete = ({ toggleModal }) => {
     function deleteManager(manager) {
 
         //var myTableBody = document.getElementById("tableBody")
         //var myDiv = document.getElementsByClassName(manager.email)
         let myText = document.querySelector("deleteModalText")
-        myText.textContent = "asd"
+
+
+        //myText.textContent = "asd"
         console.log("Deleteing manager")
         toggleModal()
-    
-      }
+
+    }
 
     return (
         <>
