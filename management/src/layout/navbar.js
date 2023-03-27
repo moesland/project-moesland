@@ -13,6 +13,9 @@ const Navbar = () => {
                     <li class="nav-item">
                         <a class="nav-link navbar-text-color" href="#">Beheerders</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbar-text-color" href="/articles">Artikels</a>
+                    </li>
                 </ul>
             </div>
         </div>
