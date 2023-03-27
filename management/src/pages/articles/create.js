@@ -1,6 +1,5 @@
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import Quill from "quill";
+//import ReactQuill from "react-quill";
+//import "react-quill/dist/quill.snow.css";
 import React, { useState } from "react";
 
 const Create = () => {
@@ -50,7 +49,7 @@ const Create = () => {
                             <label className="mb-2">
                                 Inhoud:
                             </label>
-                            <ReactQuill value={editorHtml} onChange={handleEditorChange} modules={modules}/>
+                            {/* <ReactQuill value={editorHtml} onChange={handleEditorChange} modules={modules}/> */}
                         </div>
                         <br></br>
                         <div className="form-group text-left">
