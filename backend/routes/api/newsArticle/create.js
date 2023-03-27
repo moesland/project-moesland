@@ -7,6 +7,7 @@ const upload = multer({ dest: 'uploads/' });
 const { createNewsArticle } = require('../../../repository/newsArticle');
 const fs = require('fs');
 const path = require('path');
+const auth = require('../../../middlewares/auth');
 
 router.use(express.json());
 
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
     res.send('Nieuwsartikel aanmaken');
 });
 
-router.post('/', authenticateToken, upload.single('bannerImage'), async (req, res) => {
+router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (req, res) => {
     try {
         const {title, date, content } = req.body;
         const filePath = path.join(__dirname, '../../..', req.file.path);
