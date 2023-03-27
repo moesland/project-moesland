@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
     res.send('Nieuwsartikel aanmaken');
 });
 
-router.post('/', upload.single('bannerImage'), async (req, res) => {
+router.post('/', authenticateToken, upload.single('bannerImage'), async (req, res) => {
     try {
         const filePath = path.join(__dirname, '../../..', req.file.path);
         const imageBuffer = fs.readFileSync(filePath);
