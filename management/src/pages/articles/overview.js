@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ReactPaginate from 'react-paginate';
+import CustomPaginate from '../../modules/CustomPaginate';
 
 const ArticleOverview = () => {
     const testData = {
@@ -67,22 +67,7 @@ const ArticleOverview = () => {
                     </tbody>
                 </table>
 
-                <div className="d-flex justify-content-center">
-                    <ReactPaginate
-                        previousLabel={'Vorige'}
-                        nextLabel={'Volgende'}
-                        pageCount={pageCount}
-                        onPageChange={changePage}
-                        containerClassName={'pagination'}
-                        previousClassName={'page-item'}
-                        nextClassName={'page-item'}
-                        pageClassName={'page-item'}
-                        pageLinkClassName={'page-link'}
-                        breakClassName={'page-item disabled'}
-                        activeClassName={'active'}
-                        disabledClassName={'disabled'}
-                    />
-                </div>
+                <CustomPaginate pageCount={pageCount} changePage={changePage}/>       
             </div>
         </>
     )
