@@ -5,7 +5,7 @@ const { updateNewsArticleByID } = require('../../../repository/newsArticle');
 
 router.use(express.json());
 
-router.post('/', [
+router.post('/', authenticateToken, [
     body('date').isDate(),
     body('title').trim().isString(),
     body('bannerImage').isURL(),
