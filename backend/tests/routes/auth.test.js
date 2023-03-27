@@ -5,18 +5,22 @@ const app = require('../../app');
 const {
   fakeUserData, createFakeUsers, removeFakeUsers, removeAuthToken,
 } = require('../testdata');
-
+const { mockdb } = require('../mockdb');
 const { expect } = chai;
 
 describe('Authentication routes', async () => {
   describe('POST /login', () => {
+    const mocking = mockdb;
+
     before(async () => {
+      await mocking.connect();
       await createFakeUsers();
     });
 
     after(async () => {
       await removeAuthToken();
       await removeFakeUsers();
+      await mocking.disconnect();
     });
 
     it('should return 401 if invalid username or password is provided', async () => {
