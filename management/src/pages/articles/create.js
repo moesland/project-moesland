@@ -37,22 +37,20 @@ const Create = () => {
         const content = JSON.stringify(delta);
 
         const imageFile = document.querySelector('input[name="image"]').files[0];
-        const imageContentType = imageFile.type;
-    
-        const image = {
-            name: 'banner',
-            data: Buffer.from(bannerImage.replace(/^data:image\/\w+;base64,/, ''), 'base64'),
-            contentType: imageContentType
-        };
     
         const formData = new FormData();
         formData.append('title', title);
         formData.append('content', content);
         formData.append('bannerImage', imageFile);
     
+        const token = localStorage.getItem('token');
+
         const response = await fetch('http://localhost:5000/api/newsArticle/create', {
             method: 'POST',
-            body: formData
+            body: formData,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         });
     
         if (response.ok) {
