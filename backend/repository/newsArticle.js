@@ -10,7 +10,7 @@ module.exports = {
         return await NewsArticle.findOne({ title: { $eq: title } })
             .catch(err => console.log("Cannot find news article by title in NewsArticle dataset.", err));
     },
-    async updateNewsArticleByID(id, date, title, bannerImage, content) {
+    async updateNewsArticleById(id, date, title, bannerImage, content) {
         return await NewsArticle.findOneAndUpdate(
             { id: { $eq: id } }, { date: { $eq: date } }, { title: { $eq: title } }, { bannerImage: { $eq: bannerImage } }, { content: { $eq: content } })
             .catch(err => console.error(err));
