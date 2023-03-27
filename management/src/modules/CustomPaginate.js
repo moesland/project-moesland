@@ -17,6 +17,10 @@ const CustomPaginate = ({pageCount, changePage}) => {
                 breakClassName={'page-item disabled'}
                 activeClassName={'active'}
                 disabledClassName={'disabled'}
+                previousLinkClassName={'page-link'}
+                nextLinkClassName={'page-link'}
+                breakLinkClassName={'page-link'}
+                activeLinkClassName={'custom-active-link'}
             />
         </div>
     </>)

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CustomPaginate from '../../modules/CustomPaginate';
+import { useNavigate } from "react-router-dom";
 
 const ArticleOverview = () => {
     const testData = {
@@ -18,6 +19,7 @@ const ArticleOverview = () => {
     };
 
     const [pageNumber, setPageNumber] = useState(0);
+    const navigate = useNavigate();
     const articlesPerPage = 10;
     const pagesVisited = pageNumber * articlesPerPage;
 
@@ -28,16 +30,16 @@ const ArticleOverview = () => {
     };
 
     const openEdit = () => {
-        alert("edit");
+        navigate('/');
     }
 
     const deleteArticle = (e) => {
         e.stopPropagation();
-        alert("delete");
+        
     }
 
     const openCreate = () => {
-        alert("create");
+        navigate('/');
     }
 
     return (
