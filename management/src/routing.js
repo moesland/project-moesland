@@ -8,7 +8,6 @@ import ProtectedRoute from './modules/authorization/ProtectedRoute';
 import DefaultLayout from './layout/default';
 import Login from './pages/login';
 import ArticleOverview from './pages/articles/overview';
-import { defaultProps } from 'react-quill';
 
 const Routing = () => {
   return (
