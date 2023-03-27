@@ -16,15 +16,15 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (req, res) => {
-    try {
+   try {
         const {title, date, content } = req.body;
         const filePath = path.join(__dirname, '../../..', req.file.path);
         const imageBuffer = fs.readFileSync(filePath); 
 
-        const bannerImage = await Image.findOne({ 
-            name: { $eq: req.file.originalname }, 
-            data: { $eq: imageBuffer },
-            contentType: { $eq: req.file.mimetype }
+        const bannerImage = new Image({
+            name: req.file.originalname,
+            data: imageBuffer,
+            contentType: req.file.mimetype
         });
 
         const newArticle = await createNewsArticle(title, date, bannerImage, content);

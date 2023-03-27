@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const NewsArticle = mongoose.model('NewsArticle');
+const Image = require('../models/image');
 
 module.exports = {
     async updateNewsArticleByID(id, date, title, bannerImage, content) {
@@ -10,30 +11,27 @@ module.exports = {
             });
     },
     async createNewsArticle(title, date, bannerImage, content){
-        if(bannerImage != null){
+        const image = await Image.findOne(bannerImage);
+        if(image){
+            const newArticle = new NewsArticle({
+                title: title,
+                content: content,
+                date: Date.now(),
+                bannerImage: image._id
+            });
+            await newArticle.save();
+        }
+        else{
+            await bannerImage.save();
+
             const newArticle = new NewsArticle({
                 title: title,
                 content: content,
                 date: Date.now(),
                 bannerImage: bannerImage._id
             });
-            await newArticle.save();
-        }
-        else{
-            const newImage = new Image({
-                name: bannerImage.originalname,
-                data: fs.readFileSync(filePath),
-                contentType: bannerImage.mimetype
-            });
-            const savedImage = await newImage.save();
 
-            const newArticle = new NewsArticle({
-                title: title,
-                content: content,
-                date: Date.now(),
-                bannerImage: savedImage._id
-            });
             await newArticle.save();
-        }          
+        }  
     }
 };
