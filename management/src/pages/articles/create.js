@@ -46,7 +46,7 @@ const Create = () => {
     
         const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:5000/api/newsArticle/create', {
+        const response = await fetch('http://localhost:5000/api/news-article/create', {
             method: 'POST',
             body: formData,
             headers: {
@@ -56,7 +56,7 @@ const Create = () => {
     
         if (response.ok) {
             window.alert('Nieuwsartikel is aangemaakt!');
-            navigate('/articles/overview');
+            navigate('/articles/');
         } else {
             window.alert('Fout bij het aanmaken');
         }

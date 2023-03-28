@@ -1,6 +1,14 @@
 import '../assets/FredokaOne-Regular.ttf';
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
+    const removeStorage = () => {
+        localStorage.clear();
+        navigate('/login/');
+    }    
+
     return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -17,6 +25,7 @@ const Navbar = () => {
                         <a class="nav-link navbar-text-color" href="/articles">Artikels</a>
                     </li>
                 </ul>
+                <button class="nav-link navbar-text-color bg-light mb-2 mb-lg-0 border-0" onClick={removeStorage}>Uitloggen</button>
             </div>
         </div>
     </nav>

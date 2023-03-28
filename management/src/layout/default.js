@@ -5,7 +5,7 @@ const DefaultLayout = (props) => {
     return (
         <div className="layout">
             <Navbar/>
-            {props.children}
+                {props.children}
             <Footer/>
         </div>
     )
