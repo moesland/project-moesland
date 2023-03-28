@@ -12,8 +12,10 @@ module.exports = {
     },
     async updateNewsArticleById(id, title, content) {
         return await NewsArticle.findOneAndUpdate(
-            { id: { $eq: id } }, { title: { $eq: title } }, { content: { $eq: content } })
-            .catch(err => console.error(err));
+            { _id: { $eq: id } }, { title: title, content: content }, { new: true })
+            .catch((err) => {
+                console.error(err);
+            });
     },
     async deleteNewsArticle(newsArticle) {
         return await NewsArticle.deleteOne(newsArticle)

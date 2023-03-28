@@ -2,6 +2,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { BackendClientRequest } from "../../services/ApiClient";
 
 const Update = () => {
     const [editorHtml, setEditorHtml] = useState("");
@@ -37,21 +38,14 @@ const Update = () => {
         const delta = quillRef.current.getEditor().getContents();
         const content = JSON.stringify(delta);
 
-        const urlRoot = process.env.REACT_APP_BACKEND_ROOT_URL;
+        const headers = new Headers({
+            'Content-Type':'application/json'
+        });
         const path = '/api/news-article/update';
-        const body = { title, content };
+        const body = { id: state.article._id, title, content };
         const method = "POST";
 
-        const url = urlRoot + path;
-        const requestOptions = {
-            method,
-            body
-        };
-
-        await fetch(url, requestOptions)
-            .catch(function (error) {
-                console.log(error);
-            });
+        await BackendClientRequest(path, body, headers, method);
         // Redirect to management page or homepage
     };
 
