@@ -1,4 +1,5 @@
 const express = require('express');
+const { requestLimiter } = require('../middlewares/security');
 
 const router = express.Router();
 
@@ -8,6 +9,9 @@ router.get('/', (req, res) => {
 });
 
 // add here all other routes
-router.use('/api/location', require('./api/location'));
+router.use('/api/auth', requestLimiter, require('./api/auth'));
+router.use('/api/role', require('./api/role'));
+router.use('/api/user', require('./api/user'));
+router.use('/api/authToken', require('./api/authToken'));
 
 module.exports = router;
