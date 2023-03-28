@@ -1,0 +1,33 @@
+{
+    "ops": [
+        {
+            "attributes": {
+                "color": "#565656"
+            },
+            "insert": "Op 14, 20 en 21 januari vond de Moeslande Pronkzitting plaats, en deze bestond dit jaar alweer 44 jaar en stond dan ook in het teken van een feestje, met als thema ‘Let’s celebrate’. En dat was te merken, er werd groots uitgepakt, met vooruitblikken naar de toekomst, maar ook teruggekeken naar de geschiedenis van de Moeslandse Pronkzitting."
+        },
+        {
+            "insert": "\n\n"
+        },
+        {
+            "attributes": {
+                "color": "#565656",
+                "bold": true
+            },
+            "insert": "Op 14, 20 en 21 januari vond de Moeslande Pronkzitting plaats, en deze bestond dit jaar alweer 44 jaar en stond dan ook in het teken van een feestje, met als thema ‘Let’s celebrate’. En dat was te merken, er werd groots uitgepakt, met vooruitblikken naar de toekomst, maar ook teruggekeken naar de geschiedenis van de Moeslandse Pronkzitting."
+        },
+        {
+            "insert": "\n\n"
+        },
+        {
+            "attributes": {
+                "color": "#565656",
+                "italic": true
+            },
+            "insert": "Op 14, 20 en 21 januari vond de Moeslande Pronkzitting plaats, en deze bestond dit jaar alweer 44 jaar en stond dan ook in het teken van een feestje, met als thema ‘Let’s celebrate’. En dat was te merken, er werd groots uitgepakt, met vooruitblikken naar de toekomst, maar ook teruggekeken naar de geschiedenis van de Moeslandse Pronkzitting."
+        },
+        {
+            "insert": "\n"
+        }
+    ]
+}
