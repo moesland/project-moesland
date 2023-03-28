@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 
-const ModalDelete = ({ toggleModal }) => {
+const ModalDelete = ({ toggleModal, selectedItem }) => {
+    console.log(selectedItem)
     function deleteManager(manager) {
 
         //var myTableBody = document.getElementById("tableBody")

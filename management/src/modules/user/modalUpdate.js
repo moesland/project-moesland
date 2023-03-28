@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 
-const ModalUpdate = ({ toggleModal }) => {
+
+const ModalUpdate = ({ toggleModal, selectedItem }) => {
+    console.log(selectedItem)
+    
     const schema = yup.object().shape({
         username: yup.string().min(2, "Het gebruikersnaam moet minimaal twee karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn."),
         password: yup.string().min(6, "het wachtwoord moet minimaal 6 karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn.")
@@ -14,16 +17,25 @@ const ModalUpdate = ({ toggleModal }) => {
     const onSubmit = (data) => {
         console.log(data.password)
 
-
         toggleModal()
     }
 
+    // useEffect(() => {
+    //     const updateUser = async () => {
+    //       await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user/update", { method: "POST" })
+    //         .then(response => response.json())
+    //         .then(data => { console.log(data ); setUserData(data) });
+    //     }
+    
+    //     updateUser()
+    //   }, [])
 
-    function editManager(manager) {
-
-        toggleModal()
+      
+    function updateManager()
+    {
+        
     }
-
+    
 
     return (
         <>
@@ -36,13 +48,13 @@ const ModalUpdate = ({ toggleModal }) => {
                         <form name="EditManagers" onSubmit={handleSubmit(onSubmit)}>
                             <div className="mx-auto  col-md-10">
                                 <div class="form-group pt-3">
-                                    <label for="exampleInputEmail1">Nieuwe Email address</label>
-                                    <input  class="form-control" id="EditModalEmailInput" name="EditManagersEmailName" aria-describedby="emailHelp" placeholder="Email"></input>
+                                    <label for="exampleInputEmail1">Nieuwe gebruikersnaam</label>
+                                    <input  class="form-control" id="EditModalEmailInput" name="EditManagersEmailName" aria-describedby="emailHelp" placeholder="Email" {...register("username")}></input>
                                     <small id="modalAddManagerUserError" class="form-text text-danger mt-3 modalAddManagerUserError">{errors.username?.message}</small>
                                 </div>
                                 <div class="form-group pt-3">
-                                    <label for="exampleInputPassword1">Nieuwe Wachtwoord</label>
-                                    <input id="EditModalPasswordInput" class="form-control" placeholder="Wachtwoord" name="modalEditManagerPasswordName"></input>
+                                    <label for="exampleInputPassword1">Nieuwe wachtwoord</label>
+                                    <input id="EditModalPasswordInput" class="form-control" placeholder="Wachtwoord" name="modalEditManagerPasswordName" {...register("password")}></input>
                                 </div>
                                     <small id="modalAddManagerPasswordError" class="form-text text-danger  modalAddManagerPasswordError" >{errors.password?.message}</small>
                                     <div class="form-check">

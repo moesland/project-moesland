@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup'
-
-//import { BackendClientRequest } from "../services/ApiClient";
+import { BackendClientRequest } from "../services/ApiClient";
 
 
 const ModalAdd = ({ toggleModal }) => {
@@ -20,20 +19,30 @@ const ModalAdd = ({ toggleModal }) => {
     const onSubmit = (data) => {
         console.log(data.password)
 
-        renderManager()
-        pushManager()
+        pushManager(4, data.email, data.username, data.password)
         
+    }
+    async function pushManager(id, email, username, password)
+    {
+        console.log("Adding manager")
+
+        const path = "/api/user/add"
+        const body = {
+            username: username,
+            email: email,
+            password: password
+        }
+        const token = localStorage.getItem('token');
+        const headers = new Headers({
+            'Authorization': 'Bearer ' + token
+        })
+        await  BackendClientRequest(
+            path, body, headers, "POST"
+        )
+
         toggleModal()
     }
-    function renderManager()
-    {
-
-
-    }
-    function pushManager()
-    {
-
-    }
+    
 
     return (
         <>

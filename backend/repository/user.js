@@ -18,6 +18,11 @@ module.exports = {
 
         return user;
     },
+    getAllUsers: async function ()
+    {
+        return await User.find()
+        .catch(err => console.log("Cannot find list of users", err));
+    },
     getUserById: async function (userId) {
         return await User.findById(userId)
             .catch(err => console.log("Cannot find user by id in User dataset", err));
@@ -41,7 +46,7 @@ module.exports = {
     },
     updateUserByEmail: async function (email, username, password) {
         return await User.findOneAndUpdate(
-            { email: { $eq: email } }, { username: { $eq: username }, password: { $eq: password } }, { new: true })
+            { email: { $eq: email } }, { username: username , password: password}, { new: true })
             .catch((err) => {
                 console.error(err);
             });
