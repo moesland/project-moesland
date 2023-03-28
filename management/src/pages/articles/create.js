@@ -16,7 +16,7 @@ const Create = () => {
             [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
             [{ size: [] }],
             ['bold', 'italic', 'underline'],
-            ['link', 'image', 'video'],
+            ['link', 'image'],
             [{ 'align': [] }],
         ],
     };
