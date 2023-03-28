@@ -54,7 +54,7 @@ export default function Management() {
 
   return (
     <>
-      { userData && 
+      {userData &&
         <div class="row">
           <div class="pt-5 col-md-8 mx-auto text-center">
             <div class="float-end col-md-3 pb-3">
@@ -100,7 +100,7 @@ export default function Management() {
 
       }
       {addModalShow && <ModalAdd toggleModal={ToggleShowModalAdd} />}
-      {modalDeleteShow && <ModalDelete toggleModal={ToggleShowModalDelete } selectedItem={selectedItem} />}
+      {modalDeleteShow && <ModalDelete toggleModal={ToggleShowModalDelete} selectedItem={selectedItem} />}
       {modalUpdateShow && <ModalUpdate toggleModal={ToggleShowModalUpdate} selectedItem={selectedItem} />}
 
     </>
