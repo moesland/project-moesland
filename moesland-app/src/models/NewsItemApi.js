@@ -13,13 +13,16 @@ export async function fetchNewsItems() {
 
         const newsItems = json.map((item) => {
             const content = JSON.parse(item.content);
-            const text = content.ops.map((op) => op.insert).join('');
-            const attributes = content.ops.reduce((attrs, op) => {
-                Object.keys(op.attributes || {}).forEach((key) => {
-                    attrs[key] = op.attributes[key];
-                });
-                return attrs;
-            }, {});
+            const textSegments = content.ops.filter((op) => typeof op.insert === 'string');
+            const contentModels = textSegments.map((op) => {
+                const image = op.attributes && op.attributes.image ? op.attributes.image : null;
+                return new NewsItemContentModel(
+                    uuid.v4(),
+                    op.insert,
+                    op.attributes || {},
+                    image
+                );
+            });
 
             // convert the date to DD/MM/YYYY format
             const inputDateString = item.date;
@@ -31,18 +34,17 @@ export async function fetchNewsItems() {
                 formattedDate,
                 item.title,
                 item.bannerImage.$oid,
-                new NewsItemContentModel(item._id.$oid, text, attributes)
+                contentModels
             );
         });
 
-
-
-        // Assuming your array of newsItems is called "newsItems"
-        newsItems.forEach(newsItem => {
-            console.log(newsItem)
-            //console.log(newsItem.content.attributes);
-            
-        });
+        // newsItems.forEach(newsItem => {
+        //     console.log("Title:", newsItem.title)
+        //     console.log("ContentSize:", newsItem.content.length)
+        //     newsItem.content.forEach(contentItem => {
+        //         console.log("Attributes:", contentItem.attributes)
+        //     })
+        // });
 
         return newsItems;
     } catch (error) {
