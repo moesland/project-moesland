@@ -1,14 +1,13 @@
-const urlRoot = "http://localhost:5000"
+const urlRoot = process.env.REACT_APP_BACKEND_ROOT_URL;
 
 export const BackendClientRequest = async (path, body, headers, method) => {
     const url = urlRoot + path;
     const requestOptions = {
         method,
         headers,
-        body: JSON.stringify(body)
+        body
     };
     
-    console.log(requestOptions);
     let jsonData = null;
 
     try {
