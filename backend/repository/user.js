@@ -35,7 +35,7 @@ module.exports = {
             .catch(err => console.error(err));
     },
     addUser: async function (email, username, password, adminRole) {
-        return await User.create({ password: { $eq: password }, email: { $eq: email }, username: { $eq: username }, roleId: { $eq: adminRole._id } })
+        return await User.create({ password: password, email: email, username: username, roleId: adminRole._id })
             .catch((err) => {
                 console.error(err.message);
             });
