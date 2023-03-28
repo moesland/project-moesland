@@ -16,7 +16,7 @@ const ArticleOverview = () => {
         const fetchArticleData = async () => {
             await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/news-article/", { method: "GET" })
                 .then(response => response.json())
-                .then(data => { console.log(data); setArticles(data)});
+                .then(data => { setArticles(data)});
         }
 
         fetchArticleData()

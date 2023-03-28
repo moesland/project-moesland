@@ -6,7 +6,11 @@ const router = express.Router();
 router.use(express.json());
 
 router.get('/', async (req, res) => {
-    res.status(200).json(await getAllNewsArticle());
+    try {
+        res.status(200).json(await getAllNewsArticle());
+    } catch (err) {
+        res.status(500)
+    }
 });
 
 router.use('/create', require('./create'));

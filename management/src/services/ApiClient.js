@@ -8,8 +8,6 @@ export const BackendClientRequest = async (path, body, headers, method) => {
         body
     };
     
-    console.log(requestOptions);
-    console.log(url);
     let jsonData = null;
 
     try {
