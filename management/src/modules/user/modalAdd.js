@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import {yupResolver} from '@hookform/resolvers/yup'
-import { BackendClientRequest } from "../services/ApiClient";
+import { BackendClientRequest } from "../../services/ApiClient";
 
 
 const ModalAdd = ({ toggleModal }) => {
@@ -32,14 +32,16 @@ const ModalAdd = ({ toggleModal }) => {
             email: email,
             password: password
         }
+        console.log(body)
+
         const token = localStorage.getItem('token');
         const headers = new Headers({
-            'Authorization': 'Bearer ' + token
+            'Authorization': 'Bearer ' + token,
+            'Content-Type':'application/json'
         })
         await  BackendClientRequest(
             path, body, headers, "POST"
         )
-
         toggleModal()
     }
     

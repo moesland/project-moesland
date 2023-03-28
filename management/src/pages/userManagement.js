@@ -3,7 +3,6 @@ import ModalAdd from "../modules/user/modalAdd";
 import ModalDelete from "../modules/user/modalDelete";
 import ModalUpdate from "../modules/user/modalUpdate";
 import { useForm } from 'react-hook-form';
-import { BackendClientRequest } from "../services/ApiClient";
 
 
 export default function Management() {
