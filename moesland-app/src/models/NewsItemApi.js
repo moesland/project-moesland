@@ -5,18 +5,12 @@ export async function fetchNewsItems(apiUrl) {
     try {
         console.log('fetching')
         // Make a request to the API endpoint to retrieve news items
-        const response = await fetch('./apitest.json');
-        // Parse the response data as JSON format
-        const json = await response.json();
-        // Map the JSON data to an array of NewsItemModel objects
-        const newsItems = json.newsItems.map((item) => {
-            // Map each content item in the news item to a ContentModel object
-            const content = item.content.map((contentItem) => {
-                return new NewsItemContentModel(contentItem.id, contentItem.text, contentItem.image);
-            });
-            // Return a new NewsItemModel object for each news item
-            return new NewsItemModel(item.id, item.date, item.title, item.bannerImage, content);
-        });
+        // TODO: move ip to .env file in the future
+        const REACT_APP_BACKEND_ROOT_URL = 'http://192.168.2.42:5000';
+        const response = await fetch(REACT_APP_BACKEND_ROOT_URL + "/api/news-article/", { method: "GET" })
+        const data = await response.json()
+        console.log(data)
+
         // Return the array of NewsItemModel objects
         return newsItems;
     } catch (error) {
