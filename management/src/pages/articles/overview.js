@@ -49,11 +49,8 @@ const ArticleOverview = () => {
         })
         const method = "POST"
 
-        const data = await BackendClientRequest(url, body, headers, method);
-        if (data && data.authToken) {
-            localStorage.setItem('token', data.authToken.token);
-            //navigate('/', { replace: true });
-        }
+        await BackendClientRequest(url, body, headers, method);
+        setArticles(articles.filter(data => data._id !== article._id))
     }
 
     const openCreate = () => {

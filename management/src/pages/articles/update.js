@@ -50,6 +50,7 @@ const Update = () => {
 
         await BackendClientRequest(path, body, headers, method);
         // Redirect to management page or homepage
+        navigate('/articles/');
     };
 
     const openOverview = () => {
