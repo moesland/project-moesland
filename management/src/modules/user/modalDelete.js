@@ -21,7 +21,7 @@ const ModalDelete = ({ toggleModal, selectedItem }) => {
             <div class="modal show" tabindex="-1" role="dialog" style={{ display: "block" }}>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header bg-moesland text-white">
                             <h5 class="modal-title">Beheerder verwijderen </h5>
                         </div>
                         <form>

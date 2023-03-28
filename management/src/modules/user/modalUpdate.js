@@ -26,8 +26,8 @@ const ModalUpdate = ({ toggleModal, selectedItem }) => {
             <div class="modal show" tabindex="-1" role="dialog" style={{ display: "block" }}>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Beheerder aanpassen</h5>
+                        <div class="modal-header bg-moesland text-white">
+                            <h5 class="modal-title ">Beheerder aanpassen</h5>
                         </div>
                         <form name="EditManagers" onSubmit={handleSubmit(onSubmit)}>
                             <div className="mx-auto  col-md-10">
@@ -46,7 +46,7 @@ const ModalUpdate = ({ toggleModal, selectedItem }) => {
                             </div>
                             <div class="modal-footer">
                                 <button onClick={toggleModal} type="button" class="btn btn-secondary" data-dismiss="modal">Anuleren</button>
-                                <input type = "submit"  class="btn btn btn-success" value="Opslaan"></input>
+                                <input type = "submit"  class="btn btn-moesland" value="Opslaan"></input>
                             </div>
                         </form>
                     </div>

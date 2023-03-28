@@ -51,7 +51,7 @@ const ModalAdd = ({ toggleModal }) => {
             <div class="modal show" tabindex="-1" role="dialog" style={{ display: "block" }}>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header bg-moesland text-white">
                             <h5 class="modal-title">Nieuwe Beheerder</h5>
                         </div>
                         <form  onSubmit={handleSubmit(onSubmit)}>
@@ -76,7 +76,7 @@ const ModalAdd = ({ toggleModal }) => {
                             </div>
                             <div class="modal-footer">
                                 <button onClick={toggleModal} type="button" class="btn btn-secondary" data-dismiss="modal">Anuleren</button>
-                                <input type = "submit"  class="btn btn btn-success" value="Aanmaken"></input>
+                                <input type = "submit"  class="btn btn btn-moesland" value="Aanmaken"></input>
                             </div>
                         </form>
                     </div>
