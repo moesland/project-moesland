@@ -20,7 +20,7 @@ module.exports = {
             .catch(err => console.error(err));
     },
     async getAllNewsArticle() {
-        return await NewsArticle.find({})
+        return await NewsArticle.find({}).populate("Image")
             .catch(err => console.error(err));
     }
 };

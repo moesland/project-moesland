@@ -5,9 +5,11 @@ export const BackendClientRequest = async (path, body, headers, method) => {
     const requestOptions = {
         method,
         headers,
-        body
+        body: JSON.stringify(body)
     };
     
+    console.log(requestOptions);
+    console.log(url);
     let jsonData = null;
 
     try {
