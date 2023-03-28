@@ -17,8 +17,7 @@ export default function App() {
 
   useEffect(() => {
     async function loadNewsItems() {
-      const items = await fetchNewsItems();
-      setNewsItems(items);
+
     }
 
     loadNewsItems();
