@@ -5,7 +5,7 @@ export const BackendClientRequest = async (path, body, headers, method) => {
     const requestOptions = {
         method,
         headers,
-        body
+        body: JSON.stringify(body)
     };
     
     let jsonData = null;

@@ -1,15 +1,21 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import React, { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Update = () => {
     const [editorHtml, setEditorHtml] = useState("");
     const [title, setTitle] = useState('');
-    const [bannerImage, setBannerImage] = useState('');
     const quillRef = useRef(null);
 
+    const { state } = useLocation();
+
     useEffect(() => {
-    });
+        if (state) {
+            setTitle(state.article.title);
+            setEditorHtml(JSON.parse(state.article.content));
+        }
+    }, []);
 
     const handleEditorChange = (value) => {
         setEditorHtml(value);
@@ -25,46 +31,28 @@ const Update = () => {
         ],
     };
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-            setBannerImage(reader.result);
-        };
-        reader.readAsDataURL(file);
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const delta = quillRef.current.getEditor().getContents();
         const content = JSON.stringify(delta);
 
-        const imageFile = document.querySelector('input[name="image"]').files[0];
-        const imageContentType = imageFile.type;
+        const urlRoot = process.env.REACT_APP_BACKEND_ROOT_URL;
+        const path = '/api/news-article/update';
+        const body = { title, content };
+        const method = "POST";
 
-        const image = {
-            name: 'banner',
-            data: Buffer.from(bannerImage.replace(/^data:image\/\w+;base64,/, ''), 'base64'),
-            contentType: imageContentType
+        const url = urlRoot + path;
+        const requestOptions = {
+            method,
+            body
         };
 
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('content', content);
-        formData.append('bannerImage', imageFile);
-
-        try {
-            const response = await fetch('http://localhost:5000/api/newsArticle/update', {
-                method: 'POST',
-                body: formData
+        await fetch(url, requestOptions)
+            .catch(function (error) {
+                console.log(error);
             });
-            console.log('News article updated successfully');
-            // Redirect to management page or homepage
-        } catch (error) {
-            console.error(error);
-        }
+        // Redirect to management page or homepage
     };
 
     return (
@@ -85,15 +73,9 @@ const Update = () => {
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
-                                Afbeelding:
-                            </label>
-                            <input type="file" name="image" accept="image/*" class="form-control" onChange={handleImageChange} />
-                        </div>
-                        <div className="form-group mt-3">
-                            <label className="mb-2">
                                 Inhoud:
                             </label>
-                            {<ReactQuill value={editorHtml} onChange={handleEditorChange} modules={modules} />}
+                            {<ReactQuill ref={quillRef} value={editorHtml} onChange={handleEditorChange} modules={modules} />}
                         </div>
                         <br></br>
                         <div className="form-group text-left">

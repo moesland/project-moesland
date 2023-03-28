@@ -10,9 +10,9 @@ module.exports = {
         return await NewsArticle.findOne({ title: { $eq: title } })
             .catch(err => console.log("Cannot find news article by title in NewsArticle dataset.", err));
     },
-    async updateNewsArticleById(id, date, title, bannerImage, content) {
+    async updateNewsArticleById(id, title, content) {
         return await NewsArticle.findOneAndUpdate(
-            { id: { $eq: id } }, { date: { $eq: date } }, { title: { $eq: title } }, { bannerImage: { $eq: bannerImage } }, { content: { $eq: content } })
+            { id: { $eq: id } }, { title: { $eq: title } }, { content: { $eq: content } })
             .catch(err => console.error(err));
     },
     async deleteNewsArticle(newsArticle) {
@@ -21,6 +21,7 @@ module.exports = {
     },
     async getAllNewsArticle() {
         return await NewsArticle.find({})
+            .populate('bannerImage')
             .catch(err => console.error(err));
     }
 };
