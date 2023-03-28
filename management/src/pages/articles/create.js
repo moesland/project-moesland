@@ -13,7 +13,7 @@ const Create = () => {
 
     const modules = {
         toolbar: [
-            [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+            [{ 'header': '1' }, { 'header': '2' }],
             [{ size: [] }],
             ['bold', 'italic', 'underline'],
             ['link', 'image'],
