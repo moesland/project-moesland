@@ -1,0 +1,41 @@
+{
+    "bannerImage": undefined,
+    "content": {
+        "attributes": {
+            "align": "justify",
+            "bold": true,
+            "font": "monospace",
+            "header": 2,
+            "italic": true,
+            "link": "google.com",
+            "size": "huge",
+            "underline": true
+        },
+        "id": undefined,
+        "image": undefined,
+        "text": "Dit is de standaard tekst. Gevolgd door een zin vol met content.
+Dit is H1 tekst. Gevolgd door een zin vol met content.
+Dit is H2 Gevolgd door een zin vol met content.
+Dit is kleine tekst. Gevolgd door een zin vol met content.
+Dit is normale tekst. Gevolgd door een zin vol met content.
+Dit is grote tekst. Gevolgd door een zin vol met content.
+Dit is gigantische tekst. Gevolgd door een zin vol met content.
+
+Dit is dikgedrukte tekst. Gevolgd door een zin vol met content.
+Dit is schuingedrukte tekst. Gevolgd door een zin vol met content.
+Dit is onderstreepte tekst. Gevolgd door een zin vol met content.
+
+Dit is sans serif tekst. Gevolgd door een zin vol met content.
+Dit is serif tekst. Gevolgd door een zin vol met content.
+Dit is monospace tekst. Gevolgd door een zin vol met content.
+
+Dit is links gecentreerde tekst. Gevolgd door een zin vol met content.Dit is links gecentreerde tekst. Gevolgd door een zin vol met content.Dit is links gecentreerde tekst. Gevolgd door een zin vol met content.
+
+Dit is rechts gecentreerde tekst. Gevolgd door een zin vol met content.Dit is rechts gecentreerde tekst. Gevolgd door een zin vol met content.Dit is rechts gecentreerde tekst. Gevolgd door een zin vol met content.
+
+Dit is midden gecentreerde tekst. Gevolgd door een zin vol met content.Dit is midden gecentreerde tekst. Gevolgd door een zin vol met content.Dit is midden gecentreerde tekst. Gevolgd door een zin vol met content.
+
+Dit is gelijk gecentreerde tekst. Gevolgd door een zin vol met content.Dit is gelijk gecentreerde tekst. Gevolgd door een zin vol met content.Dit is gelijk gecentreerde tekst. Gevolgd door een zin vol met content.
+
+Dit is gelinkte tekst. Gevolgd door een zin vol met content.
+"}, "date": "28/03/2023", "id": "6facecea-fbd3-4a56-8677-140fd910ddaa", "title": "Dit artikel laat alle verschillende edits zien"}

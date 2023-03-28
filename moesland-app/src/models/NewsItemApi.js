@@ -35,7 +35,15 @@ export async function fetchNewsItems() {
             );
         });
 
-        newsItems.forEach(element => console.log(element.title));
+
+
+        // Assuming your array of newsItems is called "newsItems"
+        newsItems.forEach(newsItem => {
+            console.log(newsItem)
+            //console.log(newsItem.content.attributes);
+            
+        });
+
         return newsItems;
     } catch (error) {
         console.error(error);
