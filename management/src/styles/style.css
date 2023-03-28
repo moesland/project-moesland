@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 .navbar-text-color{
   font-family: 'Fredoka One', sans-serif;
-  color:#2A6C0B !important;
-  font-weight:bold;
-}
+  color: #2A6C0B !important;
+  }
 
 .navbar-brand{
   font-family: 'Fredoka One', sans-serif;
