@@ -1,33 +1,121 @@
 {
     "ops": [
         {
-            "attributes": {
-                "color": "#565656"
-            },
-            "insert": "Op 14, 20 en 21 januari vond de Moeslande Pronkzitting plaats, en deze bestond dit jaar alweer 44 jaar en stond dan ook in het teken van een feestje, met als thema ‘Let’s celebrate’. En dat was te merken, er werd groots uitgepakt, met vooruitblikken naar de toekomst, maar ook teruggekeken naar de geschiedenis van de Moeslandse Pronkzitting."
-        },
-        {
-            "insert": "\n\n"
+            "insert": "Dit is de standaard tekst. Gevolgd door een zin vol met content.\nDit is H1 tekst. Gevolgd door een zin vol met content."
         },
         {
             "attributes": {
-                "color": "#565656",
-                "bold": true
+                "header": 1
             },
-            "insert": "Op 14, 20 en 21 januari vond de Moeslande Pronkzitting plaats, en deze bestond dit jaar alweer 44 jaar en stond dan ook in het teken van een feestje, met als thema ‘Let’s celebrate’. En dat was te merken, er werd groots uitgepakt, met vooruitblikken naar de toekomst, maar ook teruggekeken naar de geschiedenis van de Moeslandse Pronkzitting."
+            "insert": "\n"
         },
         {
-            "insert": "\n\n"
+            "insert": "Dit is H2 Gevolgd door een zin vol met content."
         },
         {
             "attributes": {
-                "color": "#565656",
-                "italic": true
+                "header": 2
             },
-            "insert": "Op 14, 20 en 21 januari vond de Moeslande Pronkzitting plaats, en deze bestond dit jaar alweer 44 jaar en stond dan ook in het teken van een feestje, met als thema ‘Let’s celebrate’. En dat was te merken, er werd groots uitgepakt, met vooruitblikken naar de toekomst, maar ook teruggekeken naar de geschiedenis van de Moeslandse Pronkzitting."
+            "insert": "\n"
+        },
+        {
+            "attributes": {
+                "size": "small"
+            },
+            "insert": "Dit is kleine tekst. Gevolgd door een zin vol met content."
+        },
+        {
+            "insert": "\nDit is normale tekst. Gevolgd door een zin vol met content.\n"
+        },
+        {
+            "attributes": {
+                "size": "large"
+            },
+            "insert": "Dit is grote tekst. Gevolgd door een zin vol met content."
         },
         {
             "insert": "\n"
+        },
+        {
+            "attributes": {
+                "size": "huge"
+            },
+            "insert": "Dit is gigantische tekst. Gevolgd door een zin vol met content."
+        },
+        {
+            "insert": "\n\n"
+        },
+        {
+            "attributes": {
+                "bold": true
+            },
+            "insert": "Dit is dikgedrukte tekst. Gevolgd door een zin vol met content."
+        },
+        {
+            "insert": "\n"
+        },
+        {
+            "attributes": {
+                "italic": true
+            },
+            "insert": "Dit is schuingedrukte tekst. Gevolgd door een zin vol met content."
+        },
+        {
+            "insert": "\n"
+        },
+        {
+            "attributes": {
+                "underline": true
+            },
+            "insert": "Dit is onderstreepte tekst. Gevolgd door een zin vol met content."
+        },
+        {
+            "insert": "\n\nDit is sans serif tekst. Gevolgd door een zin vol met content.\n"
+        },
+        {
+            "attributes": {
+                "font": "serif"
+            },
+            "insert": "Dit is serif tekst. Gevolgd door een zin vol met content."
+        },
+        {
+            "insert": "\n"
+        },
+        {
+            "attributes": {
+                "font": "monospace"
+            },
+            "insert": "Dit is monospace tekst. Gevolgd door een zin vol met content."
+        },
+        {
+            "insert": "\n\nDit is links gecentreerde tekst. Gevolgd door een zin vol met content.Dit is links gecentreerde tekst. Gevolgd door een zin vol met content.Dit is links gecentreerde tekst. Gevolgd door een zin vol met content.\n\nDit is rechts gecentreerde tekst. Gevolgd door een zin vol met content.Dit is rechts gecentreerde tekst. Gevolgd door een zin vol met content.Dit is rechts gecentreerde tekst. Gevolgd door een zin vol met content."
+        },
+        {
+            "attributes": {
+                "align": "right"
+            },
+            "insert": "\n"
+        },
+        {
+            "insert": "\nDit is midden gecentreerde tekst. Gevolgd door een zin vol met content.Dit is midden gecentreerde tekst. Gevolgd door een zin vol met content.Dit is midden gecentreerde tekst. Gevolgd door een zin vol met content."
+        },
+        {
+            "attributes": {
+                "align": "center"
+            },
+            "insert": "\n"
+        },
+        {
+            "insert": "\nDit is gelijk gecentreerde tekst. Gevolgd door een zin vol met content.Dit is gelijk gecentreerde tekst. Gevolgd door een zin vol met content.Dit is gelijk gecentreerde tekst. Gevolgd door een zin vol met content."
+        },
+        {
+            "attributes": {
+                "align": "justify"
+            },
+            "insert": "\n\n"
+        },
+        {
+            "insert": "\n\n\n\n"
         }
     ]
 }
