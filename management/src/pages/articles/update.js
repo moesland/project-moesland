@@ -1,32 +1,14 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import React, { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { BackendClientRequest } from "../../services/ApiClient";
 
 const Update = () => {
-    const { id } = useParams();
-
     const [editorHtml, setEditorHtml] = useState("");
     const [title, setTitle] = useState('');
     const [bannerImage, setBannerImage] = useState('');
     const quillRef = useRef(null);
 
     useEffect(() => {
-        const url = `/api/newsArticle/${id}`;
-        const body = {}
-        const headers = new Headers({
-            'Content-Type': 'application/json'
-        })
-        const method = "GET"
-
-        const data = BackendClientRequest(url, body, headers, method);
-
-        if (data && data.authToken) {
-            setEditorHtml(data.content);
-            setTitle(data.title);
-            setBannerImage(data.bannerImage);
-        }
     });
 
     const handleEditorChange = (value) => {
