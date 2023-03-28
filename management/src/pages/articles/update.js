@@ -1,7 +1,7 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { BackendClientRequest } from "../../services/ApiClient";
 
 const Update = () => {
@@ -9,6 +9,7 @@ const Update = () => {
     const [title, setTitle] = useState('');
     const quillRef = useRef(null);
 
+    const navigate = useNavigate();
     const { state } = useLocation();
 
     useEffect(() => {
@@ -49,6 +50,10 @@ const Update = () => {
         // Redirect to management page or homepage
     };
 
+    const openOverview = () => {
+        navigate('/articles');
+    }
+
     return (
         <>
             <div className="container">
@@ -78,7 +83,7 @@ const Update = () => {
                                     <input type="submit" value="Bijwerken" className="btn btn-success w-50" />
                                 </div>
                                 <div className="col text-end">
-                                    <a href="#" class="btn btn-danger w-50">Annuleren</a>
+                                    <button onClick={openOverview} class="btn btn-danger w-50">Annuleren</button>
                                 </div>
                             </div>
                         </div>
