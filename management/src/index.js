@@ -6,6 +6,7 @@ import Routing from './routing';
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/style.css';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
