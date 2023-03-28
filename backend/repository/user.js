@@ -18,10 +18,9 @@ module.exports = {
 
         return user;
     },
-    getAllUsers: async function ()
-    {
+    getAllUsers: async function () {
         return await User.find()
-        .catch(err => console.log("Cannot find list of users", err));
+            .catch(err => console.log("Cannot find list of users", err));
     },
     getUserById: async function (userId) {
         return await User.findById(userId)
@@ -36,21 +35,14 @@ module.exports = {
             .catch(err => console.error(err));
     },
     addUser: async function (email, username, password, adminRole) {
-        const newUser = new User({
-            password: password,
-            email: email,
-            username: username,
-            roleId: adminRole._id
-        });
-
-        return await newUser.save()
+        return await User.create({ password: { $eq: password }, email: { $eq: email }, username: { $eq: username }, roleId: { $eq: adminRole._id } })
             .catch((err) => {
                 console.error(err.message);
             });
     },
     updateUserByEmail: async function (email, username, password) {
         return await User.findOneAndUpdate(
-            { email: { $eq: email } }, { username: username , password: password}, { new: true })
+            { email: { $eq: email } }, { username: username, password: password }, { new: true })
             .catch((err) => {
                 console.error(err);
             });
