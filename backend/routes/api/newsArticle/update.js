@@ -6,7 +6,8 @@ const { updateImageById } = require('../../../repository/image');
 
 router.use(express.json());
 
-router.post('/', [
+router.post('/', authenticateToken, [
+    body('date').isDate(),
     body('title').trim().isString(),
     body('bannerImage.name').isString(),
     body('bannerImage.data').isBase64(),
