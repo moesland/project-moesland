@@ -62,7 +62,7 @@ export default function Management() {
                 Nieuwe Beheerder
               </button>
             </div>
-            <table class=" table table-striped table-hover" >
+            <table class=" table table-striped " >
               <thead>
                 <tr class="bg-moesland text-white">
                   <th scope="col">#</th>
