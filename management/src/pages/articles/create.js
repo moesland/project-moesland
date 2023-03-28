@@ -1,7 +1,6 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import React, { useState, useRef } from "react";
-import { Buffer } from "buffer";
 import { useNavigate } from "react-router-dom";
 
 const Create = () => {
@@ -9,6 +8,7 @@ const Create = () => {
     const [title, setTitle] = useState('');
     const [bannerImage, setBannerImage] = useState('');
     const quillRef = useRef(null);
+  
     const navigate = useNavigate();
 
     const modules = {
@@ -46,7 +46,7 @@ const Create = () => {
     
         const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:5000/api/newsArticle/create', {
+        const response = await fetch('http://localhost:5000/api/news-article/create', {
             method: 'POST',
             body: formData,
             headers: {
@@ -56,11 +56,12 @@ const Create = () => {
     
         if (response.ok) {
             window.alert('Nieuwsartikel is aangemaakt!');
-            navigate('/articles/overview');
+            navigate('/articles/');
         } else {
             window.alert('Fout bij het aanmaken');
         }
-    };  
+    };
+
     return (
         <>
             <div className="container">
@@ -105,6 +106,6 @@ const Create = () => {
             </div>
         </>
     )
-}
-
+    }
+    
 export default Create;

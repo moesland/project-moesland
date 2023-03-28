@@ -42,18 +42,15 @@ const ArticleOverview = () => {
     const deleteArticle = async (e, article) => {
         e.stopPropagation();
 
-        const url = "/api/newsArticle/delete";
+        const url = "/api/news-article/delete";
         const body = { _id: article._id }
         const headers = new Headers({
             'Content-Type': 'application/json'
         })
         const method = "POST"
 
-        const data = await BackendClientRequest(url, body, headers, method);
-        if (data && data.authToken) {
-            localStorage.setItem('token', data.authToken.token);
-            //navigate('/', { replace: true });
-        }
+        await BackendClientRequest(url, body, headers, method);
+        setArticles(articles.filter(data => data._id !== article._id))
     }
 
     const openCreate = () => {

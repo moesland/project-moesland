@@ -1,33 +1,25 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import React, { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { BackendClientRequest } from "../../services/ApiClient";
 
 const Update = () => {
-    const { id } = useParams();
-
     const [editorHtml, setEditorHtml] = useState("");
     const [title, setTitle] = useState('');
-    const [bannerImage, setBannerImage] = useState('');
     const quillRef = useRef(null);
 
+    const navigate = useNavigate();
+    const { state } = useLocation();
+
     useEffect(() => {
-        const url = `/api/newsArticle/${id}`;
-        const body = {}
-        const headers = new Headers({
-            'Content-Type': 'application/json'
-        })
-        const method = "GET"
-
-        const data = BackendClientRequest(url, body, headers, method);
-
-        if (data && data.authToken) {
-            setEditorHtml(data.content);
-            setTitle(data.title);
-            setBannerImage(data.bannerImage);
+        if (state) {
+            setTitle(state.article.title);
+            if (state.article.content) {
+                setEditorHtml(JSON.parse(state.article.content));
+            }
         }
-    });
+    }, []);
 
     const handleEditorChange = (value) => {
         setEditorHtml(value);
@@ -43,47 +35,27 @@ const Update = () => {
         ],
     };
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-            setBannerImage(reader.result);
-        };
-        reader.readAsDataURL(file);
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const delta = quillRef.current.getEditor().getContents();
         const content = JSON.stringify(delta);
 
-        const imageFile = document.querySelector('input[name="image"]').files[0];
-        const imageContentType = imageFile.type;
+        const headers = new Headers({
+            'Content-Type':'application/json'
+        });
+        const path = '/api/news-article/update';
+        const body = { id: state.article._id, title, content };
+        const method = "POST";
 
-        const image = {
-            name: 'banner',
-            data: Buffer.from(bannerImage.replace(/^data:image\/\w+;base64,/, ''), 'base64'),
-            contentType: imageContentType
-        };
-
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('content', content);
-        formData.append('bannerImage', imageFile);
-
-        try {
-            const response = await fetch('http://localhost:5000/api/newsArticle/update', {
-                method: 'POST',
-                body: formData
-            });
-            console.log('News article updated successfully');
-            // Redirect to management page or homepage
-        } catch (error) {
-            console.error(error);
-        }
+        await BackendClientRequest(path, body, headers, method);
+        // Redirect to management page or homepage
+        navigate('/articles/');
     };
+
+    const openOverview = () => {
+        navigate('/articles');
+    }
 
     return (
         <>
@@ -103,15 +75,9 @@ const Update = () => {
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
-                                Afbeelding:
-                            </label>
-                            <input type="file" name="image" accept="image/*" class="form-control" onChange={handleImageChange} />
-                        </div>
-                        <div className="form-group mt-3">
-                            <label className="mb-2">
                                 Inhoud:
                             </label>
-                            {<ReactQuill value={editorHtml} onChange={handleEditorChange} modules={modules} />}
+                            {<ReactQuill ref={quillRef} value={editorHtml} onChange={handleEditorChange} modules={modules} />}
                         </div>
                         <br></br>
                         <div className="form-group text-left">
@@ -120,7 +86,7 @@ const Update = () => {
                                     <input type="submit" value="Bijwerken" className="btn btn-success w-50" />
                                 </div>
                                 <div className="col text-end">
-                                    <a href="#" class="btn btn-danger w-50">Annuleren</a>
+                                    <button onClick={openOverview} class="btn btn-danger w-50">Annuleren</button>
                                 </div>
                             </div>
                         </div>
