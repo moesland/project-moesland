@@ -1,15 +1,37 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import React, { useState, useRef } from "react";
-import { Buffer } from "buffer";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { BackendClientRequest } from "../../services/ApiClient";
 
-const Create = () => {
+const Update = () => {
+    const { id } = useParams();
+
     const [editorHtml, setEditorHtml] = useState("");
     const [title, setTitle] = useState('');
     const [bannerImage, setBannerImage] = useState('');
     const quillRef = useRef(null);
-    const navigate = useNavigate();
+
+    useEffect(() => {
+        const url = `/api/newsArticle/${id}`;
+        const body = {}
+        const headers = new Headers({
+            'Content-Type': 'application/json'
+        })
+        const method = "GET"
+
+        const data = BackendClientRequest(url, body, headers, method);
+
+        if (data && data.authToken) {
+            setEditorHtml(data.content);
+            setTitle(data.title);
+            setBannerImage(data.bannerImage);
+        }
+    });
+
+    const handleEditorChange = (value) => {
+        setEditorHtml(value);
+    };
 
     const modules = {
         toolbar: [
@@ -33,34 +55,36 @@ const Create = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const delta = quillRef.current.getEditor().getContents();
         const content = JSON.stringify(delta);
 
         const imageFile = document.querySelector('input[name="image"]').files[0];
-    
+        const imageContentType = imageFile.type;
+
+        const image = {
+            name: 'banner',
+            data: Buffer.from(bannerImage.replace(/^data:image\/\w+;base64,/, ''), 'base64'),
+            contentType: imageContentType
+        };
+
         const formData = new FormData();
         formData.append('title', title);
         formData.append('content', content);
         formData.append('bannerImage', imageFile);
-    
-        const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:5000/api/newsArticle/create', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-    
-        if (response.ok) {
-            window.alert('Nieuwsartikel is aangemaakt!');
-            navigate('/articles/overview');
-        } else {
-            window.alert('Fout bij het aanmaken');
+        try {
+            const response = await fetch('http://localhost:5000/api/newsArticle/update', {
+                method: 'POST',
+                body: formData
+            });
+            console.log('News article updated successfully');
+            // Redirect to management page or homepage
+        } catch (error) {
+            console.error(error);
         }
-    };  
+    };
+
     return (
         <>
             <div className="container">
@@ -68,35 +92,35 @@ const Create = () => {
                     <form onSubmit={handleSubmit} className="col-6">
                         <div className="text-center">
                             <h1>
-                                Nieuwsartikel aanmaken
+                                Nieuwsartikel bewerken
                             </h1>
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
                                 Titel:
                             </label>
-                            <input type="text" name="title" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} required/>
+                            <input type="text" name="title" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} />
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
                                 Afbeelding:
                             </label>
-                            <input type="file" name="image" accept="image/*" class="form-control" onChange={handleImageChange} required/>
+                            <input type="file" name="image" accept="image/*" class="form-control" onChange={handleImageChange} />
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
                                 Inhoud:
                             </label>
-                            <ReactQuill ref={quillRef} name="conent" modules={modules}/>
+                            {<ReactQuill value={editorHtml} onChange={handleEditorChange} modules={modules} />}
                         </div>
-                        <br></br>   
+                        <br></br>
                         <div className="form-group text-left">
                             <div className="row">
                                 <div className="col text-start">
-                                    <input type="submit" value="Aanmaken" className="btn btn-success w-50"/>
+                                    <input type="submit" value="Bijwerken" className="btn btn-success w-50" />
                                 </div>
                                 <div className="col text-end">
-                                    <a href="/articles/overview" class="btn btn-danger w-50">Annuleren</a>
+                                    <a href="#" class="btn btn-danger w-50">Annuleren</a>
                                 </div>
                             </div>
                         </div>
@@ -107,4 +131,4 @@ const Create = () => {
     )
 }
 
-export default Create;
+export default Update;

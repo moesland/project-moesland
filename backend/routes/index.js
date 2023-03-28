@@ -13,6 +13,6 @@ router.use('/api/auth', requestLimiter, require('./api/auth'));
 router.use('/api/role', require('./api/role'));
 router.use('/api/user', require('./api/user'));
 router.use('/api/authToken', require('./api/authToken'));
-router.use('/api/newsArticle/create', requestLimiter, require('./api/newsArticle/create'));
-  
+router.use('/api/news-article', requestLimiter, require('./api/newsArticle'));
+
 module.exports = router;

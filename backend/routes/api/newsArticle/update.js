@@ -1,19 +1,19 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
-const { updateNewsArticleByID } = require('../../../repository/newsArticle');
+const { updateNewsArticleById } = require('../../../repository/newsArticle');
+const { updateImageById } = require('../../../repository/image');
+const { authenticateToken } = require('../../../middlewares/auth');
 
 router.use(express.json());
 
 router.post('/', authenticateToken, [
     body('date').isDate(),
     body('title').trim().isString(),
-    body('bannerImage').isURL(),
-    body('content').isArray(),
-    body('content.*.text').trim().optional().isString(),
-    body('content.*.image.*.name').isString(),
-    body('content.*.image.*.data').isBase64(),
-    body('content.*.image.*.contentType').isMimeType()
+    body('bannerImage.name').isString(),
+    body('bannerImage.data').isBase64(),
+    body('bannerImage.contentType').isMimeType(),
+    body('content').isString()
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -21,12 +21,16 @@ router.post('/', authenticateToken, [
     }
 
     const { id, date, title, bannerImage, content } = req.body;
+    const { bannerImageId } = req.body.bannerImage;
+    const { name, data, contentType } = req.body.bannerImage;
 
     try {
-        const updatedArticle = await updateNewsArticleByID(id, date, title, bannerImage, content);
-        res.status(200).send(`News article ${updatedArticle.title} updated successfully!`);
+        const updatedArticle = await updateNewsArticleById(id, date, title, bannerImage, content);
+        const updatedImage = await updateImageById(bannerImageId, name, data, contentType);
+
+        res.status(200).send(`News article ${updatedArticle.title} and image ${updatedImage.name} updated successfully!`);
     } catch (err) {
-        res.status(500).send(`Could not update news article: ${err}`);
+        res.status(500).send(`Could not update news article or image: ${err}`);
     }
 });
 
