@@ -4,30 +4,31 @@ const NewsArticle = require('../../../models/newsArticle');
 const Image = require('../../../models/image');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
+const { createNewsArticle } = require('../../../repository/newsArticle');
 const fs = require('fs');
+const path = require('path');
+const auth = require('../../../middlewares/auth');
 
 router.use(express.json());
 
 router.get('/', async (req, res) => {
-    res.send('hello');
+    res.send('Nieuwsartikel aanmaken');
 });
 
-router.post('/', upload.single('bannerImage'), async (req, res) => {
-    try {
-        const newImage = new Image({
+router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (req, res) => {
+   try {
+        const {title, date, content } = req.body;
+        const filePath = path.join(__dirname, '../../..', req.file.path);
+        const imageBuffer = fs.readFileSync(filePath); 
+
+        const bannerImage = new Image({
             name: req.file.originalname,
-            data: fs.readFileSync(req.file.path),
+            data: imageBuffer,
             contentType: req.file.mimetype
         });
-        const savedImage = await newImage.save();
 
-        const newArticle = new NewsArticle({
-            title: req.body.title,
-            content: req.body.content,
-            date: Date.now(),
-            bannerImage: savedImage._id
-        });
-        const savedArticle = await newArticle.save();
+        const newArticle = await createNewsArticle(title, date, bannerImage, content);
+         res.status(201).send(`News article created successfully!`);
     } catch (err) {
         res.status(500).send(`Could not create news article: ${err}`);
     }
