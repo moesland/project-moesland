@@ -3,6 +3,7 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const { updateNewsArticleById } = require('../../../repository/newsArticle');
 const { updateImageById } = require('../../../repository/image');
+const { authenticateToken } = require('../../../middlewares/auth');
 
 router.use(express.json());
 
