@@ -15,7 +15,9 @@ const Update = () => {
     useEffect(() => {
         if (state) {
             setTitle(state.article.title);
-            setEditorHtml(JSON.parse(state.article.content));
+            if (state.article.content) {
+                setEditorHtml(JSON.parse(state.article.content));
+            }
         }
     }, []);
 
