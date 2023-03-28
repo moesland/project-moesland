@@ -31,7 +31,7 @@ router.post('/', [
             const newUser = await addUser(email, username, password, adminRole);
             return res.status(200).send(`User ${newUser.username} added successfully!`);
         } catch (err) {
-            return res.status(500).send(`Could not update user: ${err}`);
+            return res.status(500).send(`Could not add user: ${err}`);
         }
     }
     catch (err) {
