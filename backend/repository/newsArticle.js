@@ -18,5 +18,9 @@ module.exports = {
     async deleteNewsArticle(newsArticle) {
         return await NewsArticle.deleteOne(newsArticle)
             .catch(err => console.error(err));
+    },
+    async getAllNewsArticle() {
+        return await NewsArticle.find({})
+            .catch(err => console.error(err));
     }
 };

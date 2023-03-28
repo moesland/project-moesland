@@ -13,9 +13,6 @@ router.use('/api/auth', requestLimiter, require('./api/auth'));
 router.use('/api/role', require('./api/role'));
 router.use('/api/user', require('./api/user'));
 router.use('/api/authToken', require('./api/authToken'));
-
-router.use('/api/newsArticle/create', require('./api/newsArticle/create'));
-router.use('/api/newsArticle/update', require('./api/newsArticle/update'));
-router.use('/api/newsArticle/delete', require('./api/newsArticle/delete'));
+router.use('/api/news-article', require('./api/newsArticle'));
 
 module.exports = router;

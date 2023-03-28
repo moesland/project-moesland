@@ -1,89 +1,96 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomPaginate from '../../modules/CustomPaginate';
 import { useNavigate } from "react-router-dom";
 import { BackendClientRequest } from "../../services/ApiClient";
 
 const ArticleOverview = () => {
-    const testData = {
-        "articles": [
-            {
-                "date": "20-2-2023",
-                "title": "first ever",
-                "content": "asdfjaopsdifjpoasdf"
-            },
-            {
-                "date": "20-2-2022",
-                "title": "second ever",
-                "content": "asdfasdf"
-            }
-        ]
-    };
-
     const [pageNumber, setPageNumber] = useState(0);
+    const [articles, setArticles] = useState(undefined);
+    const [pagesVisited, setPagesVisited] = useState(undefined);
+    const [pageCount, setPageCount] = useState(undefined);
+    
     const navigate = useNavigate();
     const articlesPerPage = 10;
-    const pagesVisited = pageNumber * articlesPerPage;
 
-    const pageCount = Math.ceil(testData.articles.length / articlesPerPage);
+    useEffect(() => {
+        const fetchArticleData = async () => {
+            await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/news-article/", { method: "GET" })
+                .then(response => response.json())
+                .then(data => { console.log(data); setArticles(data)});
+        }
+
+        fetchArticleData()
+    }, [])
+
+    useEffect(() => {
+        if (articles) {
+            setPagesVisited(pageNumber * articlesPerPage);
+            setPageCount(Math.ceil(articles.length / articlesPerPage));
+        }
+
+    }, [articles, pagesVisited, pageCount])
 
     const changePage = ({ selected }) => {
         setPageNumber(selected);
     };
 
-    const openEdit = () => {
-        navigate('/');
+    //https://stackoverflow.com/questions/69714423/how-do-you-pass-data-when-using-the-navigate-function-in-react-router-v6
+    const openEdit = (article) => {
+        navigate('/articles/update/' + article._id, { article });
     }
 
-    const deleteArticle = async (e, title) => {
+    const deleteArticle = async (e, article) => {
         e.stopPropagation();
 
         const url = "/api/newsArticle/delete";
-        const body = { title }
+        const body = { _id: article._id }
         const headers = new Headers({
             'Content-Type': 'application/json'
         })
         const method = "POST"
-        
+
         const data = await BackendClientRequest(url, body, headers, method);
         if (data && data.authToken) {
             localStorage.setItem('token', data.authToken.token);
-            navigate('/', { replace: true });
+            //navigate('/', { replace: true });
         }
     }
 
     const openCreate = () => {
-        navigate('/');
+        navigate('/articles/create');
     }
 
     return (
         <>
-            <div className="container mt-3">
-                <div className="mb-3">
-                    <button className="btn btn-moesland" onClick={openCreate}> Nieuw artikel</button>
-                </div>
+            {articles &&
+                <div className="container mt-3">
+                    <div className="mb-3">
+                        <button className="btn btn-moesland" onClick={openCreate}> Nieuw artikel</button>
+                    </div>
 
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr className="bg-moesland text-white">
-                            <th scope="col">Aanmaak datum</th>
-                            <th scope="col">Titel</th>
-                            <th scope="col" colspan="2">Inhoud</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {testData.articles.slice(pagesVisited, pagesVisited + articlesPerPage).map(article => (
-                            <tr key={article.date} onClick={openEdit}>
-                                <td>{article.date}</td>
-                                <td>{article.title}</td>
-                                <td>{article.content}</td>
-                                <td><button className="btn btn-moesland" onClick={(e) => deleteArticle(e, article.title)}>verwijderen</button></td>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr className="bg-moesland text-white">
+                                <th scope="col">Aanmaak datum</th>
+                                <th scope="col">Titel</th>
+                                <th scope="col" colspan="2">Inhoud</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {articles.slice(pagesVisited, pagesVisited + articlesPerPage).map(article => (
+                                <tr key={article._id} onClick={() => openEdit(article)}>
+                                    <td>{ new Date(article.date).toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' })}</td>
+                                    <td>{article.title}</td>
+                                    <td>{article.content}</td>
+                                    <td><button className="btn btn-moesland" onClick={(e) => deleteArticle(e, article)}>verwijderen</button></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
 
-                <CustomPaginate pageCount={pageCount} changePage={changePage} />
-            </div>
+                    <CustomPaginate pageCount={pageCount} changePage={changePage} />
+                </div>
+            }
         </>
     )
 }

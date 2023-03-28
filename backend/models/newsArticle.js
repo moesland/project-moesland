@@ -11,8 +11,7 @@ const newsArticleSchema = new mongoose.Schema({
     },
     bannerImage: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Image",
-        required: true
+        ref: "Image"
     },
     content: {
         type: String,
