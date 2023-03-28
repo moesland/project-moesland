@@ -21,6 +21,7 @@ const Login = () => {
         const data = await BackendClientRequest(url, body, headers, method);
         if(data && data.authToken) {
             localStorage.setItem('token', data.authToken.token);
+            localStorage.setItem('user', body.username);
             navigate('/', {replace: true});
         }
         else{
