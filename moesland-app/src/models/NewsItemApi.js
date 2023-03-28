@@ -21,9 +21,14 @@ export async function fetchNewsItems() {
                 return attrs;
             }, {});
 
+            // convert the date to DD/MM/YYYY format
+            const inputDateString = item.date;
+            const date = new Date(inputDateString);
+            const formattedDate = date.toLocaleDateString('en-GB');
+
             return new NewsItemModel(
                 uuid.v4(),
-                item.date.$date,
+                formattedDate,
                 item.title,
                 item.bannerImage.$oid,
                 new NewsItemContentModel(item._id.$oid, text, attributes)
@@ -31,7 +36,6 @@ export async function fetchNewsItems() {
         });
 
         newsItems.forEach(element => console.log(element.title));
-        newsItems.forEach(element => console.log(element.id));
         return newsItems;
     } catch (error) {
         console.error(error);
