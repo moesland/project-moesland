@@ -72,8 +72,7 @@ const ArticleOverview = () => {
                         <thead>
                             <tr className="bg-moesland text-white">
                                 <th scope="col">Aanmaak datum</th>
-                                <th scope="col">Titel</th>
-                                <th scope="col" colspan="2">Inhoud</th>
+                                <th scope="col" colspan="2">Titel</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,7 +80,6 @@ const ArticleOverview = () => {
                                 <tr key={article._id} onClick={() => openEdit(article)}>
                                     <td>{ new Date(article.date).toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' })}</td>
                                     <td>{article.title}</td>
-                                    <td>{article.content}</td>
                                     <td><button className="btn btn-moesland" onClick={(e) => deleteArticle(e, article)}>verwijderen</button></td>
                                 </tr>
                             ))}

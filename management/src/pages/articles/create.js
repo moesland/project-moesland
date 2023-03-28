@@ -44,17 +44,6 @@ const Create = () => {
         formData.append('content', content);
         formData.append('bannerImage', imageFile);
     
-        try {
-            const response = await fetch('http://localhost:5000/api/newsArticle/create', {
-                method: 'POST',
-                body: formData
-            });
-            console.log('News article created successfully');
-            // Redirect to management page or homepage
-        } catch (error) {
-            console.error(error);
-        }
-    
         const token = localStorage.getItem('token');
 
         const response = await fetch('http://localhost:5000/api/newsArticle/create', {
@@ -99,7 +88,7 @@ const Create = () => {
                             <label className="mb-2">
                                 Inhoud:
                             </label>
-                            { <ReactQuill value={editorHtml} name="conent" modules={modules}/> }
+                            <ReactQuill ref={quillRef} name="conent" modules={modules}/>
                         </div>
                         <br></br>   
                         <div className="form-group text-left">

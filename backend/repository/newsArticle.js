@@ -23,8 +23,7 @@ module.exports = {
             .catch(err => console.error(err));
     },
     async getAllNewsArticle() {
-        return await NewsArticle.find({})
-            .populate('bannerImage')
+        return await NewsArticle.find({}).populate("bannerImage")
             .catch(err => console.error(err));
     },
     async createNewsArticle(title, date, bannerImage, content){
