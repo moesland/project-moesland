@@ -42,7 +42,7 @@ const ArticleOverview = () => {
     const deleteArticle = async (e, article) => {
         e.stopPropagation();
 
-        const url = "/api/newsArticle/delete";
+        const url = "/api/news-article/delete";
         const body = { _id: article._id }
         const headers = new Headers({
             'Content-Type': 'application/json'
