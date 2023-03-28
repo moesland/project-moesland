@@ -17,8 +17,7 @@ export default function App() {
 
   useEffect(() => {
     async function loadNewsItems() {
-      const apiUrl = './apitest.json'; // or use the actual API endpoint URL
-      const items = await fetchNewsItems(apiUrl);
+      const items = await fetchNewsItems();
       setNewsItems(items);
     }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Image, FlatList, Pressable, StyleSheet } from 'react-native';
+import { fetchNewsItems } from '../models/NewsItemApi';
 import NewsItemController from '../controllers/NewsItemController.js';
 
 const NewsItemListView = ({ navigation }) => {
@@ -36,8 +37,8 @@ const NewsItemListView = ({ navigation }) => {
   // fetches data async after the newsitemlistview is first rendered
   useEffect(() => {
     const fetchData = async () => {
-      const newsItems = await NewsItemController.getAllItems();
-      setNewsItems(newsItems);
+      const items = await fetchNewsItems();
+      setNewsItems(items);
     };
 
     fetchData();
