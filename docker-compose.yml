@@ -1,0 +1,32 @@
+version: '1'
+name: Moesland
+services:
+  database:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=root1234
+      - MONGO_INITDB_DATABASE=moesland
+    expose:
+      - 27017
+    volumes:
+      - mongo_data:/data/db
+  backend:
+    container_name: backend
+    build: 
+      context: ./backend
+      dockerfile: dockerfile
+    command: npm run dev
+    ports: 
+      - 5500:5050
+    depends_on:
+      - database
+    environment:
+      - PORT=5050
+      - MONGO_URL=mongodb://admin:root1234@mongodb:27017
+    volumes:
+      - "./backend:/backend"
+volumes:
+  mongo_data:
