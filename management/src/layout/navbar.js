@@ -12,11 +12,11 @@ const Navbar = () => {
         }
     }, [user]);
 
-    const removeStorage = () => {
+    const logout = () => {
         try {
             setUser("");
             localStorage.clear();
-            navigate('/login/');
+            navigate('/login');
         } catch (error) {
             console.error(error);
         }
@@ -39,7 +39,7 @@ const Navbar = () => {
                     </li>
                 </ul>
                 <input class="nav-link border-0 navbar-text-color n-hover text-right bg-light text-center" type="text" value={user} disabled />
-                <button class="nav-link navbar-text-color bg-light mb-2 mb-lg-0 border-0 n-hover" onClick={removeStorage}>Uitloggen</button>
+                <button class="nav-link navbar-text-color bg-light mb-2 mb-lg-0 border-0 n-hover" onClick={logout}>Uitloggen</button>
             </div>
         </div>
     </nav>
