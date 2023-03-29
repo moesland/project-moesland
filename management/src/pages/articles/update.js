@@ -27,10 +27,10 @@ const Update = () => {
 
     const modules = {
         toolbar: [
-            [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+            [{ 'header': '1' }, { 'header': '2' }],
             [{ size: [] }],
             ['bold', 'italic', 'underline'],
-            ['link', 'image', 'video'],
+            ['link', 'image'],
             [{ 'align': [] }],
         ],
     };
@@ -86,7 +86,7 @@ const Update = () => {
                                     <input type="submit" value="Bijwerken" className="btn btn-success w-50" />
                                 </div>
                                 <div className="col text-end">
-                                    <button onClick={openOverview} class="btn btn-danger w-50">Annuleren</button>
+                                    <button onClick={openOverview} className="btn btn-danger w-50">Annuleren</button>
                                 </div>
                             </div>
                         </div>

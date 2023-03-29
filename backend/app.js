@@ -21,6 +21,7 @@ app.use(cors({
 require('./models');
 require('./seeds/dataSeeder');
 
+
 // Body parser
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(bodyParser.json({limit: '50mb'}));
