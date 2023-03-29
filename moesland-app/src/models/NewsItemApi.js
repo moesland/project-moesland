@@ -68,7 +68,6 @@ export async function fetchNewsItems() {
         //     console.log("Title:", newsItem.title)
         //     console.log("ContentSize:", newsItem.content.length)
         //     newsItem.content.forEach(contentItem => {
-
         //         console.log("Text:", contentItem.text)
         //         console.log("Has")
         //         console.log("Attributes:", contentItem.attributes)
