@@ -32,3 +32,8 @@
 .bg-moesland {
   background-color: #59be2a !important;
 }
+
+.custom-active-link {
+  background-color: #3d861c !important;
+  border-color: #4ba721 !important;
+}

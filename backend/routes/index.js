@@ -19,5 +19,6 @@ router.use('/api/user/delete', authenticateTokenRole("SuperAdmin"), requestLimit
 router.use('/api/user/getList', require('./api/user/getList'));
 
 router.use('/api/authToken', require('./api/authToken'));
+router.use('/api/news-article', requestLimiter, require('./api/newsArticle'));
 
 module.exports = router;
