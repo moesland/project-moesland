@@ -53,7 +53,7 @@ const AuthenticateRoute = ({ token, isAuthenticated, redirectPath, children }) =
     }
 
     if (!isAuth) {
-        return <>loading</>;
+        return children ? children : <DefaultLayout />; //THIS
     }
 
     if (isAuth.error == "Invalid authorization token"){
