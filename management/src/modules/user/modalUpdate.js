@@ -16,6 +16,7 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
     });
 
     const onSubmit = async (data) => {
+        if(selectedItem.roleId.rolename == "SuperAdmin") return;
         const path = "/api/user/update"
         const body = {
             username: data.username,
@@ -49,7 +50,7 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
                             <div className="mx-auto  col-md-10">
                                 <div className="form-group pt-3">
                                     <label>Nieuwe gebruikersnaam</label>
-                                    <input className="form-control" id="EditModalEmailInput" name="EditManagersEmailName" aria-describedby="emailHelp" placeholder="Email" {...register("username")} ></input>
+                                    <input className="form-control" id="EditModalEmailInput" name="EditManagersEmailName" aria-describedby="emailHelp" placeholder="Username" {...register("username")} ></input>
                                     <small id="modalAddManagerUserError" className="form-text text-danger mt-3 modalAddManagerUserError">{errors.username?.message}</small>
                                 </div>
                                 <div className="form-group pt-3">
