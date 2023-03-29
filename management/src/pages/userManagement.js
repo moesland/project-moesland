@@ -67,7 +67,7 @@ export default function Management() {
                     <th className="id" >{user.id}</th>
                     <td className="email">{user.email}</td>
                     <td className="userName">{user.username}</td>
-                    <td className="role">Beheerder</td>
+                    <td className="role">{user.roleId.rolename}</td>
                     <td >
                       <div className="row">
                         <div className="">

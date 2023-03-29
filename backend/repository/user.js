@@ -19,7 +19,7 @@ module.exports = {
         return user;
     },
     getAllUsers: async function () {
-        return await User.find()
+        return await User.find().populate("roleId")
             .catch(err => console.log("Cannot find list of users", err));
     },
     getUserById: async function (userId) {
