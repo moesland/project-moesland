@@ -21,6 +21,7 @@ const Login = () => {
         const data = await BackendClientRequest(url, body, headers, method);
         if(data && data.authToken) {
             localStorage.setItem('token', data.authToken.token);
+            localStorage.setItem('user', body.username);
             navigate('/', {replace: true});
         }
         else{
@@ -63,10 +64,10 @@ const Login = () => {
 
     return (
         <>      
-            <div className="container">
-                <div className="h-100 d-flex align-items-center justify-content-center">           
-                    <form onSubmit={handleSubmit} className="col-3">
-                        <div className="text-center">
+            <div class="container">
+                <div class="h-100 d-flex align-items-center justify-content-center mt-5">           
+                    <form onSubmit={handleSubmit} class="col-3 mt-5 login-form">
+                        <div class="text-center">
                             <h1>Inloggen</h1>
                         </div>          
                         {errors.login && <div className="text-danger fw-bold text-center">{errors.login}</div>}    

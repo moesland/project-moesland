@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 .navbar-text-color{
   font-family: 'Fredoka One', sans-serif;
-  color:#2A6C0B !important;
-  font-weight:bold;
-}
+  color: #2A6C0B !important;
+  }
 
 .navbar-brand{
   font-family: 'Fredoka One', sans-serif;
@@ -12,6 +13,10 @@
 
 .navbar-text-color:hover{
   box-shadow: inset 0 4px 0 0 rgb(4,125,60);
+}
+
+.navbar-text-color.n-hover:hover {
+  box-shadow: none;
 }
 
 .btn-moesland {
@@ -41,5 +46,10 @@
 .custom-modal {
   background-color: #00000073;
   display: block;
-  
+}
+
+.login-form{
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 10px;
 }

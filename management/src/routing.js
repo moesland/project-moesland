@@ -13,23 +13,19 @@ import ArticleOverview from './pages/articles/overview';
 
 const Routing = () => {
   return (
-    <DefaultLayout>
-      <Routes>
+    <Routes>
+      <Route element={<ProtectedRoute/>}>
         <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/articles/create" element={<ArticlesCreate />} />
+        <Route path="/articles/update/:id" element={<ArticlesUpdate />} />
+        <Route path='/articles' element={<ArticleOverview/>} />
+      </Route>
 
-        <Route element={<ProtectedRoute />}>
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/articles/create" element={<ArticlesCreate />} />
-          <Route path="/articles/update/:id" element={<ArticlesUpdate />} />
-          <Route path='/articles' element={<ArticleOverview/>} />
-          <Route path="/users" element={<Management />} />
-        </Route>
-
-        <Route element={<ProtectedRoute isAuthenticated={false}/>}>
-          <Route path="/login" element={<Login />}/>
-        </Route>
-      </Routes>
-    </DefaultLayout>
+      <Route element={<ProtectedRoute isAuthenticated={false}/>}>
+        <Route path="/login" element={<Login />}/>
+      </Route>
+    </Routes>
   )
 }
 
