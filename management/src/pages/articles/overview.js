@@ -65,7 +65,7 @@ const ArticleOverview = () => {
                         <button className="btn btn-moesland" onClick={openCreate}> Nieuw artikel</button>
                     </div>
 
-                    <table class="table table-striped table-hover">
+                    <table className="table table-striped table-hover">
                         <thead>
                             <tr className="bg-moesland text-white">
                                 <th scope="col">Aanmaak datum</th>

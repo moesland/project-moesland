@@ -10,6 +10,7 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
         username: yup.string().min(2, "Het gebruikersnaam moet minimaal twee karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn."),
         password: yup.string().min(6, "het wachtwoord moet minimaal 6 karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn.")
     })
+
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
@@ -38,30 +39,30 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
 
     return (
         <>
-            <div class="modal show" role="dialog" style={{ display: "block" }}>
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-moesland text-white">
-                            <h5 class="modal-title ">Beheerder aanpassen</h5>
+            <div className="modal show" role="dialog" style={{ display: "block" }}>
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header bg-moesland text-white">
+                            <h5 className="modal-title ">Beheerder aanpassen</h5>
                         </div>
                         <form name="EditManagers" onSubmit={handleSubmit(onSubmit)}>
                             <div className="mx-auto  col-md-10">
-                                <div class="form-group pt-3">
+                                <div className="form-group pt-3">
                                     <label>Nieuwe gebruikersnaam</label>
-                                    <input class="form-control" id="EditModalEmailInput" name="EditManagersEmailName" aria-describedby="emailHelp" placeholder="Email" {...register("username")} ></input>
-                                    <small id="modalAddManagerUserError" class="form-text text-danger mt-3 modalAddManagerUserError">{errors.username?.message}</small>
+                                    <input className="form-control" id="EditModalEmailInput" name="EditManagersEmailName" aria-describedby="emailHelp" placeholder="Email" {...register("username")} ></input>
+                                    <small id="modalAddManagerUserError" className="form-text text-danger mt-3 modalAddManagerUserError">{errors.username?.message}</small>
                                 </div>
-                                <div class="form-group pt-3">
+                                <div className="form-group pt-3">
                                     <label>Nieuwe wachtwoord</label>
-                                    <input id="EditModalPasswordInput" class="form-control" placeholder="Wachtwoord" name="modalEditManagerPasswordName" {...register("password")}></input>
+                                    <input id="EditModalPasswordInput" className="form-control" placeholder="Wachtwoord" name="modalEditManagerPasswordName" {...register("password")}></input>
                                 </div>
-                                <small id="modalAddManagerPasswordError" class="form-text text-danger  modalAddManagerPasswordError" >{errors.password?.message}</small>
-                                <div class="form-check">
+                                <small id="modalAddManagerPasswordError" className="form-text text-danger  modalAddManagerPasswordError" >{errors.password?.message}</small>
+                                <div className="form-check">
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button onClick={toggleModal} type="button" class="btn btn-secondary" data-dismiss="modal">Anuleren</button>
-                                <input type="submit" class="btn btn-moesland" value="Opslaan"></input>
+                            <div className="modal-footer">
+                                <button onClick={toggleModal} type="button" className="btn btn-secondary" data-dismiss="modal">Anuleren</button>
+                                <input type="submit" className="btn btn-moesland" value="Opslaan"></input>
                             </div>
                         </form>
                     </div>

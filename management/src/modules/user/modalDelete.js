@@ -23,19 +23,19 @@ const ModalDelete = ({ toggleModal, selectedItem, refreshOverview }) => {
 
     return (
         <>
-            <div class="modal show" tabIndex={-1} role="dialog" style={{ display: "block" }}>
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-moesland text-white">
-                            <h5 class="modal-title">Beheerder verwijderen </h5>
+            <div className="modal show" tabIndex={-1} role="dialog" style={{ display: "block" }}>
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
+                        <div className="modal-header bg-moesland text-white">
+                            <h5 className="modal-title">Beheerder verwijderen </h5>
                         </div>
                         <form>
-                            <div class="modal-body">
-                                <p class="deleteModalText">Weet U zeker dat u dit beheerder wilt verwijderen?</p>
+                            <div className="modal-body">
+                                <p className="deleteModalText">Weet U zeker dat u dit beheerder wilt verwijderen?</p>
                             </div>
-                            <div class="modal-footer">
-                                <button onClick={deleteManager} type="button" class="btn btn btn-danger">Verwijderen</button>
-                                <button onClick={toggleModal} type="button" class="btn btn-secondary" data-dismiss="modal">Anuleren</button>
+                            <div className="modal-footer">
+                                <button onClick={deleteManager} type="button" className="btn btn btn-danger">Verwijderen</button>
+                                <button onClick={toggleModal} type="button" className="btn btn-secondary" data-dismiss="modal">Anuleren</button>
                             </div>
                         </form>
                     </div>
