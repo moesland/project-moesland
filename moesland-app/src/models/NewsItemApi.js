@@ -20,24 +20,13 @@ export async function fetchNewsItems() {
                 const attributes = op.attributes || {};
                 if (attributes.header || attributes.align) {
                     if (previousContentModel) {
-                        // console.log('about to put ', attributes)
-                        // console.log('From', op.insert)
-                        // console.log('into text', previousContentModel.text)
-
-                        // console.log('header', attributes.header);
-                        // console.log('align', attributes.align);
-                        // console.log('previous attributes', previousContentModel.attributes);
-
                         const newAttributes = {
                             "header": attributes.header,
                             "align": attributes.align,
                             ...previousContentModel.attributes,
                         };
 
-                        //console.log('new attributes', newAttributes)
-
                         previousContentModel.attributes = newAttributes;
-                        //console.log('which should be the same as previous attibutes:', previousContentModel.attributes)
                     }
                 }
                 const contentModel = new NewsItemContentModel(
@@ -63,16 +52,6 @@ export async function fetchNewsItems() {
                 contentModels
             );
         });
-
-        // newsItems.forEach(newsItem => {
-        //     console.log("Title:", newsItem.title)
-        //     console.log("ContentSize:", newsItem.content.length)
-        //     newsItem.content.forEach(contentItem => {
-        //         console.log("Text:", contentItem.text)
-        //         console.log("Has")
-        //         console.log("Attributes:", contentItem.attributes)
-        //     })
-        // });
 
         return newsItems;
     } catch (error) {
