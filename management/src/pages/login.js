@@ -65,8 +65,8 @@ const Login = () => {
     return (
         <>      
             <div class="container">
-                <div class="h-100 d-flex align-items-center justify-content-center">           
-                    <form onSubmit={handleSubmit} class="col-3">
+                <div class="h-100 d-flex align-items-center justify-content-center mt-5">           
+                    <form onSubmit={handleSubmit} class="col-3 mt-5 login-form">
                         <div class="text-center">
                             <h1>Inloggen</h1>
                         </div>          
