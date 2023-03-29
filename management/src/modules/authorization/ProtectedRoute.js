@@ -1,5 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react'
+import DefaultLayout from '../../layout/default';
 
 const useAuth = (token) => {
     const [isAuth, setIsAuth] = useState(null);
@@ -46,7 +47,7 @@ const ProtectedRoute = ({ isAuthenticated = true, redirectPath = "/login", child
 
 const AuthenticateRoute = ({ token, isAuthenticated, redirectPath, children }) => {
     const isAuth = useAuth(token);
-
+    
     if (!isAuthenticated) {
         return <Navigate to={redirectPath} />;
     }
@@ -55,11 +56,16 @@ const AuthenticateRoute = ({ token, isAuthenticated, redirectPath, children }) =
         return <>loading</>;
     }
 
+    if (isAuth.error == "Invalid authorization token"){
+        localStorage.clear()
+        return <Navigate to={redirectPath} />; 
+    }
+
     if (!isAuth.authorized) {
         return <Navigate to={redirectPath} />;
     }
 
-    return children ? children : <Outlet />;
+    return children ? children : <DefaultLayout />; //THIS
 };
 
 export default ProtectedRoute;
