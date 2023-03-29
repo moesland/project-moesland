@@ -21,7 +21,6 @@ const Login = () => {
         const data = await BackendClientRequest(url, body, headers, method);
         if(data && data.authToken) {
             localStorage.setItem('token', data.authToken.token);
-            localStorage.setItem('user', body.username);
             navigate('/', {replace: true});
         }
         else{
@@ -64,30 +63,30 @@ const Login = () => {
 
     return (
         <>      
-            <div className="container">
-                <div className="h-100 d-flex align-items-center justify-content-center mt-5">           
-                    <form onSubmit={handleSubmit} className="col-3 mt-5 login-form">
-                        <div className="text-center">
+            <div class="container">
+                <div class="h-100 d-flex align-items-center justify-content-center">           
+                    <form onSubmit={handleSubmit} class="col-3">
+                        <div class="text-center">
                             <h1>Inloggen</h1>
                         </div>          
                         {errors.login && <div className="text-danger fw-bold text-center">{errors.login}</div>}    
-                        <div className="form-group mt-3">         
-                            <label className="mb-2">
+                        <div class="form-group mt-3">         
+                            <label class="mb-2">
                                 Gebruikersnaam:
                             </label>
-                            <input type="text" name="username" value={username} onChange={handleChange} className="form-control"/> 
+                            <input type="text" name="username" value={username} onChange={handleChange} class="form-control"/> 
                             {errors.username && <div className="text-danger">{errors.username}</div>}                                                       
                         </div>
-                        <div className="form-group mt-3">
-                            <label className="mb-2">
+                        <div class="form-group mt-3">
+                            <label class="mb-2">
                                 Wachtwoord:
                             </label>
-                            <input type="password" name="password" value={password} onChange={handleChange} className="form-control"/>
+                            <input type="password" name="password" value={password} onChange={handleChange} class="form-control"/>
                             {errors.password && <div className="text-danger">{errors.password}</div>}
                         </div>
                         <br></br>
-                        <div className="form-group text-center">                            
-                            <input type="submit" value="Inloggen" className="btn btn-success"/>
+                        <div class="form-group text-center">                            
+                            <input type="submit" value="Inloggen" class="btn btn-success"/>
                         </div>
                     </form>
                 </div>
