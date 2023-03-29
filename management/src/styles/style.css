@@ -37,3 +37,8 @@
   background-color: #3d861c !important;
   border-color: #4ba721 !important;
 }
+
+.custom-modal {
+  background-color: #00000073;
+  display: block;
+}

@@ -39,7 +39,7 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
 
     return (
         <>
-            <div className="modal show" role="dialog" style={{ display: "block" }}>
+            <div className="modal show custom-modal" role="dialog">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header bg-moesland text-white">
