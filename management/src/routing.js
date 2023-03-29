@@ -8,6 +8,7 @@ import ArticlesOverview from './pages/articles/overview'
 import ProtectedRoute from './modules/authorization/ProtectedRoute';
 import DefaultLayout from './layout/default';
 import Login from './pages/login';
+import Management from './pages/userManagement';
 import ArticleOverview from './pages/articles/overview';
 
 const Routing = () => {
@@ -21,6 +22,7 @@ const Routing = () => {
           <Route path="/articles/create" element={<ArticlesCreate />} />
           <Route path="/articles/update/:id" element={<ArticlesUpdate />} />
           <Route path='/articles' element={<ArticleOverview/>} />
+          <Route path="/users" element={<Management />} />
         </Route>
 
         <Route element={<ProtectedRoute isAuthenticated={false}/>}>

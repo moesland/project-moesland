@@ -86,7 +86,7 @@ const Update = () => {
                                     <input type="submit" value="Bijwerken" className="btn btn-success w-50" />
                                 </div>
                                 <div className="col text-end">
-                                    <button onClick={openOverview} class="btn btn-danger w-50">Annuleren</button>
+                                    <button onClick={openOverview} className="btn btn-danger w-50">Annuleren</button>
                                 </div>
                             </div>
                         </div>

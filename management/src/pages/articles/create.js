@@ -82,7 +82,7 @@ const Create = () => {
                             <label className="mb-2">
                                 Afbeelding:
                             </label>
-                            <input type="file" name="image" accept="image/*" class="form-control" onChange={handleImageChange} required/>
+                            <input type="file" name="image" accept="image/*" className="form-control" onChange={handleImageChange} required/>
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
@@ -97,7 +97,7 @@ const Create = () => {
                                     <input type="submit" value="Aanmaken" className="btn btn-success w-50"/>
                                 </div>
                                 <div className="col text-end">
-                                    <a href="/articles/overview" class="btn btn-danger w-50">Annuleren</a>
+                                    <a href="/articles/" className="btn btn-danger w-50">Annuleren</a>
                                 </div>
                             </div>
                         </div>

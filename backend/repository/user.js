@@ -18,30 +18,31 @@ module.exports = {
 
         return user;
     },
+    getAllUsers: async function () {
+        return await User.find().populate("roleId")
+            .catch(err => console.log("Cannot find list of users", err));
+    },
     getUserById: async function (userId) {
         return await User.findById(userId)
             .catch(err => console.log("Cannot find user by id in User dataset", err));
     },
+    getUserByUsername: async function (username) {
+        return await User.findOne({ username: { $eq: username } })//.find()is de lijst
+            .catch(err => console.error(err));
+    },
     getUserByEmail: async function (email) {
-        return await User.findOne({ email: { $eq: email } })
-        .catch(err => console.error(err));
+        return await User.findOne({ email: { $eq: email } })//.find()is de lijst
+            .catch(err => console.error(err));
     },
     addUser: async function (email, username, password, adminRole) {
-        const newUser = new User({
-            password: password,
-            email: email,
-            username: username,
-            roleId: adminRole._id
-        });
-
-        return await newUser.save()
+        return await User.create({ password: password, email: email, username: username, roleId: adminRole._id })
             .catch((err) => {
                 console.error(err.message);
             });
     },
     updateUserByEmail: async function (email, username, password) {
         return await User.findOneAndUpdate(
-            { email: { $eq: email } }, { username: { $eq: username }, password: { $eq: password } }, { new: true })
+            { email: { $eq: email } }, { username: username, password: password }, { new: true })
             .catch((err) => {
                 console.error(err);
             });
@@ -51,6 +52,5 @@ module.exports = {
             .catch((err) => {
                 console.error(err);
             });
-    }
-
+    },
 };

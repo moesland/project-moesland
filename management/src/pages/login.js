@@ -63,30 +63,30 @@ const Login = () => {
 
     return (
         <>      
-            <div class="container">
-                <div class="h-100 d-flex align-items-center justify-content-center">           
-                    <form onSubmit={handleSubmit} class="col-3">
-                        <div class="text-center">
+            <div className="container">
+                <div className="h-100 d-flex align-items-center justify-content-center">           
+                    <form onSubmit={handleSubmit} className="col-3">
+                        <div className="text-center">
                             <h1>Inloggen</h1>
                         </div>          
                         {errors.login && <div className="text-danger fw-bold text-center">{errors.login}</div>}    
-                        <div class="form-group mt-3">         
-                            <label class="mb-2">
+                        <div className="form-group mt-3">         
+                            <label className="mb-2">
                                 Gebruikersnaam:
                             </label>
-                            <input type="text" name="username" value={username} onChange={handleChange} class="form-control"/> 
+                            <input type="text" name="username" value={username} onChange={handleChange} className="form-control"/> 
                             {errors.username && <div className="text-danger">{errors.username}</div>}                                                       
                         </div>
-                        <div class="form-group mt-3">
-                            <label class="mb-2">
+                        <div className="form-group mt-3">
+                            <label className="mb-2">
                                 Wachtwoord:
                             </label>
-                            <input type="password" name="password" value={password} onChange={handleChange} class="form-control"/>
+                            <input type="password" name="password" value={password} onChange={handleChange} className="form-control"/>
                             {errors.password && <div className="text-danger">{errors.password}</div>}
                         </div>
                         <br></br>
-                        <div class="form-group text-center">                            
-                            <input type="submit" value="Inloggen" class="btn btn-success"/>
+                        <div className="form-group text-center">                            
+                            <input type="submit" value="Inloggen" className="btn btn-success"/>
                         </div>
                     </form>
                 </div>
