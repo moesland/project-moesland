@@ -13,7 +13,7 @@ import ArticleOverview from './pages/articles/overview';
 const Routing = () => {
   return (
     <Routes>
-      <Route element={<ProtectedRoute />}>
+      <Route element={<ProtectedRoute/>}>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/articles/create" element={<ArticlesCreate />} />

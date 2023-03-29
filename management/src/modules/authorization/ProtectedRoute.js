@@ -33,7 +33,7 @@ const useAuth = (token) => {
 
 const ProtectedRoute = ({ isAuthenticated = true, redirectPath = "/login", children }) => {
     const token = localStorage.getItem('token');
-    
+
     if (window.location.pathname === "/login") {
         if (token && redirectPath === "/login") {
             return <Navigate to="/" />;
@@ -60,7 +60,7 @@ const AuthenticateRoute = ({ token, isAuthenticated, redirectPath, children }) =
         return <Navigate to={redirectPath} />;
     }
 
-    return children ? children : <DefaultLayout />;
+    return children ? children : <DefaultLayout />; //THIS
 };
 
 export default ProtectedRoute;
