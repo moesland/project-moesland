@@ -69,7 +69,7 @@ const ArticleOverview = () => {
                         <thead>
                             <tr className="bg-moesland text-white">
                                 <th scope="col">Aanmaak datum</th>
-                                <th scope="col" colspan="2">Titel</th>
+                                <th scope="col" colSpan="2">Titel</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -64,10 +64,10 @@ const Login = () => {
 
     return (
         <>      
-            <div class="container">
-                <div class="h-100 d-flex align-items-center justify-content-center mt-5">           
-                    <form onSubmit={handleSubmit} class="col-3 mt-5 login-form">
-                        <div class="text-center">
+            <div className="container">
+                <div className="h-100 d-flex align-items-center justify-content-center mt-5">           
+                    <form onSubmit={handleSubmit} className="col-3 mt-5 login-form">
+                        <div className="text-center">
                             <h1>Inloggen</h1>
                         </div>          
                         {errors.login && <div className="text-danger fw-bold text-center">{errors.login}</div>}    
