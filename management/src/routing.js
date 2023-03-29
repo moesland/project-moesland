@@ -8,6 +8,7 @@ import ArticlesOverview from './pages/articles/overview'
 import ProtectedRoute from './modules/authorization/ProtectedRoute';
 import DefaultLayout from './layout/default';
 import Login from './pages/login';
+import Management from './pages/userManagement';
 import ArticleOverview from './pages/articles/overview';
 
 const Routing = () => {
