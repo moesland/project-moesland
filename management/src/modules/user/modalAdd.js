@@ -48,7 +48,7 @@ const ModalAdd = ({ toggleModal }) => {
 
     return (
         <>
-            <div class="modal show" tabindex="-1" role="dialog" style={{ display: "block" }}>
+            <div class="modal show" tabIndex={-1} role="dialog" style={{ display: "block" }}>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-moesland text-white">
@@ -57,17 +57,17 @@ const ModalAdd = ({ toggleModal }) => {
                         <form  onSubmit={handleSubmit(onSubmit)}>
                             <div className="mx-auto  col-md-10">
                                 <div class="form-group pt-3">
-                                    <label for="exampleInputEmail1">Email</label>
+                                    <label>Email</label>
                                     <input class="form-control" id="exampleInputEmail1" name="modalAddManagerEmailName" aria-describedby="emailHelp" placeholder="Email" {...register("email")}></input>
                                     <small id="modalAddManagerEmailError" class="form-text text-danger  modalAddManagerEmailError">{errors.email?.message}</small>
                                 </div>
                                 <div class="form-group pt-3">
-                                    <label for="exampleInputEmail1">Gebruikersnaam</label>
+                                    <label>Gebruikersnaam</label>
                                     <input class="form-control" id="exampleInputEmail1" name="modalAddManagerUserName" aria-describedby="emailHelp" placeholder="Gebruikersnaam" {...register("username")}></input>
                                     <small id="modalAddManagerUserError" class="form-text text-danger mt-3 modalAddManagerUserError">{errors.username?.message}</small>
                                 </div>
                                 <div class="form-group pt-3">
-                                    <label for="exampleInputPassword1">Wachtwoord</label>
+                                    <label>Wachtwoord</label>
                                     <input class="form-control" id="exampleInputPassword1" placeholder="Wachtwoord" name="modalAddManagerPasswordName" {...register("password")}></input>
                                 </div>
                                 <small id="modalAddManagerPasswordError" class="form-text text-danger  modalAddManagerPasswordError" >{errors.password?.message}</small>

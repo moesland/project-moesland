@@ -22,10 +22,9 @@ const Routing = () => {
           <Route path="/articles/create" element={<ArticlesCreate />} />
           <Route path="/articles/update/:id" element={<ArticlesUpdate />} />
           <Route path='/articles' element={<ArticleOverview/>} />
+          <Route path="/users" element={<Management />} />
         </Route>
-        <Route element={<ProtectedRoute isAuthenticated={true}/>}>
-          <Route path="/userManagement" element={<Management />} />
-        </Route>
+
         <Route element={<ProtectedRoute isAuthenticated={false}/>}>
           <Route path="/login" element={<Login />}/>
         </Route>

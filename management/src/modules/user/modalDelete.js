@@ -1,24 +1,28 @@
 import React, { useState } from "react";
+import { BackendClientRequest } from "../../services/ApiClient";
 
 
 const ModalDelete = ({ toggleModal, selectedItem }) => {
     console.log(selectedItem)
-    function deleteManager(manager) {
+    const deleteManager = async () => {
 
-        //var myTableBody = document.getElementById("tableBody")
-        //var myDiv = document.getElementsByClassName(manager.email)
-        let myText = document.querySelector("deleteModalText")
+        const path = "/api/user/delete"
+        const token = localStorage.getItem('token');
+        const headers = new Headers({
+            'Authorization': 'Bearer ' + token,
+            'Content-Type':'application/json'
+        })
 
+        await BackendClientRequest(
+            path, { "email" : selectedItem.email }, headers, "POST"
+        ) 
 
-        //myText.textContent = "asd"
-        console.log("Deleteing manager")
         toggleModal()
-
     }
 
     return (
         <>
-            <div class="modal show" tabindex="-1" role="dialog" style={{ display: "block" }}>
+            <div class="modal show" tabIndex={-1} role="dialog" style={{ display: "block" }}>
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-moesland text-white">
