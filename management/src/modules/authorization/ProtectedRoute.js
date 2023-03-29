@@ -47,13 +47,18 @@ const ProtectedRoute = ({ isAuthenticated = true, redirectPath = "/login", child
 
 const AuthenticateRoute = ({ token, isAuthenticated, redirectPath, children }) => {
     const isAuth = useAuth(token);
-
+    
     if (!isAuthenticated) {
         return <Navigate to={redirectPath} />;
     }
 
     if (!isAuth) {
         return <>loading</>;
+    }
+
+    if (isAuth.error == "Invalid authorization token"){
+        localStorage.clear()
+        return <Navigate to={redirectPath} />; 
     }
 
     if (!isAuth.authorized) {
