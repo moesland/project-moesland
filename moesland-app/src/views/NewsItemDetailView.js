@@ -28,12 +28,12 @@ export default class NewsItemListView extends Component {
         return (
             <ScrollView>
                 <View style={styles.container}>
-                    <Image
+                    {/* <Image
                         source={item.bannerImage}
                         onLayout={this.handleImageLayout}
                         style={[styles.bannerImage, { height: imageHeight }]}
                         resizeMode="contain"
-                    />
+                    /> */}
                     <Text style={styles.title}>{item.title}</Text>
                     {item.content.map((content, index) => (
                         <NewsItemContentView key={index} content={content} />

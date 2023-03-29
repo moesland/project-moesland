@@ -14,14 +14,40 @@ export async function fetchNewsItems() {
         const newsItems = json.map((item) => {
             const content = JSON.parse(item.content);
             const textSegments = content.ops.filter((op) => typeof op.insert === 'string');
+            let previousContentModel = null;
             const contentModels = textSegments.map((op) => {
                 const image = op.attributes && op.attributes.image ? op.attributes.image : null;
-                return new NewsItemContentModel(
+                const attributes = op.attributes || {};
+                if (attributes.header || attributes.align) {
+                    if (previousContentModel) {
+                        // console.log('about to put ', attributes)
+                        // console.log('From', op.insert)
+                        // console.log('into text', previousContentModel.text)
+
+                        // console.log('header', attributes.header);
+                        // console.log('align', attributes.align);
+                        // console.log('previous attributes', previousContentModel.attributes);
+
+                        const newAttributes = {
+                            "header": attributes.header,
+                            "align": attributes.align,
+                            ...previousContentModel.attributes,
+                        };
+
+                        //console.log('new attributes', newAttributes)
+
+                        previousContentModel.attributes = newAttributes;
+                        //console.log('which should be the same as previous attibutes:', previousContentModel.attributes)
+                    }
+                }
+                const contentModel = new NewsItemContentModel(
                     uuid.v4(),
                     op.insert,
-                    op.attributes || {},
+                    attributes,
                     image
                 );
+                previousContentModel = contentModel;
+                return contentModel;
             });
 
             // convert the date to DD/MM/YYYY format
@@ -42,6 +68,9 @@ export async function fetchNewsItems() {
         //     console.log("Title:", newsItem.title)
         //     console.log("ContentSize:", newsItem.content.length)
         //     newsItem.content.forEach(contentItem => {
+
+        //         console.log("Text:", contentItem.text)
+        //         console.log("Has")
         //         console.log("Attributes:", contentItem.attributes)
         //     })
         // });

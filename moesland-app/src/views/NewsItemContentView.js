@@ -11,20 +11,25 @@ export default function NewsItemContent({ content }) {
     bold && styles.bold,
     italic && styles.italic,
     underline && styles.underline,
+    align === 'left' && styles.leftAlign,
+    align === 'right' && styles.rightAlign,
+    align === 'center' && styles.centerAlign,
+    align === 'justify' && styles.justifyAlign,
     size === 'small' && styles.smallText,
     size === 'large' && styles.largeText,
     size === 'huge' && styles.hugeText,
-    header === 1 && styles.h1,
+    header === 1 && styles.bold,
     header === 2 && styles.h2,
   ];
 
-  if(align === undefined) {
+  if (align) {
+    console.log(text)
+    console.log('has alignment', align)
+  }
+  if (align === undefined) {
     textStyles.textAlign = 'left'
-    console.log("Undefined:", text)
-    
   } else {
     textStyles.textAlign = align
-    console.log(text)
   }
 
   if (text && !/^\s*$/.test(text)) {
@@ -34,14 +39,14 @@ export default function NewsItemContent({ content }) {
       </Text>
     );
   } else if (content.image) {
-    return (
-      <Image
-        source={content.image}
-        onLayout={this.handleImageLayout}
-        style={[styles.image, { height: 450 }]}
-        resizeMode="contain"
-      />
-    );
+    // return (
+    //   <Image
+    //     source={content.image}
+    //     onLayout={this.handleImageLayout}
+    //     style={[styles.image, { height: 450 }]}
+    //     resizeMode="contain"
+    //   />
+    // );
   } else {
     return null;
   }
@@ -73,6 +78,18 @@ const styles = StyleSheet.create({
   },
   hugeText: {
     fontSize: 32,
+  },
+  leftAlign: {
+    textAlign: 'left'
+  },
+  rightAlign: {
+    textAlign: 'right'
+  },
+  centerAlign: {
+    textAlign: 'center'
+  },
+  justifyAlign: {
+    textAlign: 'justify'
   },
   h1: {
     fontSize: 24,
