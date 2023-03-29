@@ -2,69 +2,58 @@ import React, { useEffect, useState } from "react";
 import ModalAdd from "../modules/user/modalAdd";
 import ModalDelete from "../modules/user/modalDelete";
 import ModalUpdate from "../modules/user/modalUpdate";
-import { useForm } from 'react-hook-form';
-
 
 export default function Management() {
   const [selectedItem, setSelectedItem] = useState(undefined)
   const [userData, setUserData] = useState()
-
   const [addModalShow, setAddModalShow] = useState(false);
   const [modalDeleteShow, setModalDeleteShow] = useState(false);
   const [modalUpdateShow, setModalUpdateShow] = useState(false);
 
-
   useEffect(() => {
-    const fetchUserData = async () => {
-      await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user/getList/", { method: "GET" })
-        .then(response => response.json())
-        .then(data => { console.log(data); setUserData(data) });
-    }
-
-    fetchUserData()
+    refreshData()
   }, [])
 
+  //call back op de select item
   useEffect(() => {
-
     if (userData) {
       console.log(userData)
     }
   }, [userData])
 
-  //call back op de select item
-
+  const refreshData = async () => {
+    await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user/getList/", { method: "GET" })
+      .then(response => response.json())
+      .then(data => { console.log(data); setUserData(data) });
+  }
 
   const ToggleShowModalAdd = () => {
     setAddModalShow(!addModalShow);
   }
-  const ToggleShowModalDelete = (user) => {
 
+  const ToggleShowModalDelete = (user) => {
     setModalDeleteShow(!modalDeleteShow);
     setSelectedItem(user)
   }
+
   const ToggleShowModalUpdate = (user) => {
     setModalUpdateShow(!modalUpdateShow);
-
     setSelectedItem(user)
   }
-
-
-
-
 
   return (
     <>
       {userData &&
-        <div class="row">
-          <div class="pt-5 col-md-8 mx-auto text-center">
-            <div class="float-end col-md-3 pb-3">
-              <button onClick={ToggleShowModalAdd} type="button" class="btn btn-moesland ">
+        <div className="row">
+          <div className="pt-5 col-md-8 mx-auto text-center">
+            <div className="float-end col-md-3 pb-3">
+              <button onClick={ToggleShowModalAdd} type="button" className="btn btn-moesland">
                 Nieuwe Beheerder
               </button>
             </div>
-            <table class=" table table-striped " >
+            <table className=" table table-striped " >
               <thead>
-                <tr class="bg-moesland text-white">
+                <tr className="bg-moesland text-white">
                   <th scope="col">#</th>
                   <th scope="col">Email</th>
                   <th scope="col">Gebruikersnaam</th>
@@ -75,19 +64,19 @@ export default function Management() {
               <tbody id="tableBody">
                 {userData.map(user => (
                   <tr key={user.id} >
-                    <th class="id" >{user.id}</th>
-                    <td class="email">{user.email}</td>
-                    <td class="userName">{user.username}</td>
-                    <td class="role">Beheerder</td>
+                    <th className="id" >{user.id}</th>
+                    <td className="email">{user.email}</td>
+                    <td className="userName">{user.username}</td>
+                    <td className="role">Beheerder</td>
                     <td >
-                      <div class="row">
-                        <div class="">
+                      <div className="row">
+                        <div className="">
                         </div>
-                        <div class="pr-3">
+                        <div className="pr-3">
                         </div>
                       </div>
-                      <button class="btn btn-danger" onClick={() => ToggleShowModalDelete(user)}>Verwijderen </button>
-                      <button class="btn btn-moesland" onClick={() => ToggleShowModalUpdate(user)}>Aanpassen</button>
+                      <button className="btn btn-danger" onClick={() => ToggleShowModalDelete(user)}>Verwijderen </button>
+                      <button className="btn btn-moesland" onClick={() => ToggleShowModalUpdate(user)}>Aanpassen</button>
                     </td>
                   </tr>
                 ))
@@ -99,9 +88,9 @@ export default function Management() {
         </div>
 
       }
-      {addModalShow && <ModalAdd toggleModal={ToggleShowModalAdd} />}
-      {modalDeleteShow && <ModalDelete toggleModal={ToggleShowModalDelete} selectedItem={selectedItem} />}
-      {modalUpdateShow && <ModalUpdate toggleModal={ToggleShowModalUpdate} selectedItem={selectedItem} />}
+      {addModalShow && <ModalAdd toggleModal={ToggleShowModalAdd} refreshOverview={refreshData}/>}
+      {modalDeleteShow && <ModalDelete toggleModal={ToggleShowModalDelete} selectedItem={selectedItem} refreshOverview={refreshData}/>}
+      {modalUpdateShow && <ModalUpdate toggleModal={ToggleShowModalUpdate} selectedItem={selectedItem} refreshOverview={refreshData}/>}
 
     </>
   )

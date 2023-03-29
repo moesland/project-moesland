@@ -5,7 +5,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import { BackendClientRequest } from "../../services/ApiClient";
 
 
-const ModalAdd = ({ toggleModal }) => {
+const ModalAdd = ({ toggleModal, refreshOverview }) => {
 
     const schema = yup.object().shape({
         email: yup.string().email("Dit veld moet een legitieme email zijn.").required("Dit veld mag niet leeg zijn."),
@@ -42,7 +42,8 @@ const ModalAdd = ({ toggleModal }) => {
         await  BackendClientRequest(
             path, body, headers, "POST"
         )
-        toggleModal()
+        refreshOverview();
+        toggleModal();
     }
     
 

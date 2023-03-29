@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BackendClientRequest } from "../../services/ApiClient";
 
 
-const ModalDelete = ({ toggleModal, selectedItem }) => {
+const ModalDelete = ({ toggleModal, selectedItem, refreshOverview }) => {
     console.log(selectedItem)
     const deleteManager = async () => {
 
@@ -17,7 +17,8 @@ const ModalDelete = ({ toggleModal, selectedItem }) => {
             path, { "email" : selectedItem.email }, headers, "POST"
         ) 
 
-        toggleModal()
+        refreshOverview();
+        toggleModal();
     }
 
     return (

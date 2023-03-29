@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { BackendClientRequest } from "../../services/ApiClient";
 
 
-const ModalUpdate = ({ toggleModal, selectedItem }) => {
+const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
     const schema = yup.object().shape({
         username: yup.string().min(2, "Het gebruikersnaam moet minimaal twee karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn."),
         password: yup.string().min(6, "het wachtwoord moet minimaal 6 karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn.")
@@ -31,7 +31,8 @@ const ModalUpdate = ({ toggleModal, selectedItem }) => {
             path, body, headers, "POST"
         )
 
-        toggleModal()
+        refreshOverview();
+        toggleModal();
     }
 
 
