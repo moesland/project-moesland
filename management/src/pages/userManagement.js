@@ -22,7 +22,7 @@ export default function Management() {
   }, [userData])
 
   const refreshData = async () => {
-    await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user/getList/", { method: "GET" })
+    await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user/get-list/", { method: "GET" })
       .then(response => response.json())
       .then(data => { setUserData(data) });
   }
