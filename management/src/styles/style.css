@@ -42,3 +42,9 @@
   background-color: #3d861c !important;
   border-color: #4ba721 !important;
 }
+
+.login-form{
+    border: 1px solid black;
+    padding: 15px;
+    border-radius: 10px;
+}
