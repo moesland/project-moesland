@@ -7,6 +7,7 @@ router.use(express.json());
 router.use('/create', require('./create'));
 router.use('/approve', require('./approve'));
 router.use('/decline', require('./decline'));
+router.use('/restore', require('./restore'));
 router.use('/delete', require('./delete'));
 
 module.exports = router;
