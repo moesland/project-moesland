@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
             res.status(500).send(`Could not delete user image.`);
         }
     } catch (err) {
-        res.status(500).send(`Could not delete user image: ${err}`);
+        res.status(500).send(`Could not delete user image: ` + err);
     }
 });
 

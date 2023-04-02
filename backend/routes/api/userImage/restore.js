@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
             res.status(500).send(`Could not restore user image.`);
         }
     } catch (err) {
-        res.status(500).send(`Could not restore user image: ${err}`);
+        res.status(500).send(`Could not restore user image: ` + err);
     }
 });
 

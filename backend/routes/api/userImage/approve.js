@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
             res.status(500).send(`Could not approve user image.`);
         }
     } catch (err) {
-        res.status(500).send(`Could not approve user image: ${err}`);
+        res.status(500).send(`Could not approve user image: ` + err);
     }
 });
 
