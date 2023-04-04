@@ -6,6 +6,10 @@ module.exports = {
         return await UserImage.findById({ $eq: id })
             .catch(err => console.log(`Cannot find user image by id ${id} in UserImage dataset.`, err));
     },
+    async getAllUserImages() {
+        return await UserImage.find({}).populate('image')
+            .catch(err => console.error(err));
+    },
     async createUserImage(image) {
         await image.save();
 
