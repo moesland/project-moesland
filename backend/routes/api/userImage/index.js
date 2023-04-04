@@ -1,12 +1,13 @@
 const express = require('express');
 const { authenticateToken } = require('../../../middlewares/auth');
 const { getAllUserImages } = require('../../../repository/userImage');
+const { requestLimiter } = require('../../../middlewares/security');
 
 const router = express.Router();
 
 router.use(express.json());
 
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', authenticateToken, requestLimiter, async (req, res) => {
     try {
         res.status(200).json(await getAllUserImages());
     } catch (err) {
