@@ -8,6 +8,7 @@ import ProtectedRoute from './modules/authorization/ProtectedRoute';
 import Login from './pages/login';
 import Management from './pages/userManagement';
 import ArticleOverview from './pages/articles/overview';
+import FotoManagement from './pages/fotoManagement';
 
 const Routing = () => {
   return (
@@ -19,6 +20,7 @@ const Routing = () => {
         <Route path="/articles/update/:id" element={<ArticlesUpdate />} />
         <Route path='/articles' element={<ArticleOverview/>} />
         <Route path='/users' element={<Management/>} />
+        <Route path='/fotoManagement' element={<FotoManagement/>} />
       </Route>
 
       <Route element={<ProtectedRoute isAuthenticated={false}/>}>
