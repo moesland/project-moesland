@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet, View, ScrollView, Image, Text } from 'react-native';
+import NewsItemContentView from './NewsItemContentView';
 
 export default class NewsItemListView extends Component {
-
     state = {
         imageHeight: null,
         item: this.props.route.params.item,
     };
-    
 
     handleImageLayout = () => {
         const { width } = Dimensions.get('window');
@@ -29,34 +28,16 @@ export default class NewsItemListView extends Component {
         return (
             <ScrollView>
                 <View style={styles.container}>
-                    <Image
+                    {/* <Image
                         source={item.bannerImage}
                         onLayout={this.handleImageLayout}
                         style={[styles.bannerImage, { height: imageHeight }]}
                         resizeMode="contain"
-                    />
+                    /> */}
                     <Text style={styles.title}>{item.title}</Text>
-                    {item.content.map((content, index) => {
-                        if (content.text) {
-                            return (
-                                <Text 
-                                    key={index} 
-                                    style={[styles.text, content.bold ? styles.boldText : null]}>
-                                    {content.text}
-                                </Text>
-                            );
-                        } else if (content.image) {
-                            return (
-                                <Image
-                                    key={index}
-                                    source={content.image}
-                                    onLayout={this.handleImageLayout}
-                                    style={[styles.bannerImage, { height: imageHeight }]}
-                                    resizeMode="contain"
-                                />
-                            );
-                        }
-                    })}
+                    {item.content.map((content, index) => (
+                        <NewsItemContentView key={index} content={content} />
+                    ))}
                 </View>
             </ScrollView>
         );
@@ -66,7 +47,7 @@ export default class NewsItemListView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        
+
     },
     bannerImage: {
         width: '100%',
