@@ -12,11 +12,18 @@ export async function fetchNewsItems() {
         const json = await response.json();
 
         const newsItems = json.map((item) => {
+            
             const content = JSON.parse(item.content);
+            
             const textSegments = content.ops.filter((op) => typeof op.insert === 'string');
             let previousContentModel = null;
             const contentModels = textSegments.map((op) => {
-                const image = op.attributes && op.attributes.image ? op.attributes.image : null;
+                let image = null;
+
+                if (content.ops[0].insert.image) {
+                    image = content.ops[0].insert.image;
+                }
+
                 const attributes = op.attributes || {};
                 if (attributes.header || attributes.align) {
                     if (previousContentModel) {
@@ -25,7 +32,6 @@ export async function fetchNewsItems() {
                             "align": attributes.align,
                             ...previousContentModel.attributes,
                         };
-
                         previousContentModel.attributes = newAttributes;
                     }
                 }
@@ -36,6 +42,7 @@ export async function fetchNewsItems() {
                     image
                 );
                 previousContentModel = contentModel;
+
                 return contentModel;
             });
 

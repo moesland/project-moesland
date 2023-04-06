@@ -22,10 +22,6 @@ export default function NewsItemContent({ content }) {
     header === 2 && styles.h2,
   ];
 
-  if (align) {
-    console.log(text)
-    console.log('has alignment', align)
-  }
   if (align === undefined) {
     textStyles.textAlign = 'left'
   } else {
@@ -39,14 +35,15 @@ export default function NewsItemContent({ content }) {
       </Text>
     );
   } else if (content.image) {
-    // return (
-    //   <Image
-    //     source={content.image}
-    //     onLayout={this.handleImageLayout}
-    //     style={[styles.image, { height: 450 }]}
-    //     resizeMode="contain"
-    //   />
-    // );
+    let source = { uri: `${content.image}` };
+    return (
+      <Image
+        source={source}
+        onLayout={this.handleImageLayout}
+        style={[styles.image, { height: 450 }]}
+        resizeMode="contain"
+      />
+    );
   } else {
     return null;
   }

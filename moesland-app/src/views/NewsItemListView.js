@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Image, FlatList, Pressable, StyleSheet } from 'react-native';
 import { fetchNewsItems } from '../models/NewsItemApi';
 import NewsItemController from '../controllers/NewsItemController.js';
+import { base64 } from 'react-native-base64';
 
 const NewsItemListView = ({ navigation }) => {
   // React Native Hook
@@ -12,6 +13,12 @@ const NewsItemListView = ({ navigation }) => {
   // useCallback is a React Native Hook that memoizes a function to improve performance
   // memoization = caching the results of a function call to improve performance by avoiding unnecessary computation
   const renderItem = useCallback(({ item: { date, title, bannerImage, content } }) => {
+    let source = null;
+
+    if (content[0].image) {
+      source = content[0].image ? { uri: `${content[0].image}` } : null;
+    }
+
     return (
       <Pressable onPress={() => navigation.navigate('NewsDetailPage', { item: { date, title, bannerImage, content } })}>
         <View style={[styles.itemContainer, { flexDirection: 'row' }]}>
@@ -19,7 +26,7 @@ const NewsItemListView = ({ navigation }) => {
             <Text style={styles.date}>{date}</Text>
             <Text style={styles.title}>{title}</Text>
           </View>
-          <Image source={bannerImage} style={styles.image} />
+          <Image source={source} style={styles.image} />
         </View>
       </Pressable>
     );
