@@ -16,7 +16,7 @@ export async function fetchNewsItems() {
             const content = JSON.parse(item.content);
 
             let previousContentModel = null;
-            const contentModels = content.ops.map((op, index) => {
+            const contentModels = content.ops.map((op) => {
                 let image = null;
 
                 // Check if the current op has an image
@@ -51,15 +51,11 @@ export async function fetchNewsItems() {
             const date = new Date(inputDateString);
             const formattedDate = date.toLocaleDateString('en-GB');
 
-            if (item.title === 'Test Artikel #3') {
-                console.log(content.ops.length)
-            }
-
             return new NewsItemModel(
                 uuid.v4(),
                 formattedDate,
                 item.title,
-                item.bannerImage.$oid,
+                item.bannerImage.$oid, // undefined at the moment
                 contentModels
             );
         });
