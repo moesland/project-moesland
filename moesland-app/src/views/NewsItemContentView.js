@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, Image, Linking } from 'react-native';
-import { styles } from '../styles/NewsItemContentViewStyles.js';
+import { styles } from '../styles/NewsItemContentViewStyles';
 
 export default function NewsItemContent({ content }) {
   const { text, attributes } = content;

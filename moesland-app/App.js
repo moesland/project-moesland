@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ToolbarView from './src/views/ToolbarView';
+import ToolbarView from './src/components/ToolbarView';
 import NewsItemListView from './src/views/NewsItemListView';
 import NewsItemDetailView from './src/views/NewsItemDetailView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { fetchNewsItems } from './src/models/NewsItemApi';
 
 const Stack = createStackNavigator();
 

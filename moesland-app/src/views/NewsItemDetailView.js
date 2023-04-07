@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions, View, ScrollView, Image, Text } from 'react-native';
 import NewsItemContentView from './NewsItemContentView';
-import { styles } from '../styles/NewsItemDetailViewStyles.js';
+import { styles } from '../styles/NewsItemDetailViewStyles';
 
 export default class NewsItemListView extends Component {
     state = {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Image, FlatList, Pressable } from 'react-native';
 import { fetchNewsItems } from '../models/NewsItemApi';
-import { styles } from '../styles/newsItemListViewStyles.js';
+import { styles } from '../styles/newsItemListViewStyles';
 
 const NewsItemListView = ({ navigation }) => {
   // React Native Hook
