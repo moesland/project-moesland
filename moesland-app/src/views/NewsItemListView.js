@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Image, FlatList, Pressable, StyleSheet } from 'react-native';
+import { View, Text, Image, FlatList, Pressable } from 'react-native';
 import { fetchNewsItems } from '../models/NewsItemApi';
-import NewsItemController from '../controllers/NewsItemController.js';
-import { base64 } from 'react-native-base64';
+import { styles } from '../styles/newsItemListViewStyles.js';
 
 const NewsItemListView = ({ navigation }) => {
   // React Native Hook
@@ -62,35 +61,5 @@ const NewsItemListView = ({ navigation }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  itemContainer: {
-    padding: 5
-  },
-  date: {
-    fontSize: 12,
-    color: 'gray',
-    alignSelf: 'flex-start',
-    marginBottom: 10
-  },
-  image: {
-    width: 150,
-    height: 100
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
-  text: {
-    fontSize: 14
-  },
-  separator: {
-    height: 1,
-    backgroundColor: 'gray',
-    marginLeft: 5,
-    marginRight: 5,
-    opacity: 0.1,
-  }
-});
 
 export default NewsItemListView;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, Image, StyleSheet, Linking } from 'react-native';
+import { Text, Image, Linking } from 'react-native';
+import { styles } from '../styles/NewsItemContentViewStyles.js';
 
 export default function NewsItemContent({ content }) {
   const { text, attributes } = content;
@@ -48,54 +49,3 @@ export default function NewsItemContent({ content }) {
     return null;
   }
 }
-
-const styles = StyleSheet.create({
-  image: {
-    width: '100%',
-  },
-  text: {
-    fontSize: 16,
-    marginBottom: 20,
-    padding: 5,
-  },
-  bold: {
-    fontWeight: 'bold',
-  },
-  italic: {
-    fontStyle: 'italic',
-  },
-  underline: {
-    textDecorationLine: 'underline',
-  },
-  smallText: {
-    fontSize: 12,
-  },
-  largeText: {
-    fontSize: 20,
-  },
-  hugeText: {
-    fontSize: 32,
-  },
-  leftAlign: {
-    textAlign: 'left'
-  },
-  rightAlign: {
-    textAlign: 'right'
-  },
-  centerAlign: {
-    textAlign: 'center'
-  },
-  justifyAlign: {
-    textAlign: 'justify'
-  },
-  h1: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  h2: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-});
