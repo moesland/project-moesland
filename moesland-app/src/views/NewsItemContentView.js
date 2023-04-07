@@ -23,13 +23,7 @@ export default function NewsItemContent({ content }) {
     header === 2 && styles.h2,
   ];
 
-  if (align === undefined) {
-    textStyles.textAlign = 'left'
-  } else {
-    textStyles.textAlign = align
-  }
-
-  if (text && !/^\s*$/.test(text)) {
+  if (text && !/^\s*$/.test(text) && typeof text === 'string') {
     return (
       <Text style={textStyles} onPress={() => link && Linking.openURL(link)}>
         {text}

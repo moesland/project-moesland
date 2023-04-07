@@ -12,16 +12,16 @@ export async function fetchNewsItems() {
         const json = await response.json();
 
         const newsItems = json.map((item) => {
-            
+
             const content = JSON.parse(item.content);
-            
-            const textSegments = content.ops.filter((op) => typeof op.insert === 'string');
+
             let previousContentModel = null;
-            const contentModels = textSegments.map((op) => {
+            const contentModels = content.ops.map((op, index) => {
                 let image = null;
 
-                if (content.ops[0].insert.image) {
-                    image = content.ops[0].insert.image;
+                // Check if the current op has an image
+                if (op.insert && op.insert.image) {
+                    image = op.insert.image;
                 }
 
                 const attributes = op.attributes || {};
@@ -50,6 +50,10 @@ export async function fetchNewsItems() {
             const inputDateString = item.date;
             const date = new Date(inputDateString);
             const formattedDate = date.toLocaleDateString('en-GB');
+
+            if (item.title === 'Test Artikel #3') {
+                console.log(content.ops.length)
+            }
 
             return new NewsItemModel(
                 uuid.v4(),
