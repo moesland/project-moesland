@@ -60,7 +60,7 @@ export async function fetchNewsItems() {
             );
         });
 
-        return newsItems;
+        return newsItems.reverse();
     } catch (error) {
         console.error(error);
         return [];
