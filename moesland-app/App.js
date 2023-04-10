@@ -14,14 +14,6 @@ export default function App() {
 
   const [newsItems, setNewsItems] = useState([]);
 
-  useEffect(() => {
-    async function loadNewsItems() {
-
-    }
-
-    loadNewsItems();
-  }, []);
-
   return (
     <NavigationContainer>
       <Stack.Navigator
