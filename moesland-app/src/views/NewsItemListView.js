@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Image, FlatList, Pressable } from 'react-native';
+import { View, Text, Image, FlatList, Pressable, RefreshControl } from 'react-native';
 import { fetchNewsItems } from '../models/NewsItemApi';
 import { styles } from '../styles/NewsItemListViewStyles';
 
@@ -8,6 +8,7 @@ const NewsItemListView = ({ navigation }) => {
   // initializes 'newsItems' as an empty array
   // 'setNewsItems' function is used to update state
   const [newsItems, setNewsItems] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   // useCallback is a React Native Hook that memoizes a function to improve performance
   // memoization = caching the results of a function call to improve performance by avoiding unnecessary computation
@@ -39,6 +40,14 @@ const NewsItemListView = ({ navigation }) => {
     );
   }, []);
 
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    const items = await fetchNewsItems();
+    setNewsItems(items);
+    setRefreshing(false);
+  }, []);
+
+
   // React Native Hook
   // fetches data async after the newsitemlistview is first rendered
   useEffect(() => {
@@ -57,6 +66,9 @@ const NewsItemListView = ({ navigation }) => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         ItemSeparatorComponent={renderSeparator}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </View>
   );
