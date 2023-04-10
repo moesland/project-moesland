@@ -23,7 +23,7 @@ export default function NewsItemContent({ content }) {
     header === 2 && styles.h2,
   ];
 
-  if (text && !/^\s*$/.test(text) && typeof text === 'string') {
+  if (typeof text === 'string' && text.trim().length > 0) {
     return (
       <Text style={textStyles} onPress={() => link && Linking.openURL(link)}>
         {text}
