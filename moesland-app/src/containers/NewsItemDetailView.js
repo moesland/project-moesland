@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, View, ScrollView, Image, Text } from 'react-native';
-import NewsItemContentView from './NewsItemContentView';
+import NewsItemContentView from '../components/NewsItemContentView';
 import { styles } from '../styles/NewsItemDetailViewStyles';
 
 export default class NewsItemListView extends Component {

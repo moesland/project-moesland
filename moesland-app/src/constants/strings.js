@@ -1,1 +1,1 @@
-export const APP_TITLE = "Carnavalsvereniging Moesland"
+export const APP_TITLE = "CV Moesland";

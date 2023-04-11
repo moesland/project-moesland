@@ -4,13 +4,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MOESLAND_GREEN } from './src/constants/colors';
-import NewsItemListView from './src/containers/NewsItemListView';
+import NewsItemListView from './src/routes/NewsItemListView';
 import ToolbarView from './src/components/ToolbarView';
-// import CalendarView from './CalendarView';
-import MediaView from './src/containers/MediaView';
-// import VotingView from './VotingView';
-// import ContactView from './ContactView';
-// import ToolbarView from './ToolbarView';
+import MediaView from './src/routes/MediaView';
+import CalendarView from './src/routes/CalendarView';
+import VotingView from './src/routes/VotingView';
+import ContactView from './src/routes/ContactView';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -52,7 +51,7 @@ export default function App() {
           header: props => (
             <ToolbarView
               {...props}
-              showBackButton={route.name !== 'Nieuws'}
+              showBackButton={route.name === 'NewsDetailPage'}
               onPressMenu={handleMenuPress}
             />
           ),
@@ -68,10 +67,10 @@ export default function App() {
         <Tab.Screen name="Nieuws">
           {props => <NewsItemListView {...props} newsItems={newsItems} />}
         </Tab.Screen>
-        <Tab.Screen name="Agenda" component={MediaView} />
+        <Tab.Screen name="Agenda" component={CalendarView} />
         <Tab.Screen name="Media" component={MediaView} />
-        <Tab.Screen name="Stemmen" component={MediaView} />
-        <Tab.Screen name="Contact" component={MediaView} />
+        <Tab.Screen name="Stemmen" component={VotingView} />
+        <Tab.Screen name="Contact" component={ContactView} />
       </Tab.Navigator>
     </NavigationContainer>
   );
