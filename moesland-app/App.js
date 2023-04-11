@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ToolbarView from './src/components/ToolbarView';
-import NewsItemListView from './src/views/NewsItemListView';
-import NewsItemDetailView from './src/views/NewsItemDetailView';
+import NewsItemListView from './src/containers/NewsItemListView';
+import NewsItemDetailView from './src/containers/NewsItemDetailView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
