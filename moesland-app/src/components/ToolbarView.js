@@ -15,15 +15,6 @@ const ToolbarView = ({ showBackButton }) => {
     />
   );
 
-  const cameraIcon = (
-    <Icon
-      name="camera"
-      type="font-awesome-5"
-      onPress={onPressCamera}
-      color={COLOR_WHITE}
-    />
-  );
-
   return (
     <Header
       backgroundColor={MOESLAND_GREEN}
