@@ -51,11 +51,19 @@ export async function fetchNewsItems() {
             const date = new Date(inputDateString);
             const formattedDate = date.toLocaleDateString('en-GB');
 
+
+            const Buffer = require("buffer").Buffer;
+            let base64String = new Buffer(item.bannerImage.data.data).toString("base64");
+
+            const imageSource = {
+                uri: `data:image/png;base64,${base64String.toString('base64')}`
+            };
+
             return new NewsItemModel(
                 uuid.v4(),
                 formattedDate,
                 item.title,
-                item.bannerImage.$oid, // undefined at the moment
+                imageSource,
                 contentModels
             );
         });
