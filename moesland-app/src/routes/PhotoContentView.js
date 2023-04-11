@@ -21,7 +21,7 @@ const takePicture = async () => {
 
     try {
         const REACT_APP_BACKEND_ROOT_URL = 'http://192.168.68.121:5000';
-        const responseJson = await fetch(REACT_APP_BACKEND_ROOT_URL + '/api/userImage/create', {
+        await fetch(REACT_APP_BACKEND_ROOT_URL + '/api/userImage/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -34,9 +34,6 @@ const takePicture = async () => {
                 }
             })
         });
-        const json = await responseJson.json();
-
-        console.log('Response:    ' + json);
     } catch (err) {
         console.error(err);
     }
