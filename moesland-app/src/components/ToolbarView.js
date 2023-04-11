@@ -1,24 +1,25 @@
 import React from 'react';
 import { Header, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import { styles } from '../styles/NewsItemContentViewStyles';
 
 const ToolbarView = ({ showBackButton, onPressMenu }) => {
   const navigation = useNavigation();
   return (
     <Header
-      backgroundColor="#50a038"
+      containerStyle={styles.header}
       leftComponent={
         showBackButton ? (
           <Icon
             name="arrow-back"
-            color="#fff"
             onPress={() => navigation.goBack()}
+            iconStyle={styles.icon}
           />
         ) : (
           <Icon
             name="menu"
-            color="#fff"
             onPress={onPressMenu}
+            iconStyle={styles.icon}
           />
         )
       }
