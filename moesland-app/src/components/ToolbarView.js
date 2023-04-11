@@ -1,12 +1,13 @@
 import React from 'react';
 import { Header, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import { MOESLAND_GREEN, COLOR_WHITE } from '../constants/colors';
 
 const ToolbarView = ({ showBackButton, onPressMenu }) => {
   const navigation = useNavigation();
   return (
     <Header
-      backgroundColor="#50a038"
+      backgroundColor={MOESLAND_GREEN}
       leftComponent={
         showBackButton ? (
           <Icon
@@ -18,7 +19,7 @@ const ToolbarView = ({ showBackButton, onPressMenu }) => {
           <Icon
             name="menu"
             onPress={onPressMenu}
-            color="#fff"
+            color={COLOR_WHITE}
           />
         )
       }
