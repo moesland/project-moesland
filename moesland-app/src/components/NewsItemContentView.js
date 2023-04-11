@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, Image, Linking } from 'react-native';
 import { styles } from '../styles/NewsItemContentViewStyles';
+import { calculateImageHeight } from '../lib/Utilities/HelperFunctions';
 
 export default function NewsItemContent({ content }) {
   const { text, attributes } = content;
@@ -23,6 +24,25 @@ export default function NewsItemContent({ content }) {
     header === 2 && styles.h2,
   ];
 
+  const [imageHeight, setImageHeight] = useState(0);
+
+  useEffect(() => {
+    if (content.image) {
+      calculateImageHeight(content.image)
+      .then((calculatedImageHeight) => {
+        setImageHeight(calculatedImageHeight);
+      })
+      .catch((error) => {
+        console.log(`Error calculating image height: ${error}`);
+      });
+    }
+  }, [content]);
+
+  const handleImageLayout = (event) => {
+    const { height } = event.nativeEvent.layout;
+    setImageHeight(height);
+  };
+
   if (typeof text === 'string' && text.trim().length > 0) {
     return (
       <Text style={textStyles} onPress={() => link && Linking.openURL(link)}>
@@ -34,8 +54,8 @@ export default function NewsItemContent({ content }) {
     return (
       <Image
         source={source}
-        onLayout={this.handleImageLayout}
-        style={[styles.image, { height: 300 }]} // TODO: use handleimagelayout 
+        onLayout={handleImageLayout}
+        style={[styles.image, { height: imageHeight }]} // TODO: use handleimagelayout 
         resizeMode="contain"
       />
     );

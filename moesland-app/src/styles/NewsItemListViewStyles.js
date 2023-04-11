@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     itemContainer: {
-        padding: 5
+        flexDirection: 'row'
     },
     date: {
         fontSize: 12,
@@ -11,8 +11,7 @@ export const styles = StyleSheet.create({
         marginBottom: 10
     },
     image: {
-        width: 150,
-        height: 100
+        width: '35%'
     },
     title: {
         fontSize: 20,
