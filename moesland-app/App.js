@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MOESLAND_GREEN } from './src/constants/colors';
 import NewsItemListView from './src/routes/NewsItemListView';
+import NewsItemDetailView from './src/containers/NewsItemDetailView'
 import ToolbarView from './src/components/ToolbarView';
 import MediaView from './src/routes/MediaView';
 import CalendarView from './src/routes/CalendarView';
@@ -15,18 +16,26 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const handleMenuPress = () => {
-    // handle the menu press event
-  };
+  const [newsItems] = useState([]);
 
-  const [newsItems, setNewsItems] = useState([]);
-
+  function NewsStack() {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false
+        }}>
+        <Stack.Screen name="NewsItemListView" component={NewsItemListView} />
+        <Stack.Screen name="NewsItemDetailView" component={NewsItemDetailView} />
+      </Stack.Navigator>
+    );
+  }
+  
   return (
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Nieuws"
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+        screenOptions={({ route, navigation }) => ({
+          tabBarIcon: ({ focused }) => {
             let iconName;
 
             if (route.name === 'Nieuws') {
@@ -52,7 +61,6 @@ export default function App() {
             <ToolbarView
               {...props}
               showBackButton={route.name === 'NewsDetailPage'}
-              onPressMenu={handleMenuPress}
             />
           ),
           headerTintColor: '#fff',
@@ -64,9 +72,7 @@ export default function App() {
           },
         })}
       >
-        <Tab.Screen name="Nieuws">
-          {props => <NewsItemListView {...props} newsItems={newsItems} />}
-        </Tab.Screen>
+        <Tab.Screen name="Nieuws" component={NewsStack} />
         <Tab.Screen name="Agenda" component={CalendarView} />
         <Tab.Screen name="Media" component={MediaView} />
         <Tab.Screen name="Stemmen" component={VotingView} />

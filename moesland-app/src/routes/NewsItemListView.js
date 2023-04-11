@@ -16,7 +16,7 @@ const NewsItemListView = ({ navigation }) => {
     let source = { uri: `${bannerImage.uri}` };
 
     return (
-      <Pressable onPress={() => navigation.navigate('NewsDetailPage', { item: { date, title, bannerImage, content } })}>
+      <Pressable onPress={() => navigation.navigate('NewsItemDetailView', { item: { date, title, bannerImage, content } })}>
         <View style={[styles.itemContainer, { flexDirection: 'row' }]}>
           <View style={{ flex: 1 }}>
             <Text style={styles.date}>{date}</Text>
