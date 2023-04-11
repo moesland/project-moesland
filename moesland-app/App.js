@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { MOESLAND_GREEN } from './src/constants/colors';
+import { MOESLAND_GREEN, FOOTER_BACKGROUND_COLOR } from './src/constants/colors';
 import NewsItemListView from './src/routes/NewsItemListView';
-import NewsItemDetailView from './src/routes/NewsItemDetailView';
+import NewsItemDetailView from './src/routes/NewsItemDetailView'
 import ToolbarView from './src/components/ToolbarView';
 import MediaView from './src/routes/MediaView';
 import CalendarView from './src/routes/CalendarView';
@@ -50,10 +50,9 @@ export default function App() {
 
             return <Ionicons name={iconName} size={25} color={MOESLAND_GREEN} />;
           },
-          tabBarActiveTintColor: '#50a038',
-          tabBarInactiveTintColor: 'gray',
+          tabBarActiveTintColor: MOESLAND_GREEN,
           tabBarStyle: {
-            backgroundColor: '#f2f2f2',
+            backgroundColor: FOOTER_BACKGROUND_COLOR,
           },
           header: props => (
             <ToolbarView
@@ -61,13 +60,6 @@ export default function App() {
               showBackButton={route.name === 'NewsDetailPage'}
             />
           ),
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          headerStyle: {
-            backgroundColor: '#50a038',
-          },
         })}
       >
         <Tab.Screen name="Nieuws" component={NewsStack} />

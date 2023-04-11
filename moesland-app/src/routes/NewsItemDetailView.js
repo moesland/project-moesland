@@ -14,16 +14,16 @@ export default class NewsItemListView extends Component {
         const { item } = this.state;
 
         Image.getSize(item.bannerImage.uri, (width, height) => {
-            const aspectRatio = width / height;
-            const usableImageHeight = width / aspectRatio;
-            this.setState({ imageHeight: height });
+            const aspectRatio = screenWidth / height;
+            const usableImageHeight = screenWidth / aspectRatio;
+            this.setState({ imageHeight: usableImageHeight });
         });
     };
 
     render() {
         const { item } = this.props.route.params;
         const { imageHeight } = this.state;
-            this.handleImageLayout()
+        this.handleImageLayout()
         return (
             <ScrollView>
                 <View style={styles.container}>
