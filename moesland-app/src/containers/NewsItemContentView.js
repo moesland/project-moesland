@@ -22,6 +22,7 @@ export default function NewsItemContent({ content }) {
     header === 1 && styles.bold,
     header === 2 && styles.h2,
   ];
+  
 
   if (typeof text === 'string' && text.trim().length > 0) {
     return (
@@ -35,7 +36,7 @@ export default function NewsItemContent({ content }) {
       <Image
         source={source}
         onLayout={this.handleImageLayout}
-        style={[styles.image, { height: 300 }]}
+        style={[styles.image, { height: 300 }]} // TODO: use handleimagelayout 
         resizeMode="contain"
       />
     );
