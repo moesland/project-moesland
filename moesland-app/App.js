@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ToolbarView from './src/components/ToolbarView';
 import NewsItemListView from './src/containers/NewsItemListView';
 import NewsItemDetailView from './src/containers/NewsItemDetailView';
+import PhotoContentView from './src/containers/PhotoContentView';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -11,6 +12,10 @@ export default function App() {
   const handleMenuPress = () => {
     // handle the menu press event
   };
+
+  const handleCameraPress = () => {
+    
+  }
 
   const [newsItems, setNewsItems] = useState([]);
 
@@ -24,6 +29,7 @@ export default function App() {
               {...props}
               showBackButton={route.name !== "NewsFeed"}
               onPressMenu={handleMenuPress}
+              onPressCamera={handleCameraPress}
             />
           ),
           headerTintColor: '#fff',
@@ -41,6 +47,10 @@ export default function App() {
         <Stack.Screen
           name="NewsDetailPage"
           component={NewsItemDetailView}
+        />
+        <Stack.Screen
+          name="PhotoContentView"
+          component={PhotoContentView}
         />
       </Stack.Navigator>
     </NavigationContainer>
