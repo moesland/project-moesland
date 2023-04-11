@@ -14,6 +14,8 @@ const takePicture = async () => {
     const image = result.assets[0];
     const imageUri = image.uri;
     const response = await FileSystem.readAsStringAsync(imageUri, { encoding: 'base64' });
+    const now = new Date();
+    const imageName = `${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}${now.getHours()}${now.getMinutes()}${now.getSeconds()}`;
     const imageData = response;
     const imageType = image.type;
 
@@ -25,9 +27,16 @@ const takePicture = async () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                
+                image: {
+                    name: imageName,
+                    data: imageData,
+                    contentType: imageType
+                }
             })
         });
+        const json = await responseJson.json();
+
+        console.log('Response:    ' + json);
     } catch (err) {
         console.error(err);
     }
