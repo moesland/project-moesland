@@ -1,13 +1,14 @@
 import NewsItemModel from './NewsItemModel'
 import NewsItemContentModel from './NewsItemContentModel'
 import uuid from 'uuid';
+import {LOCAL_URL} from '@env'
 
 export async function fetchNewsItems() {
     try {
         console.log('fetching')
         // Make a request to the API endpoint to retrieve news items
         // TODO: move ip to .env file in the future
-        const REACT_APP_BACKEND_ROOT_URL = 'http://192.168.2.42:5000';
+        const REACT_APP_BACKEND_ROOT_URL = LOCAL_URL;
         const response = await fetch(REACT_APP_BACKEND_ROOT_URL + "/api/news-article/", { method: "GET" })
         const json = await response.json();
 

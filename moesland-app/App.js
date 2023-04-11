@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MOESLAND_GREEN } from './src/constants/colors';
 import NewsItemListView from './src/routes/NewsItemListView';
-import NewsItemDetailView from './src/containers/NewsItemDetailView'
+import NewsItemDetailView from './src/routes/NewsItemDetailView';
 import ToolbarView from './src/components/ToolbarView';
 import MediaView from './src/routes/MediaView';
 import CalendarView from './src/routes/CalendarView';
