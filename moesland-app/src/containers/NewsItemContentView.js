@@ -35,7 +35,7 @@ export default function NewsItemContent({ content }) {
       <Image
         source={source}
         onLayout={this.handleImageLayout}
-        style={[styles.image, { height: 450 }]}
+        style={[styles.image, { height: 300 }]}
         resizeMode="contain"
       />
     );
