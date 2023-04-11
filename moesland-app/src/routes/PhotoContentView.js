@@ -17,7 +17,7 @@ const takePicture = async () => {
     const now = new Date();
     const imageName = `${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}${now.getHours()}${now.getMinutes()}${now.getSeconds()}`;
     const imageData = response;
-    const imageType = image.type;
+    const imageType = getMimeTypeFromExtension(image.uri);
 
     try {
         const REACT_APP_BACKEND_ROOT_URL = 'http://192.168.68.121:5000';
@@ -38,6 +38,19 @@ const takePicture = async () => {
         console.error(err);
     }
 };
+
+function getMimeTypeFromExtension(filePath) {
+    const extension = filePath.split('.').pop().toLowerCase();
+    switch (extension) {
+        case 'jpg':
+        case 'jpeg':
+            return 'image/jpeg';
+        case 'png':
+            return 'image/png';
+        default:
+            return null;
+    }
+}
 
 export default function PhotoContent() {
     return (
