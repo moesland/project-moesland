@@ -8,8 +8,7 @@ router.use(express.json());
 
 router.post('/', async (req, res) => {
     try {
-        const { image } = req.body;
-        const { name, data, contentType } = image;
+        const { name, data, contentType } = req.body;
     
         const newImage = new Image({
             name, data, contentType
