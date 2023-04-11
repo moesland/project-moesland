@@ -16,8 +16,6 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [newsItems] = useState([]);
-
   function NewsStack() {
     return (
       <Stack.Navigator
@@ -34,7 +32,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Nieuws"
-        screenOptions={({ route, navigation }) => ({
+        screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
             let iconName;
 
