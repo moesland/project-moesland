@@ -1,18 +1,12 @@
 import React from 'react';
+import { Text } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { MOESLAND_GREEN, COLOR_WHITE } from '../constants/colors';
+import APP_TITLE from '../constants/strings'
 
 const ToolbarView = ({ showBackButton, onPressMenu }) => {
   const navigation = useNavigation();
-
-  const menuIcon = (
-    <Icon
-      name="menu"
-      onPress={onPressMenu}
-      color={COLOR_WHITE}
-    />
-  );
 
   const backButton = (
     <Icon
@@ -25,7 +19,8 @@ const ToolbarView = ({ showBackButton, onPressMenu }) => {
   return (
     <Header
       backgroundColor={MOESLAND_GREEN}
-      leftComponent={showBackButton ? backButton : menuIcon}
+      leftComponent={showBackButton ? backButton : null}
+      centerComponent={<Text style={{ color: "#000000", fontSize: 30, fontWeight: 'bold' }}>CV Moesland</Text>}
     />
   );
 };
