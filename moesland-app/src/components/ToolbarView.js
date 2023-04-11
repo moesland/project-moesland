@@ -13,7 +13,7 @@ const ToolbarView = ({ showBackButton, onPressMenu }) => {
           <Icon
             name="arrow-back"
             onPress={() => navigation.goBack()}
-            iconStyle={styles.icon}
+            color={COLOR_WHITE}
           />
         ) : (
           <Icon
