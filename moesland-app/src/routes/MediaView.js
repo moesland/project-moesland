@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import PhotoContent from './PhotoContentView';
 
 export default class NewsItemListView extends Component {
     render() {
         return (
-            <Text>Media</Text>
+            <PhotoContent />
         )
     }
 }
