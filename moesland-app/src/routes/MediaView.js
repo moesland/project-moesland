@@ -1,10 +1,40 @@
-import React, { Component } from 'react';
-import { Text } from 'react-native';
+import axios from 'axios';
+import React, { Component, useEffect, useState } from 'react';
+import { Alert, Text, View } from 'react-native';
+import { Button } from 'react-native-elements';
+import { BACKEND_URL } from "@env"
+import PhotoContent from './PhotoContentView';
 
-export default class NewsItemListView extends Component {
-    render() {
-        return (
-            <Text>Media</Text>
-        )
+export default MediaView = () => {
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const uploadImage = async () => {
+        const url = `${BACKEND_URL}/api/user-image/create`
+        axios.post(url, selectedImage).then(response => {
+            if (response.status == 200) {
+                cancelImage();
+                Alert.alert("Melding", `${selectedImage.name} is upgeload!`)
+            }
+        }).catch(error => {
+            console.log(error);
+        })
     }
+
+    const cancelImage = () => {
+        setSelectedImage(null)
+    }
+
+    return (
+        <View>
+            <Text>Media</Text>
+            <PhotoContent setImage={setSelectedImage}/>
+            {selectedImage &&
+                <View>
+                    <Button onPress={uploadImage} title="Upload" />
+                    <Button onPress={cancelImage} title="Annuleren" />
+                </View>
+            }
+        </View>
+    )
+
 }

@@ -21,4 +21,6 @@ router.use('/api/user/get-list', require('./api/user/getList'));
 router.use('/api/authToken', require('./api/authToken'));
 router.use('/api/news-article', requestLimiter, require('./api/newsArticle'));
 
+router.use('/api/user-image', require('./api/userImage'));
+
 module.exports = router;
