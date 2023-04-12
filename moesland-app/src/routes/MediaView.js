@@ -3,19 +3,10 @@ import React, { Component, useEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { BACKEND_URL } from "@env"
-import { Pressable, Text, View } from 'react-native';
 import PhotoContent from './PhotoContentView';
 
 export default MediaView = () => {
     const [selectedImage, setSelectedImage] = useState(null);
-
-    useEffect(() => {
-        setSelectedImage({
-            name: "test name",
-            data: "test data",
-            contentType: "test content"
-        })
-    }, [])
 
     const uploadImage = async () => {
         const url = `${BACKEND_URL}/api/user-image/create`
@@ -28,7 +19,7 @@ export default MediaView = () => {
             console.log(error);
         })
     }
-    
+
     const cancelImage = () => {
         setSelectedImage(null)
     }
@@ -36,7 +27,7 @@ export default MediaView = () => {
     return (
         <View>
             <Text>Media</Text>
-            <PhotoContent />
+            <PhotoContent setImage={setSelectedImage}/>
             {selectedImage &&
                 <View>
                     <Button onPress={uploadImage} title="Upload" />
