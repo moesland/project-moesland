@@ -3,6 +3,8 @@ import React, { Component, useEffect, useState } from 'react';
 import { Alert, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { BACKEND_URL } from "@env"
+import { Pressable, Text, View } from 'react-native';
+import PhotoContent from './PhotoContentView';
 
 export default MediaView = () => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -25,9 +27,8 @@ export default MediaView = () => {
         }).catch(error => {
             console.log(error);
         })
-
     }
-
+    
     const cancelImage = () => {
         setSelectedImage(null)
     }
@@ -35,7 +36,7 @@ export default MediaView = () => {
     return (
         <View>
             <Text>Media</Text>
-
+            <PhotoContent />
             {selectedImage &&
                 <View>
                     <Button onPress={uploadImage} title="Upload" />
