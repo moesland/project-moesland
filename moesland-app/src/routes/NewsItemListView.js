@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Image, FlatList, Pressable, RefreshControl } from 'react-native';
+import { Dimensions, View, Text, Image, FlatList, Pressable, RefreshControl } from 'react-native';
 import { fetchNewsItems } from '../models/NewsItemApi';
 import { styles } from '../styles/NewsItemListViewStyles';
 
@@ -17,12 +17,12 @@ const NewsItemListView = ({ navigation }) => {
 
     return (
       <Pressable onPress={() => navigation.navigate('NewsItemDetailView', { item: { date, title, bannerImage, content } })}>
-        <View style={[styles.itemContainer, { flexDirection: 'row' }]}>
+        <View style={[styles.itemContainer]}>
           <View style={{ flex: 1 }}>
             <Text style={styles.date}>{date}</Text>
             <Text style={styles.title}>{title}</Text>
           </View>
-          <Image source={source} style={styles.image} />
+          <Image source={source} style={[styles.image, { height: 100 }]} />
         </View>
       </Pressable>
     );

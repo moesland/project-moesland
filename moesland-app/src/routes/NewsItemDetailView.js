@@ -2,28 +2,32 @@ import React, { Component } from 'react';
 import { Dimensions, View, ScrollView, Image, Text } from 'react-native';
 import NewsItemContentView from '../components/NewsItemContentView';
 import { styles } from '../styles/NewsItemDetailViewStyles';
+import { calculateImageHeight } from '../lib/Utilities/HelperFunctions';
 
 export default class NewsItemListView extends Component {
     state = {
-        imageWidth: null,
+        imageHeight: null,
         item: this.props.route.params.item,
     };
 
-    handleImageLayout = () => {
-        const screenWidth = Dimensions.get('window').width;
-        const { item } = this.state;
-
-        Image.getSize(item.bannerImage.uri, (width, height) => {
-            const aspectRatio = screenWidth / height;
-            const usableImageHeight = screenWidth / aspectRatio;
-            this.setState({ imageHeight: usableImageHeight });
+    componentDidMount() {
+        const { item } = this.props.route.params;
+        calculateImageHeight(item.bannerImage.uri)
+        .then((calculatedImageHeight) => {
+          // Use the calculatedImageHeight here
+          this.setState({ imageHeight: calculatedImageHeight });
+        })
+        .catch((error) => {
+          // Handle the error here
+          console.log(`Error calculating image height: ${error}`);
         });
-    };
-
+    }
+    
     render() {
         const { item } = this.props.route.params;
+
         const { imageHeight } = this.state;
-        this.handleImageLayout()
+
         return (
             <ScrollView>
                 <View style={styles.container}>
