@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { Component, useEffect, useState } from 'react';
-import { Alert, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { BACKEND_URL } from "@env"
 import PhotoContent from './PhotoContentView';
@@ -26,7 +26,6 @@ export default MediaView = () => {
 
     return (
         <View>
-            <Text>Media</Text>
             <PhotoContent setImage={setSelectedImage}/>
             {selectedImage &&
                 <View>

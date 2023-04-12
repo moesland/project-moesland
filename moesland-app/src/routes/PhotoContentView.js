@@ -19,6 +19,14 @@ const getMimeTypeFromExtension = (filePath) => {
 
 export default PhotoContent = (setImage) => {
     const takePicture = async () => {
+        const { status } = await ImagePicker.requestCameraPermissionsAsync();
+
+        console.log(`status ${status}`)
+
+        if (status !== 'granted') {
+            return;
+        }
+
         const result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
