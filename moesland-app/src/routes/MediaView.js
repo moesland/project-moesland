@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { Component, useEffect, useState } from 'react';
-import { Alert, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { BACKEND_URL } from "@env"
 import PhotoContent from './PhotoContentView';
@@ -9,14 +9,14 @@ export default MediaView = () => {
     const [selectedImage, setSelectedImage] = useState(null);
 
     const uploadImage = async () => {
-        const url = `${BACKEND_URL}/api/user-image/create`
+        const url = 'http://192.168.2.47:5000/api/user-image/create'
         axios.post(url, selectedImage).then(response => {
             if (response.status == 200) {
                 cancelImage();
                 Alert.alert("Melding", `${selectedImage.name} is upgeload!`)
             }
         }).catch(error => {
-            console.log(error);
+            //console.log(error);
         })
     }
 
@@ -26,7 +26,6 @@ export default MediaView = () => {
 
     return (
         <View>
-            <Text>Media</Text>
             <PhotoContent setImage={setSelectedImage}/>
             {selectedImage &&
                 <View>
@@ -36,5 +35,4 @@ export default MediaView = () => {
             }
         </View>
     )
-
 }

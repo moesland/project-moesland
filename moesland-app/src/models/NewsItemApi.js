@@ -1,78 +1,89 @@
 import NewsItemModel from './NewsItemModel'
 import NewsItemContentModel from './NewsItemContentModel'
 import uuid from 'uuid';
- import {BACKEND_URL} from '@env'
+import {BACKEND_URL} from '@env'
+
+async function fetchNewsItemsFromBackend() {
+    // TODO: move ip to .env file in the future
+    //const response = await fetch(`${BACKEND_URL}/api/news-article/`, { method: 'GET' });
+    const response = await fetch(`http://192.168.2.47:5000/api/news-article/`, { method: 'GET' });
+    const json = await response.json();
+    return json;
+}
 
 export async function fetchNewsItems() {
     try {
         console.log('fetching')
-        // Make a request to the API endpoint to retrieve news items
-        // TODO: move ip to .env file in the future
-        //const REACT_APP_BACKEND_ROOT_URL = 'http://192.168.2.42:5000';
-        const REACT_APP_BACKEND_ROOT_URL = BACKEND_URL;
-        const response = await fetch(REACT_APP_BACKEND_ROOT_URL + "/api/news-article/", { method: "GET" })
-        const json = await response.json();
+        const json = await fetchNewsItemsFromBackend();
 
         const newsItems = json.map((item) => {
-
             const content = JSON.parse(item.content);
-
             let previousContentModel = null;
-            const contentModels = content.ops.map((op) => {
-                let image = null;
 
-                // Check if the current op has an image
-                if (op.insert && op.insert.image) {
-                    image = op.insert.image;
-                }
+            const contentModels = parseContentOps(content, previousContentModel);
 
-                const attributes = op.attributes || {};
-                if (attributes.header || attributes.align) {
-                    if (previousContentModel) {
-                        const newAttributes = {
-                            "header": attributes.header,
-                            "align": attributes.align,
-                            ...previousContentModel.attributes,
-                        };
-                        previousContentModel.attributes = newAttributes;
-                    }
-                }
-                const contentModel = new NewsItemContentModel(
-                    uuid.v4(),
-                    op.insert,
-                    attributes,
-                    image
-                );
-                previousContentModel = contentModel;
-
-                return contentModel;
-            });
-
-            // convert the date to DD/MM/YYYY format
-            const inputDateString = item.date;
-            const date = new Date(inputDateString);
-            const formattedDate = date.toLocaleDateString('en-GB');
-
-
-            const Buffer = require("buffer").Buffer;
-            let base64String = new Buffer(item.bannerImage.data.data).toString("base64");
-
-            const imageSource = {
-                uri: `data:image/png;base64,${base64String.toString('base64')}`
-            };
-
+            previousContentModel = null;
             return new NewsItemModel(
                 uuid.v4(),
-                formattedDate,
+                formatDateString(item.date),
                 item.title,
-                imageSource,
+                convertImageToSourceString(item.bannerImage.data),
                 contentModels
             );
         });
 
+        // return reverse order to show the newest news item first
         return newsItems.reverse();
     } catch (error) {
         console.error(error);
         return [];
     }
+}
+
+function parseContentOps(content, previousContentModel) {
+    return content.ops.map((op) => {
+        let image = null;
+
+        // Check if the current op has an image
+        if (op.insert && op.insert.image) {
+            image = op.insert.image;
+        }
+
+        const attributes = op.attributes || {};
+        if (attributes.header || attributes.align) {
+            if (previousContentModel) {
+                const newAttributes = {
+                    header: attributes.header,
+                    align: attributes.align,
+                    ...previousContentModel.attributes,
+                };
+                previousContentModel.attributes = newAttributes;
+            }
+        }
+        const contentModel = new NewsItemContentModel(
+            uuid.v4(),
+            op.insert,
+            attributes,
+            image
+        );
+        previousContentModel = contentModel;
+
+        return contentModel;
+    });
+}
+
+// converts a buffer object to base64 string
+function convertImageToSourceString(bannerImageData) {
+    const Buffer = require("buffer").Buffer;
+    let base64String = new Buffer(bannerImageData.data).toString("base64");
+
+    return {
+        uri: `data:image/png;base64,${base64String}`
+    };
+}
+
+// convert a given date to DD/MM/YYYY format
+function formatDateString(inputDateString) {
+    const date = new Date(inputDateString);
+    return date.toLocaleDateString('en-GB');
 }

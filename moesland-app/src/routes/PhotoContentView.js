@@ -35,13 +35,7 @@ export default PhotoContent = (setImage) => {
             const imageData = response;
             const imageType = getMimeTypeFromExtension(image.uri);
 
-            //setImage({
-            //    name: imageName,
-            //    data: imageData,
-            //    contentType: imageType
-            //});
-
-            const REACT_APP_BACKEND_ROOT_URL = 'http://192.168.68.121:5000';
+            const REACT_APP_BACKEND_ROOT_URL = 'http://192.168.2.47:5000';
             await fetch(REACT_APP_BACKEND_ROOT_URL + '/api/user-image/create', {
                 method: 'POST',
                 headers: {
