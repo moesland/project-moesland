@@ -8,17 +8,22 @@ export const styles = StyleSheet.create({
         fontSize: 12,
         color: 'gray',
         alignSelf: 'flex-start',
-        marginBottom: 10
+        marginBottom: 10,
+        padding: 2,
     },
     image: {
-        width: '35%'
+        width: '35%',
     },
     title: {
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        paddingHorizontal: 5,
     },
     text: {
         fontSize: 14
+    },
+    textcontainer: {
+        flex: 1,
     },
     separator: {
         height: 1,
