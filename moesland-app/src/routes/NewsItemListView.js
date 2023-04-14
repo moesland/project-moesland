@@ -1,28 +1,24 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Dimensions, View, Text, Image, FlatList, Pressable, RefreshControl } from 'react-native';
+import { View, Text, Image, FlatList, Pressable, RefreshControl } from 'react-native';
 import { fetchNewsItems } from '../models/NewsItemApi';
 import { styles } from '../styles/NewsItemListViewStyles';
+import { calculateImageHeightForScreenSize } from '../lib/Utilities/HelperFunctions';
 
 const NewsItemListView = ({ navigation }) => {
-  // React Native Hook
-  // initializes 'newsItems' as an empty array
-  // 'setNewsItems' function is used to update state
   const [newsItems, setNewsItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  // useCallback is a React Native Hook that memoizes a function to improve performance
-  // memoization = caching the results of a function call to improve performance by avoiding unnecessary computation
   const renderItem = useCallback(({ item: { date, title, bannerImage, content } }) => {
     let source = { uri: `${bannerImage.uri}` };
 
     return (
       <Pressable onPress={() => navigation.navigate('NewsItemDetailView', { item: { date, title, bannerImage, content } })}>
         <View style={[styles.itemContainer]}>
-          <View style={{ flex: 1 }}>
+          <View style={ styles.textcontainer }>
             <Text style={styles.date}>{date}</Text>
             <Text style={styles.title}>{title}</Text>
           </View>
-          <Image source={source} style={[styles.image, { height: 100 }]} />
+          <Image source={source} style={[styles.image, {height: calculateImageHeightForScreenSize()}]} />
         </View>
       </Pressable>
     );
@@ -44,7 +40,6 @@ const NewsItemListView = ({ navigation }) => {
   }, []);
 
 
-  // React Native Hook
   // fetches data async after the newsitemlistview is first rendered
   useEffect(() => {
     const fetchData = async () => {
