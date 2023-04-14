@@ -9,7 +9,7 @@ export default MediaView = () => {
     const [selectedImage, setSelectedImage] = useState(null);
 
     const uploadImage = async () => {
-        const url = 'http://192.168.2.47:5000/api/user-image/create'
+        const url = `${BACKEND_URL}/api/user-image/create`
         axios.post(url, selectedImage).then(response => {
             if (response.status == 200) {
                 cancelImage();

@@ -3,6 +3,7 @@ import { Pressable, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { styles } from '../styles/PhotoContentViewStyles';
+import {BACKEND_URL} from '@env'
 
 const getMimeTypeFromExtension = (filePath) => {
     const extension = filePath.split('.').pop().toLowerCase();
@@ -35,8 +36,7 @@ export default PhotoContent = (setImage) => {
             const imageData = response;
             const imageType = getMimeTypeFromExtension(image.uri);
 
-            const REACT_APP_BACKEND_ROOT_URL = 'http://192.168.2.47:5000';
-            await fetch(REACT_APP_BACKEND_ROOT_URL + '/api/user-image/create', {
+            await fetch(`${BACKEND_URL}/api/user-image/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -5,8 +5,7 @@ import {BACKEND_URL} from '@env'
 
 async function fetchNewsItemsFromBackend() {
     // TODO: move ip to .env file in the future
-    //const response = await fetch(`${BACKEND_URL}/api/news-article/`, { method: 'GET' });
-    const response = await fetch(`http://192.168.2.47:5000/api/news-article/`, { method: 'GET' });
+    const response = await fetch(`${BACKEND_URL}/api/news-article/`, { method: 'GET' });
     const json = await response.json();
     return json;
 }
