@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Dimensions, View, ScrollView, Image, Text } from 'react-native';
+import { View, ScrollView, Image, Text } from 'react-native';
 import NewsItemContentView from '../components/NewsItemContentView';
 import { styles } from '../styles/NewsItemDetailViewStyles';
-import { calculateImageHeight } from '../lib/Utilities/HelperFunctions';
+import { calculateImageHeightForAspectRatio } from '../lib/Utilities/HelperFunctions';
 
 export default class NewsItemListView extends Component {
     state = {
@@ -12,20 +12,17 @@ export default class NewsItemListView extends Component {
 
     componentDidMount() {
         const { item } = this.props.route.params;
-        calculateImageHeight(item.bannerImage.uri)
+        calculateImageHeightForAspectRatio(item.bannerImage.uri)
         .then((calculatedImageHeight) => {
-          // Use the calculatedImageHeight here
           this.setState({ imageHeight: calculatedImageHeight });
         })
         .catch((error) => {
-          // Handle the error here
           console.log(`Error calculating image height: ${error}`);
         });
     }
     
     render() {
         const { item } = this.props.route.params;
-
         const { imageHeight } = this.state;
 
         return (
