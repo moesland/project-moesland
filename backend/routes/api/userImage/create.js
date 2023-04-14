@@ -14,12 +14,9 @@ router.post('/', async (req, res) => {
             name, data, contentType
         });
 
-        console.log('trjsrj');
         await createUserImage(newImage);
-        console.log('dsdsdsds');
         res.status(200).send(`User image created successfully!`);
     } catch (err) {
-        console.log('asdasd');
         res.status(500).send(`Could not create user image: ` + err);
     }
 });
