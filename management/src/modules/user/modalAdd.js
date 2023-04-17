@@ -1,51 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import {yupResolver} from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup';
 import { BackendClientRequest } from "../../services/ApiClient";
 
-
-const ModalAdd = ({ toggleModal, refreshOverview }) => {
-
+export default function ModalAdd({ toggleModal, refreshOverview }) {
     const schema = yup.object().shape({
-        email: yup.string().email("Dit veld moet een legitieme email zijn.").required("Dit veld mag niet leeg zijn."),
-        username: yup.string().min(2, "Het gebruikersnaam moet minimaal twee karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn."),
-        password: yup.string().min(6, "het wachtwoord moet minimaal 6 karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn.")
-        
-    })
-    const { register, handleSubmit, formState: {errors} } = useForm({
-        resolver: yupResolver(schema),
+        email: yup.string().email("Het e-mailadres moet geldig zijn.").required("Dit veld mag niet leeg zijn."),
+        username: yup.string().min(2, "De gebruikersnaam moet minimaal twee karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn."),
+        password: yup.string().min(6, "Het wachtwoord moet minimaal 6 karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn.")
     });
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
     const onSubmit = (data) => {
-        console.log(data.password)
+        addManager(data.email, data.username, data.password);
+    };
 
-        pushManager(4, data.email, data.username, data.password)
-        
-    }
-    async function pushManager(id, email, username, password)
-    {
-        console.log("Adding manager")
-
-        const path = "/api/user/add"
+    async function addManager(email, username, password) {
+        const path = "/api/user/add";
         const body = {
             username: username,
             email: email,
             password: password
-        }
-        console.log(body)
-
+        };
         const token = localStorage.getItem('token');
         const headers = new Headers({
             'Authorization': 'Bearer ' + token,
-            'Content-Type':'application/json'
-        })
-        await  BackendClientRequest(
+            'Content-Type': 'application/json'
+        });
+        await BackendClientRequest(
             path, body, headers, "POST"
-        )
+        );
+
         refreshOverview();
         toggleModal();
     }
-    
 
     return (
         <>
@@ -53,14 +45,14 @@ const ModalAdd = ({ toggleModal, refreshOverview }) => {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header bg-moesland text-white">
-                            <h5 className="modal-title">Nieuwe Beheerder</h5>
+                            <h5 className="modal-title">Nieuwe beheerder</h5>
                         </div>
-                        <form  onSubmit={handleSubmit(onSubmit)}>
-                            <div className="mx-auto  col-md-10">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="mx-auto col-md-10">
                                 <div className="form-group pt-3">
-                                    <label>Email</label>
-                                    <input className="form-control" id="exampleInputEmail1" name="modalAddManagerEmailName" aria-describedby="emailHelp" placeholder="Email" {...register("email")}></input>
-                                    <small id="modalAddManagerEmailError" className="form-text text-danger  modalAddManagerEmailError">{errors.email?.message}</small>
+                                    <label>E-mailadres</label>
+                                    <input className="form-control" id="exampleInputEmail1" name="modalAddManagerEmailName" aria-describedby="emailHelp" placeholder="E-mailadres" {...register("email")}></input>
+                                    <small id="modalAddManagerEmailError" className="form-text text-danger modalAddManagerEmailError">{errors.email?.message}</small>
                                 </div>
                                 <div className="form-group pt-3">
                                     <label>Gebruikersnaam</label>
@@ -71,20 +63,18 @@ const ModalAdd = ({ toggleModal, refreshOverview }) => {
                                     <label>Wachtwoord</label>
                                     <input className="form-control" id="exampleInputPassword1" placeholder="Wachtwoord" name="modalAddManagerPasswordName" {...register("password")}></input>
                                 </div>
-                                <small id="modalAddManagerPasswordError" className="form-text text-danger  modalAddManagerPasswordError" >{errors.password?.message}</small>
+                                <small id="modalAddManagerPasswordError" className="form-text text-danger modalAddManagerPasswordError" >{errors.password?.message}</small>
                                 <div className="form-check">
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <button onClick={toggleModal} type="button" className="btn btn-secondary" data-dismiss="modal">Anuleren</button>
-                                <input type = "submit"  className="btn btn btn-moesland" value="Aanmaken"></input>
+                                <button onClick={toggleModal} type="button" className="btn btn-secondary" data-dismiss="modal">Annuleren</button>
+                                <input type="submit" className="btn btn btn-moesland" value="Aanmaken"></input>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </>
-    )
+    );
 }
-
-export default ModalAdd
