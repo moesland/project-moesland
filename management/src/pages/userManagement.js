@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import ModalAdd from "../modules/user/modalAdd";
-import ModalDelete from "../modules/user/modalDelete";
-import ModalUpdate from "../modules/user/modalUpdate";
+import React, { useEffect, useState } from 'react';
+import ModalAdd from '../modules/user/modalAdd';
+import ModalDelete from '../modules/user/modalDelete';
+import ModalUpdate from '../modules/user/modalUpdate';
 
 export default function Management() {
   const [selectedItem, setSelectedItem] = useState(undefined);
@@ -15,7 +15,7 @@ export default function Management() {
   }, []);
 
   const refreshData = async () => {
-    await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user/get-list/", { method: "GET" })
+    await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user/get-list/', { method: 'GET' })
       .then(response => response.json())
       .then(data => { setUserData(data) });
   };
@@ -37,37 +37,35 @@ export default function Management() {
   return (
     <>
       {userData &&
-        <div className="row">
-          <div className="pt-5 col-md-8 mx-auto text-center">
-            <div className="float-end col-md-3 pb-3">
-              <button onClick={ToggleShowModalAdd} type="button" className="btn btn-moesland">Nieuwe beheerder</button>
-            </div>
-            <table className="table table-striped">
-              <thead>
-                <tr className="bg-moesland text-white">
-                  <th scope="col">#</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Gebruikersnaam</th>
-                  <th scope="col">Rol</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody id="tableBody">
-                {userData.map(user => (
-                  <tr key={user.id} >
-                    <th className="id" >{user.id}</th>
-                    <td className="email">{user.email}</td>
-                    <td className="userName">{user.username}</td>
-                    <td className="role">{user.roleId.rolename}</td>
-                    <td>
-                      <button className="btn btn-moesland mx-2" onClick={() => ToggleShowModalUpdate(user)}>Aanpassen</button>
-                      {user.roleId.rolename !== "SuperAdmin" && <button className="btn btn-danger" onClick={() => ToggleShowModalDelete(user)}>Verwijderen</button>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="container mt-3 text-center">
+          <div className="float-start mb-3">
+            <button className="btn btn-moesland" onClick={ToggleShowModalAdd}>Nieuwe beheerder</button>
           </div>
+          <table className="table table-striped">
+            <thead>
+              <tr className="bg-moesland text-white">
+                <th scope="col">#</th>
+                <th scope="col">Email</th>
+                <th scope="col">Gebruikersnaam</th>
+                <th scope="col">Rol</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              {userData.map(user => (
+                <tr key={user.id} >
+                  <th className="id">{user.id}</th>
+                  <td className="email">{user.email}</td>
+                  <td className="userName">{user.username}</td>
+                  <td className="role">{user.roleId.rolename}</td>
+                  <td className="text-end">
+                    <button className={`btn btn-moesland ${user.roleId.rolename !== 'SuperAdmin' ? " mx-2" : ""}`} onClick={() => ToggleShowModalUpdate(user)}>Aanpassen</button>
+                    {user.roleId.rolename !== "SuperAdmin" && <button className="btn btn-danger" onClick={() => ToggleShowModalDelete(user)}>Verwijderen</button>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       }
 
