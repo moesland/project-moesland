@@ -59,8 +59,10 @@ export default function Management() {
                   <td className="userName">{user.username}</td>
                   <td className="role">{user.roleId.rolename}</td>
                   <td className="text-end">
-                    <button className={`btn btn-moesland ${user.roleId.rolename !== 'SuperAdmin' ? " mx-2" : ""}`} onClick={() => ToggleShowModalUpdate(user)}>Aanpassen</button>
-                    {user.roleId.rolename !== "SuperAdmin" && <button className="btn btn-danger" onClick={() => ToggleShowModalDelete(user)}>Verwijderen</button>}
+                    {user.roleId.rolename !== "SuperAdmin" &&
+                      <button className={`btn btn-moesland ${user.roleId.rolename !== 'SuperAdmin' ? " mx-2" : ""}`} onClick={() => ToggleShowModalUpdate(user)}>Aanpassen</button>}
+                    {user.roleId.rolename !== "SuperAdmin" &&
+                      <button className="btn btn-danger" onClick={() => ToggleShowModalDelete(user)}>Verwijderen</button>}
                   </td>
                 </tr>
               ))}

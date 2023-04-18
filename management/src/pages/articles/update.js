@@ -1,31 +1,18 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { BackendClientRequest } from "../../services/ApiClient";
+import React, { useState, useRef } from "react";
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Update = () => {
-    const [editorHtml, setEditorHtml] = useState("");
-    const [title, setTitle] = useState('');
+export default function Create() {
+    const [, setBannerImage] = useState('');
     const quillRef = useRef(null);
-
     const navigate = useNavigate();
     const { state } = useLocation();
 
-    useEffect(() => {
-        if (state) {
-            setTitle(state.article.title);
-            if (state.article.content) {
-                setEditorHtml(JSON.parse(state.article.content));
-            }
-        }
-    }, []);
-
-    const handleEditorChange = (value) => {
-        setEditorHtml(value);
-    };
-
-    const modules = {
+    const quillModules = {
         toolbar: [
             [{ 'header': '1' }, { 'header': '2' }],
             [{ size: [] }],
@@ -35,58 +22,97 @@ const Update = () => {
         ],
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const schema = yup.object().shape({
+        title: yup.string().min(3, "De titel moet minimaal drie karakters bevatten.").required("Dit veld mag niet leeg zijn.")
+    });
 
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            setBannerImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const onSubmit = (data) => {
+        updateNewsArticle(data.title);
+    };
+
+    async function updateNewsArticle(title) {
         const delta = quillRef.current.getEditor().getContents();
         const content = JSON.stringify(delta);
 
-        const headers = new Headers({
-            'Content-Type':'application/json'
+        const imageFile = document.querySelector('input[name="image"]').files[0];
+
+        const formData = new FormData();
+        formData.append('_id', state.article._id);
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('originalImageId', state.article.bannerImage._id);
+        formData.append('bannerImage', imageFile);
+
+        const token = localStorage.getItem('token');
+
+        const response = await fetch('http://localhost:5000/api/news-article/update', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         });
-        const path = '/api/news-article/update';
-        const body = { id: state.article._id, title, content };
-        const method = "POST";
 
-        await BackendClientRequest(path, body, headers, method);
-        // Redirect to management page or homepage
-        navigate('/articles/');
-    };
-
-    const openOverview = () => {
-        navigate('/articles');
+        if (response.ok) {
+            window.alert('Nieuwsartikel is aangepast!');
+            navigate('/articles/');
+        } else {
+            window.alert('Fout bij het aanpassen.');
+        }
     }
 
     return (
         <>
             <div className="container">
                 <div className="h-100 d-flex align-items-center justify-content-center">
-                    <form onSubmit={handleSubmit} className="col-6">
+                    <form onSubmit={handleSubmit(onSubmit)} className="col-6">
                         <div className="text-center">
                             <h1>
-                                Nieuwsartikel bewerken
+                                Nieuwsartikel aanpassen
                             </h1>
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
                                 Titel:
                             </label>
-                            <input type="text" name="title" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} />
+                            <input type="text" id="title" name="title" className="form-control" placeholder="Titel" {...register("title")} defaultValue={state.article.title} />
+                            <small id="addNewsArticleTitleError" className="form-text text-danger addNewsArticleTitleError">{errors.title?.message}</small>
+                        </div>
+                        <div className="form-group mt-3">
+                            <label className="mb-2">
+                                Afbeelding:
+                            </label>
+                            <input type="file" id="image" name="image" accept="image/*" className="form-control" onChange={handleImageChange} />
+                            <small className="form-text">Laat leeg om deze ongewijzigd te laten.</small>
                         </div>
                         <div className="form-group mt-3">
                             <label className="mb-2">
                                 Inhoud:
                             </label>
-                            {<ReactQuill ref={quillRef} value={editorHtml} onChange={handleEditorChange} modules={modules} />}
+                            <ReactQuill ref={quillRef} name="conent" modules={quillModules} defaultValue={JSON.parse(state.article.content)} />
                         </div>
                         <br></br>
                         <div className="form-group text-left">
                             <div className="row">
                                 <div className="col text-start">
-                                    <input type="submit" value="Bijwerken" className="btn btn-success w-50" />
+                                    <input type="submit" value="Opslaan" className="btn btn-moesland w-50" />
                                 </div>
                                 <div className="col text-end">
-                                    <button onClick={openOverview} className="btn btn-danger w-50">Annuleren</button>
+                                    <a href="/articles/" className="btn btn-danger w-50">Annuleren</a>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +120,5 @@ const Update = () => {
                 </div>
             </div>
         </>
-    )
+    );
 }
-
-export default Update;

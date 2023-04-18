@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
     const navigate = useNavigate();
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState('');
 
     useEffect(() => {
-        const loggedInUser = localStorage.getItem("user");
+        const loggedInUser = localStorage.getItem('user');
         if (loggedInUser) {
             setUser(`Welkom ${loggedInUser}!`);
         }
@@ -14,7 +14,7 @@ export default function Navbar() {
 
     const logout = () => {
         try {
-            setUser("");
+            setUser('');
             localStorage.clear();
             navigate('/login');
         } catch (error) {

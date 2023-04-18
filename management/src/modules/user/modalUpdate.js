@@ -55,7 +55,7 @@ export default function ModalUpdate({ toggleModal, selectedItem, refreshOverview
                                 <div className="form-group pt-3">
                                     <label>Nieuw wachtwoord</label>
                                     <input id="EditModalPasswordInput" className="form-control" placeholder="Wachtwoord" name="modalEditManagerPasswordName"
-                                    {...register("password")} defaultValue={selectedItem.password}></input>
+                                    {...register("password")}></input>
                                 </div>
                                 <small id="modalAddManagerPasswordError" className="form-text text-danger modalAddManagerPasswordError">{errors.password?.message}</small>
                                 <div className="form-check">

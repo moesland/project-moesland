@@ -39,7 +39,6 @@ export default function ArticleOverview() {
         navigate('/articles/create');
     };
 
-    // https://stackoverflow.com/questions/69714423/how-do-you-pass-data-when-using-the-navigate-function-in-react-router-v6
     const openEdit = (article) => {
         navigate('/articles/update/' + article._id, { state: { article } });
     };
