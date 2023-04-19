@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 const Events = mongoose.model('Event');
 
+function getDate(daysToAdd) {
+  const today = new Date();
+  const futureDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + daysToAdd);
+  return futureDate;
+}
 const today = new Date();
-const tomorrow = new Date(today);
-tomorrow.setDate(tomorrow.getDate() + 1);
-const dayAfterTomorrow = new Date(today);
-dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
-const dayAfterTheDayAfterTomorrow = new Date(today);
-dayAfterTheDayAfterTomorrow.setDate(dayAfterTheDayAfterTomorrow.getDate() + 3);
+const tomorrow = getDate(2);
+const dayAfterTomorrow = getDate(3);
+const dayAfterTheDayAfterTomorrow = getDate(4);
 
 const eventData = [
   {
