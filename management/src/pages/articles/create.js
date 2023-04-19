@@ -74,7 +74,7 @@ export default function Create() {
 
     return (
         <>
-            <div className="container">
+            <div className="container mb-4">
                 <div className="h-100 d-flex align-items-center justify-content-center">
                     <form onSubmit={handleSubmit(onSubmit)} className="col-6">
                         <div className="text-center">

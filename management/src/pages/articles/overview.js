@@ -59,7 +59,7 @@ export default function ArticleOverview() {
                     <table className="table table-striped">
                         <thead>
                             <tr className="bg-moesland text-white">
-                                <th scope="col">Aanmaak datum</th>
+                                <th scope="col">Aanmaakdatum</th>
                                 <th scope="col" colSpan="2">Titel</th>
                             </tr>
                         </thead>
