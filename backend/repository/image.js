@@ -12,7 +12,7 @@ module.exports = {
     },
     async updateImageById(id, name, data, contentType) {
         return await Image.findOneAndUpdate(
-            { id: { $eq: id } }, { name: { $eq: name } }, { data: { $eq: data } }, { contentType: { $eq: contentType } })
+            { _id: { $eq: id } }, { name: name }, { data: data }, { contentType: contentType })
             .catch(err => console.error(err));
     }
 };

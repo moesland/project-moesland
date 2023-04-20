@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllNewsArticle } = require('../../../repository/newsArticle');
+const { getAllNewsArticles } = require('../../../repository/newsArticle');
 
 const router = express.Router();
 
@@ -7,7 +7,7 @@ router.use(express.json());
 
 router.get('/', async (req, res) => {
     try {
-        res.status(200).json(await getAllNewsArticle());
+        res.status(200).json(await getAllNewsArticles());
     } catch (err) {
         res.status(500).send("wrong")
     }
