@@ -7,6 +7,7 @@ const { createNewsArticle } = require('../../../repository/newsArticle');
 const fs = require('fs');
 const path = require('path');
 const auth = require('../../../middlewares/auth');
+const escape = require('escape-html');
 
 router.use(express.json());
 
@@ -15,7 +16,7 @@ router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (re
         const { title, date, content } = req.body;
         const filePath = path.join(__dirname, '../../..', req.file.path);
         if (!fs.existsSync(filePath)) {
-            return res.status(500).send(`Could not create news article: file does not exist, path: ${filePath}.`);
+            return res.status(500).send('Could not create news article: file does not exist, path:' + escape(filePath));
         }
 
         const imageBuffer = fs.readFileSync(filePath);
