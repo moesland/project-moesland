@@ -20,7 +20,7 @@ services:
     depends_on:
       - database
     environment:
-      - MONGO_URL=mongodb://moeslanddb:27017
+      - MONGODB_URI=mongodb://moeslanddb:27017/moesland
     volumes:
       - "./backend:/usr/src/backend/"
 
@@ -32,8 +32,6 @@ services:
     command: npm start
     ports: 
       - 3001:3000
-    depends_on:
-      - database
     volumes:
       - "./management:/usr/src/management/"
 volumes:
