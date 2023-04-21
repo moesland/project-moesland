@@ -27,7 +27,7 @@ module.exports = {
         return await NewsArticle.find({}).populate("bannerImage")
             .catch(err => console.error(err));
     },
-    async createNewsArticle(title, date, bannerImage, content) {
+    async createNewsArticle(title, bannerImage, content) {
         const image = await Image.findOne(bannerImage);
         if (image) {
             const newArticle = new NewsArticle({
