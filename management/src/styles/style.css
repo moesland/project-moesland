@@ -98,3 +98,30 @@
     max-width: 100%;
   }
 }
+
+.image-gallery-wrapper {
+  margin-top: 5rem;
+  max-width: 100%;
+  width: 60%;
+  margin: 0 auto;
+  border: 1px solid #4ba721 !important;
+  box-shadow:  #c1e6b1 1px 10px 10px 5px;
+}
+.image-gallery-slide img {
+  width: 100%;
+  height: 75vh;
+  max-height: 80vh;
+  object-fit: cover;
+  overflow: hidden;
+  object-position: center center;
+}
+.image-gallery-description {
+  display:none
+}
+.image-gallery-image {
+  touch-action: pan-y;
+  user-select: none;
+}
+.image-gallery-svg{
+  display: none;
+}
