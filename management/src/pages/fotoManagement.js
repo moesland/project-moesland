@@ -29,25 +29,40 @@ export default function Management() {
 
         }
     ];
+    const [galleryImages, setGalleryImages] = useState(images);
+    const [successMessage, setSuccessMessage] = useState('');
+    {
+        successMessage && (
+            <div className="alert alert-success" role="alert">
+                {successMessage}
+            </div>
+        )
+    }
+
+    const handleSuccessMessage = () => {
+        setSuccessMessage('Item approved successfully!');
+    };
+
     const handleKeyPress = (event) => {
         if (event.key === 'ArrowLeft') {
-          //approveItem();
-          console.log("left")
+            approveItem(event.dataset);
+            console.log("left")
+            handleSuccessMessage();
+
         } else if (event.key === 'ArrowRight') {
-          //denyItem();
-          console.log("right")
+            denyItem();
+            console.log("right")
         }
-      };
-      
-      useEffect(() => {
+    };
+
+    useEffect(() => {
         document.addEventListener('keydown', handleKeyPress);
         return () => {
-          document.removeEventListener('keydown', handleKeyPress);
+            document.removeEventListener('keydown', handleKeyPress);
         };
-      }, []);
+    }, []);
 
 
-    const [galleryImages, setGalleryImages] = useState(images);
 
     useEffect(() => {
         setGalleryImages(images);
@@ -61,10 +76,8 @@ export default function Management() {
         setGalleryImages(newImages);
     };
 
-
-
     const approveItem = (item) => {
-        console.log(`Item approved: ${item.description}`);
+        console.log(`Item approved: ${item}`);
     };
 
     const denyItem = (item) => {
@@ -83,14 +96,14 @@ export default function Management() {
                 </div>
                 <button
                     type="button"
+                    className="btn btn-danger btn-sq-responsive"
                     //onClick={denyItem(item)}
-                    className="btn btn-danger"
                 >
                     Afkeuren
                 </button>
                 <button
                     type="button"
-                    className="btn btn-success"
+                    className="btn btn-success btn-sq-responsive"
                     //onClick={approveItem(item)}
                 >
                     Goedkeuren
@@ -102,9 +115,15 @@ export default function Management() {
 
     return (
         <>
+            {successMessage && (
+                <div className="alert alert-success " role="alert">
+                    {successMessage}
+                </div>
+            )}
+
             <div className="app">
                 <div className="image-gallery-wrapper">
-                    <ImageGallery items={images}  renderItem={renderItem} disableKeyDown={true} disableSwipe={true} disableThumbnailScroll={true}/>
+                    <ImageGallery thumbnailPosition="top" items={images} renderItem={renderItem} disableKeyDown={true} disableSwipe={true} disableThumbnailScroll={true} />
                 </div>
             </div>
 

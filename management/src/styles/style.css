@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
-.navbar-text-color{
+.navbar-text-color {
   font-family: 'Fredoka One', sans-serif;
   color: #2A6C0B !important;
-  }
-
-.navbar-brand{
-  font-family: 'Fredoka One', sans-serif;
-  color:#2A6C0B !important;
-  font-weight:bold;
 }
 
-.navbar-text-color:hover{
-  box-shadow: inset 0 4px 0 0 rgb(4,125,60);
+.navbar-brand {
+  font-family: 'Fredoka One', sans-serif;
+  color: #2A6C0B !important;
+  font-weight: bold;
+}
+
+.navbar-text-color:hover {
+  box-shadow: inset 0 4px 0 0 rgb(4, 125, 60);
 }
 
 .navbar-text-color.n-hover:hover {
@@ -20,11 +20,11 @@
 }
 
 .btn-moesland {
-  background-color:#3d861c;
+  background-color: #3d861c;
   color: white;
 }
 
-.btn-moesland:hover{
+.btn-moesland:hover {
   color: white;
   background-color: #64c03a;
 }
@@ -48,15 +48,15 @@
   display: block;
 }
 
-.login-form{
-    border: 1px solid black;
-    padding: 15px;
-    border-radius: 10px;
+.login-form {
+  border: 1px solid black;
+  padding: 15px;
+  border-radius: 10px;
 }
 
-.imageContainer{
+.imageContainer {
 
-  padding-left: 0px; 
+  padding-left: 0px;
   padding-right: 0px;
   max-width: 400px;
   max-height: 400px;
@@ -105,30 +105,48 @@
   width: 60%;
   margin: 0 auto;
   border: 1px solid #4ba721 !important;
-  box-shadow:  #c1e6b1 1px 10px 10px 5px;
+  box-shadow: #c1e6b1 1px 10px 10px 5px;
 }
+
 .image-gallery-slide img {
   width: 100%;
-  height: 75vh;
-  max-height: 80vh;
+  height: 60vh;
+  max-height: 60vh;
   object-fit: cover;
   overflow: hidden;
   object-position: center center;
   pointer-events: none;
 }
+
 .image-gallery-description {
-  display:none
+  display: none
 }
+
 .image-gallery-image {
   touch-action: pan-y;
   user-select: none;
 }
-.image-gallery-svg{
+
+.image-gallery-svg {
   display: none;
 }
+
 .image-gallery-slide.center {
-  pointer-events: none;
+  user-select: none;
 }
-.card{
+
+.card {
   border: none;
+}
+
+.alert-success {
+  position: absolute;
+}
+
+.btn-sq-responsive {
+  width: 200px !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  height: 100px !important;
+  font-size: 24px;
 }
