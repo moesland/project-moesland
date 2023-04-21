@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { COLOR_BLACK, MOESLAND_GREEN } from '../constants/colors';
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   text: {
     fontWeight: 'bold',
     fontSize: 30,
@@ -11,3 +11,5 @@ export const styles = StyleSheet.create({
     backgroundColor: MOESLAND_GREEN,
   },
 });
+
+export default styles;

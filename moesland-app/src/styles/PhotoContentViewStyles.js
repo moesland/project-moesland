@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { COLOR_WHITE, MOESLAND_GREEN } from '../constants/colors';
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     height: '100%',
     justifyContent: 'center',
@@ -22,3 +22,5 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export default styles;

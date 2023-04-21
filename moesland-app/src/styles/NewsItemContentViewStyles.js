@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   image: {
     width: '100%',
   },
@@ -49,3 +49,5 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
+export default styles;
