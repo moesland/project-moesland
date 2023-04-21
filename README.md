@@ -1,5 +1,7 @@
 # Project Moesland
 
+Version 1.1.0
+
 Merge order 
 
 1. task > user story

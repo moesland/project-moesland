@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
   id: {
     type: Number,
-    required: true,
     unique: true,
     index: true,
     primary: true,
@@ -24,13 +23,32 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    minlength: 2,
-    maxlength: 15,
+    minlength: 2
   },
   roleId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Role',
   },
+});
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+
+  if (user.isNew) {
+    try {
+      const maxDoc = await mongoose.model('User', userSchema)
+        .findOne({}, 'id', { sort: { id: -1 } })
+        .exec();
+
+      const nextID = maxDoc ? maxDoc.id + 1 : 1;
+      user.set('id', nextID);
+      next();
+    } catch (err) {
+      next(err);
+    }
+  } else {
+    next();
+  }
 });
 
 module.exports = mongoose.model('User', userSchema);
