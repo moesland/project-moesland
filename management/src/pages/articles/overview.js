@@ -52,6 +52,8 @@ export default function ArticleOverview() {
         <>
             {articles &&
                 <div className="container mt-3">
+                    <h1 className="font-moesland text-center">Nieuwsartikelen</h1>
+
                     <div className="mb-3">
                         <button className="btn btn-moesland" onClick={openCreate}>Nieuw artikel</button>
                     </div>
@@ -63,6 +65,7 @@ export default function ArticleOverview() {
                                 <th scope="col" colSpan="2">Titel</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             {articles.slice(pagesVisited, pagesVisited + articlesPerPage).map(article => (
                                 <tr key={article._id}>
