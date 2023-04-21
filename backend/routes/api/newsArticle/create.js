@@ -5,11 +5,7 @@ const sanitize = require('sanitize-filename');
 const multer = require('multer');
 const upload = multer({
     dest: 'uploads/',
-    limits: { fieldSize: 50 * 1024 * 1024 },
-    fileFilter: function (req, file, cb) {
-        const sanitizedFilename = sanitize(file.originalname);
-        cb(null, sanitizedFilename);
-    }
+    limits: { fieldSize: 50 * 1024 * 1024 }
 });
 const { createNewsArticle } = require('../../../repository/newsArticle');
 const fs = require('fs');
@@ -26,7 +22,7 @@ router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (re
             return res.status(500).send('Could not create news article.');
         }
 
-        const filePath = path.join(__dirname, '../../..', path.normalize(req.file.path));
+        const filePath = path.join(__dirname, '../../..', 'uploads', sanitize(req.file.filename));
         if (!fs.existsSync(filePath)) {
             return res.status(500).send('Could not create news article: file does not exist, path:' + escape(filePath));
         }
