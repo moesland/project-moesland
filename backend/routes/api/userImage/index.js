@@ -8,11 +8,11 @@ const router = express.Router();
 router.use(express.json());
 
 router.get('/', authenticateToken, requestLimiter, async (req, res) => {
-    try {
-        res.status(200).json(await getAllUserImages());
-    } catch (err) {
-        res.status(500).send('Could not get user images.');
-    }
+  try {
+    res.status(200).json(await getAllUserImages());
+  } catch (err) {
+    res.status(500).send('Could not get user images.');
+  }
 });
 
 router.use('/create', require('./create'));

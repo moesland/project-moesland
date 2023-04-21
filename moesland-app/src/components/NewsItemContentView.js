@@ -5,7 +5,9 @@ import { calculateImageHeightForAspectRatio } from '../lib/Utilities/HelperFunct
 
 export default function NewsItemContent({ content }) {
   const { text, attributes } = content;
-  const { bold, italic, underline, align, size, header, link } = attributes;
+  const {
+    bold, italic, underline, align, size, header, link,
+  } = attributes;
 
   // Apply styles based on attribute values
   const textStyles = [
@@ -29,12 +31,12 @@ export default function NewsItemContent({ content }) {
   useEffect(() => {
     if (content.image) {
       calculateImageHeightForAspectRatio(content.image)
-      .then((calculatedImageHeight) => {
-        setImageHeight(calculatedImageHeight);
-      })
-      .catch((error) => {
-        console.log(`Error calculating image height: ${error}`);
-      });
+        .then((calculatedImageHeight) => {
+          setImageHeight(calculatedImageHeight);
+        })
+        .catch((error) => {
+          console.log(`Error calculating image height: ${error}`);
+        });
     }
   }, [content]);
 
@@ -49,8 +51,8 @@ export default function NewsItemContent({ content }) {
         {text}
       </Text>
     );
-  } else if (content.image) {
-    let source = { uri: `${content.image}` };
+  } if (content.image) {
+    const source = { uri: `${content.image}` };
     return (
       <Image
         source={source}
@@ -59,7 +61,6 @@ export default function NewsItemContent({ content }) {
         resizeMode="contain"
       />
     );
-  } else {
-    return null;
   }
+  return null;
 }

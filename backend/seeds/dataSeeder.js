@@ -5,7 +5,7 @@ const seedUsers = require('./userSeeder');
 const seeder = async () => {
   await seedRoles();
   await seedUsers();
-  //await seedNewsArticle();
+  // await seedNewsArticle();
 };
 
 seeder();

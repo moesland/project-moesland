@@ -6,6 +6,7 @@ const {
   fakeUserData, createFakeUsers, removeFakeUsers, removeAuthToken,
 } = require('../testdata');
 const { mockdb } = require('../mockdb');
+
 const { expect } = chai;
 
 describe('Authentication routes', async () => {
