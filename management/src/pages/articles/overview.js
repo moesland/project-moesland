@@ -28,7 +28,7 @@ const ArticleOverview = () => {
             setPageCount(Math.ceil(articles.length / articlesPerPage));
         }
 
-    }, [articles, pagesVisited, pageCount])
+    }, [articles, pagesVisited, pageNumber, pageCount])
 
     const changePage = ({ selected }) => {
         setPageNumber(selected);

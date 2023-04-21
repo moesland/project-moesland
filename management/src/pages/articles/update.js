@@ -19,7 +19,7 @@ const Update = () => {
                 setEditorHtml(JSON.parse(state.article.content));
             }
         }
-    }, []);
+    }, [state]);
 
     const handleEditorChange = (value) => {
         setEditorHtml(value);

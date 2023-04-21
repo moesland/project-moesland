@@ -16,7 +16,7 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
     });
 
     const onSubmit = async (data) => {
-        if(selectedItem.roleId.rolename == "SuperAdmin") return;
+        if(selectedItem.roleId.rolename === "SuperAdmin") return;
         const path = "/api/user/update"
         const body = {
             username: data.username,

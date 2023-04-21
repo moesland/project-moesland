@@ -58,7 +58,7 @@ const AuthenticateRoute = ({ token, isAuthenticated, redirectPath, children }) =
         return children ? children : <DefaultLayout />; //THIS
     }
 
-    if (isAuth.error == "Invalid authorization token"){
+    if (isAuth.error === "Invalid authorization token"){
         localStorage.clear()
         return <Navigate to={redirectPath} />; 
     }

@@ -4,7 +4,6 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Create = () => {
-    const [editorHtml, setEditorHtml] = useState("");
     const [title, setTitle] = useState('');
     const [bannerImage, setBannerImage] = useState('');
     const quillRef = useRef(null);
@@ -27,6 +26,7 @@ const Create = () => {
 
         reader.onloadend = () => {
             setBannerImage(reader.result);
+            console.log(bannerImage);
         };
         reader.readAsDataURL(file);
     };
