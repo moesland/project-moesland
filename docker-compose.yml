@@ -5,7 +5,7 @@ services:
     container_name: moeslanddb
     image: mongo:latest
     ports:
-      - 27017:27017
+      - 27001:27017
     volumes:
       - mongo_data:/data/db
 
@@ -32,6 +32,8 @@ services:
     command: npm start
     ports: 
       - 3001:3000
+    environment:
+      - REACT_APP_BACKEND_ROOT_URL=http://backend:5000
     volumes:
       - "./management:/usr/src/management/"
 volumes:
