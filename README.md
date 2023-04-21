@@ -16,7 +16,7 @@ stories with task should be separated with a forward slash ("/"). For Example `u
 Using a consistent naming convention for folders makes it easier for team members to find and understand the purpose of each folder. 
 It also helps to avoid naming conflicts and ensures that all folders are named in a consistent and readable way.
 
-!! please dont start with `#`
+Please use the user story/task name from Jira, for example: ml-61/ml-67
 
 ## Folder and file name convention
 
