@@ -114,6 +114,7 @@
   object-fit: cover;
   overflow: hidden;
   object-position: center center;
+  pointer-events: none;
 }
 .image-gallery-description {
   display:none
