@@ -126,3 +126,9 @@
 .image-gallery-svg{
   display: none;
 }
+.image-gallery-slide.center {
+  pointer-events: none;
+}
+.card{
+  border: none;
+}

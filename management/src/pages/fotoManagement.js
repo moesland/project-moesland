@@ -29,6 +29,23 @@ export default function Management() {
 
         }
     ];
+    const handleKeyPress = (event) => {
+        if (event.key === 'ArrowLeft') {
+          //approveItem();
+          console.log("left")
+        } else if (event.key === 'ArrowRight') {
+          //denyItem();
+          console.log("right")
+        }
+      };
+      
+      useEffect(() => {
+        document.addEventListener('keydown', handleKeyPress);
+        return () => {
+          document.removeEventListener('keydown', handleKeyPress);
+        };
+      }, []);
+
 
     const [galleryImages, setGalleryImages] = useState(images);
 
@@ -66,7 +83,7 @@ export default function Management() {
                 </div>
                 <button
                     type="button"
-                    onClick={denyItem(item)}
+                    //onClick={denyItem(item)}
                     className="btn btn-danger"
                 >
                     Afkeuren
@@ -74,19 +91,20 @@ export default function Management() {
                 <button
                     type="button"
                     className="btn btn-success"
-                    onClick={approveItem(item)}
+                    //onClick={approveItem(item)}
                 >
-                    Goedkeuren 
+                    Goedkeuren
                 </button>
             </>
         );
     };
 
+
     return (
         <>
             <div className="app">
                 <div className="image-gallery-wrapper">
-                    <ImageGallery items={images} disableKeyDown={true} disableSwipe={true} disableThumbnailScroll={true}/>
+                    <ImageGallery items={images}  renderItem={renderItem} disableKeyDown={true} disableSwipe={true} disableThumbnailScroll={true}/>
                 </div>
             </div>
 
