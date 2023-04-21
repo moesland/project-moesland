@@ -33,7 +33,7 @@ services:
     ports: 
       - 3001:3000
     environment:
-      - REACT_APP_BACKEND_ROOT_URL=http://backend:5000
+      - REACT_APP_BACKEND_ROOT_URL=http://localhost:5001
     volumes:
       - "./management:/usr/src/management/"
 volumes:

@@ -2,10 +2,15 @@ const urlRoot = process.env.REACT_APP_BACKEND_ROOT_URL;
 
 export const BackendClientRequest = async (path, body, headers, method) => {
     const url = urlRoot + path;
+    
+    if (body) {
+        body = JSON.stringify(body)
+    }
+
     const requestOptions = {
         method,
         headers,
-        body: JSON.stringify(body)
+        body: body
     };
     
     console.log(requestOptions);
