@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements';
 import { BACKEND_URL } from '@env';
 import PhotoContent from './PhotoContentView';
 
-export default MediaView = function () {
+export default MediaView = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const uploadImage = async () => {

@@ -6,7 +6,8 @@ import { fetchNewsItems } from '../models/NewsItemApi';
 import styles from '../styles/NewsItemListViewStyles';
 import { calculateImageHeightForScreenSize } from '../lib/Utilities/HelperFunctions';
 
-function NewsItemListView({ navigation }) {
+const NewsItemListView = ({ navigation }) => {
+
   const [newsItems, setNewsItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 

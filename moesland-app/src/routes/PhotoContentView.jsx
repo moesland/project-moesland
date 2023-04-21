@@ -18,7 +18,7 @@ const getMimeTypeFromExtension = (filePath) => {
   }
 };
 
-export default PhotoContent = function (setImage) {
+export default PhotoContent = () => {
   const takePicture = async () => {
     try {
       const result = await ImagePicker.launchCameraAsync({
