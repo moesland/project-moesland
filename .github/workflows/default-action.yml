@@ -34,9 +34,6 @@ jobs:
       - name: Run ESLint
         run: npx eslint .
 
-      - name: Run ESLint
-        run: npx eslint .
-
       - name: Run Backend Tests
         working-directory: backend/
         run: npm run test
