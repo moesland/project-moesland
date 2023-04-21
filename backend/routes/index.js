@@ -23,4 +23,6 @@ router.use('/api/news-article', requestLimiter, require('./api/newsArticle'));
 
 router.use('/api/user-image', require('./api/userImage'));
 
+router.use('/api/event/add', requestLimiter, require('./api/event/add'));
+
 module.exports = router;
