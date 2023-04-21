@@ -43,29 +43,39 @@ export default function Management() {
         setSuccessMessage('Item approved successfully!');
     };
 
-    const handleKeyPress = (event) => {
-        if (event.key === 'ArrowLeft') {
-            approveItem(event.dataset);
-            console.log("left")
-            handleSuccessMessage();
+    // const handleKeyPress = (event) => {
+    //     if (event.key === 'ArrowLeft') {
+    //         approveItem(event.dataset);
+    //         console.log("left")
+    //         handleSuccessMessage();
 
-        } else if (event.key === 'ArrowRight') {
-            denyItem();
-            console.log("right")
-        }
-    };
+    //     } else if (event.key === 'ArrowRight') {
+    //         denyItem();
+    //         console.log("right")
+    //     }
+    // };
 
-    useEffect(() => {
-        document.addEventListener('keydown', handleKeyPress);
-        return () => {
-            document.removeEventListener('keydown', handleKeyPress);
-        };
-    }, []);
+    // useEffect(() => {
+    //     document.addEventListener('keydown', handleKeyPress);
+    //     return () => {
+    //         document.removeEventListener('keydown', handleKeyPress);
+    //     };
+    // }, []);
 
 
 
     useEffect(() => {
         setGalleryImages(images);
+
+
+        const fetchImagesData = async () => {
+            await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/news-article/", { method: "GET" })
+                .then(response => response.json())
+                .then(data => { setArticles(data)});
+        }
+
+        fetchArticleData()
+
     }, [images]);
 
     const handleImageClick = (event) => {
@@ -78,10 +88,24 @@ export default function Management() {
 
     const approveItem = (item) => {
         console.log(`Item approved: ${item}`);
+
+        const description = item.description
+        console.log(description)
+        const index = images.findIndex((item) => item.description === description);
+        const newImages = images.filter((item, i) => i !== index);//wrm werkt niet??
+        setGalleryImages(newImages);
+        
     };
 
     const denyItem = (item) => {
         console.log(`Item denied: ${item.description}`);
+
+        
+        const description = item.description
+        console.log(description)
+        const index = images.findIndex((item) => item.description === description);
+        const newImages = images.filter((item, i) => i !== index);//wrm werkt niet??
+        setGalleryImages(newImages);
     };
 
     const renderItem = (item) => {
@@ -97,14 +121,15 @@ export default function Management() {
                 <button
                     type="button"
                     className="btn btn-danger btn-sq-responsive"
-                    //onClick={denyItem(item)}
+                    onClick={() => denyItem(item)}
+
                 >
                     Afkeuren
                 </button>
                 <button
                     type="button"
                     className="btn btn-success btn-sq-responsive"
-                    //onClick={approveItem(item)}
+                    onClick={() => approveItem(item)}
                 >
                     Goedkeuren
                 </button>
