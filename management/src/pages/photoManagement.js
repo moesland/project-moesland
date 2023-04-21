@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import { BackendClientRequest } from "../services/ApiClient";
 
 export default function Management() {
     const images = [
@@ -63,19 +64,20 @@ export default function Management() {
     // }, []);
 
 
+        useEffect(async () => {
+            const token = localStorage.getItem("token");
+            const url = "api/userImage";
+            const headers = new Headers({
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            })
+            const method = "GET"
 
-    useEffect(() => {
-        const fetchImagesData = async () => {
-            await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/userImage/", { method: "GET" })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    setGalleryImages(data);
-                });
-        }
-        fetchImagesData()
+            const myVar = await BackendClientRequest(url, null, headers, method);
+            console.log(myVar)
 
-    }, [images]);
+
+        }, [images]);
 
     const handleImageClick = (event) => {
         const description = event.target.dataset.description;
