@@ -32,7 +32,9 @@ module.exports = {
             .catch(err => console.error(err.message));
     },
     async updateUserByEmail(email, username, password) {
-        return await User.findOneAndUpdate({ email: { $eq: email } }, { username: username, password: password }, { new: true })
+        const params = { username: username, password: password };
+
+        return await User.findOneAndUpdate({ email: { $eq: email } }, params, { new: true })
             .catch(err => console.error(err));
     },
     async deleteUser(user) {

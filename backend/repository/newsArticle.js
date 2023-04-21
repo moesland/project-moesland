@@ -12,7 +12,9 @@ module.exports = {
             .catch(err => console.log("Cannot find news article by title in NewsArticle dataset.", err));
     },
     async updateNewsArticleById(id, title, content) {
-        return await NewsArticle.findOneAndUpdate({ _id: { $eq: id } }, { title: title, content: content }, { new: true })
+        const params = { title: title, content: content };
+
+        return await NewsArticle.findOneAndUpdate({ _id: { $eq: id } }, params, { new: true })
             .catch(err => console.error(err));
     },
     async deleteNewsArticle(newsArticle) {
