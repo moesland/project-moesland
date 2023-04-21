@@ -1,8 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const Image = require('../../../models/image');
+const sanitize = require('sanitize-filename');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/', limits: { fieldSize: 50 * 1024 * 1024 } });
+const upload = multer({
+    dest: 'uploads/',
+    limits: { fieldSize: 50 * 1024 * 1024 },
+    fileFilter: function (req, file, cb) {
+        const sanitizedFilename = sanitize(file.originalname);
+        cb(null, sanitizedFilename);
+    }
+});
 const { createNewsArticle } = require('../../../repository/newsArticle');
 const fs = require('fs');
 const path = require('path');
