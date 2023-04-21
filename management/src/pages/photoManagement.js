@@ -65,16 +65,15 @@ export default function Management() {
 
 
     useEffect(() => {
-        setGalleryImages(images);
-
-
         const fetchImagesData = async () => {
-            await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/news-article/", { method: "GET" })
+            await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/userImage/", { method: "GET" })
                 .then(response => response.json())
-                .then(data => { setArticles(data)});
+                .then(data => {
+                    console.log(data);
+                    setGalleryImages(data);
+                });
         }
-
-        fetchArticleData()
+        fetchImagesData()
 
     }, [images]);
 
@@ -89,18 +88,32 @@ export default function Management() {
     const approveItem = (item) => {
         console.log(`Item approved: ${item}`);
 
-        const description = item.description
-        console.log(description)
-        const index = images.findIndex((item) => item.description === description);
-        const newImages = images.filter((item, i) => i !== index);//wrm werkt niet??
-        setGalleryImages(newImages);
-        
+        // const description = item.description
+        // console.log(description)
+        // const index = images.findIndex((item) => item.description === description);
+        // const newImages = images.filter((item, i) => i !== index);//wrm werkt niet??
+        // setGalleryImages(newImages);
+
+
+        // const postPicture = async () => { 
+        //     if(selectedItem.roleId.rolename == "SuperAdmin") return;
+        //     const path = "/api/userImage/delete"
+        //     const token = localStorage.getItem('token');
+        //     const headers = new Headers({
+        //         'Authorization': 'Bearer ' + token,
+        //         'Content-Type':'application/json'
+        //     })
+
+        //     await BackendClientRequest(
+        //         path, { "email" : selectedItem.email }, headers, "POST"
+        //     ) 
+
     };
 
     const denyItem = (item) => {
         console.log(`Item denied: ${item.description}`);
 
-        
+
         const description = item.description
         console.log(description)
         const index = images.findIndex((item) => item.description === description);
