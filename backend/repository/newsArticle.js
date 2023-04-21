@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const NewsArticle = mongoose.model('NewsArticle');
 const Image = mongoose.model('Image');
+const sanitize = require('mongo-sanitize');
 
 module.exports = {
     async getNewsArticleById(id) {
@@ -12,9 +13,10 @@ module.exports = {
             .catch(err => console.log("Cannot find news article by title in NewsArticle dataset.", err));
     },
     async updateNewsArticleById(id, title, content) {
-        const params = { title: title, content: content };
+        const cleanTitle = sanitize(title);
+        const cleanContent = sanitize(content);
 
-        return await NewsArticle.findOneAndUpdate({ _id: { $eq: id } }, params, { new: true })
+        return await NewsArticle.findOneAndUpdate({ _id: { $eq: id } }, { title: cleanTitle, content: cleanContent }, { new: true })
             .catch(err => console.error(err));
     },
     async deleteNewsArticle(newsArticle) {

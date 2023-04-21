@@ -14,6 +14,10 @@ router.use(express.json());
 router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (req, res) => {
     try {
         const { title, date, content } = req.body;
+        if (!title || !date || !content) {
+            return res.status(500).send('Could not create news article.');
+        }
+
         const filePath = path.join(__dirname, '../../..', req.file.path);
         if (!fs.existsSync(filePath)) {
             return res.status(500).send('Could not create news article: file does not exist, path:' + escape(filePath));

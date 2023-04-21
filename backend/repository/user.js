@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const sanitize = require('mongo-sanitize');
 
 module.exports = {
     async getPreciseUser(username, password) {
@@ -32,9 +33,10 @@ module.exports = {
             .catch(err => console.error(err.message));
     },
     async updateUserByEmail(email, username, password) {
-        const params = { username: username, password: password };
+        const cleanUsername = sanitize(username);
+        const cleanPassword = sanitize(password);
 
-        return await User.findOneAndUpdate({ email: { $eq: email } }, params, { new: true })
+        return await User.findOneAndUpdate({ email: { $eq: email } }, { username: cleanUsername, password: cleanPassword }, { new: true })
             .catch(err => console.error(err));
     },
     async deleteUser(user) {
