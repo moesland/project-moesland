@@ -3,7 +3,7 @@ import { Text, Image, Linking } from 'react-native';
 import styles from '../styles/NewsItemContentViewStyles';
 import { calculateImageHeightForAspectRatio } from '../lib/Utilities/HelperFunctions';
 
-export default function NewsItemContent({ content }) {
+export default NewsItemContent = ({content}) => {
   const { text, attributes } = content;
   const {
     bold, italic, underline, align, size, header, link,

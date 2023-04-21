@@ -6,7 +6,7 @@ import { MOESLAND_GREEN } from '../constants/colors';
 import styles from '../styles/ToolbarViewStyles';
 import { APP_TITLE } from '../constants/strings';
 
-function ToolbarView({ showBackButton }) {
+const ToolbarView = ({showBackButton}) => {
   const navigation = useNavigation();
   const backButton = (
     <Icon
