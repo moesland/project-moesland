@@ -4,10 +4,12 @@ import DefaultLayout from '../../layout/default';
 
 const useAuth = (token) => {
     const [isAuth, setIsAuth] = useState(null);
-
+   
     useEffect(() => {
+        const urlRoot = process.env.REACT_APP_BACKEND_ROOT_URL;
+
         const fetchData = async () => {
-            const url = 'http://localhost:5000/api/auth/validate';
+            const url = urlRoot + '/api/auth/validate';
             const requestOptions = {
                 method: 'POST',
                 headers: new Headers({

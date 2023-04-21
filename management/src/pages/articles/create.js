@@ -45,8 +45,8 @@ const Create = () => {
         formData.append('bannerImage', imageFile);
     
         const token = localStorage.getItem('token');
-
-        const response = await fetch('http://localhost:5000/api/news-article/create', {
+        const urlRoot = process.env.REACT_APP_BACKEND_ROOT_URL;
+        const response = await fetch(urlRoot + '/api/news-article/create', {
             method: 'POST',
             body: formData,
             headers: {

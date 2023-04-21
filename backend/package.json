@@ -6,7 +6,7 @@
   "scripts": {
     "test": "set NODE_ENV=test&& mocha 'tests/**/*.js' --exit",
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon -r dotenv/config ./server --legacy-watch"
   },
   "keywords": [],
   "author": "",
