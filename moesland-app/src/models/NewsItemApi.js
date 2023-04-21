@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import { BACKEND_URL } from '@env';
 import NewsItemModel from './NewsItemModel';
 import NewsItemContentModel from './NewsItemContentModel';
@@ -9,6 +8,7 @@ async function fetchNewsItemsFromBackend() {
   const json = await response.json();
   return json;
 }
+
 
 export async function fetchNewsItems() {
   try {
@@ -23,7 +23,7 @@ export async function fetchNewsItems() {
 
       previousContentModel = null;
       return new NewsItemModel(
-        uuid.v4(),
+        generateUUID(),
         formatDateString(item.date),
         item.title,
         convertImageToSourceString(item.bannerImage.data),
@@ -60,7 +60,7 @@ function parseContentOps(content, previousContentModel) {
       }
     }
     const contentModel = new NewsItemContentModel(
-      uuid.v4(),
+      generateUUID(),
       op.insert,
       attributes,
       image,
@@ -85,4 +85,17 @@ function convertImageToSourceString(bannerImageData) {
 function formatDateString(inputDateString) {
   const date = new Date(inputDateString);
   return date.toLocaleDateString('en-GB');
+}
+
+function generateUUID() {
+  let d = new Date().getTime();
+  if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+    d += performance.now(); // use high-precision timer if available
+  }
+  const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = (d + Math.random()*16)%16 | 0;
+    d = Math.floor(d/16);
+    return (c==='x' ? r : (r&0x3|0x8)).toString(16);
+  });
+  return uuid;
 }
