@@ -3,7 +3,7 @@ import {
   View, ScrollView, Image, Text,
 } from 'react-native';
 import NewsItemContentView from '../components/NewsItemContentView';
-import { styles } from '../styles/NewsItemDetailViewStyles';
+import styles from '../styles/NewsItemDetailViewStyles';
 import { calculateImageHeightForAspectRatio } from '../lib/Utilities/HelperFunctions';
 
 export default class NewsItemListView extends Component {

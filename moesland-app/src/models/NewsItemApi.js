@@ -12,7 +12,7 @@ async function fetchNewsItemsFromBackend() {
 
 export async function fetchNewsItems() {
   try {
-    console.log('fetching');
+    console.log('fetching News Items');
     const json = await fetchNewsItemsFromBackend();
 
     const newsItems = json.map((item) => {

@@ -3,7 +3,7 @@ import {
   View, Text, Image, FlatList, Pressable, RefreshControl,
 } from 'react-native';
 import { fetchNewsItems } from '../models/NewsItemApi';
-import { styles } from '../styles/NewsItemListViewStyles';
+import styles from '../styles/NewsItemListViewStyles';
 import { calculateImageHeightForScreenSize } from '../lib/Utilities/HelperFunctions';
 
 function NewsItemListView({ navigation }) {

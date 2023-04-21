@@ -3,7 +3,7 @@ import { Pressable, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { BACKEND_URL } from '@env';
-import { styles } from '../styles/PhotoContentViewStyles';
+import styles from '../styles/PhotoContentViewStyles';
 
 const getMimeTypeFromExtension = (filePath) => {
   const extension = filePath.split('.').pop().toLowerCase();
