@@ -20,9 +20,9 @@ router.post('/', [
 
   try {
     const updatedUser = await updateUserByEmail(email, username, password);
-    res.status(200).send(`User ${updatedUser.username} updated successfully!`);
+    return res.status(200).send(`User ${updatedUser.username} updated successfully!`);
   } catch (err) {
-    res.status(500).send(`Could not update user: ${err}`);
+    return res.status(500).send(`Could not update user: ${err}`);
   }
 });
 

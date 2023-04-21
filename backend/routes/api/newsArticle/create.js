@@ -1,14 +1,14 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 
 const router = express.Router();
 const multer = require('multer');
-const NewsArticle = require('../../../models/newsArticle');
 const Image = require('../../../models/image');
 
 const upload = multer({ dest: 'uploads/', limits: { fieldSize: 50 * 1024 * 1024 } });
 const { createNewsArticle } = require('../../../repository/newsArticle');
-const fs = require('fs');
-const path = require('path');
+
 const auth = require('../../../middlewares/auth');
 
 router.use(express.json());
@@ -30,9 +30,9 @@ router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (re
     });
 
     const newArticle = await createNewsArticle(title, date, bannerImage, content);
-    res.status(201).send('News article created successfully!');
+    return res.status(201).send({ message: 'News article created successfully!', newArticle });
   } catch (err) {
-    res.status(500).send(`Could not create news article: ${err}`);
+    return res.status(500).send(`Could not create news article: ${err}`);
   }
 });
 

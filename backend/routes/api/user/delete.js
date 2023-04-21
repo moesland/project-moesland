@@ -21,12 +21,11 @@ router.post('/', [
     const user = await getUserByEmail(email);
     if (user) {
       await deleteUser(user);
-      res.status(200).send('User deleted successfully!');
-    } else {
-      res.status(500).send('Could not delete user.');
+      return res.status(200).send('User deleted successfully!');
     }
+    return res.status(500).send('Could not delete user.');
   } catch (err) {
-    res.status(500).send(`Could not delete user: ${err}`);
+    return res.status(500).send(`Could not delete user: ${err}`);
   }
 });
 

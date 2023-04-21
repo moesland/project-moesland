@@ -5,7 +5,7 @@ const { requestLimiter } = require('../middlewares/security');
 const router = express.Router();
 
 // default
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.send('hello from home route');
 });
 
