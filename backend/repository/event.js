@@ -14,11 +14,11 @@ module.exports = {
         return await Event.findOneAndUpdate(
             { _id: { $eq: id } }, 
             { 
-              title: { $eq: title }, 
-              description: { $eq: description },
-              startdate: { $eq: startdate }, 
-              enddate: { $eq: enddate }, 
-              location: { $eq: location } 
+              title: title , 
+              description: description,
+              startdate: startdate, 
+              enddate: enddate, 
+              location: location 
             }, { new: true })
             .catch((err) => {
                 console.error(err);
