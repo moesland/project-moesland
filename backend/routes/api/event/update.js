@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
-const { updateEventById } = require('../../../repository/event');
+const { updateEventById, getEventById } = require('../../../repository/event');
 
 router.use(express.json());
 
@@ -28,7 +28,7 @@ router.post('/', [
 
     try {
         const { id, title, description, startdate, enddate, location } = req.body;
-        const event = await getEventById(_id);
+        const event = await getEventById(id);
         if (event) {
             await updateEventById(id, title, description, startdate, enddate, location);
             res.status(200).json(`Event updated successfully!`);
@@ -37,7 +37,7 @@ router.post('/', [
             res.status(404).json(`Event not found.`);
         }
     } catch (err) {
-        res.status(500).json(`Could not update event: ${err}`);
+        res.status(500).json(`Could not update event: ` + err);
     }
 });
 

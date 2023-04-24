@@ -7,18 +7,23 @@ module.exports = {
             .catch(err => console.log("Cannot find events by id in Event dataset.", err));
     },
     async getEventByTitleAndDate(title, startdate) {
-        return await Event.findOne({ title, startdate })
-            .catch(err => console.log("Cannot find events by title and date in Event dataset.", err));
+        const event = await Event.findOne({
+            title: { $eq: title },
+            startdate: { $eq: startdate }
+        }).catch((err) => {
+            console.log("Cannot find events by title and date in Event dataset.", err);
+        });
+        return event;
     },
     async updateEventById(id, title, description, startdate, enddate, location) {
         return await Event.findOneAndUpdate(
             { _id: { $eq: id } }, 
             { 
-              title: title , 
-              description: description,
-              startdate: startdate, 
-              enddate: enddate, 
-              location: location 
+                title : title,
+                description: description,
+                startdate: startdate,
+                enddate: enddate,
+                location: location
             }, { new: true })
             .catch((err) => {
                 console.error(err);
