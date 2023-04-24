@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Event = mongoose.model('Event');
 
 module.exports = {
+    async getEventById(id) {
+        return await Event.findById(id)
+            .catch(err => console.log("Cannot find events by id in Event dataset.", err));
+    },
     async getEventByTitleAndDate(title, startdate) {
         return await Event.findOne({ title, startdate })
             .catch(err => console.log("Cannot find events by title and date in Event dataset.", err));
