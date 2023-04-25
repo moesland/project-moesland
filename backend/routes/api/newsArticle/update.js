@@ -14,9 +14,12 @@ router.post('/', [
     }
     
     const { id, title, content } = req.body;
+    if (!id || !title || !content) {
+        return res.status(500).send('Could not create news article.');
+    }
 
     try {
-        const updatedArticle = await updateNewsArticleById(id, title, content);
+        await updateNewsArticleById(id, title, content);
         res.status(200).json(`News article updated successfully!`);
     } catch (err) {
         console.error(err);
