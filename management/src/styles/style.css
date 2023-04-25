@@ -4,15 +4,18 @@
   --moesland-dark-green: #2a6c0b;
   --moesland-light-green: #4cbb17;
   --moesland-lime: #4cd964;
+  --moesland-font: 'Fredoka One', sans-serif;
+}
+
+.font-moesland {
+  font-family: var(--moesland-font);
 }
 
 .navbar-text-color {
-  font-family: 'Fredoka One', sans-serif;
   color: var(--moesland-dark-green) !important;
 }
 
 .navbar-brand {
-  font-family: 'Fredoka One', sans-serif;
   color: var(--moesland-dark-green) !important;
   font-weight: bold;
 }
