@@ -15,7 +15,8 @@ router.post('/', async (req, res) => {
             res.status(404).send(`Event doesn't exist.`);
         }
     } catch (err) {
-        res.status(500).send(`Could not delete event:` + err);
+        const escapeHtml = require('escape-html');
+        res.status(500).send(`Could not delete event: ${escapeHtml(err)}`);
     }
 });
 

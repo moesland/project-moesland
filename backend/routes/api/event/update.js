@@ -37,7 +37,7 @@ router.post('/', [
             res.status(404).json(`Event not found.`);
         }
     } catch (err) {
-        res.status(500).json(`Could not update event: ` + err);
+        res.status(500).json(`Could not update event: ${err}`);
     }
 });
 
