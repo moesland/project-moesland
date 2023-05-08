@@ -5,9 +5,12 @@ const router = express.Router();
 router.use(express.json());
 
 router.post('/', async (req, res) => {
-    const { _id } = req.body;
     try {
-        
+        const { _id } = req.body;
+        if (!_id) {
+            return res.status(500).send('Could not delete news article.');
+        }
+
         const newsArticle = await getNewsArticleById(_id);
         if (newsArticle) {
             await deleteNewsArticle(newsArticle);
