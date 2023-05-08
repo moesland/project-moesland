@@ -68,7 +68,7 @@ const ModalAdd = ({ toggleModal, refreshOverview }) => {
 
                                 <div className="form-group pt-3">
                                     <label>Omschrijving</label>
-                                    <input className="form-control" id="event-desc-id" name="event-desc-name" placeholder="Omschrijving" {...register("description")}></input>
+                                    <textarea className="form-control" id="event-desc-id" name="event-desc-name" placeholder="Omschrijving" {...register("description")}></textarea>
                                     <small id="event-desc-error" className="form-text text-danger mt-3 event-desc-error">{errors.description?.message}</small>
                                 </div>
 

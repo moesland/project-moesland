@@ -56,7 +56,7 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
 
                                 <div className="form-group pt-3">
                                     <label>Nieuwe omschrijving</label>
-                                    <input id="edit-event-desc-id" className="form-control" placeholder="Omschrijving" name="edit-event-desc-name" {...register("description")}></input>
+                                    <textarea id="edit-event-desc-id" className="form-control" placeholder="Omschrijving" name="edit-event-desc-name" {...register("description")}></textarea>
                                     <small id="edit-event-desc-error" className="form-text text-danger edit-event-desc-error" >{errors.description?.message}</small>
                                 </div>
 
