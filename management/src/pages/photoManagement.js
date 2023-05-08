@@ -1,35 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
-import { BackendClientRequest } from "../services/ApiClient";
+import { Buffer } from 'buffer';
 
 export default function Management() {
-    const images = [
-        {
-            original: "https://live.staticflickr.com/65535/52771907979_964013db83_k.jpg",
-            thumbnail: "https://live.staticflickr.com/65535/52771907979_964013db83_k.jpg",
-            description: '1'
-
-        },
-        {
-            original: "https://live.staticflickr.com/65535/52771650596_507e8a54d2_k.jpg",
-            thumbnail: "https://live.staticflickr.com/65535/52771650596_507e8a54d2_k.jpg",
-            description: '2'
-
-        },
-        {
-            original: "https://live.staticflickr.com/65535/52771648561_1121158507_k.jpg",
-            thumbnail: "https://live.staticflickr.com/65535/52771648561_1121158507_k.jpg",
-            description: '3'
-
-        },
-        {
-            original: "https://live.staticflickr.com/65535/52772136488_f4661a549f_k.jpg",
-            thumbnail: "https://live.staticflickr.com/65535/52772136488_f4661a549f_k.jpg",
-            description: '4'
-
-        }
-    ];
+    const images = [];
     const [galleryImages, setGalleryImages] = useState(images);
     const [successMessage, setSuccessMessage] = useState('');
     {
@@ -40,87 +15,73 @@ export default function Management() {
         )
     }
 
-    const handleSuccessMessage = () => {
-        setSuccessMessage('Item approved successfully!');
-    };
+    useEffect(() => {
+        fetchUserImages();
+    }, []);
 
-    // const handleKeyPress = (event) => {
-    //     if (event.key === 'ArrowLeft') {
-    //         approveItem(event.dataset);
-    //         console.log("left")
-    //         handleSuccessMessage();
+    useEffect(() => {
+        if (galleryImages) {
+            galleryImages.forEach(i => {
+                const data = `data:${i.image.contentType};base64,${Buffer.from(i.image.data)}`;
+                images.push({
+                    original: data,
+                    thumbnail: data,
+                    srcSet: data,
+                    originalAlt: i.image.name,
+                    thumbnailAlt: i.image.name,
+                    userImageId: i._id
+                });
+            });
+        }
+    }, [galleryImages]);
 
-    //     } else if (event.key === 'ArrowRight') {
-    //         denyItem();
-    //         console.log("right")
-    //     }
-    // };
+    const fetchUserImages = async () => {
+        const token = localStorage.getItem('token');
+        const headers = new Headers({
+            'Authorization': 'Bearer ' + token
+        });
 
-    // useEffect(() => {
-    //     document.addEventListener('keydown', handleKeyPress);
-    //     return () => {
-    //         document.removeEventListener('keydown', handleKeyPress);
-    //     };
-    // }, []);
-
-
-        useEffect(async () => {
-            const token = localStorage.getItem("token");
-            const url = "api/userImage";
-            const headers = new Headers({
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            })
-            const method = "GET"
-
-            const myVar = await BackendClientRequest(url, null, headers, method);
-            console.log(myVar)
-
-
-        }, [images]);
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image', { method: 'GET', headers: headers })
+            .then(response => response.json())
+            .then(data => setGalleryImages(data));
+    }
 
     const handleImageClick = (event) => {
         const description = event.target.dataset.description;
         console.log(description)
         const index = images.findIndex((item) => item.description === description);
-        const newImages = images.filter((item, i) => i !== index);//wrm werkt niet??
+        const newImages = images.filter((item, i) => i !== index); // Waarom werkt dit niet?
         setGalleryImages(newImages);
     };
 
-    const approveItem = (item) => {
-        console.log(`Item approved: ${item}`);
+    const approveItem = async (item) => {
+        const token = localStorage.getItem('token');
+        const headers = new Headers({
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        });
+        const body = JSON.stringify({ id: item.userImageId });
 
-        // const description = item.description
-        // console.log(description)
-        // const index = images.findIndex((item) => item.description === description);
-        // const newImages = images.filter((item, i) => i !== index);//wrm werkt niet??
-        // setGalleryImages(newImages);
-
-
-        // const postPicture = async () => { 
-        //     if(selectedItem.roleId.rolename == "SuperAdmin") return;
-        //     const path = "/api/userImage/delete"
-        //     const token = localStorage.getItem('token');
-        //     const headers = new Headers({
-        //         'Authorization': 'Bearer ' + token,
-        //         'Content-Type':'application/json'
-        //     })
-
-        //     await BackendClientRequest(
-        //         path, { "email" : selectedItem.email }, headers, "POST"
-        //     ) 
-
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/approve', {
+            method: 'POST',
+            body: body,
+            headers: headers
+        });
     };
 
-    const denyItem = (item) => {
-        console.log(`Item denied: ${item.description}`);
+    const denyItem = async (item) => {
+        const token = localStorage.getItem('token');
+        const headers = new Headers({
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        });
+        const body = JSON.stringify({ id: item.userImageId });
 
-
-        const description = item.description
-        console.log(description)
-        const index = images.findIndex((item) => item.description === description);
-        const newImages = images.filter((item, i) => i !== index);//wrm werkt niet??
-        setGalleryImages(newImages);
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/decline', {
+            method: 'POST',
+            body: body,
+            headers: headers
+        });
     };
 
     const renderItem = (item) => {
@@ -130,43 +91,36 @@ export default function Management() {
                     <img className="image-gallery-image"
                         src={item.original}
                         alt={item.description}
-                        data-description={item.description}
-                    />
+                        data-description={item.description} />
                 </div>
                 <button
                     type="button"
                     className="btn btn-danger btn-sq-responsive"
-                    onClick={() => denyItem(item)}
-
-                >
+                    onClick={() => denyItem(item)}>
                     Afkeuren
                 </button>
                 <button
                     type="button"
                     className="btn btn-success btn-sq-responsive"
-                    onClick={() => approveItem(item)}
-                >
+                    onClick={() => approveItem(item)}>
                     Goedkeuren
                 </button>
             </>
         );
     };
 
-
     return (
         <>
             {successMessage && (
-                <div className="alert alert-success " role="alert">
+                <div className="alert alert-success" role="alert">
                     {successMessage}
                 </div>
             )}
-
             <div className="app">
                 <div className="image-gallery-wrapper">
                     <ImageGallery thumbnailPosition="top" items={images} renderItem={renderItem} disableKeyDown={true} disableSwipe={true} disableThumbnailScroll={true} />
                 </div>
             </div>
-
         </>
-    )
+    );
 }
