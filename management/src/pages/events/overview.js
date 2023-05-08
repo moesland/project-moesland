@@ -16,10 +16,6 @@ const EventOverview = () => {
         setShowAddEventModal(!ShowAddEventModal);
     }
 
-    const openCreate = () => {
-        navigate('/events/create');
-    }
-
     const createEvent = () => {
         ToggleShowAddEventModal();
     }
