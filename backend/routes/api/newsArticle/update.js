@@ -21,10 +21,10 @@ router.post('/', [
 
   try {
     await updateNewsArticleById(id, title, content);
-    res.status(200).json('News article updated successfully!');
+    return res.status(200).json('News article updated successfully!');
   } catch (err) {
     console.error(err);
-    res.status(500).json(`Could not update news article: ${err}`);
+    return res.status(500).json(`Could not update news article: ${err}`);
   }
 });
 

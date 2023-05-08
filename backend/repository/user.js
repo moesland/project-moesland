@@ -11,26 +11,26 @@ module.exports = {
     }
 
     // const isPasswordMatch = await bcrypt.compare(password, user.password);
-    return user.password == password ? user : null;
+    return user.password === password ? user : null;
   },
   async getAllUsers() {
-    return await User.find().populate('roleId')
+    return User.find().populate('roleId')
       .catch((err) => console.log('Cannot find list of users', err));
   },
   async getUserById(userId) {
-    return await User.findOne({ _id: { $eq: userId } })
+    return User.findOne({ _id: { $eq: userId } })
       .catch((err) => console.log('Cannot find user by id in User dataset', err));
   },
   async getUserByUsername(username) {
-    return await User.findOne({ username: { $eq: username } })
+    return User.findOne({ username: { $eq: username } })
       .catch((err) => console.error(err));
   },
   async getUserByEmail(email) {
-    return await User.findOne({ email: { $eq: email } })
+    return User.findOne({ email: { $eq: email } })
       .catch((err) => console.error(err));
   },
   async addUser(email, username, password, adminRole) {
-    return await User.create({
+    return User.create({
       password, email, username, roleId: adminRole._id,
     })
       .catch((err) => console.error(err.message));
@@ -39,11 +39,15 @@ module.exports = {
     const cleanUsername = sanitize(username);
     const cleanPassword = sanitize(password);
 
-    return await User.findOneAndUpdate({ email: { $eq: email } }, { username: cleanUsername, password: cleanPassword }, { new: true })
+    return User.findOneAndUpdate(
+      { email: { $eq: email } },
+      { username: cleanUsername, password: cleanPassword },
+      { new: true },
+    )
       .catch((err) => console.error(err));
   },
   async deleteUser(user) {
-    return await User.deleteOne(user)
+    return User.deleteOne(user)
       .catch((err) => console.error(err));
   },
 };

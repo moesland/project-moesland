@@ -15,12 +15,11 @@ router.post('/', async (req, res) => {
     const newsArticle = await getNewsArticleById(_id);
     if (newsArticle) {
       await deleteNewsArticle(newsArticle);
-      res.status(200).send('News article deleted successfully!');
-    } else {
-      res.status(500).send('Could not delete news article.');
+      return res.status(200).send('News article deleted successfully!');
     }
+    return res.status(500).send('Could not delete news article.');
   } catch (err) {
-    res.status(500).send(`Could not delete news article: ${err}`);
+    return res.status(500).send(`Could not delete news article: ${err}`);
   }
 });
 
