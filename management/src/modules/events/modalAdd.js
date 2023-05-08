@@ -5,7 +5,21 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { BackendClientRequest } from "../../services/ApiClient";
 
 
-const ModalAdd = ({ toggleModal, refreshOverview }) => {
+const ModalAdd = ({ toggleModal, date }) => {
+    let startDateString;
+    let endDateString;
+    if (Array.isArray(date)) {
+        let startDate = new Date(date[0].getTime() - date[0].getTimezoneOffset() * 60000);
+        let endDate = new Date(date[1].getTime() - date[1].getTimezoneOffset() * 60000);
+
+        startDateString = startDate.toISOString().substring(0, 10);
+        endDateString = endDate.toISOString().substring(0, 10);
+    } else {
+        let startDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+
+        startDateString = startDate.toISOString().substring(0, 10);
+        endDateString = startDateString
+    }
 
     const schema = yup.object().shape({
         title: yup.string().min(3, "De titel moet minimaal 3 karakters bevatten.").required("Dit veld mag niet leeg zijn."),
@@ -45,7 +59,7 @@ const ModalAdd = ({ toggleModal, refreshOverview }) => {
         await BackendClientRequest(
             path, body, headers, "POST"
         )
-        refreshOverview();
+        //refreshOverview();
         toggleModal();
     }
 
@@ -74,13 +88,13 @@ const ModalAdd = ({ toggleModal, refreshOverview }) => {
 
                                 <div className="form-group pt-3">
                                     <label>Startdatum</label>
-                                    <input type="date" className="form-control" id="event-start-date-id" name="event-start-date-name" {...register("startdate")}></input>
+                                    <input type="date" value={startDateString} className="form-control" id="event-start-date-id" name="event-start-date-name" {...register("startdate")}></input>
                                     <small id="event-start-date-error" className="form-text text-danger event-start-date-error" >{errors.startdate?.message}</small>
                                 </div>
 
                                 <div className="form-group pt-3">
                                     <label>Einddatum</label>
-                                    <input type="date" className="form-control" id="event-end-date-id" name="event-end-date-name" {...register("enddate")}></input>
+                                    <input type="date" value={endDateString} className="form-control" id="event-end-date-id" name="event-end-date-name" {...register("enddate")}></input>
                                     <small id="event-end-date-error" className="form-text text-danger event-end-date-error" >{errors.enddate?.message}</small>
                                 </div>
 
