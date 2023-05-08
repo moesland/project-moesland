@@ -8,7 +8,7 @@ const Create = () => {
     const [title, setTitle] = useState('');
     const [bannerImage, setBannerImage] = useState('');
     const quillRef = useRef(null);
-  
+
     const navigate = useNavigate();
 
     const modules = {
@@ -33,27 +33,27 @@ const Create = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const delta = quillRef.current.getEditor().getContents();
         const content = JSON.stringify(delta);
 
         const imageFile = document.querySelector('input[name="image"]').files[0];
-    
+
         const formData = new FormData();
         formData.append('title', title);
         formData.append('content', content);
         formData.append('bannerImage', imageFile);
-    
+
         const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:5000/api/news-article/create', {
+        const response = await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/news-article/create', {
             method: 'POST',
             body: formData,
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
-    
+
         if (response.ok) {
             window.alert('Nieuwsartikel is aangemaakt!');
             navigate('/articles/');
@@ -90,7 +90,7 @@ const Create = () => {
                             </label>
                             <ReactQuill ref={quillRef} name="conent" modules={modules}/>
                         </div>
-                        <br></br>   
+                        <br></br>
                         <div className="form-group text-left">
                             <div className="row">
                                 <div className="col text-start">
@@ -107,5 +107,5 @@ const Create = () => {
         </>
     )
     }
-    
+
 export default Create;

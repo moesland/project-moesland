@@ -7,7 +7,7 @@ const useAuth = (token) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const url = 'http://localhost:5000/api/auth/validate';
+            const url = process.env.REACT_APP_BACKEND_ROOT_URL + '/api/auth/validate';
             const requestOptions = {
                 method: 'POST',
                 headers: new Headers({
@@ -47,7 +47,7 @@ const ProtectedRoute = ({ isAuthenticated = true, redirectPath = "/login", child
 
 const AuthenticateRoute = ({ token, isAuthenticated, redirectPath, children }) => {
     const isAuth = useAuth(token);
-    
+
     if (!isAuthenticated) {
         return <Navigate to={redirectPath} />;
     }
@@ -58,7 +58,7 @@ const AuthenticateRoute = ({ token, isAuthenticated, redirectPath, children }) =
 
     if (isAuth.error == "Invalid authorization token"){
         localStorage.clear()
-        return <Navigate to={redirectPath} />; 
+        return <Navigate to={redirectPath} />;
     }
 
     if (!isAuth.authorized) {
