@@ -6,8 +6,12 @@ import { BackendClientRequest } from "../../services/ApiClient";
 
 
 const ModalAdd = ({ toggleModal, date }) => {
+
     let startDateString;
     let endDateString;
+
+    // turns the calendar data into usable date objects
+    // then turns these date objects into strings to set as values for the form
     if (Array.isArray(date)) {
         let startDate = new Date(date[0].getTime() - date[0].getTimezoneOffset() * 60000);
         let endDate = new Date(date[1].getTime() - date[1].getTimezoneOffset() * 60000);
