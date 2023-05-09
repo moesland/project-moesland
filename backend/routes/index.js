@@ -19,7 +19,6 @@ router.use('/api/user/update', authenticateTokenRole('SuperAdmin'), requestLimit
 router.use('/api/user/delete', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/user/delete'));
 router.use('/api/user/get-list', require('./api/user/getList'));
 
-router.use('/api/authToken', require('./api/authToken'));
 router.use('/api/news-article', requestLimiter, require('./api/newsArticle'));
 
 router.use('/api/user-image', require('./api/userImage'));
