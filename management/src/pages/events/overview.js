@@ -19,7 +19,7 @@ const EventOverview = () => {
 
     useEffect(() => {
         refreshData()
-    }, [])
+    }, [date])
 
     const ToggleShowAddEventModal = () => {
         setShowAddEventModal(!ShowAddEventModal);
