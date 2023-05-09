@@ -55,21 +55,27 @@ export default function Management() {
     const approveItem = async (item) => {
         const token = localStorage.getItem("token");
         const headers = new Headers({
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
         });
         const body = JSON.stringify({ id: item.userImageId });
-
+      
         await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user-image/approve", {
-            method: "POST",
-            body: body,
-            headers: headers,
+          method: "POST",
+          body: body,
+          headers: headers,
         });
-
+      
         const index = images.findIndex(i => i.userImageId === item.userImageId);
         const newImages = images.filter((_, i) => i !== index);
         setGalleryImages(newImages);
-    };
+      
+        const data = newImages[index].original;
+        const link = document.createElement("a");
+        link.href = data;
+        link.download = "image.png";
+        link.click();
+      };
 
     const denyItem = async (item) => {
         const token = localStorage.getItem('token');
