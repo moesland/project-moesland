@@ -2,16 +2,10 @@ import { BACKEND_URL } from '@env';
 import { Buffer } from 'buffer';
 import NewsItemModel from './NewsItemModel';
 import NewsItemContentModel from './NewsItemContentModel';
-
+import uuid from 'react-native-uuid';
 
 const generateUUID = () => {
-  const uuid = new Uint8Array(16);
-  window.crypto.getRandomValues(uuid);
-
-  uuid[6] = (uuid[6] & 0x0f) | 0x40;  // set version 4
-  uuid[8] = (uuid[8] & 0x3f) | 0x80;  // set variant 1
-
-  return Array.from(uuid, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  return uuid.v4();
 };
 
 const fetchNewsItemsFromBackend = async () => {
