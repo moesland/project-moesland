@@ -17,23 +17,27 @@ export default function Management() {
 
     useEffect(() => {
         fetchUserImages();
-    }, []);
 
-    useEffect(() => {
+        refreshData();
+    }, [galleryImages]);
+
+    const refreshData = () => {
         if (galleryImages) {
             galleryImages.forEach(i => {
-                const data = `data:${i.image.contentType};base64,${Buffer.from(i.image.data)}`;
-                images.push({
-                    original: data,
-                    thumbnail: data,
-                    srcSet: data,
-                    originalAlt: i.image.name,
-                    thumbnailAlt: i.image.name,
-                    userImageId: i._id
-                });
+                if (i.approvalStatus === 'pending') {
+                    const data = `data:${i.image.contentType};base64,${Buffer.from(i.image.data)}`;
+                    images.push({
+                        original: data,
+                        thumbnail: data,
+                        srcSet: data,
+                        originalAlt: i.image.name,
+                        thumbnailAlt: i.image.name,
+                        userImageId: i._id
+                    });
+                }
             });
         }
-    }, [galleryImages]);
+    }
 
     const fetchUserImages = async () => {
         const token = localStorage.getItem('token');
@@ -45,14 +49,6 @@ export default function Management() {
             .then(response => response.json())
             .then(data => setGalleryImages(data));
     }
-
-    const handleImageClick = (event) => {
-        const description = event.target.dataset.description;
-        console.log(description)
-        const index = images.findIndex((item) => item.description === description);
-        const newImages = images.filter((item, i) => i !== index); // Waarom werkt dit niet?
-        setGalleryImages(newImages);
-    };
 
     const approveItem = async (item) => {
         const token = localStorage.getItem('token');
@@ -67,6 +63,10 @@ export default function Management() {
             body: body,
             headers: headers
         });
+
+        const index = images.findIndex(i => i.userImageId === item.userImageId);
+        const newImages = images.filter((_, i) => i !== index);
+        setGalleryImages(newImages);
     };
 
     const denyItem = async (item) => {
@@ -82,6 +82,10 @@ export default function Management() {
             body: body,
             headers: headers
         });
+
+        const index = images.findIndex(i => i.description === item.userImageId);
+        const newImages = images.filter((_, i) => i !== index);
+        setGalleryImages(newImages);
     };
 
     const renderItem = (item) => {
