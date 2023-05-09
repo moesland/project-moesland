@@ -26,10 +26,10 @@ const ModalAdd = ({ toggleModal, date }) => {
     }
 
     const schema = yup.object().shape({
-        title: yup.string().min(3, "De titel moet minimaal 3 karakters bevatten.").required("Dit veld mag niet leeg zijn."),
+        title: yup.string().min(3, "De titel moet minimaal 3 karakters bevatten.").max(40).required("Dit veld mag niet leeg zijn.").required("Dit veld mag niet leeg zijn."),
         description: yup.string().min(5, "De omschrijving moet minimaal 5 karakters bevatten.").max(300).required("Dit veld mag niet leeg zijn."),
-        startdate: yup.date().required("Dit veld mag niet leeg zijn."),
-        enddate: yup.date().required("Dit veld mag niet leeg zijn."),
+        startdate: yup.date(),
+        enddate: yup.date(),
         location: yup.string().min(2, "de locatie moet minimaal 2 karakters bevatten.").max(50).required("Dit veld mag niet leeg zijn.")
     })
 
@@ -38,10 +38,19 @@ const ModalAdd = ({ toggleModal, date }) => {
     });
 
     const onSubmit = (data) => {
-        console.log(data)
+        const startingDate = new Date(startDateString);
+        const [shours, sminutes] = data.starttime.split(":");
+        startingDate.setUTCHours((shours));
+        startingDate.setUTCMinutes(sminutes);
 
-        pushManager(data.title, data.description, data.startdate, data.enddate, data.location)
+        const endingDate = new Date(endDateString);
+        const [ehours, eminutes] = data.endtime.split(":");
+        endingDate.setUTCHours((ehours));
+        endingDate.setUTCMinutes(eminutes);
+        
+        pushManager(data.title, data.description, startingDate, endingDate, data.location)
     }
+
     async function pushManager(title, description, startdate, enddate, location) {
         console.log("Adding event")
 
@@ -93,7 +102,7 @@ const ModalAdd = ({ toggleModal, date }) => {
                                 <div className="row pt-3">
                                     <div className="col-md-6">
                                         <label>Startdatum</label>
-                                        <input type="date" value={startDateString} className="form-control" id="event-start-date-id" name="event-start-date-name" {...register("startdate")}></input>
+                                        <input disabled type="date" value={startDateString} className="form-control" id="event-start-date-id" name="event-start-date-name" {...register("startdate")}></input>
                                         <small id="event-start-date-error" className="form-text text-danger event-start-date-error" >{errors.startdate?.message}</small>
                                     </div>
 
@@ -107,7 +116,7 @@ const ModalAdd = ({ toggleModal, date }) => {
                                 <div className="row pt-3">
                                     <div className="col-md-6">
                                         <label>Einddatum</label>
-                                        <input type="date" value={endDateString} className="form-control" id="event-end-date-id" name="event-end-date-name" {...register("enddate")}></input>
+                                        <input disabled type="date" value={endDateString} className="form-control" id="event-end-date-id" name="event-end-date-name" {...register("enddate")}></input>
                                         <small id="event-end-date-error" className="form-text text-danger event-end-date-error" >{errors.enddate?.message}</small>
                                     </div>
 
