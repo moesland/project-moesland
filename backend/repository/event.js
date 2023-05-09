@@ -15,6 +15,15 @@ module.exports = {
         });
         return event;
     },
+    async getEventsByDate(date) {
+        const start = new Date(date);
+        const end = new Date(date);
+        end.setDate(end.getDate() + 1);
+
+        return await Event.find({
+            startdate: { $gte: start, $lt: end }
+        }).catch(err => console.error(err));
+    },
     async updateEventById(id, title, description, startdate, enddate, location) {
         return await Event.findOneAndUpdate(
             { _id: { $eq: id } }, 

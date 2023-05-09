@@ -25,10 +25,19 @@ const EventOverview = () => {
     }
 
     const refreshData = async () => {
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/event/", { method: "GET" })
-          .then(response => response.json())
-          .then(data => { setEventData(data) });
-      }
+        const startdate = date.toString().split(',')[0];
+        const selectedDate = new Date(startdate);
+        const year = selectedDate.getFullYear();
+        const month = selectedDate.getMonth() + 1;
+        const day = selectedDate.getDate();
+        const formattedDate = `${year}-${month}-${day}`;
+        console.log('selectedDate ' + selectedDate);
+        console.log('formattedDate ' + formattedDate);
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/event/?date=" + formattedDate, { method: "GET" })
+            .then(response => response.json())
+            .then(data => { setEventData(data) });
+    }
+      
     return (
         <>
             <h1 className='text-center'>Overzicht evenementen</h1>
