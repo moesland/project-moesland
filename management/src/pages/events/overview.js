@@ -19,7 +19,7 @@ const EventOverview = () => {
 
     useEffect(() => {
         refreshData()
-    }, [date])
+    }, [date])  
 
     const ToggleShowAddEventModal = () => {
         setShowAddEventModal(!ShowAddEventModal);
@@ -46,8 +46,6 @@ const EventOverview = () => {
         const month = selectedDate.getMonth() + 1;
         const day = selectedDate.getDate();
         const formattedDate = `${year}-${month}-${day}`;
-        console.log('selectedDate ' + selectedDate);
-        console.log('formattedDate ' + formattedDate);
         await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/event/?date=" + formattedDate, { method: "GET" })
             .then(response => response.json())
             .then(data => { setEventData(data) });
