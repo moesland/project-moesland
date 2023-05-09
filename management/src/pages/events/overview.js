@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import Calendar from 'react-calendar';
 import { useNavigate } from "react-router-dom";
-import "./overview.css"
+import "../../styles/calendar.css";
 import ModalAdd from "../../modules/events/modalAdd";
 import ModalDelete from "../../modules/events/modalDelete";
 import ModalUpdate from "../../modules/events/modalUpdate";
 
 const EventOverview = () => {
-    const userData = []
     const [date, setDate] = useState(new Date());
     const [ShowAddEventModal, setShowAddEventModal] = useState(false);
     const navigate = useNavigate();
+    const [eventData, setEventData] = useState()
+
+    useEffect(() => {
+        refreshData()
+      }, [])
 
     const ToggleShowAddEventModal = () => {
         setShowAddEventModal(!ShowAddEventModal);
@@ -20,6 +24,11 @@ const EventOverview = () => {
         ToggleShowAddEventModal(date);
     }
 
+    const refreshData = async () => {
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/event/", { method: "GET" })
+          .then(response => response.json())
+          .then(data => { setEventData(data) });
+      }
     return (
         <>
             <h1 className='text-center'>Overzicht evenementen</h1>
@@ -44,8 +53,7 @@ const EventOverview = () => {
                 </p>
             )}
 
-            {true &&
-                <div className="row">
+            {eventData &&
                     <div className="pt-5 col-md-8 mx-auto text-center">
                         <div className="float-end col-md-3 pb-3">
                             <button onClick={createEvent} type="button" className="btn btn-moesland">
@@ -55,18 +63,22 @@ const EventOverview = () => {
                         <table className=" table table-striped " >
                             <thead>
                                 <tr className="bg-moesland text-white">
-                                    <th scope="col">Datum</th>
                                     <th scope="col">Titel</th>
+                                    <th scope="col">Omschrijving</th>
+                                    <th scope="col">Startdatum</th>
+                                    <th scope="col">Einddatum</th>
                                     <th scope="col">Locatie</th>
                                     <th scope="col">Acties</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody">
-                                {userData.map(user => (
-                                    <tr key={user.id} >
-                                        <td className="email">{user.email}</td>
-                                        <td className="userName">{user.username}</td>
-                                        <td className="role">{user.roleId.rolename}</td>
+                                {eventData.map(event => (
+                                    <tr key={event.id} >
+                                        <td className="title">{event.title}</td>
+                                        <td className="description">{event.description}</td>
+                                        <td className="startdate">{event.startdate}</td>
+                                        <td className="enddate">{event.enddate}</td>
+                                        <td className="location">{event.location}</td>
                                         <td >
                                             <div className="row">
                                                 <div className="">
@@ -86,8 +98,6 @@ const EventOverview = () => {
                             </tbody>
                         </table>
                     </div>
-                </div>
-
             }
 
             {ShowAddEventModal && <ModalAdd toggleModal={ToggleShowAddEventModal} date={date} />}
