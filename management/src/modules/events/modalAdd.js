@@ -90,16 +90,32 @@ const ModalAdd = ({ toggleModal, date }) => {
                                     <small id="event-desc-error" className="form-text text-danger mt-3 event-desc-error">{errors.description?.message}</small>
                                 </div>
 
-                                <div className="form-group pt-3">
-                                    <label>Startdatum</label>
-                                    <input type="date" value={startDateString} className="form-control" id="event-start-date-id" name="event-start-date-name" {...register("startdate")}></input>
-                                    <small id="event-start-date-error" className="form-text text-danger event-start-date-error" >{errors.startdate?.message}</small>
+                                <div className="row pt-3">
+                                    <div className="col-md-6">
+                                        <label>Startdatum</label>
+                                        <input type="date" value={startDateString} className="form-control" id="event-start-date-id" name="event-start-date-name" {...register("startdate")}></input>
+                                        <small id="event-start-date-error" className="form-text text-danger event-start-date-error" >{errors.startdate?.message}</small>
+                                    </div>
+
+                                    <div className="col-md-6">
+                                        <label>Starttijd</label>
+                                        <input type="time" className="form-control" id="event-start-time-id" name="event-start-time-name" {...register("starttime")}></input>
+                                        <small id="event-start-time-error" className="form-text text-danger event-start-time-error" >{errors.starttime?.message}</small>
+                                    </div>
                                 </div>
 
-                                <div className="form-group pt-3">
-                                    <label>Einddatum</label>
-                                    <input type="date" value={endDateString} className="form-control" id="event-end-date-id" name="event-end-date-name" {...register("enddate")}></input>
-                                    <small id="event-end-date-error" className="form-text text-danger event-end-date-error" >{errors.enddate?.message}</small>
+                                <div className="row pt-3">
+                                    <div className="col-md-6">
+                                        <label>Einddatum</label>
+                                        <input type="date" value={endDateString} className="form-control" id="event-end-date-id" name="event-end-date-name" {...register("enddate")}></input>
+                                        <small id="event-end-date-error" className="form-text text-danger event-end-date-error" >{errors.enddate?.message}</small>
+                                    </div>
+
+                                    <div className="col-md-6">
+                                        <label>Eindtijd</label>
+                                        <input type="time" className="form-control" id="event-end-time-id" name="event-end-time-name" {...register("endtime")}></input>
+                                        <small id="event-end-time-error" className="form-text text-danger event-end-time-error" >{errors.endtime?.message}</small>
+                                    </div>
                                 </div>
 
                                 <div className="form-group pt-3">
