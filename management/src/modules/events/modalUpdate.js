@@ -17,29 +17,30 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
     
     
     const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema),
+       // resolver: yupResolver(schema),
     });
 
     const onSubmit = async (data) => {
-        console.log('updating')
-
         const path = "/api/event/update"
-        const body = {
+        const body = JSON.stringify({
             title: data.title,
             description: data.description,
             startdate: data.startdate,
             enddate: data.enddate,
             location: data.location
-        };
+        });
+        
         const token = localStorage.getItem('token');
         const headers = new Headers({
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
         })
 
-        await BackendClientRequest(
-            path, body, headers, "POST"
-        )
+        const response = await fetch('http://localhost:5000/api/event/update', {
+            method: 'POST',
+            body: body,
+            headers: headers
+        });
 
         refreshOverview();
         toggleModal();
@@ -99,9 +100,6 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
                                     <label>Nieuwe locatie</label>
                                     <input defaultValue={selectedItem.location} id="edit-event-location-id" className="form-control" placeholder="Locatie" name="edit-event-location-name" {...register("location")}></input>
                                     <small id="edit-event-location-error" className="form-text text-danger edit-event-location-error" >{errors.location?.message}</small>
-                                </div>
-
-                                <div className="form-check">
                                 </div>
                             </div>
                             <div className="modal-footer">
