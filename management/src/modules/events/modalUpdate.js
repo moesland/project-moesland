@@ -29,7 +29,6 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
             enddate: data.enddate,
             location: data.location
         });
-        
         const token = localStorage.getItem('token');
         const headers = new Headers({
             'Authorization': 'Bearer ' + token,
