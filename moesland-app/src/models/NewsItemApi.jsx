@@ -3,18 +3,15 @@ import { Buffer } from 'buffer';
 import NewsItemModel from './NewsItemModel';
 import NewsItemContentModel from './NewsItemContentModel';
 
+
 const generateUUID = () => {
-  let uuid = '';
-  const chars = '0123456789abcdef';
+  const uuid = new Uint8Array(16);
+  window.crypto.getRandomValues(uuid);
 
-  for (let i = 0; i < 32; i += 1) {
-    if (i === 8 || i === 12 || i === 16 || i === 20) {
-      uuid += '-';
-    }
-    uuid += chars[Math.floor(Math.random() * chars.length)];
-  }
+  uuid[6] = (uuid[6] & 0x0f) | 0x40;  // set version 4
+  uuid[8] = (uuid[8] & 0x3f) | 0x80;  // set variant 1
 
-  return uuid;
+  return Array.from(uuid, (byte) => byte.toString(16).padStart(2, '0')).join('');
 };
 
 const fetchNewsItemsFromBackend = async () => {

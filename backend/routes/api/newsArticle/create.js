@@ -37,7 +37,7 @@ router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (re
     await createNewsArticle(title, bannerImage, content);
     return res.status(201).send('News article created successfully!');
   } catch (err) {
-    return res.status(500).send(`Could not create news article: ${err}`);
+    return res.status(500).send(`Could not create news article: ${escape(err)}`);
   }
 });
 

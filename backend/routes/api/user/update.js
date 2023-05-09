@@ -2,6 +2,7 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
+const escapeHtml = require('escape-html');
 const { updateUserByEmail } = require('../../../repository/user');
 
 router.use(express.json());
@@ -22,7 +23,7 @@ router.post('/', [
     const updatedUser = await updateUserByEmail(email, username, password);
     return res.status(200).send(`User ${updatedUser.username} updated successfully!`);
   } catch (err) {
-    return res.status(500).send(`Could not update user: ${err}`);
+    return res.status(500).send(`Could not update user: ${escapeHtml(err)}`);
   }
 });
 

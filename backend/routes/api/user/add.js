@@ -2,6 +2,7 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
+const escapeHTML = require('escape-html');
 const { getRoleByName } = require('../../../repository/role');
 const { addUser, getUserByEmail, getUserByUsername } = require('../../../repository/user');
 
@@ -21,11 +22,11 @@ router.post('/', [
     const adminRole = await getRoleByName('Admin');
     const { username, email, password } = req.body;
     if (await getUserByUsername(username)) {
-      return res.status(500).send(`username: ${username} already exist`);
+      return res.status(500).send(`username: ${escapeHTML(username)} already exist`);
     }
 
     if (await getUserByEmail(email)) {
-      return res.status(500).send(`email: ${email} already exist`);
+      return res.status(500).send(`email: ${escapeHTML(email)} already exist`);
     }
 
     try {
