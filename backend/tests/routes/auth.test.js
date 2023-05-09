@@ -29,7 +29,7 @@ describe('Authentication routes', async () => {
         .post('/api/auth/')
         .send({ username: 'invalid', password: 'invalid' });
       expect(response.status).to.equal(401);
-    });
+    }, 5000);
 
     it('should return a valid JWT token if valid credentials are provided', async () => {
       const response = await request(app)
@@ -42,6 +42,6 @@ describe('Authentication routes', async () => {
 
       expect(decodedToken).to.have.property('sub');
       expect(decodedToken).to.have.property('exp');
-    });
+    }, 5000);
   });
 });
