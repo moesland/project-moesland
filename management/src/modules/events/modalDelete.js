@@ -5,8 +5,7 @@ import { BackendClientRequest } from "../../services/ApiClient";
 const ModalDelete = ({ toggleModal, selectedItem, refreshOverview }) => {
     console.log(selectedItem)
     const deleteManager = async () => { 
-        if(selectedItem.roleId.rolename == "SuperAdmin") return;
-        const path = "/api/events/delete"
+        const path = "/api/event/delete"
         const token = localStorage.getItem('token');
         const headers = new Headers({
             'Authorization': 'Bearer ' + token,
@@ -14,7 +13,7 @@ const ModalDelete = ({ toggleModal, selectedItem, refreshOverview }) => {
         })
 
         await BackendClientRequest(
-            path, { "email" : selectedItem.email }, headers, "POST" // TODO: change email to?
+            path, { "_id" : selectedItem._id }, headers, "POST" // TODO: change email to?
         ) 
 
         refreshOverview();
