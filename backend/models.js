@@ -5,3 +5,4 @@ require('./models/user');
 require('./models/newsArticle');
 require('./models/image');
 require('./models/userImage');
+require('./models/event');
