@@ -37,7 +37,7 @@ router.post('/', [
     }
   } catch (err) {
     console.error(err);
-    return res.status(500).send(`Could not add user: ${err}`);
+    return res.status(500).send(`Could not add user: ${escapeHTML(err)}`);
   }
 });
 
