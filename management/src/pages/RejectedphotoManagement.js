@@ -3,7 +3,7 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Buffer } from 'buffer';
 
-export default function Management() {
+export default function RejectedPhotoManagement() {
     const images = [];
     const [galleryImages, setGalleryImages] = useState(images);
     const [successMessage, setSuccessMessage] = useState('');
@@ -21,10 +21,11 @@ export default function Management() {
         refreshData();
     }, [galleryImages]);
 
-    const refreshData = () => {
+    const refreshData = () => 
+    {
         if (galleryImages) {
             galleryImages.forEach(i => {
-                if (i.approvalStatus === 'pending') {
+                if (i.approvalStatus === 'declined') {
                     const data = `data:${i.image.contentType};base64,${Buffer.from(i.image.data)}`;
                     images.push({
                         original: data,
@@ -50,7 +51,7 @@ export default function Management() {
             .then(response => response.json())
             .then(data => setGalleryImages(data));
     }
-
+    
 
     const approveItem = async (item) => {
         const token = localStorage.getItem("token");
@@ -60,7 +61,7 @@ export default function Management() {
         });
         const body = JSON.stringify({ id: item.userImageId });
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user-image/approve", {
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user-image/restore", {
             method: "POST",
             body: body,
             headers: headers,
@@ -79,7 +80,7 @@ export default function Management() {
         });
         const body = JSON.stringify({ id: item.userImageId });
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/decline', {
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/delete', {
             method: 'POST',
             body: body,
             headers: headers
@@ -103,13 +104,13 @@ export default function Management() {
                     type="button"
                     className="btn btn-danger btn-sq-responsive"
                     onClick={() => denyItem(item)}>
-                    Afkeuren
+                    Verwijderen
                 </button>
                 <button
                     type="button"
                     className="btn btn-success btn-sq-responsive"
                     onClick={() => approveItem(item)}>
-                    Goedkeuren
+                    Herstellen
                 </button>
             </>
         );
@@ -122,22 +123,15 @@ export default function Management() {
                     {successMessage}
                 </div>
             )}
-            
             <div className="app">
-                <div className="image-gallery-wrapper">
-                    {galleryImages.length > 0 ? (
-                        <ImageGallery
-                            thumbnailPosition="top"
-                            items={images}
-                            renderItem={renderItem}
-                            disableKeyDown={true}
-                            disableSwipe={true}
-                            disableThumbnailScroll={true}
-                        />
-                    ) : (
-                        <p>afbleedingen worden geladen</p>
-                    )}
+                {galleryImages.length > 0 ? (
+                    <div className="image-gallery-wrapper">
+                    
+                    <ImageGallery thumbnailPosition="top" items={images} renderItem={renderItem} disableKeyDown={true} disableSwipe={true} disableThumbnailScroll={true} />
                 </div>
+                ) : (
+                    <p>Geen afbleedingen die kunnen hersteld kunnen worden</p>
+                )}
             </div>
         </>
     );

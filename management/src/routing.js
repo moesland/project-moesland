@@ -9,6 +9,7 @@ import Login from './pages/login';
 import Management from './pages/userManagement';
 import ArticleOverview from './pages/articles/overview';
 import PhotoManagement from './pages/photoManagement';
+import RejectedPhotoManagement from './pages/RejectedphotoManagement';
 
 const Routing = () => {
   return (
@@ -21,6 +22,7 @@ const Routing = () => {
         <Route path='/articles' element={<ArticleOverview/>} />
         <Route path='/users' element={<Management/>} />
         <Route path='/photo-management' element={<PhotoManagement/>} />
+        <Route path='/rejected-photo-management' element={<RejectedPhotoManagement/>} />
       </Route>
 
       <Route element={<ProtectedRoute isAuthenticated={false}/>}>

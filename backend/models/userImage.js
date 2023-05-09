@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userImageSchema = mongoose.Schema({
     approvalStatus: {
         type: String,
-        enum: ['pending', 'approved', 'declined'],
+        enum: ['pending', 'approved', 'declined', 'deleted'],
         default: 'pending',
         required: true
     },
