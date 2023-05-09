@@ -8,6 +8,8 @@ router.post('/', async (req, res) => {
     const { _id } = req.body;
     try {     
         const event = await getEventById(_id);
+        console.log(event);
+        console.log(_id);
         if (event) {
             await deleteEvent(event);
             res.status(200).send(`Event deleted successfully!`);
