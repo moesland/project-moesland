@@ -3,22 +3,20 @@ const chai = require('chai');
 const jwt = require('jsonwebtoken');
 const app = require('../../app');
 const {
-  fakeUserData, createFakeUsers, removeFakeUsers, removeAuthToken,
+  fakeUserData,
 } = require('../testdata');
-const { default: mongoose } = require('mongoose');
 
 const { expect } = chai;
 
 describe('Authentication routes', async () => {
   describe('POST /login', () => {
-
     before(async () => {
-      //await createFakeUsers();
+      // await createFakeUsers();
     });
 
     after(async () => {
-      //await removeAuthToken();
-      //await removeFakeUsers();
+      // await removeAuthToken();
+      // await removeFakeUsers();
     });
 
     xit('should return 401 if invalid username or password is provided', async () => {
