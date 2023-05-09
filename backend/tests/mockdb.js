@@ -7,7 +7,7 @@ const mockdb = {
 
   connect: async () => {
     this.mongoServer = await MongoMemoryServer.create();
-    this.connection = await mongoose.connect(this.mongoServer.getUri());
+    this.connection = mongoose.createConnection(this.mongoServer.getUri());
   },
   disconnect: async () => {
     if (this.mongoServer) {
