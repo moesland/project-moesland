@@ -21,6 +21,8 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
     });
 
     const onSubmit = async (data) => {
+        console.log('updating')
+
         const path = "/api/event/update"
         const body = {
             title: data.title,
@@ -67,13 +69,13 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
 
                                 <div className="row pt-3">
                                     <div className="col-md-6">
-                                        <label>Startdatum</label>
+                                        <label>Nieuwe Startdatum</label>
                                         <input defaultValue={startingDateAndTime.date} type="date" className="form-control" id="edit-event-start-date-id" name="edit-event-start-date-name" {...register("startdate")}></input>
                                         <small id="edit-event-start-date-error" className="form-text text-danger edit-event-start-date-error" >{errors.startdate?.message}</small>
                                     </div>
 
                                     <div className="col-md-6">
-                                        <label>Starttijd</label>
+                                        <label>Nieuwe Starttijd</label>
                                         <input defaultValue={startingDateAndTime.time} type="time" className="form-control" id="edit-event-start-time-id" name="edit-event-start-time-name" {...register("starttime")}></input>
                                         <small id="edit-event-start-time-error" className="form-text text-danger edit-event-start-time-error" >{errors.starttime?.message}</small>
                                     </div>
@@ -81,13 +83,13 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
 
                                 <div className="row pt-3">
                                     <div className="col-md-6">
-                                        <label>Einddatum</label>
+                                        <label>Nieuwe Einddatum</label>
                                         <input defaultValue={endingDateAndTime.date} type="date" className="form-control" id="edit-event-end-date-id" name="edit-event-end-date-name" {...register("enddate")}></input>
                                         <small id="edit-event-end-date-error" className="form-text text-danger edit-event-end-date-error" >{errors.enddate?.message}</small>
                                     </div>
 
                                     <div className="col-md-6">
-                                        <label>Eindtijd</label>
+                                        <label>Nieuwe Eindtijd</label>
                                         <input defaultValue={endingDateAndTime.time} type="time" className="form-control" id="edit-event-end-time-id" name="edit-event-end-time-name" {...register("endtime")}></input>
                                         <small id="edit-event-end-time-error" className="form-text text-danger edit-event-end-time-error" >{errors.endtime?.message}</small>
                                     </div>
@@ -104,7 +106,7 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
                             </div>
                             <div className="modal-footer">
                                 <button onClick={toggleModal} type="button" className="btn btn-secondary" data-dismiss="modal">Annuleren</button>
-                                <input type="submit" className="btn btn-moesland" defaultValue="Opslaan"></input>
+                                <input type="submit" className="btn btn-moesland" value="Opslaan"></input>
                             </div>
                         </form>
                     </div>
