@@ -11,14 +11,6 @@ router.post('/', [
     body('startdate').trim().isISO8601().notEmpty(),
     body('enddate').trim().isISO8601().notEmpty(),
     body('location').trim().notEmpty(),
-    body().custom((value, { req }) => {
-        const startdate = new Date(req.body.startdate);
-        const enddate = new Date(req.body.enddate);
-        if (startdate >= enddate) {
-            throw new Error('Start date must be before end date');
-        }
-        return true;
-    })
 ], async (req, res) => {
     const errors = validationResult(req);
 
@@ -29,8 +21,9 @@ router.post('/', [
     try {
         const { id, title, description, startdate, enddate, location } = req.body;
         const event = await getEventById(id);
+        //console.log(event);
         if (event) {
-            await updateEventById(id, title, description, startdate, enddate, location);
+            await updateEventById(event._id, title, description, startdate, enddate, location);
             res.status(200).json(`Event updated successfully!`);
         }
         else{
