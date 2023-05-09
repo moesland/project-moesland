@@ -64,7 +64,6 @@ const EventOverview = () => {
                             <thead>
                                 <tr className="bg-moesland text-white">
                                     <th scope="col">Titel</th>
-                                    <th scope="col">Omschrijving</th>
                                     <th scope="col">Startdatum</th>
                                     <th scope="col">Einddatum</th>
                                     <th scope="col">Locatie</th>
@@ -75,7 +74,6 @@ const EventOverview = () => {
                                 {eventData.map(event => (
                                     <tr key={event.id} >
                                         <td className="title">{event.title}</td>
-                                        <td className="description">{event.description}</td>
                                         <td className="startdate">{event.startdate}</td>
                                         <td className="enddate">{event.enddate}</td>
                                         <td className="location">{event.location}</td>
@@ -86,7 +84,7 @@ const EventOverview = () => {
                                                 <div className="pr-3">
                                                 </div>
                                             </div>
-                                            <button className="btn btn-danger" >Verwijderen </button>
+                                            <button className="btn btn-danger mx-2" >Verwijderen </button>
                                             {/* onClick={() => ToggleShowModalDelete(user)} */}
                                             <button className="btn btn-moesland" >Aanpassen</button>
                                             {/* onClick={() => ToggleShowModalUpdate(user)} */}
