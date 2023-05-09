@@ -56,7 +56,7 @@ export default function Create() {
 
         const token = localStorage.getItem('token');
 
-        const response = await fetch('http://localhost:5000/api/news-article/create', {
+        const response = await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/news-article/create', {
             method: 'POST',
             body: formData,
             headers: {
