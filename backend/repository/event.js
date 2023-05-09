@@ -42,5 +42,9 @@ module.exports = {
             location: location
         });
         await newEvent.save();
-    }
+    },
+    async getAllEvents() {
+        return await Event.find({})
+            .catch(err => console.error(err));
+    },
 };
