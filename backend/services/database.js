@@ -1,27 +1,32 @@
 const mongoose = require('mongoose');
+const { MongoMemoryServer } = require("mongodb-memory-server");
 
-module.exports = () => {
-  if (mongoose.connection.readyState === 0) {
+
+module.exports = async () => {
+  if (process.env.NODE_ENV === 'test') {
+    const mongoServer = await MongoMemoryServer.create();
+    await mongoose.connect(mongoServer.getUri(), {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("connected to memory mongo database.");
+  }
+
+  if (process.env.NODE_ENV != 'test' && mongoose.connection.readyState === 0) {
     const uri = process.env.MONGODB_URI;
-    /* const options = {
-      db: { native_parser: true },
-      server: { poolSize: 5 },
-      replset: { rs_name: 'myReplicaSetName' },
-      user: 'admin',
-      pass: 'root',
-    }; */
+
     mongoose.connect(uri).catch((err) => {
       console.log(err);
     });
-  }
 
-  mongoose.connection.on('open', () => {
-    console.log('Connected to mongo server.');
+    mongoose.connection.on('open', () => {
+      console.log('Connected to mongo database.');
 
-    mongoose.connection.db.listCollections().toArray((err, names) => {
-      console.log({ names, err });
+      mongoose.connection.db.listCollections().toArray((err, names) => {
+        console.log({ names, err });
+      });
     });
-  });
+  }
 
   return mongoose;
 };
