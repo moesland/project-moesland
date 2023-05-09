@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Image = require('../../../models/image');
 const { body, validationResult } = require('express-validator');
+const sanitize = require('sanitize-filename');
 const upload = require('multer')({ dest: 'uploads/', limits: { fieldSize: 50 * 1024 * 1024 } });
 const { updateNewsArticleById } = require('../../../repository/newsArticle');
 const { updateImageById } = require('../../../repository/image');
 const fs = require('fs');
 const path = require('path');
 const { authenticateToken } = require('../../../middlewares/auth');
+const escape = require('escape-html');
 
 router.use(express.json());
 
@@ -28,7 +30,11 @@ router.post('/', authenticateToken, upload.single('bannerImage'), [
         let bannerImage;
 
         if (req.file && req.file.path) {
-            const filePath = path.join(__dirname, '../../..', req.file.path);
+            const filePath = path.join(__dirname, '../../..', 'uploads', sanitize(req.file.filename));
+            if (!fs.existsSync(filePath)) {
+                return res.status(500).send('Could not create news article: file does not exist, path:' + escape(filePath));
+            }
+
             const imageBuffer = fs.readFileSync(filePath);
 
             bannerImage = new Image({
