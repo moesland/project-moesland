@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import ModalDelete from '../../modules/article/modalDelete.js';
-import CustomPaginate from '../../modules/CustomPaginate';
 import { useNavigate } from "react-router-dom";
 
 export default function ArticleOverview() {
-    const [pageNumber, setPageNumber] = useState(0);
     const [articles, setArticles] = useState(undefined);
-    const [pagesVisited, setPagesVisited] = useState(undefined);
-    const [pageCount, setPageCount] = useState(undefined);
     const [selectedItem, setSelectedItem] = useState(undefined);
     const [modalDeleteShow, setModalDeleteShow] = useState(false);
 
     const navigate = useNavigate();
-    const articlesPerPage = 10;
 
     useEffect(() => {
         refreshData();
@@ -23,17 +18,6 @@ export default function ArticleOverview() {
             .then(response => response.json())
             .then(data => { setArticles(data) });
     }
-
-    useEffect(() => {
-        if (articles) {
-            setPagesVisited(pageNumber * articlesPerPage);
-            setPageCount(Math.ceil(articles.length / articlesPerPage));
-        }
-    }, [articles, pagesVisited, pageCount]);
-
-    const changePage = ({ selected }) => {
-        setPageNumber(selected);
-    };
 
     const openCreate = () => {
         navigate('/articles/create');
@@ -67,7 +51,7 @@ export default function ArticleOverview() {
                         </thead>
 
                         <tbody>
-                            {articles.slice(pagesVisited, pagesVisited + articlesPerPage).map(article => (
+                            {articles.map(article => (
                                 <tr key={article._id}>
                                     <td>{new Date(article.date).toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' })}</td>
                                     <td>{article.title}</td>
@@ -79,8 +63,6 @@ export default function ArticleOverview() {
                             ))}
                         </tbody>
                     </table>
-
-                    <CustomPaginate pageCount={pageCount} changePage={changePage} />
                 </div>
             }
 
