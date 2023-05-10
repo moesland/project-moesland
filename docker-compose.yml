@@ -1,5 +1,5 @@
 version: '1'
-name: Moesland
+name: moesland
 services:
   database:
     container_name: moeslanddb
