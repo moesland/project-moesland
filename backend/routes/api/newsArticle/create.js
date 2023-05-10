@@ -28,15 +28,14 @@ router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (re
         }
 
         const imageBuffer = fs.readFileSync(filePath);
-
-        const bannerImage = new Image({
+        bannerImage = new Image({
             name: req.file.originalname,
             data: imageBuffer,
             contentType: req.file.mimetype
         });
 
         await createNewsArticle(title, bannerImage, content);
-        res.status(201).send(`News article created successfully!`);
+        res.status(201).send('News article created successfully!');
     } catch (err) {
         res.status(500).send(`Could not create news article: ${err}`);
     }
