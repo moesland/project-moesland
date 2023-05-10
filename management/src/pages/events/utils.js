@@ -7,6 +7,7 @@ export function getUsableDatesAndTimes(dateTimeString) {
     const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
     const day = date.getUTCDate().toString().padStart(2, "0");
     const dateStr = `${year}-${month}-${day}`;
+    const altDateStr = `${day}-${month}-${year}`;
 
     // Get the time component as a string in "HH:MM" format
     const hours = date.getUTCHours().toString().padStart(2, "0");
@@ -16,6 +17,7 @@ export function getUsableDatesAndTimes(dateTimeString) {
     // Return an object with the date and time strings
     return {
         date: dateStr,
-        time: timeStr
+        time: timeStr,
+        altDate: altDateStr
     };
 }

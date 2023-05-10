@@ -42,7 +42,11 @@ const EventOverview = () => {
     const refreshData = async () => {
         await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/event/", { method: "GET" })
             .then(response => response.json())
-            .then(data => { setEventData(data) });
+            .then(data => {
+                // sort the data by start date
+                const sortedData = data.sort((b, a) => new Date(a.startdate) - new Date(b.startdate));
+                setEventData(sortedData);
+            });
     }
     return (
         <>
@@ -90,10 +94,10 @@ const EventOverview = () => {
                                 <tr key={event.id} >
                                     <td className="title">{event.title}</td>
                                     <td className="startdate">
-                                        {getUsableDatesAndTimes(event.startdate).date} {getUsableDatesAndTimes(event.startdate).time}
+                                        {getUsableDatesAndTimes(event.startdate).altDate} {getUsableDatesAndTimes(event.startdate).time}
                                     </td>
                                     <td className="enddate">
-                                        {getUsableDatesAndTimes(event.enddate).date} {getUsableDatesAndTimes(event.enddate).time}
+                                        {getUsableDatesAndTimes(event.enddate).altDate} {getUsableDatesAndTimes(event.enddate).time}
                                     </td>
                                     <td className="location">{event.location}</td>
                                     <td >
