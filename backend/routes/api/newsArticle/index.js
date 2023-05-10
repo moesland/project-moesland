@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllNewsArticle } = require('../../../repository/newsArticle');
+const { getAllNewsArticles } = require('../../../repository/newsArticle');
 
 const router = express.Router();
 

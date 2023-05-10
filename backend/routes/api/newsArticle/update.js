@@ -1,8 +1,15 @@
 const express = require('express');
-const { body, validationResult } = require('express-validator');
-
 const router = express.Router();
+const Image = require('../../../models/image');
+const { body, validationResult } = require('express-validator');
+const sanitize = require('sanitize-filename');
+const upload = require('multer')({ dest: 'uploads/', limits: { fieldSize: 50 * 1024 * 1024 } });
 const { updateNewsArticleById } = require('../../../repository/newsArticle');
+const { updateImageById } = require('../../../repository/image');
+const fs = require('fs');
+const path = require('path');
+const { authenticateToken } = require('../../../middlewares/auth');
+const escape = require('escape-html');
 
 router.use(express.json());
 

@@ -1,18 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 
-.navbar-text-color{
-  font-family: 'Fredoka One', sans-serif;
-  color: #2A6C0B !important;
-  }
-
-.navbar-brand{
-  font-family: 'Fredoka One', sans-serif;
-  color:#2A6C0B !important;
-  font-weight:bold;
+:root {
+  --moesland-dark-green: #2a6c0b;
+  --moesland-light-green: #4cbb17;
+  --moesland-lime: #4cd964;
+  --moesland-font: 'Fredoka One', sans-serif;
 }
 
-.navbar-text-color:hover{
-  box-shadow: inset 0 4px 0 0 rgb(4,125,60);
+.font-moesland {
+  font-family: var(--moesland-font);
+}
+
+.navbar-text-color {
+  color: var(--moesland-dark-green) !important;
+}
+
+.navbar-brand {
+  color: var(--moesland-dark-green) !important;
+  font-weight: bold;
+}
+
+.navbar-text-color:hover {
+  box-shadow: inset 0 4px 0 0 var(--moesland-dark-green);
 }
 
 .navbar-text-color.n-hover:hover {
@@ -20,13 +29,13 @@
 }
 
 .btn-moesland {
-  background-color:#3d861c;
+  background-color: var(--moesland-dark-green);
   color: white;
 }
 
-.btn-moesland:hover{
+.btn-moesland:hover {
   color: white;
-  background-color: #64c03a;
+  background-color: var(--moesland-light-green);
 }
 
 .table-hover tbody tr:hover {
@@ -35,12 +44,12 @@
 }
 
 .bg-moesland {
-  background-color: #59be2a !important;
+  background-color: var(--moesland-dark-green) !important;
 }
 
 .custom-active-link {
-  background-color: #3d861c !important;
-  border-color: #4ba721 !important;
+  background-color: var(--moesland-dark-green) !important;
+  border-color: var(--moesland-light-green) !important;
 }
 
 .custom-modal {
@@ -48,8 +57,8 @@
   display: block;
 }
 
-.login-form{
-    border: 1px solid black;
-    padding: 15px;
-    border-radius: 10px;
+.login-form {
+  border: 1px solid black;
+  padding: 15px;
+  border-radius: 10px;
 }

@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   res.send('hello from home route');
 });
 
-// add here all other routes
+// Add all other routes here
 router.use('/api/auth', requestLimiter, require('./api/auth'));
 router.use('/api/role', require('./api/role'));
 router.use('/api/user', require('./api/user'));
@@ -18,6 +18,7 @@ router.use('/api/user/add', authenticateTokenRole('SuperAdmin'), requestLimiter,
 router.use('/api/user/update', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/user/update'));
 router.use('/api/user/delete', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/user/delete'));
 router.use('/api/user/get-list', require('./api/user/getList'));
+router.use('/api/user/role', require('./api/user/role'));
 
 router.use('/api/news-article', requestLimiter, require('./api/newsArticle'));
 
