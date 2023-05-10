@@ -6,7 +6,7 @@
   "scripts": {
     "test": "set NODE_ENV=test&& mocha 'tests/**/*.js' --exit",
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon -r dotenv/config ./server --legacy-watch"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "clean": "^4.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
+    "escape-html": "^1.0.3",
     "express": "^4.18.2",
     "express-rate-limit": "^6.7.0",
     "express-validator": "^6.15.0",
@@ -29,6 +30,9 @@
   },
   "devDependencies": {
     "chai": "^4.3.7",
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "mongodb-memory-server": "^8.12.1",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
   }
 }

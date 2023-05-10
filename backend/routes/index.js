@@ -1,11 +1,12 @@
 const express = require('express');
 const { authenticateTokenRole } = require('../middlewares/auth');
 const { requestLimiter } = require('../middlewares/security');
+
 const router = express.Router();
 
-// Default
-router.get('/', function (_, res, _) {
-    res.send('hello from home route');
+// default
+router.get('/', (req, res) => {
+  res.send('hello from home route');
 });
 
 // Add all other routes here
@@ -19,7 +20,6 @@ router.use('/api/user/delete', authenticateTokenRole('SuperAdmin'), requestLimit
 router.use('/api/user/get-list', require('./api/user/getList'));
 router.use('/api/user/role', require('./api/user/role'));
 
-router.use('/api/authToken', require('./api/authToken'));
 router.use('/api/news-article', requestLimiter, require('./api/newsArticle'));
 
 router.use('/api/user-image', require('./api/userImage'));

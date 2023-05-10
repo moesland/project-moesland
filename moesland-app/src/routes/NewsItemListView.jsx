@@ -1,36 +1,46 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Image, FlatList, Pressable, RefreshControl } from 'react-native';
-import { fetchNewsItems } from '../models/NewsItemApi';
-import { styles } from '../styles/NewsItemListViewStyles';
+import {
+  View, Text, Image, FlatList, Pressable, RefreshControl,
+} from 'react-native';
+import fetchNewsItems from '../models/NewsItemApi';
+import styles from '../styles/NewsItemListViewStyles';
 import { calculateImageHeightForScreenSize } from '../lib/Utilities/HelperFunctions';
 
 const NewsItemListView = ({ navigation }) => {
+
   const [newsItems, setNewsItems] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const renderItem = useCallback(({ item: { date, title, bannerImage, content } }) => {
-    let source = { uri: `${bannerImage.uri}` };
+  const renderItem = useCallback(({
+    item: {
+      date, title, bannerImage, content,
+    },
+  }) => {
+    const source = { uri: `${bannerImage.uri}` };
 
     return (
-      <Pressable onPress={() => navigation.navigate('NewsItemDetailView', { item: { date, title, bannerImage, content } })}>
+      <Pressable onPress={() => navigation.navigate('NewsItemDetailView', {
+        item: {
+          date, title, bannerImage, content,
+        },
+      })}
+      >
         <View style={[styles.itemContainer]}>
-          <View style={ styles.textcontainer }>
+          <View style={styles.textcontainer}>
             <Text style={styles.date}>{date}</Text>
             <Text style={styles.title}>{title}</Text>
           </View>
-          <Image source={source} style={[styles.image, {height: calculateImageHeightForScreenSize()}]} />
+          <Image source={source} style={[styles.image, { height: calculateImageHeightForScreenSize() }]} />
         </View>
       </Pressable>
     );
   }, []);
 
-  const renderSeparator = useCallback(() => {
-    return (
-      <View
-        style={styles.separator}
-      />
-    );
-  }, []);
+  const renderSeparator = useCallback(() => (
+    <View
+      style={styles.separator}
+    />
+  ), []);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -38,7 +48,6 @@ const NewsItemListView = ({ navigation }) => {
     setNewsItems(items);
     setRefreshing(false);
   }, []);
-
 
   // fetches data async after the newsitemlistview is first rendered
   useEffect(() => {
@@ -63,6 +72,6 @@ const NewsItemListView = ({ navigation }) => {
       />
     </View>
   );
-};
+}
 
 export default NewsItemListView;

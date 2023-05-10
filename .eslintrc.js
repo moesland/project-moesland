@@ -19,6 +19,7 @@ module.exports = {
     'react',
   ],
   rules: {
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'no-underscore-dangle': 'off',
     'no-param-reassign': 'off',
     'no-console': 'off',
