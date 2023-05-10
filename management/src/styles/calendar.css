@@ -182,3 +182,9 @@
   background: #50a038;
   color: white;
 }
+
+.react-calendar__tile--occupied {
+  border-radius: 6px;
+  background: #f8f87978;
+  color: black;
+}

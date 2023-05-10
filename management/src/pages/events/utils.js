@@ -1,3 +1,5 @@
+import { differenceInCalendarDays, parseISO } from 'date-fns';
+
 export function getUsableDatesAndTimes(dateTimeString) {
     // Create a new Date object from the ISO 8601 string
     const date = new Date(dateTimeString);
@@ -20,4 +22,8 @@ export function getUsableDatesAndTimes(dateTimeString) {
         time: timeStr,
         altDate: altDateStr
     };
+}
+
+export function isSameDay(a, b) {
+    return differenceInCalendarDays(parseISO(a), b) === 0;
 }

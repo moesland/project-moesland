@@ -62,7 +62,6 @@ const ModalAdd = ({ toggleModal, refreshOverview, date }) => {
             enddate: enddate,
             location: location
         }
-        console.log(body)
 
         const token = localStorage.getItem('token');
         const headers = new Headers({

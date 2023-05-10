@@ -5,13 +5,13 @@ import "../../styles/calendar.css";
 import ModalAdd from "../../modules/events/modalAdd";
 import ModalDelete from "../../modules/events/modalDelete";
 import ModalUpdate from "../../modules/events/modalUpdate";
-import { getUsableDatesAndTimes } from "./utils.js"
+import { getUsableDatesAndTimes, isSameDay } from "./utils.js"
 
 const EventOverview = () => {
     const [date, setDate] = useState(new Date());
-    const navigate = useNavigate();
 
     const [eventData, setEventData] = useState()
+    const [datesToMark, setDatesToMark] = useState()
     const [selectedItem, setSelectedItem] = useState(undefined)
     const [ShowAddEventModal, setShowAddEventModal] = useState(false);
     const [ShowDeleteEventModal, setShowModalDelete] = useState(false);
@@ -19,7 +19,7 @@ const EventOverview = () => {
 
     useEffect(() => {
         refreshData()
-    }, [date])  
+    }, [date])
 
     const ToggleShowAddEventModal = () => {
         setShowAddEventModal(!ShowAddEventModal);
@@ -39,8 +39,17 @@ const EventOverview = () => {
         ToggleShowAddEventModal(date);
     }
 
-    const refreshData = async () => {
+    function tileClassName({ date, view }) {
+        // Add class to tiles in month view only
+        if (view === 'month') {
+            // Check if a date React-Calendar wants to check is on the list of dates to add class to
+            if (datesToMark && datesToMark.find(dDate => isSameDay(dDate, date))) {
+                return 'react-calendar__tile--occupied';
+            }
+        }
+    }
 
+    const refreshData = async () => {
         const startdate = date.toString().split(',')[0];
         const selectedDate = new Date(startdate);
         const year = selectedDate.getFullYear();
@@ -53,11 +62,24 @@ const EventOverview = () => {
             .then(data => {
                 // sort the data by start date
                 const sortedData = data.sort((b, a) => new Date(a.startdate) - new Date(b.startdate));
-                console.log(sortedData);
                 setEventData(sortedData);
             });
+
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/event", { method: "GET" })
+            .then(response => response.json())
+            .then(data => {
+                // sort the data by start date
+                const sortedData = data.sort((b, a) => new Date(a.startdate) - new Date(b.startdate));
+
+                // extract dates from eventData
+                const datesToAddContentTo = sortedData.map(event => event.startdate);
+                console.log(datesToAddContentTo)
+
+                // set datesToMark to the extracted dates
+                setDatesToMark(datesToAddContentTo);
+            });
     }
-      
+
     return (
         <>
             <h1 className='text-center'>Overzicht evenementen</h1>
@@ -67,6 +89,7 @@ const EventOverview = () => {
                     onChange={setDate}
                     value={date}
                     selectRange={true}
+                    tileClassName={tileClassName}
                 />
             </div>
             {date.length > 0 ? (
