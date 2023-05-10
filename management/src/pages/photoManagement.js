@@ -60,21 +60,28 @@ export default function Management() {
         });
         const body = JSON.stringify({ id: item.userImageId });
       
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user-image/approve", {
-          method: "POST",
-          body: body,
-          headers: headers,
-        });
+        
       
         const index = images.findIndex(i => i.userImageId === item.userImageId);
         const newImages = images.filter((_, i) => i !== index);
-        setGalleryImages(newImages);
+        //setGalleryImages(newImages);
       
         const data = newImages[index].original;
         const link = document.createElement("a");
         link.href = data;
-        link.download = "image.png";
+        link.download =  `${newImages[index].originalAlt}.png`;
+
+        document.body.appendChild(link);
+
+        console.log(newImages[index]);
         link.click();
+        document.body.removeChild(link);
+
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user-image/approve", {
+            method: "POST",
+            body: body,
+            headers: headers,
+          });
       };
 
     const denyItem = async (item) => {
