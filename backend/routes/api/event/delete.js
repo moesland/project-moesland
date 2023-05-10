@@ -1,5 +1,5 @@
 const express = require('express');
-const { getEventById, deleteEvent, getEventByIdDelete } = require('../../../repository/event');
+const { getEventById, deleteEvent } = require('../../../repository/event');
 const router = express.Router();
 
 router.use(express.json());
@@ -7,7 +7,7 @@ router.use(express.json());
 router.post('/', async (req, res) => {
     const { _id } = req.body;
     try {     
-        const event = await getEventByIdDelete(_id);
+        const event = await getEventById(_id);
         if (event) {
             await deleteEvent(event);
             res.status(200).send(`Event deleted successfully!`);

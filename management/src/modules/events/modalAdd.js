@@ -4,9 +4,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { BackendClientRequest } from "../../services/ApiClient";
 
-
 const ModalAdd = ({ toggleModal, refreshOverview, date }) => {
-
     let startDateString;
     let endDateString;
 
@@ -47,34 +45,33 @@ const ModalAdd = ({ toggleModal, refreshOverview, date }) => {
         const [ehours, eminutes] = data.endtime.split(":");
         endingDate.setUTCHours((ehours));
         endingDate.setUTCMinutes(eminutes);
-        
+
         pushManager(data.title, data.description, startingDate, endingDate, data.location)
     }
 
     async function pushManager(title, description, startdate, enddate, location) {
-        console.log("Adding event")
-
-        const path = "/api/event/add"
+        const path = "/api/event/add";
         const body = {
             title: title,
             description: description,
             startdate: startdate,
             enddate: enddate,
             location: location
-        }
+        };
 
         const token = localStorage.getItem('token');
         const headers = new Headers({
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
-        })
+        });
+
         await BackendClientRequest(
             path, body, headers, "POST"
-        )
+        );
+
         refreshOverview();
         toggleModal();
     }
-
 
     return (
         <>
@@ -144,7 +141,7 @@ const ModalAdd = ({ toggleModal, refreshOverview, date }) => {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
-export default ModalAdd
+export default ModalAdd;

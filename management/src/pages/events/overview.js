@@ -73,7 +73,6 @@ const EventOverview = () => {
 
                 // extract dates from eventData
                 const datesToAddContentTo = sortedData.map(event => event.startdate);
-                console.log(datesToAddContentTo)
 
                 // set datesToMark to the extracted dates
                 setDatesToMark(datesToAddContentTo);

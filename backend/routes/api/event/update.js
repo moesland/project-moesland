@@ -1,7 +1,7 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
-const { updateEventById, getEventById } = require('../../../repository/event');
+const { getEventById, updateEventById } = require('../../../repository/event');
 
 router.use(express.json());
 
@@ -13,7 +13,6 @@ router.post('/', [
     body('location').trim().notEmpty(),
 ], async (req, res) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
@@ -21,12 +20,13 @@ router.post('/', [
     try {
         const { id, title, description, startdate, enddate, location } = req.body;
         const event = await getEventById(id);
-        //console.log(event);
+        console.log(event);
+
         if (event) {
             await updateEventById(event._id, title, description, startdate, enddate, location);
             res.status(200).json(`Event updated successfully!`);
         }
-        else{
+        else {
             res.status(404).json(`Event not found.`);
         }
     } catch (err) {

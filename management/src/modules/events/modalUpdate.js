@@ -14,15 +14,13 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
 
     const startingDateAndTime = getUsableDatesAndTimes(selectedItem.startdate);
     const endingDateAndTime = getUsableDatesAndTimes(selectedItem.enddate);
-    
-    
+
+
     const { register, handleSubmit, formState: { errors } } = useForm({
-       // resolver: yupResolver(schema),
+        // resolver: yupResolver(schema),
     });
 
     const onSubmit = async (data) => {
-        const path = "/api/event/update"
-
         const startingDate = new Date(data.startdate);
         const [shours, sminutes] = data.starttime.split(":");
         startingDate.setUTCHours((shours));
@@ -33,6 +31,7 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
         endingDate.setUTCHours((ehours));
         endingDate.setUTCMinutes(eminutes);
 
+        const path = "/api/event/update";
         const body = JSON.stringify({
             title: data.title,
             description: data.description,
@@ -45,13 +44,10 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
         const headers = new Headers({
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
-        })
-
-        const response = await fetch('http://localhost:5000/api/event/update', {
-            method: 'POST',
-            body: body,
-            headers: headers
         });
+
+        console.log(`${process.env.REACT_APP_BACKEND_ROOT_URL}${path}`);
+        await fetch(`${process.env.REACT_APP_BACKEND_ROOT_URL}${path}`, { headers: headers, body: body, method: 'POST' });
 
         refreshOverview();
         toggleModal();
@@ -125,4 +121,4 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
     )
 }
 
-export default ModalUpdate
+export default ModalUpdate;
