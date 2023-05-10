@@ -3,7 +3,6 @@ import { BackendClientRequest } from "../../services/ApiClient";
 
 
 const ModalDelete = ({ toggleModal, selectedItem, refreshOverview }) => {
-    console.log(selectedItem)
     const deleteManager = async () => { 
         const path = "/api/event/delete"
         const token = localStorage.getItem('token');
