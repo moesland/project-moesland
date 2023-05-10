@@ -22,13 +22,27 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
 
     const onSubmit = async (data) => {
         const path = "/api/event/update"
+
+        const startingDate = new Date(data.startdate);
+        const [shours, sminutes] = data.starttime.split(":");
+        startingDate.setUTCHours((shours));
+        startingDate.setUTCMinutes(sminutes);
+
+        const endingDate = new Date(data.enddate);
+        const [ehours, eminutes] = data.endtime.split(":");
+        endingDate.setUTCHours((ehours));
+        endingDate.setUTCMinutes(eminutes);
+
         const body = JSON.stringify({
             title: data.title,
             description: data.description,
-            startdate: data.startdate,
-            enddate: data.enddate,
+            startdate: startingDate,
+            enddate: endingDate,
             location: data.location
         });
+
+        console.log(body);
+
         const token = localStorage.getItem('token');
         const headers = new Headers({
             'Authorization': 'Bearer ' + token,

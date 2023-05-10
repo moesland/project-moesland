@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { BackendClientRequest } from "../../services/ApiClient";
 
 
-const ModalAdd = ({ toggleModal, date }) => {
+const ModalAdd = ({ toggleModal, refreshOverview, date }) => {
 
     let startDateString;
     let endDateString;
@@ -72,7 +72,7 @@ const ModalAdd = ({ toggleModal, date }) => {
         await BackendClientRequest(
             path, body, headers, "POST"
         )
-        //refreshOverview();
+        refreshOverview();
         toggleModal();
     }
 
@@ -108,7 +108,7 @@ const ModalAdd = ({ toggleModal, date }) => {
 
                                     <div className="col-md-6">
                                         <label>Starttijd</label>
-                                        <input type="time" className="form-control" id="event-start-time-id" name="event-start-time-name" {...register("starttime")}></input>
+                                        <input required type="time" className="form-control" id="event-start-time-id" name="event-start-time-name" {...register("starttime")}></input>
                                         <small id="event-start-time-error" className="form-text text-danger event-start-time-error" >{errors.starttime?.message}</small>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ const ModalAdd = ({ toggleModal, date }) => {
 
                                     <div className="col-md-6">
                                         <label>Eindtijd</label>
-                                        <input type="time" className="form-control" id="event-end-time-id" name="event-end-time-name" {...register("endtime")}></input>
+                                        <input required type="time" className="form-control" id="event-end-time-id" name="event-end-time-name" {...register("endtime")}></input>
                                         <small id="event-end-time-error" className="form-text text-danger event-end-time-error" >{errors.endtime?.message}</small>
                                     </div>
                                 </div>

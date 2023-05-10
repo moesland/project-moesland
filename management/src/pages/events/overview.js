@@ -40,17 +40,20 @@ const EventOverview = () => {
     }
 
     const refreshData = async () => {
+
         const startdate = date.toString().split(',')[0];
         const selectedDate = new Date(startdate);
         const year = selectedDate.getFullYear();
         const month = selectedDate.getMonth() + 1;
         const day = selectedDate.getDate();
         const formattedDate = `${year}-${month}-${day}`;
+
         await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/event/?date=" + formattedDate, { method: "GET" })
             .then(response => response.json())
             .then(data => {
                 // sort the data by start date
                 const sortedData = data.sort((b, a) => new Date(a.startdate) - new Date(b.startdate));
+                console.log(sortedData);
                 setEventData(sortedData);
             });
     }
@@ -126,7 +129,7 @@ const EventOverview = () => {
                 </div>
             }
 
-            {ShowAddEventModal && <ModalAdd toggleModal={ToggleShowAddEventModal} date={date} />}
+            {ShowAddEventModal && <ModalAdd toggleModal={ToggleShowAddEventModal} date={date} refreshOverview={refreshData} />}
             {ShowDeleteEventModal && <ModalDelete toggleModal={ToggleShowDeleteEventModal} selectedItem={selectedItem} refreshOverview={refreshData} />}
             {ShowUpdateEventModal && <ModalUpdate toggleModal={ToggleShowUpdateEventModal} selectedItem={selectedItem} refreshOverview={refreshData} />}
         </>
