@@ -102,7 +102,7 @@ const ModalAdd = ({ toggleModal, date }) => {
                                 <div className="row pt-3">
                                     <div className="col-md-6">
                                         <label>Startdatum</label>
-                                        <input disabled type="date" value={startDateString} className="form-control" id="event-start-date-id" name="event-start-date-name" {...register("startdate")}></input>
+                                        <input disabled type="date" defaultValue={startDateString} className="form-control" id="event-start-date-id" name="event-start-date-name" {...register("startdate")}></input>
                                         <small id="event-start-date-error" className="form-text text-danger event-start-date-error" >{errors.startdate?.message}</small>
                                     </div>
 
@@ -116,7 +116,7 @@ const ModalAdd = ({ toggleModal, date }) => {
                                 <div className="row pt-3">
                                     <div className="col-md-6">
                                         <label>Einddatum</label>
-                                        <input disabled type="date" value={endDateString} className="form-control" id="event-end-date-id" name="event-end-date-name" {...register("enddate")}></input>
+                                        <input disabled type="date" defaultValue={endDateString} className="form-control" id="event-end-date-id" name="event-end-date-name" {...register("enddate")}></input>
                                         <small id="event-end-date-error" className="form-text text-danger event-end-date-error" >{errors.enddate?.message}</small>
                                     </div>
 
