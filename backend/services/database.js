@@ -13,7 +13,7 @@ module.exports = async () => {
 
   if (process.env.NODE_ENV !== 'test' && mongoose.connection.readyState === 0) {
     const uri = process.env.MONGODB_URI;
-
+    console.log(uri);
     mongoose.connect(uri).catch((err) => {
       console.log(err);
     });
