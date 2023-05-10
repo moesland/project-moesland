@@ -13,17 +13,13 @@ module.exports = async () => {
 
   if (process.env.NODE_ENV !== 'test' && mongoose.connection.readyState === 0) {
     const uri = process.env.MONGODB_URI;
-    
-    await mongoose.connect(uri).catch((err) => {
+
+    mongoose.connect(uri).catch((err) => {
       console.log(err);
     });
 
-    mongoose.connection.on('open', () => {
+    mongoose.connection.on('connected', () => {
       console.log('Connected to mongo database.');
-
-      mongoose.connection.db.listCollections().toArray((err, names) => {
-        console.log({ names, err });
-      });
     });
   }
 
