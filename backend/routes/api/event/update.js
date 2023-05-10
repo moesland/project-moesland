@@ -20,7 +20,6 @@ router.post('/', [
     try {
         const { id, title, description, startdate, enddate, location } = req.body;
         const event = await getEventById(id);
-        console.log(event);
 
         if (event) {
             await updateEventById(event._id, title, description, startdate, enddate, location);

@@ -1,23 +1,12 @@
 import React from "react";
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup'
-import { BackendClientRequest } from "../../services/ApiClient";
 import { getUsableDatesAndTimes } from "../../pages/events/utils";
 
-
 const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
-    const schema = yup.object().shape({
-        username: yup.string().min(2, "Het gebruikersnaam moet minimaal twee karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn."),
-        password: yup.string().min(6, "het wachtwoord moet minimaal 6 karakters bevatten.").max(30).required("Dit veld mag niet leeg zijn.")
-    })
-
     const startingDateAndTime = getUsableDatesAndTimes(selectedItem.startdate);
     const endingDateAndTime = getUsableDatesAndTimes(selectedItem.enddate);
 
-
     const { register, handleSubmit, formState: { errors } } = useForm({
-        // resolver: yupResolver(schema),
     });
 
     const onSubmit = async (data) => {
@@ -33,6 +22,7 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
 
         const path = "/api/event/update";
         const body = JSON.stringify({
+            id: selectedItem._id,
             title: data.title,
             description: data.description,
             startdate: startingDate,
@@ -46,7 +36,6 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
             'Content-Type': 'application/json'
         });
 
-        console.log(`${process.env.REACT_APP_BACKEND_ROOT_URL}${path}`);
         await fetch(`${process.env.REACT_APP_BACKEND_ROOT_URL}${path}`, { headers: headers, body: body, method: 'POST' });
 
         refreshOverview();
