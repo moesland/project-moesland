@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MOESLAND_GREEN, FOOTER_BACKGROUND_COLOR } from './src/constants/colors';
 import NewsItemListView from './src/routes/NewsItemListView';
-import NewsItemDetailView from './src/routes/NewsItemDetailView'
+import NewsItemDetailView from './src/routes/NewsItemDetailView';
 import ToolbarView from './src/components/ToolbarView';
 import MediaView from './src/routes/MediaView';
 import CalendarView from './src/routes/CalendarView';
@@ -20,14 +20,15 @@ export default function App() {
     return (
       <Stack.Navigator
         screenOptions={{
-          headerShown: false
-        }}>
+          headerShown: false,
+        }}
+      >
         <Stack.Screen name="NewsItemListView" component={NewsItemListView} />
         <Stack.Screen name="NewsItemDetailView" component={NewsItemDetailView} />
       </Stack.Navigator>
     );
   }
-  
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -54,7 +55,7 @@ export default function App() {
           tabBarStyle: {
             backgroundColor: FOOTER_BACKGROUND_COLOR,
           },
-          header: props => (
+          header: (props) => (
             <ToolbarView
               {...props}
               showBackButton={route.name === 'NewsDetailPage'}

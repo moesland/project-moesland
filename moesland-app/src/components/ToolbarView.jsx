@@ -3,10 +3,10 @@ import { Text } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { MOESLAND_GREEN } from '../constants/colors';
-import { styles } from '../styles/ToolbarViewStyles';
-import { APP_TITLE } from '../constants/strings'
+import styles from '../styles/ToolbarViewStyles';
+import { APP_TITLE } from '../constants/strings';
 
-const ToolbarView = ({ showBackButton }) => {
+const ToolbarView = ({showBackButton}) => {
   const navigation = useNavigation();
   const backButton = (
     <Icon
@@ -16,12 +16,12 @@ const ToolbarView = ({ showBackButton }) => {
   );
 
   return (
-      <Header
-        backgroundColor={MOESLAND_GREEN}
-        leftComponent={showBackButton ? backButton : null}
-        centerComponent={<Text style={styles.text}>{APP_TITLE}</Text>}
-      />
+    <Header
+      backgroundColor={MOESLAND_GREEN}
+      leftComponent={showBackButton ? backButton : null}
+      centerComponent={<Text style={styles.text}>{APP_TITLE}</Text>}
+    />
   );
-};
+}
 
 export default ToolbarView;

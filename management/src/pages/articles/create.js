@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from "react-router-dom";
 
 export default function Create() {
-    const [, setBannerImage] = useState('');
+    const [bannerImage, setBannerImage] = useState('');
     const quillRef = useRef(null);
     const navigate = useNavigate();
 
@@ -35,6 +35,7 @@ export default function Create() {
 
         reader.onloadend = () => {
             setBannerImage(reader.result);
+            console.log(bannerImage);
         };
         reader.readAsDataURL(file);
     };
