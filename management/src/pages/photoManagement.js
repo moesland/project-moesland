@@ -3,45 +3,50 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Buffer } from 'buffer';
 
-export default function Management() {
+export default function PhotoManagement() {
     const images = [];
-    const [galleryImages, setGalleryImages] = useState(images);
+    const [galleryImages, setGalleryImages] = useState([]);
+    const [fetched, setFetched] = useState(false);
 
     useEffect(() => {
         fetchUserImages();
+    }, []);
 
+    useEffect(() => {
         refreshData();
-    }, [galleryImages]);
+    }, [fetched]);
 
     const refreshData = () => {
-        if (galleryImages) {
+        if (galleryImages && galleryImages.length !== 0) {
             galleryImages.forEach(i => {
-                if (i.approvalStatus === 'pending') {
-                    const data = `data:${i.image.contentType};base64,${Buffer.from(i.image.data)}`;
-                    images.push({
-                        original: data,
-                        thumbnail: data,
-                        srcSet: data,
-                        originalAlt: i.image?.name,
-                        thumbnailAlt: i.image?.name,
-                        userImageId: i._id
-                    });
-                }
+                const data = `data:${i.image.contentType};base64,${Buffer.from(i.image.data)}`;
+                images.push({
+                    original: data,
+                    thumbnail: data,
+                    srcSet: data,
+                    originalAlt: i.image?.name,
+                    thumbnailAlt: i.image?.name,
+                    userImageId: i._id
+                });
             });
         }
     }
 
     const fetchUserImages = async () => {
+        setFetched(false);
+
         const token = localStorage.getItem('token');
         const headers = new Headers({
             'Authorization': 'Bearer ' + token
         });
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image', { method: 'GET', headers: headers })
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?isPending=true', { method: 'GET', headers: headers })
             .then(response => response.json())
-            .then(data => setGalleryImages(data));
+            .then(data => {
+                setGalleryImages(data);
+                setFetched(true);
+            });
     }
-
 
     const approveItem = async (item) => {
         const token = localStorage.getItem("token");
@@ -52,15 +57,11 @@ export default function Management() {
         const body = JSON.stringify({ id: item.userImageId });
 
         const index = images.findIndex(i => i.userImageId === item.userImageId);
-        const newImages = images.filter((_, i) => i !== index);
-
-        const data = newImages[index].original;
+        const data = images[index].original;
         const link = document.createElement("a");
         link.href = data;
-        link.download = `${newImages[index].originalAlt}.png`;
-
+        link.download = `${images[index].originalAlt}.png`;
         document.body.appendChild(link);
-
         link.click();
         document.body.removeChild(link);
 
@@ -69,6 +70,8 @@ export default function Management() {
             body: body,
             headers: headers,
         });
+
+        fetchUserImages();
     };
 
     const denyItem = async (item) => {
@@ -85,9 +88,7 @@ export default function Management() {
             headers: headers
         });
 
-        const index = images.findIndex(i => i.description === item.userImageId);
-        const newImages = images.filter((_, i) => i !== index);
-        setGalleryImages(newImages);
+        fetchUserImages();
     };
 
     const renderItem = (item) => {
@@ -133,7 +134,7 @@ export default function Management() {
                             disableThumbnailScroll={true}
                         />
                     ) : (
-                        <p className="text-center">Afbeeldingen worden geladen.</p>
+                        <p className="text-center">Geen gebruikersfoto's gevonden.</p>
                     )}
                 </div>
             </div>

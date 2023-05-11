@@ -3,45 +3,50 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Buffer } from 'buffer';
 
-export default function RejectedPhotoManagement() {
+export default function DeclinedPhotoManagement() {
     const images = [];
-    const [galleryImages, setGalleryImages] = useState(images);
+    const [galleryImages, setGalleryImages] = useState([]);
+    const [fetched, setFetched] = useState(false);
 
     useEffect(() => {
         fetchUserImages();
+    }, []);
 
+    useEffect(() => {
         refreshData();
-    }, [galleryImages]);
+    }, [fetched]);
 
     const refreshData = () => {
-        if (galleryImages) {
+        if (galleryImages && galleryImages.length !== 0) {
             galleryImages.forEach(i => {
-                if (i.approvalStatus === 'declined') {
-                    const data = `data:${i.image.contentType};base64,${Buffer.from(i.image.data)}`;
-                    images.push({
-                        original: data,
-                        thumbnail: data,
-                        srcSet: data,
-                        originalAlt: i.image?.name,
-                        thumbnailAlt: i.image?.name,
-                        userImageId: i._id
-                    });
-                }
+                const data = `data:${i.image.contentType};base64,${Buffer.from(i.image.data)}`;
+                images.push({
+                    original: data,
+                    thumbnail: data,
+                    srcSet: data,
+                    originalAlt: i.image?.name,
+                    thumbnailAlt: i.image?.name,
+                    userImageId: i._id
+                });
             });
         }
     }
 
     const fetchUserImages = async () => {
+        setFetched(false);
+
         const token = localStorage.getItem('token');
         const headers = new Headers({
             'Authorization': 'Bearer ' + token
         });
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image', { method: 'GET', headers: headers })
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?isDeclined=true', { method: 'GET', headers: headers })
             .then(response => response.json())
-            .then(data => setGalleryImages(data));
+            .then(data => {
+                setGalleryImages(data);
+                setFetched(true);
+            });
     }
-
 
     const restoreItem = async (item) => {
         const token = localStorage.getItem("token");
@@ -57,9 +62,7 @@ export default function RejectedPhotoManagement() {
             headers: headers,
         });
 
-        const index = images.findIndex(i => i.userImageId === item.userImageId);
-        const newImages = images.filter((_, i) => i !== index);
-        setGalleryImages(newImages);
+        fetchUserImages();
     };
 
     const deleteItem = async (item) => {
@@ -76,9 +79,7 @@ export default function RejectedPhotoManagement() {
             headers: headers
         });
 
-        const index = images.findIndex(i => i.description === item.userImageId);
-        const newImages = images.filter((_, i) => i !== index);
-        setGalleryImages(newImages);
+        fetchUserImages();
     };
 
     const renderItem = (item) => {
@@ -124,7 +125,7 @@ export default function RejectedPhotoManagement() {
                             disableThumbnailScroll={true}
                         />
                     ) : (
-                        <p className="text-center">Geen afbeeldingen die hersteld kunnen worden.</p>
+                        <p className="text-center">Geen gebruikersfoto's gevonden.</p>
                     )}
                 </div>
             </div>
