@@ -4,11 +4,11 @@ const Event = mongoose.model('Event');
 
 module.exports = {
   async getEventById(id) {
-    return await Event.findOne({ _id: { $eq: id } })
+    return Event.findOne({ _id: { $eq: id } })
       .catch((err) => console.log('Cannot find events by id in Event dataset.', err));
   },
   async getEventByTitleAndDate(title, startdate) {
-    const event = await Event.findOne({
+    const event = Event.findOne({
       title: { $eq: title },
       startdate: { $eq: startdate },
     }).catch((err) => {
@@ -17,7 +17,7 @@ module.exports = {
     return event;
   },
   async getAllEvents() {
-    return await Event.find({})
+    return Event.find({})
       .catch((err) => console.error(err));
   },
   async getEventsByDate(date) {
@@ -25,7 +25,7 @@ module.exports = {
     const end = new Date(date);
     end.setDate(end.getDate() + 1);
 
-    return await Event.find({
+    return Event.find({
       startdate: { $gte: start, $lt: end },
     }).catch((err) => console.error(err));
   },
@@ -40,7 +40,7 @@ module.exports = {
     await newEvent.save();
   },
   async updateEventById(id, title, description, startdate, enddate, location) {
-    return await Event.findOneAndUpdate(
+    return Event.findOneAndUpdate(
       { _id: { $eq: id } },
       {
         title,
@@ -56,7 +56,7 @@ module.exports = {
       });
   },
   async deleteEvent(event) {
-    return await Event.deleteOne(event)
+    return Event.deleteOne(event)
       .catch((err) => console.error(err));
   },
 };

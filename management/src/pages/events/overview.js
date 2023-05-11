@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Calendar from 'react-calendar';
-import { useNavigate } from "react-router-dom";
 import "../../styles/calendar.css";
 import ModalAdd from "../../modules/events/modalAdd";
 import ModalDelete from "../../modules/events/modalDelete";
@@ -9,7 +8,6 @@ import { getUsableDatesAndTimes, isSameDay } from "./utils.js"
 
 const EventOverview = () => {
     const [date, setDate] = useState(new Date());
-
     const [eventData, setEventData] = useState()
     const [datesToMark, setDatesToMark] = useState()
     const [selectedItem, setSelectedItem] = useState(undefined)
@@ -18,8 +16,8 @@ const EventOverview = () => {
     const [ShowUpdateEventModal, setShowModalUpdate] = useState(false);
 
     useEffect(() => {
-        refreshData()
-    }, [date])
+        refreshData();
+    });
 
     const ToggleShowAddEventModal = () => {
         setShowAddEventModal(!ShowAddEventModal);

@@ -10,14 +10,13 @@ router.get('/', async (req, res) => {
     const { date } = req.query;
 
     if (date) {
-      const events = await getEventsByDate(date);
-      console.log(events);
+      await getEventsByDate(date);
       return res.status(200).json(await getEventsByDate(date));
     }
 
-    res.status(200).json(await getAllEvents());
+    return res.status(200).json(await getAllEvents());
   } catch (err) {
-    res.status(500).send('Error fetching events');
+    return res.status(500).send('Error fetching events');
   }
 });
 

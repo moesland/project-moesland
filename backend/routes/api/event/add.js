@@ -39,12 +39,11 @@ router.post('/', [
 
     if (!event) {
       await createEvent(title, description, startdate, enddate, location);
-      res.status(201).send('Event created successfully!');
-    } else {
-      res.status(409).send('Event already exists on this startdate');
+      return res.status(201).send('Event created successfully!');
     }
+    return res.status(409).send('Event already exists on this startdate');
   } catch (err) {
-    res.status(500).send(`Could not create event: ${err}`);
+    return res.status(500).send(`Could not create event: ${err}`);
   }
 });
 

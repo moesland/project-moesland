@@ -26,12 +26,11 @@ router.post('/', [
 
     if (event) {
       await updateEventById(event._id, title, description, startdate, enddate, location);
-      res.status(200).json('Event updated successfully!');
-    } else {
-      res.status(404).json('Event not found.');
+      return res.status(200).json('Event updated successfully!');
     }
+    return res.status(404).json('Event not found.');
   } catch (err) {
-    res.status(500).json(`Could not update event: ${err}`);
+    return res.status(500).json(`Could not update event: ${err}`);
   }
 });
 
