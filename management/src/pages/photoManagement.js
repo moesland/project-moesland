@@ -6,14 +6,6 @@ import { Buffer } from 'buffer';
 export default function Management() {
     const images = [];
     const [galleryImages, setGalleryImages] = useState(images);
-    const [successMessage, setSuccessMessage] = useState('');
-    {
-        successMessage && (
-            <div className="alert alert-success" role="alert">
-                {successMessage}
-            </div>
-        )
-    }
 
     useEffect(() => {
         fetchUserImages();
@@ -30,14 +22,13 @@ export default function Management() {
                         original: data,
                         thumbnail: data,
                         srcSet: data,
-                        originalAlt: i.image.name,
-                        thumbnailAlt: i.image.name,
+                        originalAlt: i.image?.name,
+                        thumbnailAlt: i.image?.name,
                         userImageId: i._id
                     });
                 }
             });
         }
-        console.log()
     }
 
     const fetchUserImages = async () => {
@@ -55,18 +46,18 @@ export default function Management() {
     const approveItem = async (item) => {
         const token = localStorage.getItem("token");
         const headers = new Headers({
-          Authorization: "Bearer " + token,
-          "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
         });
         const body = JSON.stringify({ id: item.userImageId });
-      
+
         const index = images.findIndex(i => i.userImageId === item.userImageId);
         const newImages = images.filter((_, i) => i !== index);
-      
+
         const data = newImages[index].original;
         const link = document.createElement("a");
         link.href = data;
-        link.download =  `${newImages[index].originalAlt}.png`;
+        link.download = `${newImages[index].originalAlt}.png`;
 
         document.body.appendChild(link);
 
@@ -78,8 +69,8 @@ export default function Management() {
             method: "POST",
             body: body,
             headers: headers,
-          });
-      };
+        });
+    };
 
     const denyItem = async (item) => {
         const token = localStorage.getItem('token');
@@ -127,14 +118,10 @@ export default function Management() {
 
     return (
         <>
-            {successMessage && (
-                <div className="alert alert-success" role="alert">
-                    {successMessage}
-                </div>
-            )}
-            
-            <div className="app">
-                <div className="image-gallery-wrapper">
+            <div className="app mt-3">
+                <h1 className="font-moesland text-center">Gebruikersfoto's</h1>
+
+                <div className="image-gallery-wrapper mt-2">
                     {galleryImages.length > 0 ? (
                         <ImageGallery
                             thumbnailPosition="top"

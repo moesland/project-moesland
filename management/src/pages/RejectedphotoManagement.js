@@ -6,14 +6,6 @@ import { Buffer } from 'buffer';
 export default function RejectedPhotoManagement() {
     const images = [];
     const [galleryImages, setGalleryImages] = useState(images);
-    const [successMessage, setSuccessMessage] = useState('');
-    {
-        successMessage && (
-            <div className="alert alert-success" role="alert">
-                {successMessage}
-            </div>
-        )
-    }
 
     useEffect(() => {
         fetchUserImages();
@@ -21,8 +13,7 @@ export default function RejectedPhotoManagement() {
         refreshData();
     }, [galleryImages]);
 
-    const refreshData = () => 
-    {
+    const refreshData = () => {
         if (galleryImages) {
             galleryImages.forEach(i => {
                 if (i.approvalStatus === 'declined') {
@@ -31,14 +22,13 @@ export default function RejectedPhotoManagement() {
                         original: data,
                         thumbnail: data,
                         srcSet: data,
-                        originalAlt: i.image.name,
-                        thumbnailAlt: i.image.name,
+                        originalAlt: i.image?.name,
+                        thumbnailAlt: i.image?.name,
                         userImageId: i._id
                     });
                 }
             });
         }
-        console.log()
     }
 
     const fetchUserImages = async () => {
@@ -51,7 +41,7 @@ export default function RejectedPhotoManagement() {
             .then(response => response.json())
             .then(data => setGalleryImages(data));
     }
-    
+
 
     const approveItem = async (item) => {
         const token = localStorage.getItem("token");
@@ -118,19 +108,15 @@ export default function RejectedPhotoManagement() {
 
     return (
         <>
-            {successMessage && (
-                <div className="alert alert-success" role="alert">
-                    {successMessage}
-                </div>
-            )}
-            <div className="app">
+            <div className="app mt-3">
+                <h1 className="font-moesland text-center">Afgekeurde gebruikersfoto's</h1>
+
                 {galleryImages.length > 0 ? (
-                    <div className="image-gallery-wrapper">
-                    
-                    <ImageGallery thumbnailPosition="top" items={images} renderItem={renderItem} disableKeyDown={true} disableSwipe={true} disableThumbnailScroll={true} />
-                </div>
+                    <div className="image-gallery-wrapper mt-2">
+                        <ImageGallery thumbnailPosition="top" items={images} renderItem={renderItem} disableKeyDown={true} disableSwipe={true} disableThumbnailScroll={true} />
+                    </div>
                 ) : (
-                    <p>Geen afbeeldingen die hersteld kunnen worden.</p>
+                    <p className="text-center">Geen afbeeldingen die hersteld kunnen worden.</p>
                 )}
             </div>
         </>

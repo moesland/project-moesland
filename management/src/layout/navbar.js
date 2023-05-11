@@ -34,7 +34,6 @@ export default function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link navbar-text-color" href="/users">Beheerders</a>
                         </li>
-
                         <li className="nav-item">
                             <a className="nav-link navbar-text-color" href="/articles">Nieuwsartikelen</a>
                         </li>
@@ -42,7 +41,7 @@ export default function Navbar() {
                             <a className="nav-link navbar-text-color" href="/photo-management">Gebruikersfoto's</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link navbar-text-color" href="/rejected-photo-management">Afgekeurde Gebruikersfoto's</a>
+                            <a className="nav-link navbar-text-color" href="/rejected-photo-management">Afgekeurde gebruikersfoto's</a>
                         </li>
                     </ul>
                     <input className="nav-link border-0 navbar-text-color n-hover text-right bg-light text-center" type="text" value={user} disabled />
