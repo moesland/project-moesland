@@ -17,7 +17,7 @@ const EventOverview = () => {
 
     useEffect(() => {
         refreshData();
-    });
+    }, []);
 
     const ToggleShowAddEventModal = () => {
         setShowAddEventModal(!ShowAddEventModal);
@@ -79,79 +79,81 @@ const EventOverview = () => {
 
     return (
         <>
-            <h1 className='text-center'>Overzicht evenementen</h1>
+            <div className='container mt-3'>
+                <h1 className='text-center font-moesland'>Evenementen</h1>
 
-            <div className='d-flex justify-content-center'>
-                <Calendar
-                    onChange={setDate}
-                    value={date}
-                    selectRange={true}
-                    tileClassName={tileClassName}
-                />
-            </div>
-            {date.length > 0 ? (
-                <p className='text-center'>
-                    <span className='bold'>Start:</span>{' '}
-                    {date[0].toDateString()}
-                    &nbsp;|&nbsp;
-                    <span className='bold'>End:</span> {date[1].toDateString()}
-                </p>
-            ) : (
-                <p className='text-center'>
-                    {date.toDateString()}
-                </p>
-            )}
-
-            {eventData &&
-                <div className="pt-5 col-md-8 mx-auto text-center">
-                    <div className="float-end col-md-3 pb-3">
-                        <button onClick={createEvent} type="button" className="btn btn-moesland">
-                            Nieuw Evenement
-                        </button>
-                    </div>
-                    <table className=" table table-striped " >
-                        <thead>
-                            <tr className="bg-moesland text-white">
-                                <th scope="col">Titel</th>
-                                <th scope="col">Start</th>
-                                <th scope="col">Eind</th>
-                                <th scope="col">Locatie</th>
-                                <th scope="col">Acties</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                            {eventData.map(event => (
-                                <tr key={event.id} >
-                                    <td className="title">{event.title}</td>
-                                    <td className="startdate">
-                                        {getUsableDatesAndTimes(event.startdate).altDate} {getUsableDatesAndTimes(event.startdate).time}
-                                    </td>
-                                    <td className="enddate">
-                                        {getUsableDatesAndTimes(event.enddate).altDate} {getUsableDatesAndTimes(event.enddate).time}
-                                    </td>
-                                    <td className="location">{event.location}</td>
-                                    <td >
-                                        <div className="row">
-                                            <div className="">
-                                            </div>
-                                            <div className="pr-3">
-                                            </div>
-                                        </div>
-                                        <button onClick={() => ToggleShowDeleteEventModal(event)} className="btn btn-danger mx-2" >Verwijderen </button>
-                                        <button onClick={() => ToggleShowUpdateEventModal(event)} className="btn btn-moesland" >Aanpassen</button>
-                                    </td>
-                                </tr>
-                            ))
-
-                            }
-                        </tbody>
-                    </table>
+                <div className='d-flex justify-content-center mt-2'>
+                    <Calendar
+                        onChange={setDate}
+                        value={date}
+                        selectRange={true}
+                        tileClassName={tileClassName}
+                    />
                 </div>
-            }
+                {date.length > 0 ? (
+                    <p className='text-center'>
+                        <span className='bold'>Start:</span>{' '}
+                        {date[0].toDateString()}
+                        &nbsp;|&nbsp;
+                        <span className='bold'>End:</span> {date[1].toDateString()}
+                    </p>
+                ) : (
+                    <p className='text-center'>
+                        {date.toDateString()}
+                    </p>
+                )}
 
-            {ShowAddEventModal && <ModalAdd toggleModal={ToggleShowAddEventModal} date={date} refreshOverview={refreshData} />}
-            {ShowDeleteEventModal && <ModalDelete toggleModal={ToggleShowDeleteEventModal} selectedItem={selectedItem} refreshOverview={refreshData} />}
-            {ShowUpdateEventModal && <ModalUpdate toggleModal={ToggleShowUpdateEventModal} selectedItem={selectedItem} refreshOverview={refreshData} />}
+                {eventData &&
+                    <div className="pt-5 col-md-8 mx-auto text-center">
+                        <div className="float-end col-md-3 pb-3">
+                            <button onClick={createEvent} type="button" className="btn btn-moesland">
+                                Nieuw Evenement
+                            </button>
+                        </div>
+                        <table className=" table table-striped " >
+                            <thead>
+                                <tr className="bg-moesland text-white">
+                                    <th scope="col">Titel</th>
+                                    <th scope="col">Start</th>
+                                    <th scope="col">Eind</th>
+                                    <th scope="col">Locatie</th>
+                                    <th scope="col">Acties</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                {eventData.map(event => (
+                                    <tr key={event.id} >
+                                        <td className="title">{event.title}</td>
+                                        <td className="startdate">
+                                            {getUsableDatesAndTimes(event.startdate).altDate} {getUsableDatesAndTimes(event.startdate).time}
+                                        </td>
+                                        <td className="enddate">
+                                            {getUsableDatesAndTimes(event.enddate).altDate} {getUsableDatesAndTimes(event.enddate).time}
+                                        </td>
+                                        <td className="location">{event.location}</td>
+                                        <td >
+                                            <div className="row">
+                                                <div className="">
+                                                </div>
+                                                <div className="pr-3">
+                                                </div>
+                                            </div>
+                                            <button onClick={() => ToggleShowDeleteEventModal(event)} className="btn btn-danger mx-2" >Verwijderen </button>
+                                            <button onClick={() => ToggleShowUpdateEventModal(event)} className="btn btn-moesland" >Aanpassen</button>
+                                        </td>
+                                    </tr>
+                                ))
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+
+                {ShowAddEventModal && <ModalAdd toggleModal={ToggleShowAddEventModal} date={date} refreshOverview={refreshData} />}
+                {ShowDeleteEventModal && <ModalDelete toggleModal={ToggleShowDeleteEventModal} selectedItem={selectedItem} refreshOverview={refreshData} />}
+                {ShowUpdateEventModal && <ModalUpdate toggleModal={ToggleShowUpdateEventModal} selectedItem={selectedItem} refreshOverview={refreshData} />}
+            </div>
         </>
     );
 
