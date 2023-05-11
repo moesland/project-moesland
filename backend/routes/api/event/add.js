@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     res.send('Event aanmaken');
 });
 
-router.post('/', [ 
+router.post('/', [
     body('title').trim().isString().notEmpty(),
     body('description').trim().isString().notEmpty(),
     body('startdate').trim().isISO8601().notEmpty(),
@@ -29,16 +29,16 @@ router.post('/', [
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-   try {
+    try {
         const { title, description, startdate, enddate, location } = req.body;
-        
+
         const event = await getEventByTitleAndDate(title, startdate);
 
-        if(!event){
+        if (!event) {
             await createEvent(title, description, startdate, enddate, location);
             res.status(201).send(`Event created successfully!`);
         }
-        else{
+        else {
             res.status(409).send(`Event already exists on this startdate`);
         }
     } catch (err) {
