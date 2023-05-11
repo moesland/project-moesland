@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const Events = mongoose.model('Event');
 
 function getDate(daysToAdd) {
@@ -17,14 +18,14 @@ const eventData = [
     description: 'Een jaarlijks terugkerend avondvullend programma waar het publiek door Schaijkse rasartiesten vermaakt wordt. De artiesten zijn Schaijkse mensen die met eigen teksten of eigen liedjes Schaijkse gebeurtenissen op de korrel nemen en het publiek weten te boeien. De voorbereidingen nemen lang van te voren hun aanvang, zo ongeveer bij de opening van het jaarlijkse carnaval, zijnde het 11-11 bal. Op de eerste bijeenkomst met artiesten en commissie wordt de opzet doorgesproken en gekeken wie er mee wil doen en wat voor ideeën er zijn.',
     startdate: today,
     enddate: tomorrow,
-    location: 'Schaijk'
+    location: 'Schaijk',
   },
   {
     title: 'Erewijn',
     description: 'Zaterdags voorafgaand aan de carnavalsdagen organiseert de gemeente Landerd de zgn. Erewijn. Tijdens de Erewijn krijgen de hoogheden van Schaijk, Zeeland en Reek officieel de sleutel van de diverse rijken overhandigd.',
     startdate: dayAfterTomorrow,
     enddate: dayAfterTheDayAfterTomorrow,
-    location: 'Schaijk'
+    location: 'Schaijk',
   },
 ];
 
