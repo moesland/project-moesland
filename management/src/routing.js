@@ -9,7 +9,7 @@ import Login from './pages/login';
 import Management from './pages/userManagement';
 import ArticleOverview from './pages/articles/overview';
 import PhotoManagement from './pages/photoManagement';
-import RejectedPhotoManagement from './pages/RejectedphotoManagement';
+import RejectedPhotoManagement from './pages/rejectedPhotoManagement';
 
 const Routing = () => {
   return (

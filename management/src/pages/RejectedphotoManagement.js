@@ -130,7 +130,7 @@ export default function RejectedPhotoManagement() {
                     <ImageGallery thumbnailPosition="top" items={images} renderItem={renderItem} disableKeyDown={true} disableSwipe={true} disableThumbnailScroll={true} />
                 </div>
                 ) : (
-                    <p>Geen afbleedingen die kunnen hersteld kunnen worden</p>
+                    <p>Geen afbeeldingen die hersteld kunnen worden.</p>
                 )}
             </div>
         </>

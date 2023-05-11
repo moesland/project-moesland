@@ -60,11 +60,8 @@ export default function Management() {
         });
         const body = JSON.stringify({ id: item.userImageId });
       
-        
-      
         const index = images.findIndex(i => i.userImageId === item.userImageId);
         const newImages = images.filter((_, i) => i !== index);
-        //setGalleryImages(newImages);
       
         const data = newImages[index].original;
         const link = document.createElement("a");
@@ -148,7 +145,7 @@ export default function Management() {
                             disableThumbnailScroll={true}
                         />
                     ) : (
-                        <p>afbleedingen worden geladen</p>
+                        <p>Afbeeldingen worden geladen.</p>
                     )}
                 </div>
             </div>
