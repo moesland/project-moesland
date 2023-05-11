@@ -44,7 +44,6 @@ export default function Management() {
   return (
     <>
       {userData &&
-        <div className="row">
           <div className="pt-5 col-md-8 mx-auto text-center">
             <div className="float-end col-md-3 pb-3">
               <button onClick={ToggleShowModalAdd} type="button" className="btn btn-moesland">
@@ -85,8 +84,6 @@ export default function Management() {
               </tbody>
             </table>
           </div>
-        </div>
-
       }
       {addModalShow && <ModalAdd toggleModal={ToggleShowModalAdd} refreshOverview={refreshData}/>}
       {modalDeleteShow && <ModalDelete toggleModal={ToggleShowModalDelete} selectedItem={selectedItem} refreshOverview={refreshData}/>}
