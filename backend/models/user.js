@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    minlength: 2
+    minlength: 2,
   },
   roleId: {
     type: mongoose.Schema.Types.ObjectId,
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async (next) => {
   const user = this;
 
   if (user.isNew) {
