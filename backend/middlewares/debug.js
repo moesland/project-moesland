@@ -13,7 +13,7 @@ const debugLog = (req, res, next) => {
     debugMessage += '\n----------------------Request body-------------------------';
   }
 
-  //console.log(debugMessage);
+  console.log(debugMessage);
   next();
 };
 
