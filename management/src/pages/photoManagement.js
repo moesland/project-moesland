@@ -61,7 +61,6 @@ export default function Management() {
 
         document.body.appendChild(link);
 
-        console.log(newImages[index]);
         link.click();
         document.body.removeChild(link);
 
@@ -100,18 +99,20 @@ export default function Management() {
                         alt={item.description}
                         data-description={item.description} />
                 </div>
-                <button
-                    type="button"
-                    className="btn btn-danger btn-sq-responsive"
-                    onClick={() => denyItem(item)}>
-                    Afkeuren
-                </button>
-                <button
-                    type="button"
-                    className="btn btn-success btn-sq-responsive"
-                    onClick={() => approveItem(item)}>
-                    Goedkeuren
-                </button>
+                <div className="m-2">
+                    <button
+                        type="button"
+                        className="btn btn-danger btn-sq-responsive mx-1"
+                        onClick={() => denyItem(item)}>
+                        Afkeuren
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-success btn-sq-responsive mx-1"
+                        onClick={() => approveItem(item)}>
+                        Goedkeuren
+                    </button>
+                </div>
             </>
         );
     };
@@ -132,7 +133,7 @@ export default function Management() {
                             disableThumbnailScroll={true}
                         />
                     ) : (
-                        <p>Afbeeldingen worden geladen.</p>
+                        <p className="text-center">Afbeeldingen worden geladen.</p>
                     )}
                 </div>
             </div>
