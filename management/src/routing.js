@@ -20,7 +20,6 @@ const Routing = () => {
         <Route path="/articles/update/:id" element={<ArticlesUpdate />} />
         <Route path='/articles' element={<ArticleOverview/>} />
         <Route path='/events' element={<EventOverview/>} />
-        {/* <Route path='/events/create' element={<ArticleOverview/>} />  */}
         <Route path='/users' element={<Management/>} />
       </Route>
 
