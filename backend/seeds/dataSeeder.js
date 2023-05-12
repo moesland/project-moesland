@@ -1,11 +1,13 @@
-const seedNewsArticle = require('./newsArticleSeeder');
+// const seedNewsArticle = require('./newsArticleSeeder');
 const seedRoles = require('./rolesSeeder');
 const seedUsers = require('./userSeeder');
+const seedEvents = require('./eventSeeder');
 
 const seeder = async () => {
   await seedRoles();
   await seedUsers();
-  //await seedNewsArticle();
+  await seedEvents();
+  // await seedNewsArticle();
 };
 
 seeder();

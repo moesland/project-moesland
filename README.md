@@ -23,3 +23,6 @@ Please use the user story/task name from Jira, for example: ml-61/ml-67
 It is recommend to follow the [Google JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html#file-name) 
 for file and folder naming conventions in JavaScript and React projects. The guide recommends using kebab-case for folder names and 
 provides guidelines for other conventions.
+
+## Docker
+To start the project, navigate to the project directory in your terminal and run the following command: `docker-compose up --force-recreate --build -d`

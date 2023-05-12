@@ -1,0 +1,40 @@
+version: '1'
+name: moesland
+services:
+  database:
+    container_name: moeslanddb
+    image: mongo:latest
+    ports:
+      - 27001:27017
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    container_name: backend
+    build: 
+      context: ./backend
+      dockerfile: dockerfile
+    command: npm run dev
+    ports: 
+      - 5001:5000
+    depends_on:
+      - database
+    environment:
+      - MONGODB_URI=mongodb://moeslanddb:27017/moesland
+    volumes:
+      - "./backend:/usr/src/backend/"
+
+  management:
+    container_name: management
+    build: 
+      context: ./management
+      dockerfile: dockerfile
+    command: npm start
+    ports: 
+      - 3001:3000
+    environment:
+      - REACT_APP_BACKEND_ROOT_URL=http://localhost:5001
+    volumes:
+      - "./management:/usr/src/management/"
+volumes:
+  mongo_data:
