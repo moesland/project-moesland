@@ -38,6 +38,9 @@ export default function Navbar() {
                             <a className="nav-link navbar-text-color" href="/articles">Nieuwsartikelen</a>
                         </li>
                         <li className="nav-item">
+                            <a className="nav-link navbar-text-color" href="/events">Evenementen</a>
+                        </li>
+                        <li className="nav-item">
                             <a className="nav-link navbar-text-color" href="/photo-management">Gebruikersfoto's</a>
                         </li>
                         <li className="nav-item">
