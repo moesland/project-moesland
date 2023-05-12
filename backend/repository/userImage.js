@@ -11,6 +11,14 @@ module.exports = {
     return UserImage.find({}).populate('image')
       .catch((err) => console.error(err));
   },
+  async getAllPendingUserImages() {
+    return UserImage.find({ approvalStatus: 'pending' }).populate('image')
+      .catch((err) => console.error(err));
+  },
+  async getAllDeclinedUserImages() {
+    return UserImage.find({ approvalStatus: 'declined' }).populate('image')
+      .catch((err) => console.error(err));
+  },
   async createUserImage(image) {
     await image.save();
 
