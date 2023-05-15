@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState} from "react";
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { BackendClientRequest } from "../../services/ApiClient";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 
-const ModalAdd = ({ toggleModal, refreshOverview, date }) => {
+const ModalAdd = ({ toggleModal, refreshOverview, date, isParade }) => {
+    const [showLocationInputs, setShowLocationInputs] = useState(!isParade);
+
     let startDateString;
     let endDateString;
 
@@ -28,8 +31,12 @@ const ModalAdd = ({ toggleModal, refreshOverview, date }) => {
         description: yup.string().min(5, "De omschrijving moet minimaal 5 karakters bevatten.").max(300).required("Dit veld mag niet leeg zijn."),
         startdate: yup.date(),
         enddate: yup.date(),
-        location: yup.string().min(2, "de locatie moet minimaal 2 karakters bevatten.").max(50).required("Dit veld mag niet leeg zijn.")
-    })
+        location: yup.string(),
+        isParade: yup.boolean(),
+        latitude: yup.string(),
+        longitude: yup.string(),
+        radius: yup.string(),
+    });
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
@@ -46,17 +53,30 @@ const ModalAdd = ({ toggleModal, refreshOverview, date }) => {
         endingDate.setUTCHours((ehours));
         endingDate.setUTCMinutes(eminutes);
 
-        pushManager(data.title, data.description, startingDate, endingDate, data.location)
+        pushManager(
+            data.title, 
+            data.description, 
+            startingDate, 
+            endingDate, 
+            data.location, 
+            data.isParade, 
+            data.latitude, 
+            data.longitude, 
+            data.radius)
     }
 
-    async function pushManager(title, description, startdate, enddate, location) {
+    async function pushManager(title, description, startdate, enddate, location, isParade, latitude, longitude, radius) {
         const path = "/api/event/add";
         const body = {
             title: title,
             description: description,
             startdate: startdate,
             enddate: enddate,
-            location: location
+            location: location,
+            isParade: isParade,
+            latitude: latitude,
+            longitude: longitude,
+            radius: radius
         };
 
         const token = localStorage.getItem('token');
@@ -122,19 +142,52 @@ const ModalAdd = ({ toggleModal, refreshOverview, date }) => {
                                         <small id="event-end-time-error" className="form-text text-danger event-end-time-error" >{errors.endtime?.message}</small>
                                     </div>
                                 </div>
-
-                                <div className="form-group pt-3">
-                                    <label>Locatie</label>
-                                    <input className="form-control" id="event-location-id" name="event-location-name" placeholder="Locatie" {...register("location")}></input>
-                                    <small id="event-location-error" className="form-text text-danger event-location-error" >{errors.location?.message}</small>
-                                </div>
-
-                                <div className="form-check">
-                                </div>
+                                <div className="form-check pt-3">
+                                    <input
+                                        type="checkbox"
+                                        className="form-check-input custom-checkbox"
+                                        id="parade-checkbox"
+                                        name="parade-checkbox"
+                                        {...register("isParade")}
+                                        onChange={() => setShowLocationInputs(!showLocationInputs)}
+                                    />
+                                    <label htmlFor="parade-checkbox">Optocht</label>
+                                </div>                         
+                            {showLocationInputs ? (
+                            <div className="form-group">
+                                <label>Locatie</label>
+                                <input
+                                    className="form-control"
+                                    id="event-location-id"
+                                    name="event-location-name"
+                                    placeholder="Locatie"
+                                    {...register("location")}
+                                    required
+                                ></input>
+                                <small id="event-location-error" className="form-text text-danger event-location-error">
+                                    {errors.location?.message}
+                                </small>
                             </div>
+                            ) : (
+                            <>
+                                <div className="form-group">
+                                    <label>Latitude</label>
+                                    <input className="form-control" id="event-latitude-id" name="event-latitude-name" placeholder="Latitude" {...register("latitude")} type="text" required/>
+                                </div>
+                                <div className="form-group pt-2">
+                                    <label>Longitude</label>
+                                    <input className="form-control" id="event-longitude-id" name="event-longitude-name" placeholder="Longitude" {...register("longitude")} type="text" required/>
+                                </div>
+                                <div className="form-group pt-2">
+                                    <label>Radius ( in meters )</label>
+                                    <input className="form-control" id="event-radius-id" name="event-radius-name" placeholder="Radius" {...register("radius")} type="text" required />
+                                </div>
+                            </>
+                            )}
                             <div className="modal-footer">
                                 <button onClick={toggleModal} type="button" className="btn btn-secondary" data-dismiss="modal">Annuleren</button>
                                 <input type="submit" className="btn btn-moesland" value="Aanmaken"></input>
+                            </div>
                             </div>
                         </form>
                     </div>

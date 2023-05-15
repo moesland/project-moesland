@@ -19,8 +19,24 @@ const eventSchema = new mongoose.Schema({
   },
   location: {
     type: String,
-    required: true,
+    required: false,
   },
+  isParade: {
+    type: Boolean,
+    required: true, 
+  },
+  latitude: {
+    type: Number,
+    required: false,
+  },
+  longitude: {
+    type: Number,
+    required: false,
+  },
+  radius: {
+    type: Number,
+    required: false,
+  }
 });
 
 module.exports = mongoose.model('Event', eventSchema);
