@@ -104,7 +104,7 @@ const EventOverview = () => {
                 )}
 
                 {eventData &&
-                    <div className="pt-5 col-md-8 mx-auto text-center">
+                    <div className="pt-5 col-md-11 mx-auto text-center">
                         <div className="float-end col-md-3 pb-3">
                             <button onClick={createEvent} type="button" className="btn btn-moesland">
                                 Nieuw Evenement
@@ -131,15 +131,9 @@ const EventOverview = () => {
                                             {getUsableDatesAndTimes(event.enddate).altDate} {getUsableDatesAndTimes(event.enddate).time}
                                         </td>
                                         <td className="location">{event.location}</td>
-                                        <td >
-                                            <div className="row">
-                                                <div className="">
-                                                </div>
-                                                <div className="pr-3">
-                                                </div>
-                                            </div>
-                                            <button onClick={() => ToggleShowDeleteEventModal(event)} className="btn btn-danger mx-2" >Verwijderen </button>
-                                            <button onClick={() => ToggleShowUpdateEventModal(event)} className="btn btn-moesland" >Aanpassen</button>
+                                        <td>
+                                            <button onClick={() => ToggleShowDeleteEventModal(event)} className="btn btn-danger mx-2">Verwijderen</button>
+                                            <button onClick={() => ToggleShowUpdateEventModal(event)} className="btn btn-moesland">Aanpassen</button>
                                         </td>
                                     </tr>
                                 ))
@@ -156,7 +150,6 @@ const EventOverview = () => {
             </div>
         </>
     );
-
 }
 
 export default EventOverview;
