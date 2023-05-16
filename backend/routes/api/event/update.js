@@ -20,7 +20,7 @@ router.post('/', [
       throw new Error('Start date must be before end date');
     }
     return true;
-  })
+  }),
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -29,12 +29,23 @@ router.post('/', [
 
   try {
     const {
-      id, title, description, startdate, enddate, location, isParade, latitude, longitude, radius
+      id, title, description, startdate, enddate, location, isParade, latitude, longitude, radius,
     } = req.body;
     const event = await getEventById(id);
 
     if (event) {
-      await updateEventById(event._id, title, description, startdate, enddate, location, isParade, latitude, longitude, radius);
+      await updateEventById(
+        event._id,
+        title,
+        description,
+        startdate,
+        enddate,
+        location,
+        isParade,
+        latitude,
+        longitude,
+        radius);
+
       return res.status(200).json('Event updated successfully!');
     }
     return res.status(404).json('Event not found.');
