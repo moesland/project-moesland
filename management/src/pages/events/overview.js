@@ -16,9 +16,9 @@ const EventOverview = () => {
     const [ShowDeleteEventModal, setShowModalDelete] = useState(false);
     const [ShowUpdateEventModal, setShowModalUpdate] = useState(false);
 
-    useEffect(() => {
-        refreshData();
-    }, [date]);
+        useEffect(() => {
+            refreshData();
+        }, [date]);
 
     useEffect(() => {
         getAllEvents();
@@ -68,29 +68,29 @@ const EventOverview = () => {
         setShowAddEventModal(!ShowAddEventModal);
     }
 
-    const ToggleShowDeleteEventModal = (event) => {
-        setShowModalDelete(!ShowDeleteEventModal);
-        setSelectedItem(event)
-    }
+        const ToggleShowDeleteEventModal = (event) => {
+            setShowModalDelete(!ShowDeleteEventModal);
+            setSelectedItem(event)
+        }
 
-    const ToggleShowUpdateEventModal = (event) => {
-        setShowModalUpdate(!ShowUpdateEventModal);
-        setSelectedItem(event)
-    }
+        const ToggleShowUpdateEventModal = (event) => {
+            setShowModalUpdate(!ShowUpdateEventModal);
+            setSelectedItem(event)
+        }
 
-    const createEvent = () => {
-        ToggleShowAddEventModal(date);
-    }
+        const createEvent = () => {
+            ToggleShowAddEventModal(date);
+        }
 
-    function tileClassName({ date, view }) {
-        // Add class to tiles in month view only
-        if (view === 'month') {
-            // Check if a date React-Calendar wants to check is on the list of dates to add class to
-            if (datesToMark && datesToMark.find(dDate => isSameDay(dDate, date))) {
-                return 'react-calendar__tile--occupied';
+        function tileClassName({ date, view }) {
+            // Add class to tiles in month view only
+            if (view === 'month') {
+                // Check if a date React-Calendar wants to check is on the list of dates to add class to
+                if (datesToMark && datesToMark.find(dDate => isSameDay(dDate, date))) {
+                    return 'react-calendar__tile--occupied';
+                }
             }
         }
-    }
 
     return (
         <>

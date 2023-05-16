@@ -29,13 +29,18 @@ module.exports = {
             startdate: { $gte: start, $lt: end },
         }).catch((err) => console.error(err));
     },
-    async createEvent(title, description, startdate, enddate, location) {
+    async createEvent(title, description, startdate, enddate, location, isParade, latitude, longitude, radius) {
+        console.log('repo test');
         const newEvent = new Event({
             title,
             description,
             startdate,
             enddate,
             location,
+            isParade,
+            latitude,
+            longitude,
+            radius
         });
         await newEvent.save();
     },
