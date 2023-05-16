@@ -59,7 +59,7 @@ const EventOverview = () => {
 
     const getAllEvents = async () => {
         const isOnlyParades = onlyParades === true ? '?onlyParades=true' : '';
-        
+
         await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + `/api/event${isOnlyParades}`, { method: 'GET' })
             .then(response => response.json())
             .then(data => {
@@ -130,9 +130,7 @@ const EventOverview = () => {
                                     <thead>
                                         <tr className="bg-moesland text-white">
                                             <th scope="col">Titel</th>
-                                            <th scope="col">Start</th>
-                                            <th scope="col">Eind</th>
-                                            <th scope="col">Locatie</th>
+                                            <th scope="col">Tijd</th>
                                             <th scope="col">Acties</th>
                                         </tr>
                                     </thead>
@@ -141,15 +139,16 @@ const EventOverview = () => {
                                             <tr key={event.id} >
                                                 <td className="title">{event.title}</td>
                                                 <td className="startdate">
-                                                    {getUsableDatesAndTimes(event.startdate).altDate} {getUsableDatesAndTimes(event.startdate).time}
+                                                    <p className="mb-0">{getUsableDatesAndTimes(event.startdate).altDate} - {getUsableDatesAndTimes(event.enddate).altDate}</p>
+                                                    <p>{getUsableDatesAndTimes(event.startdate).time} - {getUsableDatesAndTimes(event.enddate).time}</p>
                                                 </td>
-                                                <td className="enddate">
-                                                    {getUsableDatesAndTimes(event.enddate).altDate} {getUsableDatesAndTimes(event.enddate).time}
-                                                </td>
-                                                <td className="location">{event.location}</td>
                                                 <td>
-                                                    <button onClick={() => ToggleShowDeleteEventModal(event)} className="btn btn-danger mx-2">Verwijderen</button>
-                                                    <button onClick={() => ToggleShowUpdateEventModal(event)} className="btn btn-moesland">Aanpassen</button>
+                                                    <button onClick={() => ToggleShowDeleteEventModal(event)} className="btn btn-danger mx-2">
+                                                        <i className="bi bi-trash"></i>
+                                                    </button>
+                                                    <button onClick={() => ToggleShowUpdateEventModal(event)} className="btn btn-moesland">
+                                                        <i className="bi bi-pencil"></i>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))
