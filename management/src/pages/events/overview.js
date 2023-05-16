@@ -8,9 +8,12 @@ import { getUsableDatesAndTimes, isSameDay } from './utils.js';
 
 const EventOverview = () => {
     const [date, setDate] = useState(new Date());
-    const [eventData, setEventData] = useState();
-    const [allEvents, setAllEvents] = useState();
     const [datesToMark, setDatesToMark] = useState();
+    const [eventData, setEventData] = useState();
+
+    const [allEvents, setAllEvents] = useState();
+    const [onlyParades, setOnlyParades] = useState(false);
+
     const [selectedItem, setSelectedItem] = useState(undefined);
     const [ShowAddEventModal, setShowAddEventModal] = useState(false);
     const [ShowDeleteEventModal, setShowModalDelete] = useState(false);
@@ -22,7 +25,7 @@ const EventOverview = () => {
 
     useEffect(() => {
         getAllEvents();
-    }, []);
+    }, [onlyParades]);
 
     const refreshData = async () => {
         const startdate = date.toString().split(',')[0];
@@ -55,7 +58,9 @@ const EventOverview = () => {
     };
 
     const getAllEvents = async () => {
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/event', { method: 'GET' })
+        const isOnlyParades = onlyParades === true ? '?onlyParades=true' : '';
+        
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + `/api/event${isOnlyParades}`, { method: 'GET' })
             .then(response => response.json())
             .then(data => {
                 // Sort the data by start date
@@ -165,8 +170,8 @@ const EventOverview = () => {
                     {allEvents &&
                         <div className="col-md-11 mx-auto text-center">
                             <div className="float-start form-check pb-2">
-                                <input className="form-check-input" type="checkbox" id="isParade" />
-                                <label className="form-check-label" for="isParade">Filteren op optochten</label>
+                                <input className="form-check-input" type="checkbox" id="onlyParades" onChange={() => setOnlyParades(!onlyParades)} />
+                                <label className="form-check-label" htmlFor="onlyParades">Filteren op optochten</label>
                             </div>
                             <table className="table table-striped">
                                 <thead>
