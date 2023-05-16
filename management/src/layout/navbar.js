@@ -37,18 +37,8 @@ export default function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link navbar-text-color" href="/articles">Nieuwsartikelen</a>
                         </li>
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle navbar-text-color" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Evenementen
-                            </a>
-                            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li>
-                                    <a className="dropdown-item" href="/events">Kalender</a>
-                                </li>
-                                <li>
-                                    <a className="dropdown-item" href="/events/all">Totaaloverzicht</a>
-                                </li>
-                            </ul>
+                        <li className="nav-item">
+                            <a className="nav-link navbar-text-color" href="/events">Evenementen</a>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle navbar-text-color" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
