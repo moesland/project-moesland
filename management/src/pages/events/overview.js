@@ -126,36 +126,37 @@ const EventOverview = () => {
                                     </button>
                                 </div>
 
-                                <table className="table table-striped">
-                                    <thead>
-                                        <tr className="bg-moesland text-white">
-                                            <th scope="col">Titel</th>
-                                            <th scope="col">Tijd</th>
-                                            <th scope="col">Acties</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tableBody">
-                                        {eventData.map(event => (
-                                            <tr key={event.id} >
-                                                <td className="title">{event.title}</td>
-                                                <td className="startdate">
-                                                    <p className="mb-0">{getUsableDatesAndTimes(event.startdate).altDate} - {getUsableDatesAndTimes(event.enddate).altDate}</p>
-                                                    <p>{getUsableDatesAndTimes(event.startdate).time} - {getUsableDatesAndTimes(event.enddate).time}</p>
-                                                </td>
-                                                <td>
-                                                    <button onClick={() => ToggleShowDeleteEventModal(event)} className="btn btn-danger mx-2">
-                                                        <i className="bi bi-trash"></i>
-                                                    </button>
-                                                    <button onClick={() => ToggleShowUpdateEventModal(event)} className="btn btn-moesland">
-                                                        <i className="bi bi-pencil"></i>
-                                                    </button>
-                                                </td>
+                                {eventData.length > 0 ?
+                                    (<table className="table table-striped">
+                                        <thead>
+                                            <tr className="bg-moesland text-white">
+                                                <th scope="col">Titel</th>
+                                                <th scope="col">Tijd</th>
+                                                <th scope="col">Acties</th>
                                             </tr>
-                                        ))
-
-                                        }
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody id="tableBody">
+                                            {eventData.map(event => (
+                                                <tr key={event.id} >
+                                                    <td className="title">{event.title}</td>
+                                                    <td className="startdate">
+                                                        <p className="mb-0">{getUsableDatesAndTimes(event.startdate).altDate} - {getUsableDatesAndTimes(event.enddate).altDate}</p>
+                                                        <p>{getUsableDatesAndTimes(event.startdate).time} - {getUsableDatesAndTimes(event.enddate).time}</p>
+                                                    </td>
+                                                    <td>
+                                                        <button onClick={() => ToggleShowDeleteEventModal(event)} className="btn btn-danger mx-2">
+                                                            <i className="bi bi-trash"></i>
+                                                        </button>
+                                                        <button onClick={() => ToggleShowUpdateEventModal(event)} className="btn btn-moesland">
+                                                            <i className="bi bi-pencil"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>) :
+                                    (<table><p>Geen evenementen op deze datum(s).</p></table>)
+                                }
                             </div>
                         }
                     </div>
