@@ -3,7 +3,6 @@
     import * as yup from 'yup';
     import { yupResolver } from '@hookform/resolvers/yup'
     import { BackendClientRequest } from "../../services/ApiClient";
-    import { Circle, GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
     import MapContainer from "../../components/map";
 
     const ModalAdd = ({ toggleModal, refreshOverview, date, isParade }) => {

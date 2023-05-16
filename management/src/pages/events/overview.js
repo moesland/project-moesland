@@ -152,7 +152,7 @@
 
                     {ShowAddEventModal && <ModalAdd toggleModal={ToggleShowAddEventModal} date={date} isParade={false} refreshOverview={refreshData} />}
                     {ShowDeleteEventModal && <ModalDelete toggleModal={ToggleShowDeleteEventModal} selectedItem={selectedItem} refreshOverview={refreshData} />}
-                    {ShowUpdateEventModal && <ModalUpdate toggleModal={ToggleShowUpdateEventModal} selectedItem={selectedItem} refreshOverview={refreshData} />}
+                    {ShowUpdateEventModal && <ModalUpdate toggleModal={ToggleShowUpdateEventModal} selectedItem={selectedItem} refreshOverview={refreshData}/>}
                 </div>
             </>
         );

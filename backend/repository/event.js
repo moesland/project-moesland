@@ -44,12 +44,16 @@ module.exports = {
         });
         await newEvent.save();
     },
-    async updateEventById(id, title, description, startdate, enddate, location) {
+    async updateEventById(id, title, description, startdate, enddate, location, isParade, latitude, longitude, radius) {
         const cleanTitle = sanitize(title);
         const cleanDescription = sanitize(description);
         const cleanStartDate = sanitize(startdate);
         const cleanEndDate = sanitize(enddate);
         const cleanLocation = sanitize(location);
+        const cleanisParade = sanitize(isParade);
+        const cleanLatitude = sanitize(latitude);
+        const cleanLongitude = sanitize(longitude);
+        const cleanRadius = sanitize(radius);
 
         return Event.findOneAndUpdate(
             { _id: { $eq: id } },
@@ -59,6 +63,10 @@ module.exports = {
                 startdate: cleanStartDate,
                 enddate: cleanEndDate,
                 location: cleanLocation,
+                isParade: cleanisParade,
+                latitude: cleanLatitude,
+                longitude: cleanLongitude,
+                radius: cleanRadius
             },
             { new: true },
         )

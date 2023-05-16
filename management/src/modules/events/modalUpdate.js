@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from 'react-hook-form';
 import { getUsableDatesAndTimes } from "../../pages/events/utils";
+import MapContainer from "../../components/map";
 
 const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
     const startingDateAndTime = getUsableDatesAndTimes(selectedItem.startdate);
     const endingDateAndTime = getUsableDatesAndTimes(selectedItem.enddate);
-
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    
+    const [showLocationInputs, setShowLocationInputs] = useState(!selectedItem.isParade);
+    const [circleRadius, setCircleRadius] = useState(selectedItem.radius);
+    
+    const [markerPosition, setMarkerPosition] = useState({ 
+        lat: selectedItem.latitude, 
+        lng: selectedItem.longitude 
     });
+
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm({
+    });
+
+    const handleCheckboxChange = () => {
+        selectedItem.isParade = !selectedItem.isParade;
+        setShowLocationInputs(!showLocationInputs);
+      };
 
     const onSubmit = async (data) => {
         const startingDate = new Date(data.startdate);
@@ -27,7 +41,11 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
             description: data.description,
             startdate: startingDate,
             enddate: endingDate,
-            location: data.location
+            location: data.location,
+            isParade: data.isParade,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            radius: data.radius
         });
 
         const token = localStorage.getItem('token');
@@ -91,12 +109,44 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
                                         <small id="edit-event-end-time-error" className="form-text text-danger edit-event-end-time-error" >{errors.endtime?.message}</small>
                                     </div>
                                 </div>
-
-                                <div className="form-group pt-3">
-                                    <label>Nieuwe locatie</label>
-                                    <input defaultValue={selectedItem.location} id="edit-event-location-id" className="form-control" placeholder="Locatie" name="edit-event-location-name" {...register("location")}></input>
-                                    <small id="edit-event-location-error" className="form-text text-danger edit-event-location-error" >{errors.location?.message}</small>
+                                <div className="form-check pt-3">
+                                        <input
+                                            type="checkbox"
+                                            className="form-check-input custom-checkbox"
+                                            id="parade-checkbox"
+                                            name="parade-checkbox"
+                                            {...register("isParade")}
+                                            onChange={handleCheckboxChange}
+                                            checked={selectedItem.isParade}
+                                        />
+                                        <label htmlFor="parade-checkbox">Optocht</label>
+                                    </div>                         
+                                {showLocationInputs ? ( 
+                                <div className="form-group">
+                                    <label>Nieuwe Locatie</label>
+                                    <input defaultValue={selectedItem.location} id="edit-event-location-id" className="form-control" placeholder="Locatie" name="edit-event-location-name" {...register("location")} required></input>
+                                    <small id="event-location-error" className="form-text text-danger event-location-error">
+                                        {errors.location?.message}
+                                    </small>
                                 </div>
+                                ) : (
+                                <>
+                                    <MapContainer markerPosition={markerPosition} setMarkerPosition={setMarkerPosition} setValue={setValue} circleRadius={circleRadius}/> 
+                                    <div className="form-group">
+                                        <label>Nieuwe Latitude</label>
+                                        <input defaultValue={selectedItem.latitude} type="text" className="form-control" id="edit-event-latitude" name="edit-event-latitude" {...register("latitude")} required></input>
+                                    </div>
+                                    <div className="form-group pt-2">
+                                        <label>Nieuwe Longitude</label>
+                                        <input defaultValue={selectedItem.longitude} type="text" className="form-control" id="edit-event-longitude" name="edit-event-longitude" {...register("longitude")} required></input>
+                                    </div>
+                                    <div className="form-group pt-2 pb-2">
+                                        <label>Nieuwe Radius ( in meters )</label>
+                                        <input defaultValue={selectedItem.radius} type="number" className="form-control" id="edit-event-radius" name="edit-event-radius" {...register("radius")} onChange={(e) => setCircleRadius(Number(e.target.value))} required></input>
+                                    </div>
+                                </>
+                                )}
+                               
                             </div>
                             <div className="modal-footer">
                                 <button onClick={toggleModal} type="button" className="btn btn-secondary" data-dismiss="modal">Annuleren</button>
