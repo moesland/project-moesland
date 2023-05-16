@@ -31,7 +31,7 @@ router.post('/', [
   }
   try {
     const {
-      title, description, startdate, enddate, location, isParade, latitude, longitude, radius
+      title, description, startdate, enddate, location, isParade, latitude, longitude, radius,
     } = req.body;
 
     const event = await getEventByTitleAndDate(title, startdate);

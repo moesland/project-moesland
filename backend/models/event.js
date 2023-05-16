@@ -23,7 +23,7 @@ const eventSchema = new mongoose.Schema({
   },
   isParade: {
     type: Boolean,
-    required: true, 
+    required: true,
   },
   latitude: {
     type: Number,
@@ -36,7 +36,7 @@ const eventSchema = new mongoose.Schema({
   radius: {
     type: Number,
     required: false,
-  }
+  },
 });
 
 module.exports = mongoose.model('Event', eventSchema);
