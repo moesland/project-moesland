@@ -22,10 +22,10 @@ router.use('/api/user/role', require('./api/user/role'));
 
 router.use('/api/news-article', requestLimiter, require('./api/newsArticle'));
 
-router.use('/api/parade-participation-category', requestLimiter, require('./api/paradeParticipationCategory/index'));
-router.use('/api/parade-participation-category/add', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/paradeParticipationCategory/create'));
-router.use('/api/parade-participation-category/delete', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/paradeParticipationCategory/delete'));
-router.use('/api/parade-participation-category/update', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/paradeParticipationCategory/update'));
+router.use('/api/parade-category', requestLimiter, require('./api/paradeParticipationCategory/index'));
+router.use('/api/parade-category/add', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/paradeParticipationCategory/create'));
+router.use('/api/parade-category/delete', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/paradeParticipationCategory/delete'));
+router.use('/api/parade-category/update', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/paradeParticipationCategory/update'));
 
 router.use('/api/user-image', require('./api/userImage'));
 
