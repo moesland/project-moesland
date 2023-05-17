@@ -19,7 +19,23 @@ const eventSchema = new mongoose.Schema({
   },
   location: {
     type: String,
+    required: false,
+  },
+  isParade: {
+    type: Boolean,
     required: true,
+  },
+  latitude: {
+    type: Number,
+    required: false,
+  },
+  longitude: {
+    type: Number,
+    required: false,
+  },
+  radius: {
+    type: Number,
+    required: false,
   },
 });
 
