@@ -7,7 +7,7 @@
     import { getUsableDatesAndTimes, isSameDay } from "./utils.js"
 
     const EventOverview = () => {
-        const [date, setDate] = u// dit doet opnieuw ladenseState(new Date());
+        const [date, setDate] = useState(new Date());
         const [eventData, setEventData] = useState()
         const [datesToMark, setDatesToMark] = useState()
         const [selectedItem, setSelectedItem] = useState(undefined)
