@@ -134,14 +134,14 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
                                     <MapContainer markerPosition={markerPosition} setMarkerPosition={setMarkerPosition} setValue={setValue} circleRadius={circleRadius}/> 
                                     <div className="form-group">
                                         <label>Nieuwe Latitude</label>
-                                        <input defaultValue={selectedItem.latitude} type="text" className="form-control" id="edit-event-latitude" name="edit-event-latitude" {...register("latitude")} required></input>
+                                        <input defaultValue={selectedItem.latitude} type="text" className="form-control" id="edit-event-latitude" name="edit-event-latitude" {...register("latitude")} required disabled></input>
                                     </div>
                                     <div className="form-group pt-2">
                                         <label>Nieuwe Longitude</label>
-                                        <input defaultValue={selectedItem.longitude} type="text" className="form-control" id="edit-event-longitude" name="edit-event-longitude" {...register("longitude")} required></input>
+                                        <input defaultValue={selectedItem.longitude} type="text" className="form-control" id="edit-event-longitude" name="edit-event-longitude" {...register("longitude")} required disabled></input>
                                     </div>
                                     <div className="form-group pt-2 pb-2">
-                                        <label>Nieuwe Radius ( in meters )</label>
+                                        <label>Nieuwe Radius (in meters)</label>
                                         <input defaultValue={selectedItem.radius} type="number" className="form-control" id="edit-event-radius" name="edit-event-radius" {...register("radius")} onChange={(e) => setCircleRadius(Number(e.target.value))} required></input>
                                     </div>
                                 </>
