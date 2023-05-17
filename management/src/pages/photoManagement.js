@@ -14,7 +14,7 @@ export default function PhotoManagement() {
 
     useEffect(() => {
         refreshData();
-    }, [fetched]);
+    }, [fetched, refreshData]);
 
     const refreshData = () => {
         if (galleryImages && galleryImages.length !== 0) {

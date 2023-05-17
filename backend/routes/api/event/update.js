@@ -44,7 +44,8 @@ router.post('/', [
         isParade,
         latitude,
         longitude,
-        radius);
+        radius
+      );
 
       return res.status(200).json('Event updated successfully!');
     }
