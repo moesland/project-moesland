@@ -18,7 +18,7 @@ module.exports = {
       .catch((err) => console.log('Cannot find parade participation category by name in ParadeParticipationCategory dataset.', err));
   },
 
-  async updateParadeParticipationCategoryById(id, name, color, description) {
+  async updateParadeParticipationCategoryById(id, name, description, color) {
     return ParadeParticipationCategory.findOneAndUpdate(
       { _id: { $eq: id } },
       { name, color, description },
@@ -32,7 +32,7 @@ module.exports = {
       .catch((err) => console.error(err));
   },
 
-  async createParadeParticipationCategory(name, color, description) {
+  async createParadeParticipationCategory(name, description, color) {
     const newParadeParticipationCategory = new ParadeParticipationCategory({
       name,
       color,

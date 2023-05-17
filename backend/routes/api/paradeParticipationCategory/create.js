@@ -45,7 +45,7 @@ router.post(
 
       if (!paradeParticipationCategory) {
         await createParadeParticipationCategory(name, description, color);
-        return res.status(201).send('Parade category created successfull.!');
+        return res.status(201).send('Parade category created successfully.');
       }
       return res.status(409).send('Parade category already exists with this name.');
     } catch (err) {

@@ -9,15 +9,9 @@ const {
 const auth = require('../../../middlewares/auth');
 
 const {
-  getParadeParticipationCategoryByName,
-  createParadeParticipationCategory,
   getParadeParticipationCategoryById,
   updateParadeParticipationCategoryById,
 } = require('../../../repository/paradeParticipationCategory');
-const {
-  getEventById,
-  updateEventById,
-} = require('../../../repository/event');
 
 router.use(express.json());
 
@@ -51,7 +45,7 @@ router.post(
 
       if (paradeParticipationCategory) {
         await updateParadeParticipationCategoryById(
-          paradeParticipationCategory._id,
+          id,
           name,
           description,
           color,
