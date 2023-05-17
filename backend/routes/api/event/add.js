@@ -46,9 +46,8 @@ router.post('/', [
         isParade,
         latitude,
         longitude,
-        radius
+        radius,
       );
-      
       return res.status(201).send('Event created successfully!');
     }
     return res.status(409).send('Event already exists on this startdate');

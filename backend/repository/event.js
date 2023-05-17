@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const Event = mongoose.model('Event');
 const sanitize = require('mongo-sanitize');
+
+const Event = mongoose.model('Event');
 
 module.exports = {
   async getEventById(id) {
@@ -38,7 +39,8 @@ module.exports = {
     isParade,
     latitude,
     longitude,
-    radius) {
+    radius,
+  ){
     const newEvent = new Event({
       title,
       description,
@@ -62,7 +64,8 @@ module.exports = {
     isParade,
     latitude,
     longitude,
-    radius) {
+    radius,
+  ){
     const cleanTitle = sanitize(title);
     const cleanDescription = sanitize(description);
     const cleanStartDate = sanitize(startdate);

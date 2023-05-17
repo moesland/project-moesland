@@ -17,7 +17,7 @@
 
         useEffect(() => {
             refreshData();
-        }, [date, refreshData]);
+        }, [date]);
 
         const ToggleShowAddEventModal = () => {
             setShowAddEventModal(!ShowAddEventModal);

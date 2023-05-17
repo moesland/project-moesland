@@ -14,7 +14,7 @@ export default function DeclinedPhotoManagement() {
 
     useEffect(() => {
         refreshData();
-    }, [fetched, refreshData]);
+    }, [fetched]);
 
     const refreshData = () => {
         if (galleryImages && galleryImages.length !== 0) {
