@@ -40,7 +40,7 @@ module.exports = {
     latitude,
     longitude,
     radius,
-  ){
+  ) {
     const newEvent = new Event({
       title,
       description,
@@ -65,7 +65,7 @@ module.exports = {
     latitude,
     longitude,
     radius,
-  ){
+  ) {
     const cleanTitle = sanitize(title);
     const cleanDescription = sanitize(description);
     const cleanStartDate = sanitize(startdate);
