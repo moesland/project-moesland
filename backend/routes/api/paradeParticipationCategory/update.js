@@ -50,7 +50,12 @@ router.post(
       const paradeParticipationCategory = await getParadeParticipationCategoryById(id);
 
       if (paradeParticipationCategory) {
-        await updateParadeParticipationCategoryById(paradeParticipationCategory._id, name, description, color);
+        await updateParadeParticipationCategoryById(
+          paradeParticipationCategory._id,
+          name,
+          description,
+          color,
+        );
         return res.status(200).json('Parade category updated successfully!');
       }
       return res.status(404).json('Parade category not found.');
