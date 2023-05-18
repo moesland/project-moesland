@@ -13,8 +13,8 @@ router.get('/', async (req, res) => {
 router.post('/', [
   body('startnumber').isNumeric().notEmpty(),
   body('name').notEmpty(),
-  body('Category').isMongoId().notEmpty(),
-  body('Event').isMongoId().notEmpty(),
+  body('category').isMongoId().notEmpty(),
+  body('event').isMongoId().notEmpty(),
 ], async (req, res, next) => {
   try {
     const errors = validationResult(req);
@@ -33,8 +33,8 @@ router.post('/', [
 router.put('/:id', [
   body('startnumber').optional().isNumeric(),
   body('name').optional(),
-  body('Category').optional().isMongoId(),
-  body('Event').optional().isMongoId(),
+  body('category').optional().isMongoId(),
+  body('event').optional().isMongoId(),
 ], async (req, res, next) => {
   try {
     const errors = validationResult(req);
@@ -54,10 +54,13 @@ router.put('/:id', [
 router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    await participationRepo.remove(id);
-    res.sendStatus(204);
+    const deletedParticipation = await participationRepo.remove(id);
+    if (!deletedParticipation) {
+      return res.status(404).json({ error: 'Resource not found' });
+    }
+    return res.sendStatus(204);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
