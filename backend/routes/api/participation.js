@@ -11,10 +11,10 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', [
-  body('startnumber').isNumeric().notEmpty(),
-  body('name').notEmpty(),
-  body('category').isMongoId().notEmpty(),
-  body('event').isMongoId().notEmpty(),
+  body('startnumber').isNumeric().notEmpty().withMessage('Start number must be a non-empty number'),
+  body('name').notEmpty().withMessage('Name must not be empty'),
+  body('category').isMongoId().notEmpty().withMessage('Category must be a non-empty MongoDB ID'),
+  body('event').isMongoId().notEmpty().withMessage('Event must be a non-empty MongoDB ID'),
 ], async (req, res, next) => {
   try {
     const errors = validationResult(req);
@@ -31,10 +31,10 @@ router.post('/', [
 });
 
 router.put('/:id', [
-  body('startnumber').optional().isNumeric(),
-  body('name').optional(),
-  body('category').optional().isMongoId(),
-  body('event').optional().isMongoId(),
+  body('startnumber').optional().isNumeric().withMessage('Start number must be a number'),
+  body('name').optional().notEmpty().withMessage('Name must not be empty'),
+  body('category').optional().isMongoId().withMessage('Category must be a MongoDB ID'),
+  body('event').optional().isMongoId().withMessage('Event must be a MongoDB ID'),
 ], async (req, res, next) => {
   try {
     const errors = validationResult(req);
