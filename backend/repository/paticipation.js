@@ -14,7 +14,7 @@ const remove = async (id) => Participation.findByIdAndDelete(id);
 
 const update = async (id, data) => {
   const cleanData = sanitize(data);
-  Participation.findByIdAndUpdate(id, cleanData, { new: true });
+  return Participation.findByIdAndUpdate(id, cleanData, { new: true });
 };
 
 module.exports = {
