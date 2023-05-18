@@ -21,7 +21,7 @@ const update = async (id, data) => {
     }
   }
 
-  return Participation.findByIdAndUpdate(id, data, { new: true })
+  return Participation.findByIdAndUpdate(id, sanitizedData, { new: true })
 };
 
 module.exports = {
