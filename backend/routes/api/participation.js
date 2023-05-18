@@ -1,12 +1,12 @@
 const express = require('express');
-const paticipationRepo = require('../../repository/paticipation');
+const participationRepo = require('../../repository/paticipation');
 
 const router = express.Router();
 
 router.use(express.json());
 
-router.get('/', async (req, res, next) => {
-  res.status(200).json(await paticipationRepo.getAll());
+router.get('/', async (res) => {
+  res.status(200).json(await participationRepo.getAll());
 });
 
 router.post('/', async (req, res, next) => {
