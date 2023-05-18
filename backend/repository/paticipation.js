@@ -11,7 +11,18 @@ const add = async (data) => {
 
 const remove = async (id) => Participation.findByIdAndDelete(id);
 
-const update = async (id, data) => Participation.findByIdAndUpdate(id, data, { new: true });
+const update = async (id, data) => {
+  const allowedFields = ['startnumber', 'name', 'category', 'event'];
+  const sanitizedData = {};
+  
+  for (const field of allowedFields) {
+    if (data[field] !== undefined) {
+      sanitizedData[field] = data[field];
+    }
+  }
+
+  return Participation.findByIdAndUpdate(id, data, { new: true })
+};
 
 module.exports = {
   getAll,
