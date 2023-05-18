@@ -19,4 +19,4 @@ const participationScema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('participation', participationScema);
+module.exports = mongoose.model('Participation', participationScema);

@@ -34,4 +34,6 @@ router.use('/api/event/add', requestLimiter, require('./api/event/add'));
 router.use('/api/event/delete', requestLimiter, require('./api/event/delete'));
 router.use('/api/event/update', requestLimiter, require('./api/event/update'));
 
+router.use('/api/participation', requestLimiter, require('./api/participation')); 
+
 module.exports = router;
