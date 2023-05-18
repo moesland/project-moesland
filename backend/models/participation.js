@@ -9,11 +9,11 @@ const participationScema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Category: {
+  category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ParadeParticipationCategory',
   },
-  Event: {
+  event: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Event',
   },
