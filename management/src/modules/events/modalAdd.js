@@ -3,7 +3,6 @@
     import * as yup from 'yup';
     import { yupResolver } from '@hookform/resolvers/yup'
     import { BackendClientRequest } from "../../services/ApiClient";
-    import { Circle, GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
     import MapContainer from "../../components/map";
 
     const ModalAdd = ({ toggleModal, refreshOverview, date, isParade }) => {
@@ -178,15 +177,15 @@
                                     <MapContainer markerPosition={markerPosition} setMarkerPosition={setMarkerPosition} setValue={setValue} circleRadius={circleRadius}/> 
                                     <div className="form-group">
                                         <label>Latitude</label>
-                                        <input className="form-control" id="event-latitude-id" name="event-latitude-name" placeholder="51.74583" {...register("latitude")} type="text" required/>
+                                        <input className="form-control" id="event-latitude-id" name="event-latitude-name" placeholder="51.74583" defaultValue={markerPosition.lat} {...register("latitude")} type="text" required disabled/>
                                     </div>
                                     <div className="form-group pt-2">
                                         <label>Longitude</label>
-                                        <input className="form-control" id="event-longitude-id" name="event-longitude-name" placeholder="5.63194" {...register("longitude")} type="text" required/>
+                                        <input className="form-control" id="event-longitude-id" name="event-longitude-name" placeholder="5.63194" defaultValue={markerPosition.lng} {...register("longitude")} type="text" required disabled/>
                                     </div>
                                     <div className="form-group pt-2 pb-2">
-                                        <label>Radius ( in meters )</label>
-                                        <input className="form-control" id="event-radius-id" name="event-radius-name" placeholder="200" {...register("radius")} type="text" onChange={(e) => setCircleRadius(Number(e.target.value))} required />
+                                        <label>Radius (in meters)</label>
+                                        <input className="form-control" id="event-radius-id" name="event-radius-name" placeholder="200" defaultValue={circleRadius} {...register("radius")} type="text" onChange={(e) => setCircleRadius(Number(e.target.value))} required />
                                     </div>
                                 </>
                                 )}

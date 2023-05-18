@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const Event = mongoose.model('Event');
 const sanitize = require('mongo-sanitize');
 
@@ -52,6 +51,10 @@ module.exports = {
     const cleanStartDate = sanitize(startdate);
     const cleanEndDate = sanitize(enddate);
     const cleanLocation = sanitize(location);
+    const cleanisParade = sanitize(isParade);
+    const cleanLatitude = sanitize(latitude);
+    const cleanLongitude = sanitize(longitude);
+    const cleanRadius = sanitize(radius);
 
     return Event.findOneAndUpdate(
       { _id: { $eq: id } },
@@ -61,6 +64,10 @@ module.exports = {
         startdate: cleanStartDate,
         enddate: cleanEndDate,
         location: cleanLocation,
+        isParade: cleanisParade,
+        latitude: cleanLatitude,
+        longitude: cleanLongitude,
+        radius: cleanRadius,
       },
       { new: true },
     )
