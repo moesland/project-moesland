@@ -12,7 +12,7 @@ router.post('/', [
   body('startdate').trim().isISO8601().notEmpty(),
   body('enddate').trim().isISO8601().notEmpty(),
   body('isParade').isBoolean().notEmpty(),
-  body('radius').trim().isNumeric(),
+  body('radius').trim().isNumeric().optional(),
   body().custom((value, { req }) => {
     const startdate = new Date(req.body.startdate);
     const enddate = new Date(req.body.enddate);

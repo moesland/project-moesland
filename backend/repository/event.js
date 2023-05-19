@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const sanitize = require('mongo-sanitize');
 
 const Event = mongoose.model('Event');
+const sanitize = require('mongo-sanitize');
 
 module.exports = {
   async getEventById(id) {
@@ -17,8 +17,10 @@ module.exports = {
     });
     return event;
   },
-  async getAllEvents() {
-    return Event.find({})
+  async getAllEvents(onlyParades) {
+    const query = onlyParades ? { isParade: true } : {};
+
+    return Event.find(query)
       .catch((err) => console.error(err));
   },
   async getEventsByDate(date) {
@@ -30,17 +32,8 @@ module.exports = {
       startdate: { $gte: start, $lt: end },
     }).catch((err) => console.error(err));
   },
-  async createEvent(
-    title,
-    description,
-    startdate,
-    enddate,
-    location,
-    isParade,
-    latitude,
-    longitude,
-    radius,
-  ) {
+  async createEvent(title, description, startdate, enddate, location,
+    isParade, latitude, longitude, radius) {
     const newEvent = new Event({
       title,
       description,
@@ -54,18 +47,8 @@ module.exports = {
     });
     await newEvent.save();
   },
-  async updateEventById(
-    id,
-    title,
-    description,
-    startdate,
-    enddate,
-    location,
-    isParade,
-    latitude,
-    longitude,
-    radius,
-  ) {
+  async updateEventById(id, title, description, startdate, enddate, location,
+    isParade, latitude, longitude, radius) {
     const cleanTitle = sanitize(title);
     const cleanDescription = sanitize(description);
     const cleanStartDate = sanitize(startdate);
