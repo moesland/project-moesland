@@ -11,6 +11,7 @@ import ArticleOverview from './pages/articles/overview';
 import EventOverview from './pages/events/overview';
 import PhotoManagement from './pages/photoManagement';
 import DeclinedPhotoManagement from './pages/declinedPhotoManagement';
+import Participation from './pages/participation';
 
 const Routing = () => {
   return (
@@ -25,6 +26,7 @@ const Routing = () => {
         <Route path='/users' element={<Management/>} />
         <Route path='/photo-management' element={<PhotoManagement/>} />
         <Route path='/rejected-photo-management' element={<DeclinedPhotoManagement/>} />
+        <Route path='/participation' element={<Participation/>} />
       </Route>
 
       <Route element={<ProtectedRoute isAuthenticated={false}/>}>

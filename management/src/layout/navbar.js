@@ -46,6 +46,9 @@ export default function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link navbar-text-color" href="/rejected-photo-management">Afgekeurde gebruikersfoto's</a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link navbar-text-color" href="/participation">Deelnames</a>
+                        </li>
                     </ul>
                     <input className="nav-link border-0 navbar-text-color n-hover text-right bg-light text-center" type="text" value={user} disabled />
                     <button className="nav-link navbar-text-color bg-light mb-2 mb-lg-0 border-0 n-hover" onClick={logout}>Uitloggen</button>
