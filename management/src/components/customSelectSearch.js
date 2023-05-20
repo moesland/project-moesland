@@ -32,7 +32,7 @@ const CustomSelectSearch = ({ name, options, idField, labelField }) => {
       <input
         type="text"
         className="form-control mr-2"
-        placeholder="Search..."
+        placeholder="Zoeken..."
         value={searchTerm}
         onChange={handleSearchChange}
       />
