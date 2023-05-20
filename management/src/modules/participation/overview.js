@@ -32,13 +32,14 @@ const Overview = ({toggleEditModal, toggleDeleteModal}) => {
 
                     <tbody id="tableBody">
                         {participationData.map(participation => (
-                            <tr key={participation._id} onClick={toggleEditModal()} >
+                            <tr key={participation._id} >
                                 <th className="event-title">{participation.event.title}</th>
                                 <th className="category-name">{participation.category.name}</th>
                                 <th className="name">{participation.name}</th>
                                 <th className="startnumber">{participation.startnumber}</th>
-                                <th>
-                                    <button onClick={toggleDeleteModal()} className="btn btn-danger mx-2">Verwijderen</button>
+                                <th>      
+                                    <button onClick={toggleEditModal} className="btn btn-moesland mx-2">Aanpassen</button>
+                                    <button onClick={toggleDeleteModal} className="btn btn-danger mx-2">Verwijderen</button>
                                 </th>
                             </tr>
                         ))}
