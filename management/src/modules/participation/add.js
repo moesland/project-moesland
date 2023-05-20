@@ -48,7 +48,6 @@ const AddModal = () => {
                 </div>
             </div>
             <div className="modal-footer mt-3">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">Annuleren</button>
                 <input type="submit" className="btn btn btn-moesland" value="Aanmaken"></input>
             </div>
         </form>
