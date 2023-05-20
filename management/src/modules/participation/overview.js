@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BackendFetch } from "../../services/ApiClient";
 
-const Overview = ({toggleEditModal, toggleDeleteModal}) => {
+const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
     const [participationData, setparticipationData] = useState(undefined);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const Overview = ({toggleEditModal, toggleDeleteModal}) => {
                             <th scope="col">Category</th>
                             <th scope="col">deelname</th>
                             <th scope="col">Nr.</th>
-                            <th scope="col"></th>
+                            <th scope="col">Acties</th>
                         </tr>
                     </thead>
 
@@ -37,14 +37,20 @@ const Overview = ({toggleEditModal, toggleDeleteModal}) => {
                                 <th className="category-name">{participation.category.name}</th>
                                 <th className="name">{participation.name}</th>
                                 <th className="startnumber">{participation.startnumber}</th>
-                                <th>      
-                                    <button onClick={toggleEditModal} className="btn btn-moesland mx-2">Aanpassen</button>
-                                    <button onClick={toggleDeleteModal} className="btn btn-danger mx-2">Verwijderen</button>
+                                <th className="w-25">
+                                    <div className="btn-group" role="group">
+                                        <button onClick={toggleEditModal} className="btn btn-moesland">
+                                            Aanpassen
+                                        </button>
+                                        <button onClick={toggleDeleteModal} className="btn btn-danger">
+                                            Verwijderen
+                                        </button>
+                                    </div>
                                 </th>
                             </tr>
                         ))}
                     </tbody>
-                </table> 
+                </table>
             </>
         }
     </>
