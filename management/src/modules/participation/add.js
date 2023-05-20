@@ -1,28 +1,51 @@
 import CustomSelectSearch from "../../components/customSelectSearch";
 import CustomModal from "../../components/customModal";
+import { useEffect, useState } from "react";
+import { BackendFetch } from "../../services/ApiClient";
 
 const AddModal = () => {
+    const [eventOptions, seteventOptions] = useState([]);
+    const [categorieOptions, setcategorieOptions] = useState([]);
+
+    useEffect(() => {
+        BackendFetch('/api/event', 'GET', (data) => {
+            seteventOptions(data);
+        });
+
+        BackendFetch('/api/parade-category', 'GET', (data) => {
+            setcategorieOptions(data);
+        });
+    }, [])
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const formValues = Object.fromEntries(formData.entries());
+
+        await BackendFetch('/api/participation', 'POST', (data) => {
+            console.log("success")
+        }, formValues);
+    };
+
     return <CustomModal title={"Deelnames toevoegen"}>
-        <form >
+        <form onSubmit={handleSubmit}>
             <div className="mx-auto col-md-10">
                 <div className="form-group pt-3">
                     <label className="float-start">Evenement</label>
-                    <input className="form-control" name="modalAddManagerEmailName" aria-describedby="emailHelp" placeholder="E-mailadres"></input>
+                    <CustomSelectSearch name={'event'} options={eventOptions} idField={'_id'} labelField={'title'} />
                 </div>
                 <div className="form-group pt-3">
                     <label className="float-start">Category</label>
-                    <input className="form-control" name="modalAddManagerUserName" aria-describedby="emailHelp" placeholder="Gebruikersnaam"></input>
+                    <CustomSelectSearch name={'category'} options={categorieOptions} idField={'_id'} labelField={'name'} />
                 </div>
                 <div className="form-group pt-3">
                     <label className="float-start">Naam</label>
-                    <input className="form-control" placeholder="Naam" name="modalAddManagerPasswordName"></input>
+                    <input className="form-control" placeholder="Naam" name="name"></input>
                 </div>
                 <div className="form-group pt-3">
                     <label className="float-start">Startnummer</label>
-                    <input className="form-control" placeholder="Startnummer" name="modalAddManagerPasswordName"></input>
+                    <input className="form-control" placeholder="Startnummer" name="startnumber"></input>
                 </div>
-
-                <CustomSelectSearch/>
             </div>
             <div className="modal-footer mt-3">
                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Annuleren</button>
