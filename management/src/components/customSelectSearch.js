@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../styles/custom.css";
 
-const CustomSelectSearch = ({ options, idField, labelField}) => {
+const CustomSelectSearch = ({ name, options, idField, labelField }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchOptions, setSearchOptions] = useState([]);
   const [selectedValue, setSelectedValue] = useState('');
+
+  useEffect(() => {
+    setSearchOptions(options);
+  }, [options]);
 
   const handleSearchChange = (event) => {
     const value = event.target.value;
@@ -14,29 +18,31 @@ const CustomSelectSearch = ({ options, idField, labelField}) => {
 
   const getSearchOptions = (value) => {
     return options.filter((option) =>
-      option.label.toLowerCase().includes(value.toLowerCase())
+      option[labelField].toLowerCase().includes(value.toLowerCase()) || option[idField].includes(selectedValue)
     );
   };
 
   const handleSelectChange = (event) => {
     const value = event.target.value;
     setSelectedValue(value);
-    if (value !== '') {
-      setSearchTerm(value);
-    }
-  }
+  };
 
   return (
     <div className="form-inline mt-1">
       <input
         type="text"
-        className={`form-control mr-2 ${selectedValue && searchOptions.find(option => option.label === selectedValue) ? 'green-border' : ''}`}
+        className="form-control mr-2"
         placeholder="Search..."
         value={searchTerm}
         onChange={handleSearchChange}
       />
-      <select className="form-control mr-2" onChange={handleSelectChange}>
-        <option value="">Select an option</option>
+      <input
+        type="hidden"
+        name={name}
+        value={selectedValue}
+      />
+      <select className="form-control mr-2" defaultValue={""} onChange={handleSelectChange}>
+      <option value="" disabled hidden>Kies een optie...</option>
         {searchOptions.map((option) => (
           <option key={option[idField]} value={option[idField]}>
             {option[labelField]}
