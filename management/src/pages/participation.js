@@ -1,36 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import Overview from '../modules/participation/overview';
+import AddModal from "../modules/participation/add";
 
 const Participation = () => {
-    const [participationData, setparticipationData] = useState(undefined);
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [dataUpdated, setDataUpdated] = useState(false);
 
-    useEffect(() => {
-        loadParticiationData();
-    }, []);
+    const handleDataUpdate = (updating) => {
+        if(updating === true) {
+            setDataUpdated(prevState => !prevState);
+            console.log("updating overview")
+        }
+    };
 
-    const loadParticiationData = async () => {
-        const token = localStorage.getItem('token');
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + `/api/participation`, {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => setparticipationData(data));
-    }
+    const toggleAddModal = (updating) => {
+        setShowAddModal(!showAddModal);
+        handleDataUpdate(updating);
+    };
 
-    return <div className="container mt-3 text-center">
-        {!participationData &&
-            <div>
-                <h1>DATA LOADING...</h1>
+    const toggleEditModal = (updating) => {
+        setShowEditModal(!showEditModal);
+        handleDataUpdate(updating);
+    };
+
+    const toggleDeleteModal = (updating) => {
+        setShowDeleteModal(!showDeleteModal);
+        handleDataUpdate(updating);
+    };
+
+    return (
+        <>
+            <div className="container mt-3 text-center">
+                <h1 className="font-moesland">Deelnames</h1>
+
+                <div className="float-start mb-3">
+                    <button className="btn btn-moesland" onClick={toggleAddModal}>Nieuwe Deelnames</button>
+                </div>
+                <Overview key={dataUpdated} toggleEditModal={() => toggleEditModal} toggleDeleteModal={() => toggleDeleteModal} />
             </div>
-        }
-        {participationData &&
-            <Overview data={participationData}/>
-        }
-    </div>
+
+            {showAddModal && <AddModal onClose={toggleAddModal} />}
+            {showEditModal && <AddModal />}
+            {showDeleteModal && <AddModal />}
+        </>
+
+
+    )
 }
 
 export default Participation;

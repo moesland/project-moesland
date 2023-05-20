@@ -3,7 +3,7 @@ import CustomModal from "../../components/customModal";
 import { useEffect, useState } from "react";
 import { BackendFetch } from "../../services/ApiClient";
 
-const AddModal = () => {
+const AddModal = ({onClose}) => {
     const [eventOptions, seteventOptions] = useState([]);
     const [categorieOptions, setcategorieOptions] = useState([]);
 
@@ -23,11 +23,11 @@ const AddModal = () => {
         const formValues = Object.fromEntries(formData.entries());
 
         await BackendFetch('/api/participation', 'POST', (data) => {
-            console.log("success")
+            onClose(true);
         }, formValues);
     };
 
-    return <CustomModal title={"Deelnames toevoegen"}>
+    return <CustomModal title={"Deelnames toevoegen"} onClose={onClose}>
         <form onSubmit={handleSubmit}>
             <div className="mx-auto col-md-10">
                 <div className="form-group pt-3">
@@ -48,6 +48,7 @@ const AddModal = () => {
                 </div>
             </div>
             <div className="modal-footer mt-3">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={onClose}>Annuleren</button>
                 <input type="submit" className="btn btn btn-moesland" value="Aanmaken"></input>
             </div>
         </form>
