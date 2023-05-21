@@ -58,7 +58,7 @@ router.delete('/:id', async (req, res, next) => {
     if (!deletedParticipation) {
       return res.status(404).json({ error: 'Resource not found' });
     }
-    return res.sendStatus(204);
+    return res.status(200).json(deletedParticipation);
   } catch (err) {
     return next(err);
   }
