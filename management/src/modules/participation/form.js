@@ -3,7 +3,7 @@ import CustomModal from "../../components/customModal";
 import { useEffect, useState } from "react";
 import { BackendFetch } from "../../services/ApiClient";
 
-const AddModal = ({onClose}) => {
+const ModalForm = ({onClose}) => {
     const [eventOptions, seteventOptions] = useState([]);
     const [categorieOptions, setcategorieOptions] = useState([]);
 
@@ -44,7 +44,7 @@ const AddModal = ({onClose}) => {
                 </div>
                 <div className="form-group pt-3">
                     <label className="float-start">Startnummer</label>
-                    <input className="form-control" placeholder="Startnummer" name="startnumber"></input>
+                    <input className="form-control" placeholder="Startnummer" name="startnumber" type="number"></input>
                 </div>
             </div>
             <div className="modal-footer mt-3">
