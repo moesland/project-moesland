@@ -39,10 +39,10 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
                                 <th className="startnumber">{participation.startnumber}</th>
                                 <th className="w-25">
                                     <div className="btn-group" role="group">
-                                        <button onClick={toggleEditModal} className="btn btn-moesland">
+                                        <button onClick={() => toggleEditModal(false, participation)} className="btn btn-moesland">
                                             Aanpassen
                                         </button>
-                                        <button onClick={toggleDeleteModal} className="btn btn-danger">
+                                        <button onClick={() => toggleDeleteModal(false, participation)} className="btn btn-danger">
                                             Verwijderen
                                         </button>
                                     </div>

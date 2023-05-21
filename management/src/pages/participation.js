@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Overview from '../modules/participation/overview';
-import AddModal from "../modules/participation/add";
+import ModalForm from "../modules/participation/form";
 
 const Participation = () => {
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [dataUpdated, setDataUpdated] = useState(false);
-
+    const [selectValue, setSelectValue] = useState(undefined)
+ 
     const handleDataUpdate = (updating) => {
         if(updating === true) {
             setDataUpdated(prevState => !prevState);
@@ -20,12 +21,14 @@ const Participation = () => {
         handleDataUpdate(updating);
     };
 
-    const toggleEditModal = (updating) => {
+    const toggleEditModal = (updating, value) => {
+        setSelectValue(value)
         setShowEditModal(!showEditModal);
         handleDataUpdate(updating);
     };
 
-    const toggleDeleteModal = (updating) => {
+    const toggleDeleteModal = (updating, value) => {
+        setSelectValue(value)
         setShowDeleteModal(!showDeleteModal);
         handleDataUpdate(updating);
     };
@@ -38,12 +41,12 @@ const Participation = () => {
                 <div className="float-start mb-3">
                     <button className="btn btn-moesland" onClick={toggleAddModal}>Nieuwe Deelnames</button>
                 </div>
-                <Overview key={dataUpdated} toggleEditModal={() => toggleEditModal} toggleDeleteModal={() => toggleDeleteModal} />
+                <Overview key={dataUpdated} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal} />
             </div>
 
-            {showAddModal && <AddModal onClose={toggleAddModal} />}
-            {showEditModal && <AddModal />}
-            {showDeleteModal && <AddModal />}
+            {showAddModal && <ModalForm onClose={toggleAddModal} />}
+            {showEditModal && <ModalForm onClose={toggleEditModal} isUpdate={true} data={selectValue} />}
+            {showDeleteModal && <div />}
         </>
 
 

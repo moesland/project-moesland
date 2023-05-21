@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import "../styles/custom.css";
 
-const CustomSelectSearch = ({ name, options, idField, labelField }) => {
+const CustomSelectSearch = ({ name, options, idField, labelField, defaultValue = '', defaultValueName = null}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchOptions, setSearchOptions] = useState([]);
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   useEffect(() => {
     setSearchOptions(options);
@@ -42,7 +42,7 @@ const CustomSelectSearch = ({ name, options, idField, labelField }) => {
         value={selectedValue}
       />
       <select className="form-control mr-2" defaultValue={""} onChange={handleSelectChange}>
-      <option value="" disabled hidden>Kies een optie...</option>
+      <option value="" disabled hidden>{defaultValueName ? defaultValueName : "Kies een optie..."}</option>
         {searchOptions.map((option) => (
           <option key={option[idField]} value={option[idField]}>
             {option[labelField]}
