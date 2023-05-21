@@ -14,7 +14,7 @@ const app = express();
 
 // Enable CORS for GET and POST requests on all routes
 app.use(cors({
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 
 // Database setup
