@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Overview from '../modules/participation/overview';
 import ModalForm from "../modules/participation/form";
+import ModalDelete from '../modules/participation/delete';
 
 const Participation = () => {
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [dataUpdated, setDataUpdated] = useState(false);
-    const [selectValue, setSelectValue] = useState(undefined)
+    const [selectedValue, setselectedValue] = useState(undefined)
  
     const handleDataUpdate = (updating) => {
         if(updating === true) {
@@ -22,13 +23,13 @@ const Participation = () => {
     };
 
     const toggleEditModal = (updating, value) => {
-        setSelectValue(value)
+        setselectedValue(value)
         setShowEditModal(!showEditModal);
         handleDataUpdate(updating);
     };
 
     const toggleDeleteModal = (updating, value) => {
-        setSelectValue(value)
+        setselectedValue(value)
         setShowDeleteModal(!showDeleteModal);
         handleDataUpdate(updating);
     };
@@ -45,8 +46,8 @@ const Participation = () => {
             </div>
 
             {showAddModal && <ModalForm onClose={toggleAddModal} />}
-            {showEditModal && <ModalForm onClose={toggleEditModal} isUpdate={true} data={selectValue} />}
-            {showDeleteModal && <div />}
+            {showEditModal && <ModalForm onClose={toggleEditModal} isUpdate={true} data={selectedValue} />}
+            {showDeleteModal && <ModalDelete onClose={toggleDeleteModal} data={selectedValue} />}
         </>
 
 
