@@ -7,8 +7,6 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
     const [eventOptions, seteventOptions] = useState([]);
     const [categorieOptions, setcategorieOptions] = useState([]);
 
-    console.log(data);
-
     useEffect(() => {
         BackendFetch('/api/event', 'GET', (eventData) => {
             seteventOptions(eventData);
@@ -24,9 +22,10 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
         const formData = new FormData(event.target);
         const formValues = Object.fromEntries(formData.entries());
 
-        const endpoint = isUpdate ? 'PUT' : 'POST';
+        const method = isUpdate ? 'PUT' : 'POST';
+        const endpoint = data ? `/api/participation/${data._id}` : '/api/participation';
 
-        await BackendFetch('/api/participation', endpoint, (d) => {
+        await BackendFetch(endpoint, method, (d) => {
             onClose(true);
         }, formValues);
     };
