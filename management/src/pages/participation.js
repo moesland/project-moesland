@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Overview from '../modules/participation/overview';
 import ModalForm from "../modules/participation/form";
 import ModalDelete from '../modules/participation/delete';
@@ -13,7 +13,6 @@ const Participation = () => {
     const handleDataUpdate = (updating) => {
         if(updating === true) {
             setDataUpdated(prevState => !prevState);
-            console.log("updating overview")
         }
     };
 
