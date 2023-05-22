@@ -23,7 +23,7 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
                     <thead>
                         <tr className="bg-moesland text-white">
                             <th scope="col">Event</th>
-                            <th scope="col">Category</th>
+                            <th scope="col">Categorie</th>
                             <th scope="col">Deelname</th>
                             <th scope="col">Nr.</th>
                             <th scope="col">Acties</th>
