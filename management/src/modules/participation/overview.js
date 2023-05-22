@@ -24,7 +24,7 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
                         <tr className="bg-moesland text-white">
                             <th scope="col">Event</th>
                             <th scope="col">Category</th>
-                            <th scope="col">deelname</th>
+                            <th scope="col">Deelname</th>
                             <th scope="col">Nr.</th>
                             <th scope="col">Acties</th>
                         </tr>
