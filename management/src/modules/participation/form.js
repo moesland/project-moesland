@@ -70,7 +70,7 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
                     />
                 </div>
                 <div className="form-group pt-3">
-                    <label className="float-start">Category</label>
+                    <label className="float-start">Categorie</label>
                     <CustomSelectSearch 
                         name={'category'} 
                         options={categorieOptions} 
