@@ -4,24 +4,24 @@ const ParticipationCategory = mongoose.model('ParticipationCategory');
 
 const paradeCategoryData = [
   {
-    name: 'Grote carnavalswagens',
-    description: 'Carnavalswagens groter dan x',
+    name: 'Carnavalswagens',
+    description: 'Alle carnavalswagens',
     color: '#00FF00', // Green
   },
   {
-    name: 'Kleine carnavalswagens',
-    description: 'Carnavalswagens kleiner dan x',
-    color: '#FF0000', // Red
-  },
-  {
-    name: 'Loopgroepen',
-    description: 'Loopgroepen met meerdere personen',
+    name: 'Individueel',
+    description: 'Individuele deelnames',
     color: '#0000FF', // Blue
   },
   {
-    name: 'Loepgroepen van één persoon',
-    description: 'Loopgroepen met één persoon',
-    color: '#FF00FF', // Pink
+    name: 'Grote loopgroep',
+    description: 'Carnavalswagens kleiner dan x',
+    color: '#FFFF00', // Yellow
+  },
+  {
+    name: 'Kleine loopgroep',
+    description: 'Carnavalswagens kleiner dan x',
+    color: '#FF0000', // Red
   },
 ];
 
