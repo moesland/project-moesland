@@ -12,9 +12,9 @@ require('./services/database')();
 // init server
 const app = express();
 
-// Enable CORS for GET and POST requests on all routes
+// Enable CORS for GET, POST, PUT and DELETE requests on all routes
 app.use(cors({
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
 
 // Database setup

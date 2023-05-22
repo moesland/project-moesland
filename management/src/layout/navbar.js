@@ -56,6 +56,9 @@ export default function Navbar() {
                                 </li>
                             </ul>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link navbar-text-color" href="/participation">Deelnames</a>
+                        </li>
                     </ul>
                     
                     <input className="nav-link border-0 navbar-text-color n-hover text-right bg-light text-center" type="text" value={user} disabled />
