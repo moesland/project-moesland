@@ -87,7 +87,7 @@ export default class AgendaScreen extends Component {
         testID={testIDs.agenda.CONTAINER}
         items={this.state.items}
         loadItemsForMonth={this.loadItems}
-        selected={new Date('2023-05-04').toString()}
+        selected={new Date().toString()}
         minDate='2023-01-01'
         renderItem={this.renderItem}
         renderEmptyDate={this.renderEmptyDate}

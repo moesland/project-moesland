@@ -1,3 +1,4 @@
+import { BACKEND_URL } from '@env';
 import EventModel from '../models/EventModel';
 import uuid from 'react-native-uuid';
 
@@ -6,14 +7,13 @@ const generateUUID = () => {
 };
 
 const fetchEventsFromBackend = async () => {
-  const response = await fetch(`http://192.168.2.47:5000/api/event/`, { method: 'GET' });
+  const response = await fetch(`${BACKEND_URL}/api/event/`, { method: 'GET' });
   const json = await response.json();
   return json;
 };
 
 const fetchEvents = async () => {
   try {
-    console.log('fetching Events');
     const json = await fetchEventsFromBackend();
 
     const events = json.map((item) => {

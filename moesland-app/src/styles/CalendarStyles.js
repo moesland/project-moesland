@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { COLOR_BLACK, MOESLAND_GREEN } from '../constants/colors';
 
 const styles = StyleSheet.create({
   item: {
