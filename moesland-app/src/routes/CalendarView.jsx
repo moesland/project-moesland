@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Alert, Text, View, TouchableOpacity} from 'react-native';
-import {Agenda} from 'react-native-calendars';
+import React, { Component } from 'react';
+import { Alert, Text, View, TouchableOpacity } from 'react-native';
+import { Agenda } from 'react-native-calendars';
 import styles from '../styles/CalendarStyles';
 import { testIDs } from '../constants/calendarTestIDs';
 import fetchEvents from '../services/EventApi';
@@ -10,48 +10,57 @@ export default class AgendaScreen extends Component {
     items: undefined
   };
 
-  examples = [
-    {
-      id: 1,
-      title: 'Festival van de Zon',
-      description: 'Een vierdaags muziekfestival met optredens van nationale en internationale artiesten.',
-      startDate: new Date(2023, 4, 10),
-      endDate: new Date(2023, 4, 10),
-      location: 'Amsterdam'
-    },
-    {
-      id: 2,
-      title: 'Tulpenfestival',
-      description: 'Een jaarlijks festival ter ere van de kleurrijke tulpenvelden in de Bollenstreek.',
-      startDate: new Date(2023, 4, 15),
-      endDate: new Date(2023, 4, 15),
-      location: 'Lisse'
-    },
-    {
-      id: 3,
-      title: 'Koningsdag Vrijmarkt',
-      description: 'Een bruisende vrijmarkt op Koningsdag waar mensen hun tweedehands spullen verkopen.',
-      startDate: new Date(2023, 4, 27),
-      endDate: new Date(2023, 4, 27),
-      location: 'Utrecht'
-    },
-    {
-      id: 4,
-      title: 'Kermis Rotterdam',
-      description: 'Een grote kermis met attracties, spelletjes en lekker eten in het centrum van Rotterdam.',
-      startDate: new Date(2023, 4, 21),
-      endDate: new Date(2023, 4, 21),
-      location: 'Rotterdam'
-    },
-    {
-      id: 5,
-      title: 'Amsterdam Light Festival',
-      description: 'Een betoverend lichtkunstfestival waarbij kunstwerken zijn verlicht in de grachten van Amsterdam.',
-      startDate: new Date(2023, 4, 21),
-      endDate: new Date(2023, 4, 21),
-      location: 'Amsterdam'
+  componentDidMount() {
+    this.loadEvents();
+  }
+
+  async loadEvents() {
+    try {
+      const examples = await fetchEvents();
+
+      const items = {};
+      examples.forEach((example) => {
+        const startDate = example.startdate.getTime();
+        const endDate = example.enddate.getTime();
+
+        for (let time = startDate; time <= endDate; time += 24 * 60 * 60 * 1000) {
+          const strTime = this.timeToString(time);
+
+          if (!items[strTime]) {
+            items[strTime] = [];
+          }
+
+          const eventExists = items[strTime].some((event) => {
+            return (
+              event.name === example.title &&
+              event.startDate.getTime() === example.startdate.getTime() &&
+              event.endDate.getTime() === example.enddate.getTime() &&
+              event.location === example.location
+            );
+          });
+
+          if (!eventExists) {
+            items[strTime].push({
+              name: example.title,
+              description: example.description,
+              startDate: example.startdate,
+              endDate: example.enddate,
+              location: example.location,
+            });
+          }
+        }
+      });
+
+      this.setState({
+        items,
+      });
+    } catch (error) {
+      console.error(error);
+      // Handle the error condition if needed
     }
-  ];
+  }
+
+  examples = fetchEvents()
 
   render() {
     return (
@@ -69,52 +78,6 @@ export default class AgendaScreen extends Component {
     );
   }
 
-  loadItems = (day) => {
-    const items = this.state.items || {};
-
-    let printing = fetchEvents()
-
-    this.examples.forEach((example) => {
-      const startDate = example.startDate.getTime();
-      const endDate = example.endDate.getTime();
-
-      for (let time = startDate; time <= endDate; time += 24 * 60 * 60 * 1000) {
-        const strTime = this.timeToString(time);
-
-        if (!items[strTime]) {
-          items[strTime] = [];
-        }
-
-        const eventExists = items[strTime].some((event) => {
-          return (
-            event.name === example.title &&
-            event.startDate.getTime() === example.startDate.getTime() &&
-            event.endDate.getTime() === example.endDate.getTime() &&
-            event.location === example.location
-          );
-        });
-
-        if (!eventExists) {
-          items[strTime].push({
-            name: example.title,
-            description: example.description,
-            startDate: example.startDate,
-            endDate: example.endDate,
-            location: example.location,
-          });
-        }
-      }
-    });
-
-    const newItems = {};
-    Object.keys(items).forEach((key) => {
-      newItems[key] = items[key];
-    });
-    this.setState({
-      items: newItems,
-    });
-  };
-  
   renderItem = (reservation, isFirst) => {
     // first event of the day is highlighted
     const fontSize = isFirst ? 16 : 14;
@@ -123,10 +86,10 @@ export default class AgendaScreen extends Component {
     return (
       <TouchableOpacity
         testID={testIDs.agenda.ITEM}
-        style={[styles.item, {height: reservation.height}]}
+        style={[styles.item, { height: reservation.height }]}
         onPress={() => Alert.alert(reservation.description)}
       >
-        <Text style={{fontSize, color}}>{reservation.name}</Text>
+        <Text style={{ fontSize, color }}>{reservation.name}</Text>
       </TouchableOpacity>
     );
   }

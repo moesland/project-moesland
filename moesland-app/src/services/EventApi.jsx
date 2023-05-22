@@ -11,18 +11,11 @@ const fetchEventsFromBackend = async () => {
   return json;
 };
 
-// convert an ISO date to a Date object
-function parseISO8601Date(dateString) {
-  // Remove the trailing 'Z' character from the string
-  const trimmedString = dateString.slice(0, -1);
-  return new Date(trimmedString);
-}
-
 const fetchEvents = async () => {
   try {
     console.log('fetching Events');
     const json = await fetchEventsFromBackend();
-    
+
     const events = json.map((item) => {
       return new EventModel(
         item._id,
@@ -33,8 +26,8 @@ const fetchEvents = async () => {
         item.location,
       );
     });
-
     return events
+
   } catch (error) {
     console.error(error);
     return [];
