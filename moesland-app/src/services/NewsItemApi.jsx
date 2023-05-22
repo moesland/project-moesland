@@ -1,7 +1,7 @@
 import { BACKEND_URL } from '@env';
 import { Buffer } from 'buffer';
-import NewsItemModel from './NewsItemModel';
-import NewsItemContentModel from './NewsItemContentModel';
+import NewsItemModel from '../models/NewsItemModel';
+import NewsItemContentModel from '../models/NewsItemContentModel';
 import uuid from 'react-native-uuid';
 
 const generateUUID = () => {
