@@ -7,13 +7,13 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
     const [eventOptions, seteventOptions] = useState([]);
     const [categorieOptions, setcategorieOptions] = useState([]);
     const [errors, setErrors] = useState({});
-    
+
     useEffect(() => {
         BackendFetch('/api/event', 'GET', (eventData) => {
             seteventOptions(eventData);
         });
 
-        BackendFetch('/api/parade-category', 'GET', (categoryData) => {
+        BackendFetch('/api/participation-category', 'GET', (categoryData) => {
             setcategorieOptions(categoryData);
         });
     }, [])
@@ -27,30 +27,30 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
         if (validateForm(formValues)) {
             const method = isUpdate ? 'PUT' : 'POST';
             const endpoint = data ? `/api/participation/${data._id}` : '/api/participation';
-    
+
             await BackendFetch(endpoint, method, (d) => {
                 onClose(true);
             }, formValues);
         }
-       
+
     };
 
     const validateForm = (formValues) => {
         const { name, startnumber} = formValues;
         const newErrors = {};
-    
+
         if (!name.trim()) {
           newErrors.name = "Naam is required";
         }
-    
+
         if (!startnumber) {
           newErrors.startnumber = "Startnummer is required";
-        } 
-        
+        }
+
         if (startnumber <= 0) {
           newErrors.startnumber = "Startnummer must be greater than 0";
         }
-    
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -60,22 +60,22 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
             <div className="mx-auto col-md-10">
                 <div className="form-group pt-3">
                     <label className="float-start">Evenement</label>
-                    <CustomSelectSearch 
-                        name={'event'} 
-                        options={eventOptions} 
-                        idField={'_id'} 
-                        labelField={'title'} 
+                    <CustomSelectSearch
+                        name={'event'}
+                        options={eventOptions}
+                        idField={'_id'}
+                        labelField={'title'}
                         defaultValue={data ? data.event._id : ''}
                         defaultValueName={data ? data.event.title : null}
                     />
                 </div>
                 <div className="form-group pt-3">
                     <label className="float-start">Category</label>
-                    <CustomSelectSearch 
-                        name={'category'} 
-                        options={categorieOptions} 
-                        idField={'_id'} 
-                        labelField={'name'} 
+                    <CustomSelectSearch
+                        name={'category'}
+                        options={categorieOptions}
+                        idField={'_id'}
+                        labelField={'name'}
                         defaultValue={data ? data.category._id : ''}
                         defaultValueName={data ? data.category.name : null}
                     />
