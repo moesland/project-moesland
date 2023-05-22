@@ -9,9 +9,9 @@ const {
 const auth = require('../../../middlewares/auth');
 
 const {
-  getParadeParticipationCategoryById,
-  updateParadeParticipationCategoryById,
-} = require('../../../repository/paradeParticipationCategory');
+  getParticipationCategoryById,
+  updateParticipationCategoryById,
+} = require('../../../repository/participationCategory');
 
 router.use(express.json());
 
@@ -41,10 +41,10 @@ router.post(
       const {
         id, name, description, color,
       } = req.body;
-      const paradeParticipationCategory = await getParadeParticipationCategoryById(id);
+      const participationCategory = await getParticipationCategoryById(id);
 
-      if (paradeParticipationCategory) {
-        await updateParadeParticipationCategoryById(
+      if (participationCategory) {
+        await updateParticipationCategoryById(
           id,
           name,
           description,

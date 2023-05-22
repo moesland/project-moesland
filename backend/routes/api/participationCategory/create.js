@@ -9,9 +9,9 @@ const {
 const auth = require('../../../middlewares/auth');
 
 const {
-  getParadeParticipationCategoryByName,
-  createParadeParticipationCategory,
-} = require('../../../repository/paradeParticipationCategory');
+  getParticipationCategoryByName,
+  createParticipationCategory,
+} = require('../../../repository/participationCategory');
 
 router.use(express.json());
 
@@ -41,10 +41,10 @@ router.post(
         name, description, color,
       } = req.body;
 
-      const paradeParticipationCategory = await getParadeParticipationCategoryByName(name);
+      const participationCategory = await getParticipationCategoryByName(name);
 
-      if (!paradeParticipationCategory) {
-        await createParadeParticipationCategory(name, description, color);
+      if (!participationCategory) {
+        await createParticipationCategory(name, description, color);
         return res.status(201).send('Parade category created successfully.');
       }
       return res.status(409).send('Parade category already exists with this name.');

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const paradeParticipationCategorySchema = new mongoose.Schema({
+const participationCategorySchema = new mongoose.Schema({
   name: {
     type: String,
   },
@@ -18,4 +18,4 @@ const paradeParticipationCategorySchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('ParadeParticipationCategory', paradeParticipationCategorySchema);
+module.exports = mongoose.model('ParticipationCategory', participationCategorySchema);

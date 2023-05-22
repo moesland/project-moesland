@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllParadeParticipationCategories } = require('../../../repository/paradeParticipationCategory');
+const { getAllParadeParticipationCategories } = require('../../../repository/participationCategory');
 
 const router = express.Router();
 

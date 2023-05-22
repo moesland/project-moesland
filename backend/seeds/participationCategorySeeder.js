@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ParadeParticipationCategory = mongoose.model('ParadeParticipationCategory');
+const ParticipationCategory = mongoose.model('ParticipationCategory');
 
 const paradeCategoryData = [
   {
@@ -25,11 +25,11 @@ const paradeCategoryData = [
   },
 ];
 
-const seedParadeParticipationCategory = async () => {
-  await ParadeParticipationCategory.find({}).then(async (categories) => {
+const seedParticipationCategory = async () => {
+  await ParticipationCategory.find({}).then(async (categories) => {
     if (!categories.length) {
       console.log('\tNo parade categories found, filling seed data');
-      await ParadeParticipationCategory.insertMany(paradeCategoryData)
+      await ParticipationCategory.insertMany(paradeCategoryData)
         .then(() => console.log('\tFilling parade categories seed data succesfull'))
         .catch((err) => console.log('\tFilling  parade categories seed data failed', err));
     }
@@ -37,5 +37,5 @@ const seedParadeParticipationCategory = async () => {
 };
 
 module.exports = async () => {
-  await seedParadeParticipationCategory();
+  await seedParticipationCategory();
 };
