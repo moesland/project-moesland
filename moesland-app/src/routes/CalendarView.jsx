@@ -16,12 +16,12 @@ export default class AgendaScreen extends Component {
 
   async loadEvents() {
     try {
-      const examples = await fetchEvents();
+      const events = await fetchEvents();
 
       const items = {};
-      examples.forEach((example) => {
-        const startDate = example.startdate.getTime();
-        const endDate = example.enddate.getTime();
+      events.forEach((event) => {
+        const startDate = event.startdate.getTime();
+        const endDate = event.enddate.getTime();
 
         for (let time = startDate; time <= endDate; time += 24 * 60 * 60 * 1000) {
           const strTime = this.timeToString(time);
@@ -32,24 +32,42 @@ export default class AgendaScreen extends Component {
 
           const eventExists = items[strTime].some((event) => {
             return (
-              event.name === example.title &&
-              event.startDate.getTime() === example.startdate.getTime() &&
-              event.endDate.getTime() === example.enddate.getTime() &&
-              event.location === example.location
+              event.name === event.title &&
+              event.description === event.description &&
+              event.startDate.getTime() === event.startdate.getTime() &&
+              event.endDate.getTime() === event.enddate.getTime() &&
+              event.location === event.location
             );
           });
 
           if (!eventExists) {
             items[strTime].push({
-              name: example.title,
-              description: example.description,
-              startDate: example.startdate,
-              endDate: example.enddate,
-              location: example.location,
+              name: event.title,
+              description: event.description,
+              startDate: event.startdate,
+              endDate: event.enddate,
+              location: event.location,
             });
           }
         }
       });
+
+      // Fill dates with [] when no events exist
+      const dates = Object.keys(items);
+      var currentDate = new Date();
+      currentDate.setFullYear(currentDate.getFullYear() - 1);
+      const endDate = new Date();
+      endDate.setFullYear(endDate.getFullYear() + 1);
+
+      while (currentDate <= endDate) {
+        const strTime = this.timeToString(currentDate.getTime());
+
+        if (!dates.includes(strTime)) {
+          items[strTime] = [];
+        }
+
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
 
       this.setState({
         items,
@@ -68,7 +86,7 @@ export default class AgendaScreen extends Component {
         testID={testIDs.agenda.CONTAINER}
         items={this.state.items}
         loadItemsForMonth={this.loadItems}
-        selected={new Date().toString()}
+        selected={new Date('2023-05-04').toString()}
         minDate='2023-01-01'
         renderItem={this.renderItem}
         renderEmptyDate={this.renderEmptyDate}
@@ -81,24 +99,25 @@ export default class AgendaScreen extends Component {
   renderItem = (reservation, isFirst) => {
     // first event of the day is highlighted
     const fontSize = isFirst ? 16 : 14;
-    const color = isFirst ? 'black' : '#43515c';
+    const color = '#4b5963';
 
     return (
-      <TouchableOpacity
+      <View
         testID={testIDs.agenda.ITEM}
         style={[styles.item, { height: reservation.height }]}
-        onPress={() => Alert.alert(reservation.description)}
       >
+        <Text style={{ fontSize: 12, color: '#8b9fb0' }}>{reservation.startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {reservation.endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
         <Text style={{ fontSize, color }}>{reservation.name}</Text>
-      </TouchableOpacity>
+        <Text style={{ fontSize: 12, color: '#8b9fb0' }}>{reservation.description}</Text>
+      </View>
     );
   }
 
   renderEmptyDate = () => {
     return (
-      <View style={styles.emptyDate}>
-        <Text>.</Text>
-      </View>
+      <View
+        style={styles.separator}
+      />
     );
   }
 

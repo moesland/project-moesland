@@ -15,6 +15,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 30
   },
+  separator: {
+    height: 1,
+    backgroundColor: 'gray',
+    marginLeft: 5,
+    marginRight: 5,
+    opacity: 0.1,
+  },
 });
 
 export default styles;
