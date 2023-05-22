@@ -16,7 +16,6 @@ router.post('/', [
   body('description').trim().isString().notEmpty(),
   body('startdate').trim().isISO8601().notEmpty(),
   body('enddate').trim().isISO8601().notEmpty(),
-  body('location').trim().notEmpty(),
   body().custom((value, { req }) => {
     const startdate = new Date(req.body.startdate);
     const enddate = new Date(req.body.enddate);
@@ -32,13 +31,23 @@ router.post('/', [
   }
   try {
     const {
-      title, description, startdate, enddate, location,
+      title, description, startdate, enddate, location, isParade, latitude, longitude, radius,
     } = req.body;
 
     const event = await getEventByTitleAndDate(title, startdate);
 
     if (!event) {
-      await createEvent(title, description, startdate, enddate, location);
+      await createEvent(
+        title,
+        description,
+        startdate,
+        enddate,
+        location,
+        isParade,
+        latitude,
+        longitude,
+        radius,
+      );
       return res.status(201).send('Event created successfully!');
     }
     return res.status(409).send('Event already exists on this startdate');

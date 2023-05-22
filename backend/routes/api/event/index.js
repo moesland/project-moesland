@@ -7,14 +7,14 @@ router.use(express.json());
 
 router.get('/', async (req, res) => {
   try {
-    const { date } = req.query;
+    const { date, onlyParades } = req.query;
 
     if (date) {
       await getEventsByDate(date);
       return res.status(200).json(await getEventsByDate(date));
     }
 
-    return res.status(200).json(await getAllEvents());
+    return res.status(200).json(await getAllEvents(onlyParades));
   } catch (err) {
     return res.status(500).send('Error fetching events');
   }
