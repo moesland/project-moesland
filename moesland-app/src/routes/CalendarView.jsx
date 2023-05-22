@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Alert, Text, View, TouchableOpacity } from 'react-native';
+import { Text, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import styles from '../styles/CalendarStyles';
 import { testIDs } from '../constants/calendarTestIDs';
 import fetchEvents from '../services/EventApi';
+import {LocaleConfig} from 'react-native-calendars';
 
 export default class AgendaScreen extends Component {
   state = {
@@ -126,3 +127,25 @@ export default class AgendaScreen extends Component {
     return date.toISOString().split('T')[0];
   }
 }
+
+LocaleConfig.locales['nl'] = {
+  monthNames: [
+    'Januari',
+    'Februari',
+    'Maart',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Augustus',
+    'September',
+    'Oktober',
+    'November',
+    'December'
+  ],
+  monthNamesShort: ['Jan.', 'Feb.', 'Mrt.', 'Apr.', 'Mei', 'Jun.', 'Jul.', 'Aug.', 'Sept.', 'Okt.', 'Nov.', 'Dec.'],
+  dayNames: ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'],
+  dayNamesShort: ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'],
+  today: "Vandaag"
+};
+LocaleConfig.defaultLocale = 'nl';
