@@ -22,7 +22,7 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
                 <table className="table table-striped">
                     <thead>
                         <tr className="bg-moesland text-white">
-                            <th scope="col">Event</th>
+                            <th scope="col">Evenement</th>
                             <th scope="col">Categorie</th>
                             <th scope="col">Deelname</th>
                             <th scope="col">Nr.</th>
