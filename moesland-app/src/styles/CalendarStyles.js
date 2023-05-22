@@ -22,6 +22,19 @@ const styles = StyleSheet.create({
     marginRight: 5,
     opacity: 0.1,
   },
+  time: {
+    fontSize: 12,
+    color: '#8b9fb0',
+    fontWeight: 'bold',
+  },
+  title: {
+    fontSize: 16,
+    color: '#4b5963',
+  },
+  description: {
+    fontSize: 12,
+    color: '#8b9fb0',
+  },
 });
 
 export default styles;

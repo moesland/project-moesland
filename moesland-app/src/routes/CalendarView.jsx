@@ -97,18 +97,14 @@ export default class AgendaScreen extends Component {
   }
 
   renderItem = (reservation, isFirst) => {
-    // first event of the day is highlighted
-    const fontSize = isFirst ? 16 : 14;
-    const color = '#4b5963';
-
     return (
       <View
         testID={testIDs.agenda.ITEM}
         style={[styles.item, { height: reservation.height }]}
       >
-        <Text style={{ fontSize: 12, color: '#8b9fb0' }}>{reservation.startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {reservation.endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
-        <Text style={{ fontSize, color }}>{reservation.name}</Text>
-        <Text style={{ fontSize: 12, color: '#8b9fb0' }}>{reservation.description}</Text>
+        <Text style={styles.time}>{reservation.startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {reservation.endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
+        <Text style={styles.title}>{reservation.name}</Text>
+        <Text style={styles.description}>{reservation.description}</Text>
       </View>
     );
   }
