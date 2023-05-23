@@ -1,4 +1,3 @@
-import { BACKEND_URL } from '@env';
 import { Buffer } from 'buffer';
 import NewsItemModel from '../models/NewsItemModel';
 import NewsItemContentModel from '../models/NewsItemContentModel';
@@ -9,7 +8,7 @@ const generateUUID = () => {
 };
 
 const fetchNewsItemsFromBackend = async () => {
-  const response = await fetch(`${BACKEND_URL}/api/news-article`, { method: 'GET' });
+  const response = await fetch(`${process.env.BACKEND_URL}/api/news-article/`, { method: 'GET' });
   const json = await response.json();
   return json;
 };
