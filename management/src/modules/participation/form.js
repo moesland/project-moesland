@@ -101,7 +101,7 @@ const ModalForm = ({ onClose, isUpdate = false, data = null }) => {
                 </div>
                 <div className="form-group pt-3">
                     <label className="float-start">Startnummer</label>
-                    <input className="form-control" placeholder="Startnummer" name="startnumber" type="number" defaultValue={data ? data.startnumber : ''}></input>
+                    <input className="form-control" placeholder="Startnummer" name="startnumber" type="number" min={1} defaultValue={data ? data.startnumber : ''}></input>
                     {errors.startnumber && <p className="text-danger mb-0">{errors.startnumber}</p>}
                 </div>
             </div>
