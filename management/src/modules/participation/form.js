@@ -56,11 +56,11 @@ const ModalForm = ({ onClose, isUpdate = false, data = null }) => {
         }
 
         if (!event) {
-            newErrors.event = "Startnummer zijn verplicht";
+            newErrors.event = "Evenement zijn verplicht";
         }
 
         if (!category) {
-            newErrors.category = "Startnummer zijn verplicht";
+            newErrors.category = "Categorie zijn verplicht";
         }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
