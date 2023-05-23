@@ -39,7 +39,7 @@ const Participation = () => {
                 <h1 className="font-moesland">Deelnames</h1>
 
                 <div className="float-start mb-3">
-                    <button className="btn btn-moesland" onClick={toggleAddModal}>Nieuwe Deelnames</button>
+                    <button className="btn btn-moesland" onClick={toggleAddModal}>Nieuwe Deelname</button>
                 </div>
                 <Overview key={dataUpdated} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal} />
             </div>
