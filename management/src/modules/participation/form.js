@@ -12,7 +12,6 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
         BackendFetch('/api/event?isParade=true', 'GET', (eventData) => {
             const currentDate = new Date();
             const unfinishedEvents = eventData.filter(event => new Date(event.enddate) > currentDate);
-            console.log(unfinishedEvents);
             seteventOptions(unfinishedEvents);
         });
 
@@ -30,12 +29,11 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
         if (validateForm(formValues)) {
             const method = isUpdate ? 'PUT' : 'POST';
             const endpoint = data ? `/api/participation/${data._id}` : '/api/participation';
-    
+        
             await BackendFetch(endpoint, method, (d) => {
                 onClose(true);
             }, formValues);
         }
-       
     };
 
     const validateForm = (formValues) => {

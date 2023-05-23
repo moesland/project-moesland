@@ -26,6 +26,7 @@ router.post('/', [
     const createdParticipation = await participationRepo.add(newParticipation);
     return res.status(201).json(createdParticipation);
   } catch (err) {
+    res.status(422).json(err);
     return next(err);
   }
 });
