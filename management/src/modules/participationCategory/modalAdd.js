@@ -3,7 +3,6 @@
     import * as yup from 'yup';
     import { yupResolver } from '@hookform/resolvers/yup'
     import { BackendClientRequest } from "../../services/ApiClient";
-    import MapContainer from "../../components/map";
     import { SketchPicker } from 'react-color';
 
     const ModalAdd = ({ toggleModal, refreshOverview, date, isParade }) => {
@@ -15,10 +14,6 @@
             description: yup.string().min(5, "De omschrijving moet minimaal 5 karakters bevatten.").max(300).required("Dit veld mag niet leeg zijn."),
             color: yup.string().matches(/^#[0-9A-F]{6}$/i, "Dit veld moet een geldige hexadecimale kleur zijn, een # gevolgd door 6 karakters.").required("Dit veld mag niet leeg zijn."),
         });
-
-      //     return /^#[0-9A-F]{6}$/i.test(value);
-      // },
-      // message: (props) => `${props.value} is not a valid color, must be a # followed by 6 characters`,
 
         const { register, handleSubmit, formState: { errors }, setValue } = useForm({
             resolver: yupResolver(schema),
