@@ -45,9 +45,9 @@ router.post(
 
       if (!participationCategory) {
         await createParticipationCategory(name, description, color);
-        return res.status(201).send('Parade category created successfully.');
+        return res.status(201).send('Participation category created successfully.');
       }
-      return res.status(409).send('Parade category already exists with this name.');
+      return res.status(409).send('Participation category already exists with this name.');
     } catch (err) {
       return res.status(500).send(`Could not create category: ${err}`);
     }

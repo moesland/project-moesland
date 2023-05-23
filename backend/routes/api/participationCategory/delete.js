@@ -1,8 +1,8 @@
 const express = require('express');
 const escapeHtml = require('escape-html');
 const {
-  getParticipationCategoryByName,
   deleteParticipationCategory,
+  getParticipationCategoryById,
 } = require('../../../repository/participationCategory');
 
 const router = express.Router();
@@ -12,14 +12,14 @@ router.use(express.json());
 router.post('/', async (req, res) => {
   const { _id } = req.body;
   try {
-    const participationCategory = await getParticipationCategoryByName(_id);
+    const participationCategory = await getParticipationCategoryById(_id);
     if (participationCategory) {
       await deleteParticipationCategory(participationCategory);
-      return res.status(200).send('Parade category deleted successfully.');
+      return res.status(200).send('Participation category deleted successfully.');
     }
-    return res.status(404).send('Parade category doesn\'t exist.');
+    return res.status(404).send('Participation category doesn\'t exist.');
   } catch (err) {
-    return res.status(500).send(`Could not delete parade category: ${escapeHtml(err)}.`);
+    return res.status(500).send(`Could not delete participation category: ${escapeHtml(err)}.`);
   }
 });
 
