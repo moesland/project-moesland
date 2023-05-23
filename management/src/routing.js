@@ -25,7 +25,7 @@ const Routing = () => {
         <Route path='/events' element={<EventOverview/>} />
         <Route path='/users' element={<Management/>} />
         <Route path='/photo-management' element={<PhotoManagement/>} />
-        <Route path='/rejected-photo-management' element={<DeclinedPhotoManagement/>} />
+        <Route path='/declined-photo-management' element={<DeclinedPhotoManagement/>} />
         <Route path='/participation' element={<Participation/>} />
       </Route>
 
