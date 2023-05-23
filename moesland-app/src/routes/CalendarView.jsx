@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import styles from '../styles/CalendarStyles';
@@ -6,7 +6,7 @@ import { testIDs } from '../constants/calendarTestIDs';
 import fetchEvents from '../services/EventApi';
 import {LocaleConfig} from 'react-native-calendars';
 
-export default class AgendaScreen extends Component {
+export default class AgendaScreen extends PureComponent {
   state = {
     items: undefined
   };
@@ -97,15 +97,19 @@ export default class AgendaScreen extends Component {
     );
   }
 
-  renderItem = (reservation, isFirst) => {
+  renderItem = (eventItem) => {
+
+    let startTime = eventItem.startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    let endTime = eventItem.endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+
     return (
       <View
         testID={testIDs.agenda.ITEM}
-        style={[styles.item, { height: reservation.height }]}
+        style={[styles.item, { height: eventItem.height }]}
       >
-        <Text style={styles.time}>{reservation.startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {reservation.endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
-        <Text style={styles.title}>{reservation.name}</Text>
-        <Text style={styles.description}>{reservation.description}</Text>
+        <Text style={styles.time}>{startTime} - {endTime}</Text>
+        <Text style={styles.title}>{eventItem.name}</Text>
+        <Text style={styles.description}>{eventItem.description}</Text>
       </View>
     );
   }
@@ -118,8 +122,8 @@ export default class AgendaScreen extends Component {
     );
   }
 
-  rowHasChanged = (r1, r2) => {
-    return r1.name !== r2.name;
+  rowHasChanged = (prevItem, newItem) => {
+    return prevItem.name !== newItem.name;
   }
 
   timeToString(time) {
