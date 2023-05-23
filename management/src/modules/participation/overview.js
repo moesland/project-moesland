@@ -34,7 +34,7 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
                         {participationData.map(participation => (
                             <tr key={participation._id} >
                                 <th className="event-title">{participation.event.title}</th>
-                                <th className="category-name">{participation.category.name}</th>
+                                <th className="category-name">{participation.category?.name || "Geen categorie"}</th>
                                 <th className="name">{participation.name}</th>
                                 <th className="startnumber">{participation.startnumber}</th>
                                 <th className="w-25">
