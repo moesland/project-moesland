@@ -45,6 +45,8 @@ export const BackendFetch = async (path, method, callback, body = null, headers 
             body: body ? JSON.stringify(body) : undefined
         });
         
+        console.log(response)
+
         if (!response.ok) {
             throw new Error(`Request failed with status ${response.status}`);
         }

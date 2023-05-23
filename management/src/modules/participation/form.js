@@ -33,6 +33,8 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
             await BackendFetch(endpoint, method, (d) => {
                 onClose(true);
             }, formValues);
+
+            setErrors({general: "Startnummer bestaal al"});
         }
     };
 
@@ -58,6 +60,7 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
 
     return <CustomModal title={isUpdate ? "Deelname aanpassen" : "Deelnames toevoegen"} onClose={onClose}>
         <form onSubmit={handleSubmit}>
+            {errors.general && <p className="text-danger mb-0">{errors.general}</p>}
             <div className="mx-auto col-md-10">
                 <div className="form-group pt-3">
                     <label className="float-start">Evenement</label>
