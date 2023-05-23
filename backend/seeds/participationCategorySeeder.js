@@ -6,22 +6,22 @@ const paradeCategoryData = [
   {
     name: 'Carnavalswagens',
     description: 'Alle carnavalswagens',
-    color: '#00FF00', // Green
+    color: '#7ED321', // Green
   },
   {
     name: 'Individueel',
     description: 'Individuele deelnames',
-    color: '#0000FF', // Blue
+    color: '#4A90E2', // Blue
   },
   {
     name: 'Grote loopgroep',
-    description: 'Carnavalswagens kleiner dan x',
-    color: '#FFFF00', // Yellow
+    description: 'Loopgroep met meer dan x personen',
+    color: '#F8E71C', // Yellow
   },
   {
     name: 'Kleine loopgroep',
-    description: 'Carnavalswagens kleiner dan x',
-    color: '#FF0000', // Red
+    description: 'Loopgroep met minder dan x personen',
+    color: '#D0021B', // Red
   },
 ];
 
