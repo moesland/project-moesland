@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "../styles/custom.css";
 
-const CustomSelectSearch = ({ name, options, idField, labelField, defaultValue = '', defaultValueName = null}) => {
+const CustomSelectSearch = ({ name, options, idField, labelField, defaultValue = '', defaultValueName = null, enableSearch = false }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchOptions, setSearchOptions] = useState([]);
   const [selectedValue, setSelectedValue] = useState(defaultValue);
@@ -29,20 +29,23 @@ const CustomSelectSearch = ({ name, options, idField, labelField, defaultValue =
 
   return (
     <div className="form-inline mt-1">
-      <input
-        type="text"
-        className="form-control mr-2"
-        placeholder="Zoeken..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
-      <input
-        type="hidden"
-        name={name}
-        value={selectedValue}
-      />
+      {enableSearch && <>
+        <input
+          type="text"
+          className="form-control mr-2"
+          placeholder="Zoeken..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+        <input
+          type="hidden"
+          name={name}
+          value={selectedValue}
+        />
+      </>
+      }
       <select className="form-control mr-2" defaultValue={""} onChange={handleSelectChange}>
-      <option value="" disabled hidden>{defaultValueName ? defaultValueName : "Kies een optie..."}</option>
+        <option value="" disabled hidden>{defaultValueName ? defaultValueName : "Kies een optie..."}</option>
         {searchOptions.map((option) => (
           <option key={option[idField]} value={option[idField]}>
             {option[labelField]}
