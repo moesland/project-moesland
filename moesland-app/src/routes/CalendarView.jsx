@@ -4,7 +4,7 @@ import { Agenda } from 'react-native-calendars';
 import styles from '../styles/CalendarStyles';
 import { testIDs } from '../constants/calendarTestIDs';
 import fetchEvents from '../services/EventApi';
-import {LocaleConfig} from 'react-native-calendars';
+import { LocaleConfig } from 'react-native-calendars';
 
 export default class AgendaScreen extends PureComponent {
   state = {
@@ -107,7 +107,10 @@ export default class AgendaScreen extends PureComponent {
         testID={testIDs.agenda.ITEM}
         style={[styles.item, { height: eventItem.height }]}
       >
-        <Text style={styles.time}>{startTime} - {endTime}</Text>
+        <View style={styles.itemHeader}>
+          <Text style={styles.time}>{startTime} - {endTime}</Text>
+          <Text style={styles.time}>{eventItem.location}</Text>
+        </View>
         <Text style={styles.title}>{eventItem.name}</Text>
         <Text style={styles.description}>{eventItem.description}</Text>
       </View>

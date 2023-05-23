@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#8b9fb0',
   },
+  itemHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
