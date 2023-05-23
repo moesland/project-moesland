@@ -5,9 +5,6 @@ import ModalDelete from '../../../modules/participationCategory/modalDelete';
 
 const ParticipationCategoryOverview = () => {
   const [participationCategoryData, setParticipationCategoryData] = useState();
-
-  const [allParticipationCategories] = useState();
-
   const [selectedItem, setSelectedItem] = useState(undefined);
   const [ShowAddParticipationCategoryModal, setShowAddParticipationCategoryModal] = useState(false);
   const [ShowDeleteParticipationCategoryModal, setShowModalDelete] = useState(false);
