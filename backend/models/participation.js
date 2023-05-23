@@ -5,13 +5,13 @@ const participationScema = new mongoose.Schema({
     type: Number,
     required: true,
     validate: {
-      validator: async function (startnumber) {
+      async validator(startnumber) {
         const count = await mongoose.models.Participation.countDocuments({
           startnumber,
           event: this.event,
         });
 
-        return count === 0; 
+        return count === 0;
       },
       message: 'Startnumber must be unique within the event',
     },

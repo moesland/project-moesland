@@ -9,7 +9,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import './styles/style.css';
 import './assets/FredokaOne-Regular.ttf';
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>

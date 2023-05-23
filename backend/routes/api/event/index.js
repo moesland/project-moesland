@@ -7,7 +7,7 @@ router.use(express.json());
 
 router.get('/', async (req, res) => {
   try {
-    const { date, onlyParades } = req.query;
+    const { date } = req.query;
 
     if (date) {
       await getEventsByDate(date);
