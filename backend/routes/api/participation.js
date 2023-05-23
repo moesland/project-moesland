@@ -7,7 +7,7 @@ const router = express.Router();
 router.use(express.json());
 
 router.get('/', async (req, res) => {
-  res.status(200).json(await participationRepo.getAll());
+  res.status(200).json(await participationRepo.getAll(req.query));
 });
 
 router.post('/', [

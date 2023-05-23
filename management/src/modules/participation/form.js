@@ -9,8 +9,11 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
     const [errors, setErrors] = useState({});
     
     useEffect(() => {
-        BackendFetch('/api/event', 'GET', (eventData) => {
-            seteventOptions(eventData);
+        BackendFetch('/api/event?isParade=true', 'GET', (eventData) => {
+            const currentDate = new Date();
+            const unfinishedEvents = eventData.filter(event => new Date(event.enddate) > currentDate);
+            console.log(unfinishedEvents);
+            seteventOptions(unfinishedEvents);
         });
 
         BackendFetch('/api/parade-category', 'GET', (categoryData) => {
