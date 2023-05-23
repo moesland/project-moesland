@@ -29,7 +29,7 @@ const CustomSelectSearch = ({ name, options, idField, labelField, defaultValue =
 
   return (
     <div className="form-inline mt-1">
-      {enableSearch && <>
+      {enableSearch &&
         <input
           type="text"
           className="form-control mr-2"
@@ -37,13 +37,12 @@ const CustomSelectSearch = ({ name, options, idField, labelField, defaultValue =
           value={searchTerm}
           onChange={handleSearchChange}
         />
-        <input
-          type="hidden"
-          name={name}
-          value={selectedValue}
-        />
-      </>
       }
+      <input
+        type="hidden"
+        name={name}
+        value={selectedValue}
+      />
       <select className="form-control mr-2" defaultValue={""} onChange={handleSelectChange}>
         <option value="" disabled hidden>{defaultValueName ? defaultValueName : "Kies een optie..."}</option>
         {searchOptions.map((option) => (

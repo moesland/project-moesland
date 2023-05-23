@@ -3,11 +3,11 @@ import CustomModal from "../../components/customModal";
 import { useEffect, useState } from "react";
 import { BackendFetch } from "../../services/ApiClient";
 
-const ModalForm = ({onClose, isUpdate = false, data = null}) => {
+const ModalForm = ({ onClose, isUpdate = false, data = null }) => {
     const [eventOptions, seteventOptions] = useState([]);
     const [categorieOptions, setcategorieOptions] = useState([]);
     const [errors, setErrors] = useState({});
-    
+
     useEffect(() => {
         BackendFetch('/api/event?isParade=true', 'GET', (eventData) => {
             const currentDate = new Date();
@@ -29,31 +29,39 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
         if (validateForm(formValues)) {
             const method = isUpdate ? 'PUT' : 'POST';
             const endpoint = data ? `/api/participation/${data._id}` : '/api/participation';
-        
+
             await BackendFetch(endpoint, method, (d) => {
                 onClose(true);
             }, formValues);
 
-            setErrors({general: "Startnummer bestaal al"});
+            setErrors({ general: "Er zijn wat fouten" });
         }
     };
 
     const validateForm = (formValues) => {
-        const { name, startnumber} = formValues;
+        const { name, startnumber, event, category } = formValues;
+        console.log(formValues);
         const newErrors = {};
-    
+
         if (!name.trim()) {
-          newErrors.name = "Naam is required";
+            newErrors.name = "Naam zijn verplicht";
         }
-    
+
         if (!startnumber) {
-          newErrors.startnumber = "Startnummer is required";
-        } 
-        
-        if (startnumber <= 0) {
-          newErrors.startnumber = "Startnummer must be greater than 0";
+            newErrors.startnumber = "Startnummer zijn verplicht";
         }
-    
+
+        if (startnumber <= 0) {
+            newErrors.startnumber = "Startnummer moet groter zijn dan 0";
+        }
+
+        if (!event) {
+            newErrors.event = "Startnummer zijn verplicht";
+        }
+
+        if (!category) {
+            newErrors.category = "Startnummer zijn verplicht";
+        }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -64,25 +72,27 @@ const ModalForm = ({onClose, isUpdate = false, data = null}) => {
             <div className="mx-auto col-md-10">
                 <div className="form-group pt-3">
                     <label className="float-start">Evenement</label>
-                    <CustomSelectSearch 
-                        name={'event'} 
-                        options={eventOptions} 
-                        idField={'_id'} 
-                        labelField={'title'} 
+                    <CustomSelectSearch
+                        name={'event'}
+                        options={eventOptions}
+                        idField={'_id'}
+                        labelField={'title'}
                         defaultValue={data ? data.event._id : ''}
                         defaultValueName={data ? data.event.title : null}
                     />
+                    {errors.event && <p className="text-danger mb-0">{errors.event}</p>}
                 </div>
                 <div className="form-group pt-3">
                     <label className="float-start">Categorie</label>
-                    <CustomSelectSearch 
-                        name={'category'} 
-                        options={categorieOptions} 
-                        idField={'_id'} 
-                        labelField={'name'} 
+                    <CustomSelectSearch
+                        name={'category'}
+                        options={categorieOptions}
+                        idField={'_id'}
+                        labelField={'name'}
                         defaultValue={data ? data.category._id : ''}
                         defaultValueName={data ? data.category.name : null}
                     />
+                    {errors.category && <p className="text-danger mb-0">{errors.category}</p>}
                 </div>
                 <div className="form-group pt-3">
                     <label className="float-start">Naam</label>
