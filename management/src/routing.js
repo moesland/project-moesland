@@ -9,8 +9,8 @@ import Login from './pages/login';
 import Management from './pages/userManagement';
 import ArticleOverview from './pages/articles/overview';
 import EventOverview from './pages/events/overview';
-import PhotoManagement from './pages/photoManagement';
-import DeclinedPhotoManagement from './pages/declinedPhotoManagement';
+import PhotoManagement from './pages/photoManagement/photoManagement';
+import DeclinedPhotoManagement from './pages/photoManagement/declinedPhotoManagement';
 import Participation from './pages/participation';
 
 const Routing = () => {
