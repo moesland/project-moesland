@@ -9,8 +9,7 @@ const generateUUID = () => {
 };
 
 const fetchNewsItemsFromBackend = async () => {
-  // TODO: move ip to .env file in the future
-  const response = await fetch(`${BACKEND_URL}/api/news-article/`, { method: 'GET' });
+  const response = await fetch(`${BACKEND_URL}/api/news-article`, { method: 'GET' });
   const json = await response.json();
   return json;
 };
