@@ -17,8 +17,7 @@ module.exports = {
     });
     return event;
   },
-  async getAllEvents(onlyParades) {
-    const query = onlyParades ? { isParade: true } : {};
+  async getAllEvents(query) {
     return Event.find(query)
       .catch((err) => console.error(err));
   },
