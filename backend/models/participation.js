@@ -22,7 +22,7 @@ const participationScema = new mongoose.Schema({
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'ParadeParticipationCategory',
+    ref: 'ParticipationCategory',
   },
   event: {
     type: mongoose.Schema.Types.ObjectId,

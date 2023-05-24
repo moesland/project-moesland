@@ -15,7 +15,7 @@ const ModalForm = ({ onClose, isUpdate = false, data = null }) => {
             seteventOptions(unfinishedEvents);
         });
 
-        BackendFetch('/api/parade-category', 'GET', (categoryData) => {
+        BackendFetch('/api/participation-category', 'GET', (categoryData) => {
             setcategorieOptions(categoryData);
         });
     }, [])
