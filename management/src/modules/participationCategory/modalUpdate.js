@@ -14,6 +14,12 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
     };
 
     const onSubmit = async (data) => {
+        // If data doesn't contain a color, set the color to the current color.
+        // (When not hanging the color, the color in data will not be set)
+        if (!data.color) {
+            data.color = selectedItem.color;
+        }
+
         const path = "/api/participation-category/update";
         const body = JSON.stringify({
             id: selectedItem._id,
@@ -56,7 +62,7 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
                                     <small id="edit-participation-category-desc-error" className="form-text text-danger edit-participation-category-desc-error" >{errors.description?.message}</small>
                                 </div>
 
-                                <div className="form-group pt-3">
+                                <div className="form-group pt-3 pb-3">
                                     <label>Nieuwe kleur</label>
                                     <SketchPicker color={color}
                                                   // onChangeComplete={ handleChangeComplete } />

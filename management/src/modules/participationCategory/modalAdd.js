@@ -65,7 +65,7 @@
                                       <small id="edit-participation-category-name-error" className="form-text text-danger mt-3 edit-participation-category-name-error">{errors.name?.message}</small>
                                   </div>
 
-                                  <div className="form-group pt-3">
+                                  <div className="form-group pt-3 pb-3">
                                       <label>Nieuwe omschrijving</label>
                                       <textarea id="edit-participation-category-desc-id" className="form-control" placeholder="Omschrijving" name="edit-participation-category-desc-name" {...register("description")}></textarea>
                                       <small id="edit-participation-category-desc-error" className="form-text text-danger edit-participation-category-desc-error" >{errors.description?.message}</small>
