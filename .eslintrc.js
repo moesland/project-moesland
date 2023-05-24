@@ -24,5 +24,6 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-console': 'off',
     'linebreak-style': ['error', 'windows'],
+    'linebreak-style': ["error", "unix"],
   },
 };
