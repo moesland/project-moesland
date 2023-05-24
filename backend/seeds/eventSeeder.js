@@ -19,7 +19,7 @@ const eventData = [
     startdate: today,
     enddate: tomorrow,
     location: 'Stamcafe van Schaijk',
-    isParade: false
+    isParade: false,
   },
   {
     title: 'Optocht Moesland',
@@ -29,7 +29,7 @@ const eventData = [
     isParade: true,
     latitude: 51.74583,
     longitude: 5.63194,
-    radius: 300
+    radius: 300,
   },
 ];
 
