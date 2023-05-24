@@ -29,7 +29,7 @@ router.post('/', [
     const createdVote = await voteRepository.add(req.body);
     return res.status(201).json(createdVote);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
@@ -53,7 +53,7 @@ router.put('/:id', [
     }
     return res.status(200).json(updatedVote);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
@@ -66,7 +66,7 @@ router.delete('/:id', async (req, res, next) => {
     }
     return res.status(200).json(deletedVote);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 
