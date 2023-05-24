@@ -58,11 +58,11 @@ export default function Navbar() {
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle navbar-text-color" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Deelnames
+                                Deelnemers
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <li className="nav-item">
-                                    <a className="dropdown-item" href="/participation">Deelnames</a>
+                                    <a className="dropdown-item" href="/participation">Deelnemers</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="dropdown-item" href="/participation-category">Deelnamecategorieën</a>

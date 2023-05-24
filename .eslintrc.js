@@ -23,7 +23,6 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-param-reassign': 'off',
     'no-console': 'off',
-    'linebreak-style': ['error', 'windows'],
-    'linebreak-style': ["error", "unix"],
+    'linebreak-style': 0,
   },
 };

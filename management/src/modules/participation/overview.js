@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { BackendFetch } from "../../services/ApiClient";
 
 const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
-    const [participationData, setparticipationData] = useState(undefined);
+    const [participationData, setParticipationData] = useState(undefined);
 
     useEffect(() => {
         BackendFetch('/api/participation', 'GET', (data) => {
-            setparticipationData(data);
+            setParticipationData(data);
         });
     }, []);
 

@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 import { BackendFetch } from "../../services/ApiClient";
 
 const ModalForm = ({ onClose, isUpdate = false, data = null }) => {
-    const [eventOptions, seteventOptions] = useState([]);
-    const [categorieOptions, setcategorieOptions] = useState([]);
+    const [eventOptions, setEventOptions] = useState([]);
+    const [categoryOptions, setCategoryOptions] = useState([]);
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
         BackendFetch('/api/event?isParade=true', 'GET', (eventData) => {
             const currentDate = new Date();
             const unfinishedEvents = eventData.filter(event => new Date(event.enddate) > currentDate);
-            seteventOptions(unfinishedEvents);
+            setEventOptions(unfinishedEvents);
         });
 
         BackendFetch('/api/participation-category', 'GET', (categoryData) => {
-            setcategorieOptions(categoryData);
+            setCategoryOptions(categoryData);
         });
     }, [])
 
@@ -47,6 +47,10 @@ const ModalForm = ({ onClose, isUpdate = false, data = null }) => {
             newErrors.name = "Naam zijn verplicht";
         }
 
+        if (name.length < 3) {
+            newErrors.name = "Naam moet minimaal 3 karakters bevatten";
+        }
+
         if (!startnumber) {
             newErrors.startnumber = "Startnummer zijn verplicht";
         }
@@ -66,7 +70,7 @@ const ModalForm = ({ onClose, isUpdate = false, data = null }) => {
         return Object.keys(newErrors).length === 0;
     };
 
-    return <CustomModal title={isUpdate ? "Deelname aanpassen" : "Deelnames toevoegen"} onClose={onClose}>
+    return <CustomModal title={isUpdate ? "Deelname aanpassen" : "Deelnemers toevoegen"} onClose={onClose}>
         <form onSubmit={handleSubmit}>
             {errors.general && <p className="text-danger mb-0">{errors.general}</p>}
             <div className="mx-auto col-md-10">
@@ -86,7 +90,7 @@ const ModalForm = ({ onClose, isUpdate = false, data = null }) => {
                     <label className="float-start">Categorie</label>
                     <CustomSelectSearch
                         name={'category'}
-                        options={categorieOptions}
+                        options={categoryOptions}
                         idField={'_id'}
                         labelField={'name'}
                         defaultValue={data ? data.category._id : ''}
@@ -96,7 +100,7 @@ const ModalForm = ({ onClose, isUpdate = false, data = null }) => {
                 </div>
                 <div className="form-group pt-3">
                     <label className="float-start">Naam</label>
-                    <input className="form-control" placeholder="Naam" name="name" defaultValue={data ? data.name : ""}></input>
+                    <input className="form-control" placeholder="Naam" minLength={3} name="name" defaultValue={data ? data.name : ""}></input>
                     {errors.name && <p className="text-danger mb-0">{errors.name}</p>}
                 </div>
                 <div className="form-group pt-3">

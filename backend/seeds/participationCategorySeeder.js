@@ -10,7 +10,7 @@ const paradeCategoryData = [
   },
   {
     name: 'Individueel',
-    description: 'Individuele deelnames',
+    description: 'Individuele Deelnemers',
     color: '#4A90E2', // Blue
   },
   {
