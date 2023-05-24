@@ -23,5 +23,6 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-param-reassign': 'off',
     'no-console': 'off',
+    'linebreak-style': 0,
   },
 };

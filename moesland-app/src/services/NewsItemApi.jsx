@@ -1,7 +1,6 @@
-import { BACKEND_URL } from '@env';
 import { Buffer } from 'buffer';
-import NewsItemModel from './NewsItemModel';
-import NewsItemContentModel from './NewsItemContentModel';
+import NewsItemModel from '../models/NewsItemModel';
+import NewsItemContentModel from '../models/NewsItemContentModel';
 import uuid from 'react-native-uuid';
 
 const generateUUID = () => {
@@ -9,8 +8,7 @@ const generateUUID = () => {
 };
 
 const fetchNewsItemsFromBackend = async () => {
-  // TODO: move ip to .env file in the future
-  const response = await fetch(`${BACKEND_URL}/api/news-article/`, { method: 'GET' });
+  const response = await fetch(`${process.env.BACKEND_URL}/api/news-article/`, { method: 'GET' });
   const json = await response.json();
   return json;
 };
