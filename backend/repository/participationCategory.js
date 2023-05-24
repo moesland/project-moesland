@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const sanitize = require('mongo-sanitize');
 
 const ParticipationCategory = mongoose.model('ParticipationCategory');
 
@@ -19,9 +20,12 @@ module.exports = {
   },
 
   async updateParticipationCategoryById(id, name, description, color) {
+    const cleanName = sanitize(name);
+    const cleanDescription = sanitize(description);
+    const cleanColor = sanitize(color);
     return ParticipationCategory.findOneAndUpdate(
       { _id: { $eq: id } },
-      { name, color, description },
+      { name: cleanName, description: cleanDescription, color: cleanColor },
       { new: true },
     )
       .catch((err) => console.error(err));
