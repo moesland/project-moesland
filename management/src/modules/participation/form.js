@@ -70,7 +70,7 @@ const ModalForm = ({ onClose, isUpdate = false, data = null }) => {
         return Object.keys(newErrors).length === 0;
     };
 
-    return <CustomModal title={isUpdate ? "Deelname aanpassen" : "Deelnemers toevoegen"} onClose={onClose}>
+    return <CustomModal title={isUpdate ? "Deelnemer aanpassen" : "Deelnemers toevoegen"} onClose={onClose}>
         <form onSubmit={handleSubmit}>
             {errors.general && <p className="text-danger mb-0">{errors.general}</p>}
             <div className="mx-auto col-md-10">

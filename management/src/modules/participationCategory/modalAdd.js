@@ -55,7 +55,7 @@
                   <div className="modal-dialog" role="document">
                       <div className="modal-content">
                           <div className="modal-header bg-moesland text-white">
-                              <h5 className="modal-name ">Deelnamecategorie aanmaken</h5>
+                              <h5 className="modal-name ">Deelnemercategorie aanmaken</h5>
                           </div>
                           <form name="EditManagers" onSubmit={handleSubmit(onSubmit)}>
                               <div className="mx-auto  col-md-10">

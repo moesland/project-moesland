@@ -13,7 +13,7 @@ const ModalDelete = ({ onClose, data }) => {
 
     return <CustomModal title={"Verwijderen"} onClose={onClose}>
         <div className="modal-body">
-            <h3>Weet u zeker dat u deelname "{data.name}" wilt verwijderen?</h3>
+            <h3>Weet u zeker dat u Deelnemer "{data.name}" wilt verwijderen?</h3>
         </div>
 
         <div className="modal-footer mt-3">

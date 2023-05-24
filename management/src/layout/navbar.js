@@ -65,7 +65,7 @@ export default function Navbar() {
                                     <a className="dropdown-item" href="/participation">Deelnemers</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="dropdown-item" href="/participation-category">Deelnamecategorieën</a>
+                                    <a className="dropdown-item" href="/participation-category">Deelnemercategorieën</a>
                                 </li>
                             </ul>
                         </li>

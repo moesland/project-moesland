@@ -25,11 +25,11 @@ const ModalDelete = ({ toggleModal, selectedItem, refreshOverview }) => {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header bg-moesland text-white">
-                            <h5 className="modal-title">Deelnamecategorie verwijderen </h5>
+                            <h5 className="modal-title">Deelnemercategorie verwijderen </h5>
                         </div>
                         <form>
                             <div className="modal-body">
-                                <p className="deleteModalText">Weet u zeker dat u deze deelnamecategorie wilt verwijderen?</p>
+                                <p className="deleteModalText">Weet u zeker dat u deze Deelnemercategorie wilt verwijderen?</p>
                             </div>
                             <div className="modal-footer">
                                 <button onClick={deleteManager} type="button" className="btn btn btn-danger">Verwijderen</button>
