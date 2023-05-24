@@ -23,9 +23,9 @@ router.use('/api/user/role', require('./api/user/role'));
 router.use('/api/news-article', requestLimiter, require('./api/newsArticle'));
 
 router.use('/api/participation-category', requestLimiter, require('./api/participationCategory/index'));
-router.use('/api/participation-category/create', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/participationCategory/create'));
-router.use('/api/participation-category/delete', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/participationCategory/delete'));
-router.use('/api/participation-category/update', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/participationCategory/update'));
+router.use('/api/participation-category/create', requestLimiter, require('./api/participationCategory/create'));
+router.use('/api/participation-category/delete', requestLimiter, require('./api/participationCategory/delete'));
+router.use('/api/participation-category/update', requestLimiter, require('./api/participationCategory/update'));
 
 router.use('/api/user-image', require('./api/userImage'));
 
