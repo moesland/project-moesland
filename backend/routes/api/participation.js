@@ -7,7 +7,7 @@ const router = express.Router();
 router.use(express.json());
 
 router.get('/', async (req, res) => {
-  res.status(200).json(await participationRepo.getAll());
+  res.status(200).json(await participationRepo.getAll(req.query));
 });
 
 router.post('/', [
@@ -26,6 +26,7 @@ router.post('/', [
     const createdParticipation = await participationRepo.add(newParticipation);
     return res.status(201).json(createdParticipation);
   } catch (err) {
+    res.status(422).json(err);
     return next(err);
   }
 });

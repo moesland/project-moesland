@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { BackendFetch } from "../../services/ApiClient";
 
 const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
-    const [participationData, setparticipationData] = useState(undefined);
+    const [participationData, setParticipationData] = useState(undefined);
 
     useEffect(() => {
         BackendFetch('/api/participation', 'GET', (data) => {
-            setparticipationData(data);
+            setParticipationData(data);
         });
     }, []);
 
@@ -22,9 +22,9 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
                 <table className="table table-striped">
                     <thead>
                         <tr className="bg-moesland text-white">
-                            <th scope="col">Event</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">deelname</th>
+                            <th scope="col">Evenement</th>
+                            <th scope="col">Categorie</th>
+                            <th scope="col">Deelnemer</th>
                             <th scope="col">Nr.</th>
                             <th scope="col">Acties</th>
                         </tr>

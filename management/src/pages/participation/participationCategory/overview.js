@@ -43,14 +43,14 @@ const ParticipationCategoryOverview = () => {
   return (
     <>
       <div className="container">
-        <h1 className="text-center font-moesland">Deelnamecategorieën</h1>
+        <h1 className="text-center font-moesland">Deelnemercategorieën</h1>
 
         <div className="row">
           <div className="col">
             <div className="mb-3">
               <button onClick={createParticipationCategory} type="button"
                       className="btn btn-moesland">
-                Nieuwe deelnamecategorie
+                Nieuwe Deelnemercategorie
               </button>
             </div>
             {participationCategoryData &&
@@ -87,7 +87,7 @@ const ParticipationCategoryOverview = () => {
                     ))}
                     </tbody>
                   </table>) :
-                  (<table><p>Geen deelnamecategorieën.</p></table>)
+                  (<table><p>Geen Deelnemercategorieën.</p></table>)
                 }
               </div>
             }
