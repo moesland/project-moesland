@@ -195,7 +195,7 @@ const EventOverview = () => {
                                             </td>
                                             {!event.isParade ? (
                                                 <td className="location">{event.location}</td>
-                                            ) : (
+                                            ) : (event.longitude && event.latitude && event.radius &&
                                                 <td className="location">Long/lat: {event.longitude.toFixed(3)}; {event.latitude.toFixed(3)}, Radius: {event.radius}m</td>
                                             )}
                                             <td>
