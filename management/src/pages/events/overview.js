@@ -58,7 +58,7 @@ const EventOverview = () => {
     };
 
     const getAllEvents = async () => {
-        const isOnlyParades = onlyParades === true ? '?onlyParades=true' : '';
+        const isOnlyParades = onlyParades === true ? '?isParade=true' : '';
 
         await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + `/api/event${isOnlyParades}`, { method: 'GET' })
             .then(response => response.json())
