@@ -9,6 +9,10 @@ const voteSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'ParticipationCategory',
   },
+  event: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Event',
+  },
   deviceId: {
     type: String,
     required: true,
@@ -19,6 +23,6 @@ const voteSchema = mongoose.Schema({
   },
 });
 
-voteSchema.index({ category: 1, deviceId: 1 }, { unique: true });
+voteSchema.index({ category: 1, deviceId: 1, event: 1 }, { unique: true });
 
 module.exports = mongoose.model('Vote', voteSchema);
