@@ -193,7 +193,11 @@ const EventOverview = () => {
                                             <td className="enddate">
                                                 {getUsableDatesAndTimes(event.enddate).altDate} {getUsableDatesAndTimes(event.enddate).time}
                                             </td>
-                                            <td className="location">{event.location}</td>
+                                            {!event.isParade ? (
+                                                <td className="location">{event.location}</td>
+                                            ) : (event.longitude && event.latitude && event.radius &&
+                                                <td className="location">Long/lat: {event.longitude.toFixed(3)}; {event.latitude.toFixed(3)}, Radius: {event.radius}m</td>
+                                            )}
                                             <td>
                                                 <button onClick={() => ToggleShowDeleteEventModal(event)} className="btn btn-danger mx-2">Verwijderen</button>
                                                 <button onClick={() => ToggleShowUpdateEventModal(event)} className="btn btn-moesland">Aanpassen</button>
