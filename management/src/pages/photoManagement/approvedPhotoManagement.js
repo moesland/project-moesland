@@ -82,14 +82,7 @@ export default function ApprovedPhotoManagement() {
         if (selectedImages.length === 1) {
             const index = images.findIndex(i => i.userImageId === selectedImages[0]);
             const image = images[index];
-            const data = image.original;
-
-            const link = document.createElement('a');
-            link.href = data;
-            link.download = `${image.originalAlt}.jpg`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            downloadSingle(image);
 
             return;
         }
@@ -115,6 +108,16 @@ export default function ApprovedPhotoManagement() {
                 link.download = 'images.zip';
                 link.click();
             });
+    };
+
+    const downloadSingle = async (image) => {
+        const data = image.original;
+        const link = document.createElement('a');
+        link.href = data;
+        link.download = `${image.originalAlt}.jpg`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     };
 
     const changeSelection = (id) => {
@@ -146,11 +149,14 @@ export default function ApprovedPhotoManagement() {
                                     <td className="col-1 d-flex justify-content-end">
                                         <input type="checkbox" className="form-check-input" onChange={() => changeSelection(i.userImageId)} />
                                     </td>
-                                    <td className="col-8">
-                                        <img className="w-25"
+                                    <td className="col-2 p-0">
+                                        <img className="w-100"
                                             src={i.original}
                                             alt={i.originalAlt}
                                             data-description={i.description} />
+                                    </td>
+                                    <td className="col-4">
+                                        <button className="btn btn-primary" onClick={() => downloadSingle(i)}>Download</button>
                                     </td>
                                 </tr>
                             ))}
