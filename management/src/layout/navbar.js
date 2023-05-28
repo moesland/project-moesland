@@ -49,7 +49,7 @@ export default function Navbar() {
                                     <a className="dropdown-item" href="/photo-management">Te keuren foto's</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="dropdown-item" href="#">Goedgekeurde foto's</a>
+                                    <a className="dropdown-item" href="/approved-photo-management">Goedgekeurde foto's</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="dropdown-item" href="/declined-photo-management">Afgekeurde foto's</a>
