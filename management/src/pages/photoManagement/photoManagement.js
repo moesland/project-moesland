@@ -49,24 +49,24 @@ export default function PhotoManagement() {
     }
 
     const approveItem = async (item) => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
         const headers = new Headers({
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
         });
         const body = JSON.stringify({ id: item.userImageId });
 
         const index = images.findIndex(i => i.userImageId === item.userImageId);
         const data = images[index].original;
-        const link = document.createElement("a");
+        const link = document.createElement('a');
         link.href = data;
-        link.download = `${images[index].originalAlt}.png`;
+        link.download = `${images[index].originalAlt}.jpg`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user-image/approve", {
-            method: "POST",
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/approve', {
+            method: 'POST',
             body: body,
             headers: headers,
         });
