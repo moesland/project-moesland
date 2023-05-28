@@ -40,7 +40,7 @@ export default function PhotoManagement() {
             'Authorization': 'Bearer ' + token
         });
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?isPending=true', { method: 'GET', headers: headers })
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?approvalStatus=pending', { method: 'GET', headers: headers })
             .then(response => response.json())
             .then(data => {
                 setGalleryImages(data);

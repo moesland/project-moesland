@@ -40,7 +40,7 @@ export default function DeclinedPhotoManagement() {
             'Authorization': 'Bearer ' + token
         });
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?isDeclined=true', { method: 'GET', headers: headers })
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?approvalStatus=declined', { method: 'GET', headers: headers })
             .then(response => response.json())
             .then(data => {
                 setGalleryImages(data);

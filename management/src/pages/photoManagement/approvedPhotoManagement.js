@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Buffer } from 'buffer';
 
 export default function ApprovedPhotoManagement() {
-    const images = [];
+    const [images, setImages] = useState([]);
     const [galleryImages, setGalleryImages] = useState([]);
     const [fetched, setFetched] = useState(false);
 
@@ -15,6 +15,8 @@ export default function ApprovedPhotoManagement() {
     }, [fetched]);
 
     const refreshData = () => {
+        const images = [];
+
         if (galleryImages && galleryImages.length !== 0) {
             galleryImages.forEach(i => {
                 const data = `data:${i.image.contentType};base64,${Buffer.from(i.image.data)}`;
@@ -28,6 +30,8 @@ export default function ApprovedPhotoManagement() {
                 });
             });
         }
+
+        setImages(images);
     }
 
     const fetchUserImages = async () => {
@@ -38,7 +42,7 @@ export default function ApprovedPhotoManagement() {
             'Authorization': 'Bearer ' + token
         });
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?isApproved=true', { method: 'GET', headers: headers })
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?approvalStatus=approved', { method: 'GET', headers: headers })
             .then(response => response.json())
             .then(data => {
                 setGalleryImages(data);
