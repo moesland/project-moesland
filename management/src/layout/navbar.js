@@ -1,14 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { BackendFetch } from "../services/ApiClient";
 
 export default function Navbar() {
     const navigate = useNavigate();
     const [user, setUser] = useState('');
+    const [isSuperadmin, setIsSuperadmin] = useState(false);
 
     useEffect(() => {
         const loggedInUser = localStorage.getItem('user');
         if (loggedInUser) {
             setUser(`Welkom ${loggedInUser}!`);
+
+            BackendFetch(`/api/user/role/?username=${loggedInUser}`, 'GET', (eventData) => {
+                if(eventData.rolename === "SuperAdmin")
+                    setIsSuperadmin(true);
+            });   
         }
     }, [user]);
 
@@ -31,9 +38,11 @@ export default function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link navbar-text-color" aria-current="page" href="/">Home</a>
                         </li>
+                        {isSuperadmin && (
                         <li className="nav-item">
                             <a className="nav-link navbar-text-color" href="/users">Beheerders</a>
                         </li>
+                        )}
                         <li className="nav-item">
                             <a className="nav-link navbar-text-color" href="/articles">Nieuwsartikelen</a>
                         </li>
