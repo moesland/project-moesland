@@ -1,39 +1,27 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { Alert, View } from 'react-native';
-import { Button } from 'react-native-elements';
-import { BACKEND_URL } from '@env';
+import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import PhotoContent from './PhotoContentView';
+import { fetchAlbums } from '../services/FlickrApi';
 
 export default MediaView = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [albums, setAlbums] = useState([]);
 
-  const uploadImage = async () => {
-    const url = `${BACKEND_URL}/api/user-image/create`;
-    axios.post(url, selectedImage).then((response) => {
-      if (response.status == 200) {
-        cancelImage();
-        Alert.alert('Melding', `${selectedImage.name} is upgeload!`);
-      }
-    }).catch((error) => {
-      // console.log(error);
-    });
-  };
+  useEffect(() => {
+    const getAlbums = async () => {
+      const albums = await fetchAlbums();
+      setAlbums(albums);
+    };
 
-  const cancelImage = () => {
-    setSelectedImage(null);
-  };
+    getAlbums();
+  }, []);
 
   return (
     <View>
-      <PhotoContent setImage={setSelectedImage} />
-      {selectedImage
-                && (
-                <View>
-                  <Button onPress={uploadImage} title="Upload" />
-                  <Button onPress={cancelImage} title="Annuleren" />
-                </View>
-                )}
+      {albums.map(album => {
+        <Text key={album.id}>{album.id}</Text>
+      })}
+
+      <PhotoContent />
     </View>
   );
 };
