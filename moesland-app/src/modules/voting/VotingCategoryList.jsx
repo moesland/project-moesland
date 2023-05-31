@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, Text, View, ScrollView, FlatList, Pressable } from 'react-native';
 import styles from '../../styles/votingStyles';
+import VotingItem from './VotingItems';
 
 const VotingCategoryList = () => {
     const [display, setDisplay] = useState(false);
@@ -34,7 +35,7 @@ const VotingCategoryList = () => {
             {display &&
                 <FlatList
                     data={DATA}
-                    renderItem={({ item }) => <Text> {item.title} </Text>}
+                    renderItem={({ item }) => <VotingItem />}
                     extraData={item => item.id}
                 />
             }
