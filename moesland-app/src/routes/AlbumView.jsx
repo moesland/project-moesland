@@ -28,13 +28,14 @@ export default AlbumView = (props) => {
     const imageSrc = `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`;
 
     return (
-      <View style={styles.container}>
-        <Pressable key={item.id} style={styles.photo} onPress={() => navigation.navigate('PhotoView', {
-          imageSrc: imageSrc,
-        })}>
-          <Image source={{ uri: imageSrc }} style={styles.photo} />
-        </Pressable>
-      </View>
+
+      <Pressable key={item.id} style={styles.itemContainer} onPress={() => navigation.navigate('PhotoView', {
+        imageSrc: imageSrc,
+      })}>
+      <Image source={{ uri: imageSrc }} style={styles.image} />
+  </Pressable>
+
+
     );
   });
 

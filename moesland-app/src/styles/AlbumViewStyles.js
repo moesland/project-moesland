@@ -2,19 +2,16 @@ import { Dimensions, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
+    padding: 8,
+  },
+  itemContainer: {
     flex: 1,
     margin: 2,
-    height: Dimensions.get('window').width / 3 - 4,
+    overflow: 'hidden',
   },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    margin: 6,
-    textAlign: 'center',
-  },
-  photo: {
-    flex: 1,
-    resizeMode: 'cover',
+  image: {
+    width: '100%',
+    height: 150,
   },
 });
 
