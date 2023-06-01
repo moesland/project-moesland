@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, Image, Pressable, RefreshControl } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { fetchPhotosForAlbum } from '../../services/FlickrApi';
-import styles from '../../styles/components/AlbumStyles';
+import AlbumPhotoItem from './AlbumPhotoItem';
 
 export default Album = ({ navigation, route }) => {
   const [photos, setPhotos] = useState([]);
@@ -27,11 +27,7 @@ export default Album = ({ navigation, route }) => {
     const imageSrc = `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`;
 
     return (
-      <Pressable key={item.id} style={styles.itemContainer} onPress={() => navigation.navigate('PhotoView', {
-        imageSrc: imageSrc,
-      })}>
-        <Image source={{ uri: imageSrc }} style={styles.image} />
-      </Pressable>
+      <AlbumPhotoItem navigation={navigation} photo={item} imageSrc={imageSrc} />
     );
   });
 
