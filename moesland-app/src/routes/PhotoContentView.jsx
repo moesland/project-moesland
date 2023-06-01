@@ -22,16 +22,13 @@ const getMimeTypeFromExtension = (filePath) => {
 export default PhotoContent = () => {
   const takePicture = async () => {
     try {
-      const { status } = await Camera.requestCameraPermissionsAsync(); // Request camera permission from expo-camera
+      await Camera.requestCameraPermissionsAsync(); // Request camera permission from expo-camera
 
-      //if (status === 'granted') {
-        // Permission granted, proceed with launching the camera
-        const result = await ImagePicker.launchCameraAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          quality: 0.9,
-        });
-      //}
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 0.9,
+      });
 
       const image = result.assets[0];
       const imageUri = image.uri;
