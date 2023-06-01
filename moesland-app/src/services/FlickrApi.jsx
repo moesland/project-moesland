@@ -1,6 +1,7 @@
+const apiKey = process.env.FLICKR_API_KEY;
+const userId = '139654880@N02';
+
 const fetchAlbums = async () => {
-    const apiKey = process.env.FLICKR_API_KEY;
-    const userId = '139654880@N02';
     const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getList&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1`;
 
     try {
@@ -19,4 +20,23 @@ const fetchAlbums = async () => {
     }
 };
 
-export { fetchAlbums };
+const fetchPhotosForAlbum = async (albumId) => {
+    const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=${albumId.route.params.albumId}&format=json&nojsoncallback=1`;
+
+    try {
+        const response = await fetch(apiUrl);
+        const result = await response.json();
+        if (result.stat === 'ok') {
+            const photos = result.photoset.photo;
+            return photos;
+        } else {
+            console.error('Error:', result.message);
+            return [];
+        }
+    } catch (err) {
+        console.error(err);
+        return [];
+    }
+};
+
+export { fetchAlbums, fetchPhotosForAlbum };

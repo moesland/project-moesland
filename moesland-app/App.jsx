@@ -8,6 +8,7 @@ import NewsItemListView from './src/routes/NewsItemListView';
 import NewsItemDetailView from './src/routes/NewsItemDetailView';
 import ToolbarView from './src/components/ToolbarView';
 import MediaView from './src/routes/MediaView';
+import AlbumView from './src/routes/AlbumView';
 import CalendarView from './src/routes/CalendarView';
 import VotingView from './src/routes/VotingView';
 import ContactView from './src/routes/ContactView';
@@ -25,6 +26,19 @@ export default function App() {
       >
         <Stack.Screen name="NewsItemListView" component={NewsItemListView} />
         <Stack.Screen name="NewsItemDetailView" component={NewsItemDetailView} />
+      </Stack.Navigator>
+    );
+  }
+
+  function MediaStack() {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="MediaView" component={MediaView} />
+        <Stack.Screen name="AlbumView" component={AlbumView} />
       </Stack.Navigator>
     );
   }
@@ -65,7 +79,7 @@ export default function App() {
       >
         <Tab.Screen name="Nieuws" component={NewsStack} />
         <Tab.Screen name="Agenda" component={CalendarView} />
-        <Tab.Screen name="Media" component={MediaView} />
+        <Tab.Screen name="Media" component={MediaStack} />
         <Tab.Screen name="Stemmen" component={VotingView} />
         <Tab.Screen name="Contact" component={ContactView} />
       </Tab.Navigator>

@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, RefreshControl, Text, View } from 'react-native';
+import { FlatList, Pressable, RefreshControl, Text, View } from 'react-native';
 import PhotoContent from './PhotoContentView';
 import { fetchAlbums } from '../services/FlickrApi';
+import styles from '../styles/MediaViewStyles';
 
-export default MediaView = () => {
+export default MediaView = ({ navigation }) => {
   const [albums, setAlbums] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -13,6 +14,12 @@ export default MediaView = () => {
 
   const getAlbums = async () => {
     const albums = await fetchAlbums();
+    albums.sort((a, b) => {
+      const dateA = new Date(parseInt(a.date_update, 10) * 1000);
+      const dateB = new Date(parseInt(b.date_update, 10) * 1000);
+      return dateB - dateA;
+    });
+    
     setAlbums(albums);
   };
 
@@ -24,9 +31,12 @@ export default MediaView = () => {
 
   const renderItem = useCallback(({ item }) => {
     return (
-      <View>
-        {console.log(item.id)}
-        <Text>{item.id}</Text>
+      <View style={styles.albumList}>
+        <Pressable key={item.id} style={styles.album} onPress={() => navigation.navigate('AlbumView', {
+          albumId: item.id,
+        })}>
+          <Text>{item.title._content}</Text>
+        </Pressable>
       </View>
     );
   });

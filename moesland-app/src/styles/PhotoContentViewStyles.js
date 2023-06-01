@@ -3,7 +3,7 @@ import { COLOR_WHITE, MOESLAND_GREEN } from '../constants/colors';
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    height: '10%',
     justifyContent: 'center',
   },
   button: {
