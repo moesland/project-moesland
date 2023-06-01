@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Image, Pressable, RefreshControl, Text, View } from 'react-native';
-import PhotoContent from './PhotoContentView';
+import PhotoUpload from '../components/Media/PhotoUpload';
 import { fetchAlbums, fetchCoverPhotoForAlbum } from '../services/FlickrApi';
-import styles from '../styles/MediaViewStyles';
+import styles from '../styles/views/MediaViewStyles';
 
 export default MediaView = ({ navigation }) => {
   const [albums, setAlbums] = useState([]);
@@ -76,7 +76,7 @@ export default MediaView = ({ navigation }) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
-      <PhotoContent />
+      <PhotoUpload />
     </View>
   );
 };

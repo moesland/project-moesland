@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLOR_WHITE, MOESLAND_GREEN } from '../constants/colors';
+import { COLOR_WHITE, MOESLAND_GREEN } from '../../constants/colors';
 
 const styles = StyleSheet.create({
   container: {

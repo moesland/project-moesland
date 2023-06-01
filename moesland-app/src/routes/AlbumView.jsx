@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Image, Pressable, RefreshControl, Text, View } from 'react-native';
 import { fetchPhotosForAlbum } from '../services/FlickrApi';
-import styles from '../styles/AlbumViewStyles';
+import styles from '../styles/views/AlbumViewStyles';
 
 export default AlbumView = (props) => {
   const [photos, setPhotos] = useState([]);

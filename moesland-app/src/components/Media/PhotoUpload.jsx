@@ -2,23 +2,10 @@ import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import { BACKEND_URL } from '@env';
-import styles from '../styles/PhotoContentViewStyles';
+import styles from '../../styles/components/PhotoUploadViewStyles';
+import { uploadUserImage } from '../../services/UserImageApi';
 
-const getMimeTypeFromExtension = (filePath) => {
-  const extension = filePath.split('.').pop().toLowerCase();
-  switch (extension) {
-    case 'jpg':
-    case 'jpeg':
-      return 'image/jpeg';
-    case 'png':
-      return 'image/png';
-    default:
-      return null;
-  }
-};
-
-export default PhotoContent = () => {
+export default PhotoUpload = () => {
   const takePicture = async () => {
     try {
       const result = await ImagePicker.launchCameraAsync({
@@ -36,21 +23,22 @@ export default PhotoContent = () => {
       const imageData = response;
       const imageType = getMimeTypeFromExtension(image.uri);
 
-      await fetch(`${BACKEND_URL}/api/user-image/create`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          image: {
-            name: imageName,
-            data: imageData,
-            contentType: imageType,
-          },
-        }),
-      });
+      await uploadUserImage(imageName, imageData, imageType);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const getMimeTypeFromExtension = (filePath) => {
+    const extension = filePath.split('.').pop().toLowerCase();
+    switch (extension) {
+      case 'jpg':
+      case 'jpeg':
+        return 'image/jpeg';
+      case 'png':
+        return 'image/png';
+      default:
+        return null;
     }
   };
 
