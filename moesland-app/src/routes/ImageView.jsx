@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Image } from 'react-native';
-import styles from '../styles/ImageScreenStyles';
+import styles from '../styles/ImageViewStyles';
 
 const ImageScreen = ({ route }) => {
   const { image } = route.params;
