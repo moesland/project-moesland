@@ -6,6 +6,7 @@ import styles from '../styles/AlbumViewStyles';
 export default AlbumView = (props) => {
   const [photos, setPhotos] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const navigation = props.navigation;
   const { albumName, albumId } = props.route.params;
 
   useEffect(() => {
@@ -24,10 +25,14 @@ export default AlbumView = (props) => {
   });
 
   const renderItem = useCallback(({ item }) => {
+    const imageSrc = `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`;
+
     return (
       <View style={styles.container}>
-        <Pressable key={item.id} style={styles.photo}>
-          <Image source={{ uri: `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg` }} style={styles.photo} />
+        <Pressable key={item.id} style={styles.photo} onPress={() => navigation.navigate('PhotoView', {
+          imageSrc: imageSrc,
+        })}>
+          <Image source={{ uri: imageSrc }} style={styles.photo} />
         </Pressable>
       </View>
     );

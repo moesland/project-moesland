@@ -9,6 +9,7 @@ import NewsItemDetailView from './src/routes/NewsItemDetailView';
 import ToolbarView from './src/components/ToolbarView';
 import MediaView from './src/routes/MediaView';
 import AlbumView from './src/routes/AlbumView';
+import PhotoView from './src/routes/PhotoView';
 import CalendarView from './src/routes/CalendarView';
 import VotingView from './src/routes/VotingView';
 import ContactView from './src/routes/ContactView';
@@ -39,6 +40,7 @@ export default function App() {
       >
         <Stack.Screen name="MediaView" component={MediaView} />
         <Stack.Screen name="AlbumView" component={AlbumView} />
+        <Stack.Screen name="PhotoView" component={PhotoView} />
       </Stack.Navigator>
     );
   }
