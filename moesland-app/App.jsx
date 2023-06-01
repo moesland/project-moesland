@@ -11,6 +11,9 @@ import MediaView from './src/routes/MediaView';
 import CalendarView from './src/routes/CalendarView';
 import VotingView from './src/routes/VotingView';
 import ContactView from './src/routes/ContactView';
+import PhotoAlbumView from './src/routes/PhotoAlbum';
+import AlbumPageView from './src/routes/AlbumPage';
+import ImageView from './src/routes/ImageView';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,6 +28,8 @@ export default function App() {
       >
         <Stack.Screen name="NewsItemListView" component={NewsItemListView} />
         <Stack.Screen name="NewsItemDetailView" component={NewsItemDetailView} />
+        <Stack.Screen name="AlbumPage" component={AlbumPageView} />
+        <Stack.Screen name="ImageScreen" component={ImageView} />
       </Stack.Navigator>
     );
   }
@@ -47,6 +52,8 @@ export default function App() {
               iconName = focused ? 'thumbs-up' : 'thumbs-up-outline';
             } else if (route.name === 'Contact') {
               iconName = focused ? 'mail' : 'mail-outline';
+            } else if (route.name === 'Galerij') {
+              iconName = focused ? 'images' : 'images-outline';
             }
 
             return <Ionicons name={iconName} size={25} color={MOESLAND_GREEN} />;
@@ -66,6 +73,7 @@ export default function App() {
         <Tab.Screen name="Nieuws" component={NewsStack} />
         <Tab.Screen name="Agenda" component={CalendarView} />
         <Tab.Screen name="Media" component={MediaView} />
+        <Tab.Screen name="Galerij" component={PhotoAlbumView} />
         <Tab.Screen name="Stemmen" component={VotingView} />
         <Tab.Screen name="Contact" component={ContactView} />
       </Tab.Navigator>
