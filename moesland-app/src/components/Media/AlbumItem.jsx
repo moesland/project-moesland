@@ -7,7 +7,7 @@ export default AlbumItem = ({ navigation, album, coverPhoto }) => {
       albumName: album.title._content, albumId: album.id,
     })}>
       <View style={styles.imageContainer}>
-        {<Image source={{ uri: coverPhoto }} style={styles.image} />}
+        <Image source={{ uri: coverPhoto }} style={styles.image} />
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.title}>{album.title._content}</Text>
