@@ -4,46 +4,46 @@ import { fetchPhotosForAlbum } from '../../services/FlickrApi';
 import styles from '../../styles/components/AlbumStyles';
 
 export default Album = ({ navigation, route }) => {
-    const [photos, setPhotos] = useState([]);
-    const [refreshing, setRefreshing] = useState(false);
-    const { albumId } = route.params;
+  const [photos, setPhotos] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const { albumId } = route.params;
 
-    useEffect(() => {
-        getPhotosForAlbum();
-    }, []);
+  useEffect(() => {
+    getPhotosForAlbum();
+  }, []);
 
-    const getPhotosForAlbum = async () => {
-        const photos = await fetchPhotosForAlbum(albumId);
-        setPhotos(photos);
-    };
+  const getPhotosForAlbum = async () => {
+    const photos = await fetchPhotosForAlbum(albumId);
+    setPhotos(photos);
+  };
 
-    const onRefresh = useCallback(async () => {
-        setRefreshing(true);
-        await getPhotosForAlbum();
-        setRefreshing(false);
-    });
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await getPhotosForAlbum();
+    setRefreshing(false);
+  });
 
-    const renderItem = useCallback(({ item }) => {
-        const imageSrc = `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`;
-
-        return (
-            <Pressable key={item.id} style={styles.itemContainer} onPress={() => navigation.navigate('PhotoView', {
-                imageSrc: imageSrc,
-            })}>
-                <Image source={{ uri: imageSrc }} style={styles.image} />
-            </Pressable>
-        );
-    });
+  const renderItem = useCallback(({ item }) => {
+    const imageSrc = `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`;
 
     return (
-        <FlatList
-            data={photos}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={renderItem}
-            numColumns={3}
-            refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-        />
+      <Pressable key={item.id} style={styles.itemContainer} onPress={() => navigation.navigate('PhotoView', {
+        imageSrc: imageSrc,
+      })}>
+        <Image source={{ uri: imageSrc }} style={styles.image} />
+      </Pressable>
     );
+  });
+
+  return (
+    <FlatList
+      data={photos}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={renderItem}
+      numColumns={3}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    />
+  );
 };
