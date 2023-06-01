@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, Image, Pressable, RefreshControl, Text, View } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { fetchAlbums, fetchCoverPhotoForAlbum } from '../../services/FlickrApi';
 import styles from '../../styles/components/GalleryStyles';
+import AlbumItem from './AlbumItem';
 
 export default Gallery = ({ navigation }) => {
   const [albums, setAlbums] = useState([]);
@@ -49,17 +50,7 @@ export default Gallery = ({ navigation }) => {
     const coverPhoto = coverPhotos[item.primary];
 
     return (
-      <Pressable key={item.id} style={styles.itemContainer} onPress={() => navigation.navigate('AlbumView', {
-        albumName: item.title._content, albumId: item.id,
-      })}>
-        <View style={styles.imageContainer}>
-          {<Image source={{ uri: coverPhoto }} style={styles.image} />}
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>{item.title._content}</Text>
-          <Text style={styles.description}>{item.count_photos}</Text>
-        </View>
-      </Pressable>
+      <AlbumItem navigation={navigation} album={item} coverPhoto={coverPhoto} />
     );
   });
 
