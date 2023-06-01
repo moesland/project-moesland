@@ -50,7 +50,7 @@ export default MediaView = ({ navigation }) => {
     const coverPhoto = coverPhotos[item.primary];
 
     return (
-      <Pressable key={item.id} style={styles.album} onPress={() => navigation.navigate('AlbumView', {
+      <Pressable key={item.id} style={styles.itemContainer} onPress={() => navigation.navigate('AlbumView', {
         albumName: item.title._content, albumId: item.id,
       })}>
         <View style={styles.imageContainer}>
@@ -70,11 +70,12 @@ export default MediaView = ({ navigation }) => {
         data={albums}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
+        numColumns={2}
+        contentContainerStyle={styles.container}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
-
       <PhotoContent />
     </View>
   );
