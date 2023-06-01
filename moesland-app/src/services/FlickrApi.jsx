@@ -21,7 +21,7 @@ const fetchAlbums = async () => {
 };
 
 const fetchPhotosForAlbum = async (albumId) => {
-    const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=${albumId.route.params.albumId}&format=json&nojsoncallback=1`;
+    const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=${albumId}&format=json&nojsoncallback=1`;
 
     try {
         const response = await fetch(apiUrl);

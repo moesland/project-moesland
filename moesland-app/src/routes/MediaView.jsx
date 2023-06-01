@@ -33,7 +33,7 @@ export default MediaView = ({ navigation }) => {
     return (
       <View style={styles.albumList}>
         <Pressable key={item.id} style={styles.album} onPress={() => navigation.navigate('AlbumView', {
-          albumId: item.id,
+          albumName: item.title._content, albumId: item.id,
         })}>
           <Text>{item.title._content}</Text>
         </Pressable>
