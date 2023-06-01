@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import styles from '../../styles/components/PhotoUploadViewStyles';
+import styles from '../../styles/components/PhotoUploadStyles';
 import { uploadUserImage } from '../../services/UserImageApi';
 
 export default PhotoUpload = () => {
