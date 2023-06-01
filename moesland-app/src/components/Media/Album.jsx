@@ -1,78 +1,49 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, Image, Pressable, RefreshControl, Text, View } from 'react-native';
-import { fetchAlbums, fetchCoverPhotoForAlbum } from '../../services/FlickrApi';
+import { FlatList, Image, Pressable, RefreshControl } from 'react-native';
+import { fetchPhotosForAlbum } from '../../services/FlickrApi';
 import styles from '../../styles/components/AlbumStyles';
 
-export default Album = ({ navigation }) => {
-  const [albums, setAlbums] = useState([]);
-  const [coverPhotos, setCoverPhotos] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
+export default Album = ({ navigation, route }) => {
+    const [photos, setPhotos] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
+    const { albumId } = route.params;
 
-  useEffect(() => {
-    getAlbums();
-  }, []);
+    useEffect(() => {
+        getPhotosForAlbum();
+    }, []);
 
-  useEffect(() => {
-    const albumPrimaryIds = albums.map(album => album.primary)
-    albumPrimaryIds.forEach(primaryId => lazyFetchCoverPhoto(primaryId));
-  }, [albums, lazyFetchCoverPhoto]);
+    const getPhotosForAlbum = async () => {
+        const photos = await fetchPhotosForAlbum(albumId);
+        setPhotos(photos);
+    };
 
-  const getAlbums = async () => {
-    const albumList = await fetchAlbums();
-    albumList.sort((a, b) => {
-      const dateA = new Date(parseInt(a.date_update, 10) * 1000);
-      const dateB = new Date(parseInt(b.date_update, 10) * 1000);
-      return dateB - dateA;
+    const onRefresh = useCallback(async () => {
+        setRefreshing(true);
+        await getPhotosForAlbum();
+        setRefreshing(false);
     });
 
-    setAlbums(albumList);
-  };
+    const renderItem = useCallback(({ item }) => {
+        const imageSrc = `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`;
 
-  const lazyFetchCoverPhoto = useCallback(async (albumPrimaryId) => {
-    const coverPhoto = await fetchCoverPhotoForAlbum(albumPrimaryId);
-    if (coverPhoto) {
-      const photo = `https://live.staticflickr.com/${coverPhoto.server}/${coverPhoto.id}_${coverPhoto.secret}.jpg`;
-      setCoverPhotos((prevState) => ({
-        ...prevState,
-        [albumPrimaryId]: photo,
-      }));
-    }
-  });
-
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    await getAlbums();
-    setRefreshing(false);
-  });
-
-  const renderItem = useCallback(({ item }) => {
-    const coverPhoto = coverPhotos[item.primary];
+        return (
+            <Pressable key={item.id} style={styles.itemContainer} onPress={() => navigation.navigate('PhotoView', {
+                imageSrc: imageSrc,
+            })}>
+                <Image source={{ uri: imageSrc }} style={styles.image} />
+            </Pressable>
+        );
+    });
 
     return (
-      <Pressable key={item.id} style={styles.itemContainer} onPress={() => navigation.navigate('AlbumView', {
-        albumName: item.title._content, albumId: item.id,
-      })}>
-        <View style={styles.imageContainer}>
-          {<Image source={{ uri: coverPhoto }} style={styles.image} />}
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>{item.title._content}</Text>
-          <Text style={styles.description}>{item.count_photos}</Text>
-        </View>
-      </Pressable>
+        <FlatList
+            data={photos}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderItem}
+            numColumns={3}
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+        />
     );
-  });
-
-  return (
-    <FlatList
-      data={albums}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={renderItem}
-      numColumns={2}
-      contentContainerStyle={styles.container}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    />
-  );
 };

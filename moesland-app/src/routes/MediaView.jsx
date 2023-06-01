@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
 import PhotoUpload from '../components/Media/PhotoUpload';
-import Album from '../components/Media/Album';
+import Gallery from '../components/Media/Gallery';
 
 export default MediaView = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
-      <Album navigation={navigation} />
+      <Gallery navigation={navigation} />
       <PhotoUpload />
     </View>
   );

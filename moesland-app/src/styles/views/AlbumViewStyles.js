@@ -1,22 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 8,
-  },
   header: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-  },
-  itemContainer: {
-    flex: 1,
-    margin: 2,
-    overflow: 'hidden',
-  },
-  image: {
-    width: '100%',
-    height: 150,
   },
 });
 
