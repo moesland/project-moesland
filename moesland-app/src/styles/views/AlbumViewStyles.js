@@ -4,6 +4,11 @@ const styles = StyleSheet.create({
   container: {
     padding: 8,
   },
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
   itemContainer: {
     flex: 1,
     margin: 2,
