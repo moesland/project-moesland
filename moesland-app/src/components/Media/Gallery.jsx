@@ -7,6 +7,7 @@ import AlbumItem from './AlbumItem';
 export default Gallery = ({ navigation }) => {
   const [albums, setAlbums] = useState([]);
   const [coverPhotos, setCoverPhotos] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
@@ -19,7 +20,7 @@ export default Gallery = ({ navigation }) => {
   }, [albums, lazyFetchCoverPhoto]);
 
   const getAlbums = async () => {
-    const albumList = await fetchAlbums();
+    const albumList = await fetchAlbums(1);
     albumList.sort((a, b) => {
       const dateA = new Date(parseInt(a.date_update, 10) * 1000);
       const dateB = new Date(parseInt(b.date_update, 10) * 1000);
@@ -46,6 +47,18 @@ export default Gallery = ({ navigation }) => {
     setRefreshing(false);
   });
 
+  const loadMoreAlbums = async () => {
+    const nextPage = currentPage + 1;
+    setCurrentPage(nextPage);
+
+    await fetchAlbums(nextPage)
+      .then(newAlbums => {
+        if (newAlbums.length > 0) {
+          setAlbums(prevAlbums => [...prevAlbums, ...newAlbums]);
+        }
+      });
+  }
+
   const renderItem = useCallback(({ item }) => {
     const coverPhoto = coverPhotos[item.primary];
 
@@ -64,6 +77,8 @@ export default Gallery = ({ navigation }) => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
+      onEndReached={loadMoreAlbums}
+      onEndReachedThreshold={0.5}
     />
   );
 };

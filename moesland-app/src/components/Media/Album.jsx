@@ -6,6 +6,7 @@ import AlbumPhotoItem from './AlbumPhotoItem';
 export default Album = ({ navigation, route }) => {
   const [photos, setPhotos] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const { albumId } = route.params;
 
   useEffect(() => {
@@ -13,7 +14,7 @@ export default Album = ({ navigation, route }) => {
   }, []);
 
   const getPhotosForAlbum = async () => {
-    const photos = await fetchPhotosForAlbum(albumId);
+    const photos = await fetchPhotosForAlbum(albumId, 1);
     setPhotos(photos);
   };
 
@@ -22,6 +23,18 @@ export default Album = ({ navigation, route }) => {
     await getPhotosForAlbum();
     setRefreshing(false);
   });
+
+  const loadMorePhotos = async () => {
+    const nextPage = currentPage + 1;
+    setCurrentPage(nextPage);
+
+    await fetchPhotosForAlbum(albumId, nextPage)
+      .then(newPhotos => {
+        if (newPhotos.length > 0) {
+          setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
+        }
+      });
+  };
 
   const renderItem = useCallback(({ item }) => {
     const imageSrc = `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`;
@@ -40,6 +53,8 @@ export default Album = ({ navigation, route }) => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
+      onEndReached={loadMorePhotos}
+      onEndReachedThreshold={0.5}
     />
   );
 };
