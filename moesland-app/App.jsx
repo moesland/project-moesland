@@ -4,15 +4,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MOESLAND_GREEN, FOOTER_BACKGROUND_COLOR } from './src/constants/colors';
-import NewsItemListView from './src/routes/NewsItemListView';
-import NewsItemDetailView from './src/routes/NewsItemDetailView';
+
+import NewsItemListView from './src/views/NewsItemListView';
+import NewsItemDetailView from './src/views/NewsItemDetailView';
 import ToolbarView from './src/components/ToolbarView';
-import MediaView from './src/routes/MediaView';
-import AlbumView from './src/routes/AlbumView';
-import PhotoView from './src/routes/PhotoView';
-import CalendarView from './src/routes/CalendarView';
-import VotingView from './src/routes/VotingView';
-import ContactView from './src/routes/ContactView';
+import MediaView from './src/views/MediaView';
+import AlbumView from './src/views/AlbumView';
+import PhotoView from './src/views/PhotoView';
+import CalendarView from './src/views/CalendarView';
+import VotingView from './src/views/VotingView';
+import ContactView from './src/views/ContactView';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
