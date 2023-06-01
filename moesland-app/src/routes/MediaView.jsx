@@ -1,39 +1,58 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { Alert, View } from 'react-native';
-import { Button } from 'react-native-elements';
-import { BACKEND_URL } from '@env';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FlatList, Pressable, RefreshControl, Text, View } from 'react-native';
 import PhotoContent from './PhotoContentView';
+import { fetchAlbums } from '../services/FlickrApi';
+import styles from '../styles/MediaViewStyles';
 
-export default MediaView = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+export default MediaView = ({ navigation }) => {
+  const [albums, setAlbums] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const uploadImage = async () => {
-    const url = `${BACKEND_URL}/api/user-image/create`;
-    axios.post(url, selectedImage).then((response) => {
-      if (response.status == 200) {
-        cancelImage();
-        Alert.alert('Melding', `${selectedImage.name} is upgeload!`);
-      }
-    }).catch((error) => {
-      // console.log(error);
+  useEffect(() => {
+    getAlbums();
+  }, []);
+
+  const getAlbums = async () => {
+    const albums = await fetchAlbums();
+    albums.sort((a, b) => {
+      const dateA = new Date(parseInt(a.date_update, 10) * 1000);
+      const dateB = new Date(parseInt(b.date_update, 10) * 1000);
+      return dateB - dateA;
     });
+    
+    setAlbums(albums);
   };
 
-  const cancelImage = () => {
-    setSelectedImage(null);
-  };
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await getAlbums();
+    setRefreshing(false);
+  });
+
+  const renderItem = useCallback(({ item }) => {
+    return (
+      <View style={styles.albumList}>
+        <Pressable key={item.id} style={styles.album} onPress={() => navigation.navigate('AlbumView', {
+          albumName: item.title._content, albumId: item.id,
+        })}>
+          <Text>{item.title._content}</Text>
+        </Pressable>
+      </View>
+    );
+  });
 
   return (
-    <View>
-      <PhotoContent setImage={setSelectedImage} />
-      {selectedImage
-                && (
-                <View>
-                  <Button onPress={uploadImage} title="Upload" />
-                  <Button onPress={cancelImage} title="Annuleren" />
-                </View>
-                )}
+    <View style={{ flex: 1 }}>
+      <FlatList
+        data={albums}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderItem}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      />
+
+      <PhotoContent />
     </View>
   );
 };
