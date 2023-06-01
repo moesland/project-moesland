@@ -20,6 +20,25 @@ const fetchAlbums = async () => {
   }
 };
 
+const fetchCoverPhotoForAlbum = async (albumPrimaryId) => {
+  const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${apiKey}&photo_id=${albumPrimaryId}&format=json&nojsoncallback=1`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const result = await response.json();
+    if (result.stat === 'ok') {
+      const photo = result.photo;
+      return photo;
+    } else {
+      console.error('Error:', result.message);
+      return null;
+    }
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
 const fetchPhotosForAlbum = async (albumId) => {
   const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=${albumId}&format=json&nojsoncallback=1`;
 
@@ -39,4 +58,4 @@ const fetchPhotosForAlbum = async (albumId) => {
   }
 };
 
-export { fetchAlbums, fetchPhotosForAlbum };
+export { fetchAlbums, fetchCoverPhotoForAlbum, fetchPhotosForAlbum };

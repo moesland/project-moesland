@@ -1,27 +1,44 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, Pressable, RefreshControl, Text, View } from 'react-native';
+import { FlatList, Image, Pressable, RefreshControl, Text, View } from 'react-native';
 import PhotoContent from './PhotoContentView';
-import { fetchAlbums } from '../services/FlickrApi';
+import { fetchAlbums, fetchCoverPhotoForAlbum } from '../services/FlickrApi';
 import styles from '../styles/MediaViewStyles';
 
 export default MediaView = ({ navigation }) => {
   const [albums, setAlbums] = useState([]);
+  const [coverPhotos, setCoverPhotos] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     getAlbums();
   }, []);
 
+  useEffect(() => {
+    const albumPrimaryIds = albums.map(album => album.primary)
+    albumPrimaryIds.forEach(primaryId => lazyFetchCoverPhoto(primaryId));
+  }, [albums, lazyFetchCoverPhoto]);
+
   const getAlbums = async () => {
-    const albums = await fetchAlbums();
-    albums.sort((a, b) => {
+    const albumList = await fetchAlbums();
+    albumList.sort((a, b) => {
       const dateA = new Date(parseInt(a.date_update, 10) * 1000);
       const dateB = new Date(parseInt(b.date_update, 10) * 1000);
       return dateB - dateA;
     });
-    
-    setAlbums(albums);
+
+    setAlbums(albumList);
   };
+
+  const lazyFetchCoverPhoto = useCallback(async (albumPrimaryId) => {
+    const coverPhoto = await fetchCoverPhotoForAlbum(albumPrimaryId);
+    if (coverPhoto) {
+      const photo = `https://live.staticflickr.com/${coverPhoto.server}/${coverPhoto.id}_${coverPhoto.secret}.jpg`;
+      setCoverPhotos((prevState) => ({
+        ...prevState,
+        [albumPrimaryId]: photo,
+      }));
+    }
+  });
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -30,18 +47,20 @@ export default MediaView = ({ navigation }) => {
   });
 
   const renderItem = useCallback(({ item }) => {
+    const coverPhoto = coverPhotos[item.primary];
+
     return (
       <Pressable key={item.id} style={styles.album} onPress={() => navigation.navigate('AlbumView', {
         albumName: item.title._content, albumId: item.id,
       })}>
-      <View style={styles.imageContainer}>
-        {/* <Image source={item.image} style={styles.image} /> */}
-      </View>
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.title._content}</Text>
-        <Text style={styles.description}>{item.count_photos}</Text>
-      </View>
-    </Pressable>
+        <View style={styles.imageContainer}>
+          {<Image source={{ uri: coverPhoto }} style={styles.image} />}
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>{item.title._content}</Text>
+          <Text style={styles.description}>{item.count_photos}</Text>
+        </View>
+      </Pressable>
     );
   });
 
