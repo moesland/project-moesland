@@ -31,13 +31,17 @@ export default MediaView = ({ navigation }) => {
 
   const renderItem = useCallback(({ item }) => {
     return (
-      <View style={styles.albumList}>
-        <Pressable key={item.id} style={styles.album} onPress={() => navigation.navigate('AlbumView', {
-          albumName: item.title._content, albumId: item.id,
-        })}>
-          <Text>{item.title._content}</Text>
-        </Pressable>
+      <Pressable key={item.id} style={styles.album} onPress={() => navigation.navigate('AlbumView', {
+        albumName: item.title._content, albumId: item.id,
+      })}>
+      <View style={styles.imageContainer}>
+        {/* <Image source={item.image} style={styles.image} /> */}
       </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>{item.title._content}</Text>
+        <Text style={styles.description}>{item.count_photos}</Text>
+      </View>
+    </Pressable>
     );
   });
 
