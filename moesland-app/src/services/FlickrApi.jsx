@@ -43,7 +43,7 @@ const fetchCoverPhotoForAlbum = async (albumPrimaryId) => {
 };
 
 const fetchPhotosForAlbum = async (albumId, page) => {
-  const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=${albumId}&page${page}&per_page=${photosPerPage}&format=json&nojsoncallback=1`;
+  const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=${albumId}&page=${page}&per_page=${photosPerPage}&format=json&nojsoncallback=1`;
 
   try {
     const response = await fetch(apiUrl);

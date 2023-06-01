@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, View } from 'react-native';
 import { fetchAlbums, fetchCoverPhotoForAlbum } from '../../services/FlickrApi';
 import styles from '../../styles/components/GalleryStyles';
 import AlbumItem from './AlbumItem';
@@ -8,6 +8,7 @@ export default Gallery = ({ navigation }) => {
   const [albums, setAlbums] = useState([]);
   const [coverPhotos, setCoverPhotos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
@@ -20,6 +21,8 @@ export default Gallery = ({ navigation }) => {
   }, [albums, lazyFetchCoverPhoto]);
 
   const getAlbums = async () => {
+    setLoading(true);
+
     const albumList = await fetchAlbums(1);
     albumList.sort((a, b) => {
       const dateA = new Date(parseInt(a.date_update, 10) * 1000);
@@ -28,6 +31,7 @@ export default Gallery = ({ navigation }) => {
     });
 
     setAlbums(albumList);
+    setLoading(false);
   };
 
   const lazyFetchCoverPhoto = useCallback(async (albumPrimaryId) => {
@@ -67,6 +71,16 @@ export default Gallery = ({ navigation }) => {
     );
   });
 
+  const renderFooter = useCallback(() => {
+    if (loading || refreshing) {
+      return (
+        <View>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+  });
+
   return (
     <FlatList
       data={albums}
@@ -79,6 +93,7 @@ export default Gallery = ({ navigation }) => {
       }
       onEndReached={loadMoreAlbums}
       onEndReachedThreshold={0.5}
+      ListFooterComponent={renderFooter}
     />
   );
 };

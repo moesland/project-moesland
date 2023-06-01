@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, View } from 'react-native';
 import { fetchPhotosForAlbum } from '../../services/FlickrApi';
 import AlbumPhotoItem from './AlbumPhotoItem';
 
 export default Album = ({ navigation, route }) => {
   const [photos, setPhotos] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const { albumId } = route.params;
 
   useEffect(() => {
@@ -14,8 +15,12 @@ export default Album = ({ navigation, route }) => {
   }, []);
 
   const getPhotosForAlbum = async () => {
+    setLoading(true);
+
     const photos = await fetchPhotosForAlbum(albumId, 1);
     setPhotos(photos);
+
+    setLoading(false);
   };
 
   const onRefresh = useCallback(async () => {
@@ -44,6 +49,16 @@ export default Album = ({ navigation, route }) => {
     );
   });
 
+  const renderFooter = useCallback(() => {
+    if (loading || refreshing) {
+      return (
+        <View>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+  });
+
   return (
     <FlatList
       data={photos}
@@ -55,6 +70,7 @@ export default Album = ({ navigation, route }) => {
       }
       onEndReached={loadMorePhotos}
       onEndReachedThreshold={0.5}
+      ListFooterComponent={renderFooter}
     />
   );
 };
