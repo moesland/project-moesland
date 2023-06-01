@@ -13,9 +13,6 @@ import PhotoView from './src/routes/PhotoView';
 import CalendarView from './src/routes/CalendarView';
 import VotingView from './src/routes/VotingView';
 import ContactView from './src/routes/ContactView';
-import PhotoAlbumView from './src/routes/PhotoAlbum';
-import AlbumPageView from './src/routes/AlbumPage';
-import ImageView from './src/routes/ImageView';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
