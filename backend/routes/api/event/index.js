@@ -24,15 +24,27 @@ router.get('/', async (req, res) => {
 router.get('/participants', async (req, res) => {
   try {
     const date = new Date();
-
     let events = await getOngoingEvents(date);
     
-    await Promise.all(events.map(async (event, index) => {
+    const updatedEvents = await Promise.all(events.map(async (event) => {
       const participates = await participationRepo.getAll({ event: event._id });
-      events[index] = { ...event._doc, participates };
+      const categories = [];
+
+      participates.forEach(participate => {
+        const existingCategory = categories.find(category => category._id === participate.category._id);
+        
+        if (!existingCategory) {
+          const newCategory = { ...participate.category._doc, participates: [participate] };
+          categories.push(newCategory);
+        } else {
+          existingCategory.participates.push(participate);
+        }
+      });
+
+      return { ...event._doc, categories };
     }));
 
-    return res.status(200).json(events);
+    return res.status(200).json(updatedEvents);
   } catch (err) {
     return res.status(500).send('Error fetching event participants');
   }
