@@ -3,40 +3,24 @@ import { TouchableOpacity, Text, View, ScrollView, FlatList, Pressable } from 'r
 import styles from '../../styles/votingStyles';
 import VotingItem from './VotingItems';
 
-const VotingCategoryList = () => {
+const VotingCategoryList = ({data}) => {
     const [display, setDisplay] = useState(false);
 
     const toggleList = () => {
         setDisplay(!display);
     }
 
-    const DATA = [
-        {
-          id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-          title: 'First Item',
-        },
-        {
-          id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-          title: 'Second Item',
-        },
-        {
-          id: '58694a0f-3da1-471f-bd96-145571e29d72',
-          title: 'Third Item',
-        },
-      ];
-      
-
     return (
         <ScrollView>
-            <TouchableOpacity style={styles.categoryContainer} onPress={toggleList}>
-                <Text style={styles.categoryTitle}>category naam</Text>
+            <TouchableOpacity style={[styles.categoryContainer, {backgroundColor: `${data.color}95`}]} onPress={toggleList}>
+                <Text style={styles.categoryTitle}>{data.name}</Text>
             </TouchableOpacity>
 
             {display &&
                 <FlatList
-                    data={DATA}
-                    renderItem={({ item }) => <VotingItem />}
-                    extraData={item => item.id}
+                    data={data.participates}
+                    renderItem={({ item }) => <VotingItem data={item} />}
+                    extraData={item => item._id}
                 />
             }
         </ScrollView>

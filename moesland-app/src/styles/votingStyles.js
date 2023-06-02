@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 10,
         margin: 5,
-        marginTop: 17,
     },
     categoryTitle:{
         textAlign: 'center',
@@ -25,6 +24,15 @@ const styles = StyleSheet.create({
     },
     voitingItemText:{
         textAlign: 'center',
+    },
+    paradeTitle: {
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        fontSize: 20,
+        marginVertical: 18,
+        fontWeight: 'bold',
+    },
+    paradeTitleContainer: {
     }
 });
 
