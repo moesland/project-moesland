@@ -76,6 +76,9 @@ export default function Navbar() {
                                 <li className="nav-item">
                                     <a className="dropdown-item" href="/participation-category">Deelnemercategorieën</a>
                                 </li>
+                                <li className="nav-item">
+                                    <a className="dropdown-item" href="/voting-overview">Ranglijst</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

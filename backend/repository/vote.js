@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Vote = mongoose.model('Vote');
 const sanitize = require('mongo-sanitize');
 
-const getAll = async (query) => Vote.find(query).populate('participant').populate('category');
+const getAll = async (query) => Vote.find(query).populate('participant').populate('category').populate('event');
 
 const add = async (data) => {
   const vote = new Vote(data);
