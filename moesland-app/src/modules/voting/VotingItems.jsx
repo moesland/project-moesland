@@ -2,14 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, Text, View, ScrollView, FlatList, Pressable } from 'react-native';
 import styles from '../../styles/votingStyles';
 import { getUniqueId } from '../../services/infoStorage';
+import { BackendFetch } from '../../services/MoeslandApi';
 
 const VotingItem = ({ data }) => {
+    const [voting, setVoting] = useState(false);
+
 
     const onPressVote = async () => {
-        const id = await getUniqueId();
-        if(id){
-            
+        if(voting) {
+            return;
         }
+
+        setVoting(true);
+
+        const id = await getUniqueId();
+
+        if(id){
+            const body = {
+                deviceId: id,
+                category: data.category._id,
+                participant: data._id
+            }
+
+            BackendFetch('/api/vote', 'POST', (data) => {
+                if(data){
+                    console.log("succesfully voted")
+                }
+            }, body)
+        }
+
+        setVoting(false);
     }
 
     return (

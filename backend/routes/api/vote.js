@@ -16,7 +16,6 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', [
-  body('timestamp').isDate().withMessage('Timestamp should be a valid date'),
   body('deviceId').notEmpty().withMessage('Device ID must not be empty'),
   body('category').isMongoId().notEmpty().withMessage('Category must be a non-empty MongoDB ID'),
   body('participant').isMongoId().notEmpty().withMessage('Participant must be a non-empty MongoDB ID'),

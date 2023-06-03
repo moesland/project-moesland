@@ -1,7 +1,15 @@
 export const BackendFetch = async (path, method, callback, body = null) => {
     try {
+        console.log({
+            method: method,
+            body: body ? JSON.stringify(body) : undefined
+        })
+
         const response = await fetch(process.env.BACKEND_URL + path, {
             method: method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: body ? JSON.stringify(body) : undefined
         });
 
