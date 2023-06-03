@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const Vote = mongoose.model('Vote');
 const sanitize = require('mongo-sanitize');
 
-const getAll = async (query) => Vote.find(query).populate('participant').populate('category');
+const getAllExtra = async (query) => Vote.find(query).populate('participant').populate('category').populate('event');
+
+const getAll = async (query) => Vote.find(query);
 
 const add = async (data) => {
   const vote = new Vote(data);
@@ -18,6 +20,7 @@ const update = async (id, data) => {
 };
 
 module.exports = {
+  getAllExtra,
   getAll,
   add,
   remove,

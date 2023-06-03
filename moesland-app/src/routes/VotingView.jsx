@@ -3,15 +3,57 @@ import { SafeAreaView, FlatList, StyleSheet, View, Text } from 'react-native';
 import VotingCategoryList from '../modules/voting/VotingCategoryList';
 import styles from '../styles/votingStyles';
 import { BackendFetch } from '../services/MoeslandApi';
+import { getUniqueId } from '../services/infoStorage';
 
 const VoteView = () => {
   const [events, setEvents] = useState(null);
+  const [votes, setVotes] = useState({});
 
-  useEffect(() => {
-    BackendFetch('/api/event/participants', 'GET', (data) => {
+  const fetchEventData = async () => {
+    await BackendFetch('/api/event/participants', 'GET', (data) => {
       setEvents(data);
     })
+  }
+
+  const fetchVoteData = async () => {
+    const id = await getUniqueId();
+
+    await BackendFetch(`/api/vote?deviceId=${id}`, 'GET', (data) => {
+      console.log(formatVotes(data));
+      setVotes(data);
+    })
+  }
+
+  // Group the votes by event, category, and vote
+  const formatVotes = (data) => {
+    return data.reduce((result, vote) => {
+      const eventId = vote.event;
+      const categoryId = vote.category;
+  
+      if (!result[eventId]) {
+        result[eventId] = {};
+      }
+  
+      if (!result[eventId][categoryId]) {
+        result[eventId][categoryId] = [];
+      }
+  
+      result[eventId][categoryId].push(vote);
+  
+      return result;
+    }, {});
+  } 
+
+
+  useEffect(() => {
+    fetchEventData();
   }, [])
+
+  useEffect(() => {
+    if (events) {
+      fetchVoteData();
+    }
+  }, [events])
 
 
   return (

@@ -21,7 +21,8 @@ const VotingItem = ({ data }) => {
             const body = {
                 deviceId: id,
                 category: data.category._id,
-                participant: data._id
+                participant: data._id,
+                event: data.event._id
             }
 
             BackendFetch('/api/vote', 'POST', (data) => {
