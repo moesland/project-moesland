@@ -19,6 +19,7 @@ const VoteView = () => {
     const id = await getUniqueId();
 
     await BackendFetch(`/api/vote?deviceId=${id}`, 'GET', (data) => {
+      console.log(formatVotes(data));
       setVotes(formatVotes(data));
     })
   }
@@ -34,10 +35,8 @@ const VoteView = () => {
       }
   
       if (!result[eventId][categoryId]) {
-        result[eventId][categoryId] = [];
+        result[eventId][categoryId] = vote;
       }
-  
-      result[eventId][categoryId].push(vote);
   
       return result;
     }, {});

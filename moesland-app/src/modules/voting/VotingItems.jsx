@@ -6,11 +6,19 @@ import { BackendFetch } from '../../services/MoeslandApi';
 
 const VotingItem = ({ data, votes, setVotes }) => {
     const [voting, setVoting] = useState(false);
-   
+    const [voted, setVoted] = useState(false);
+
+    useEffect(() => {
+        if (votes && data.event._id in votes && data.category._id in votes[data.event._id]) {
+            const result = votes[data.event._id][data.category._id];
+            if (result) {
+                setVoted(result.participant === data._id);
+            }
+        };
+    }, [votes, data]);
 
     const onPressVote = async () => {
-        console.log(votes);
-        if(voting) {
+        if (voting) {
             return;
         }
 
@@ -18,7 +26,7 @@ const VotingItem = ({ data, votes, setVotes }) => {
 
         const id = await getUniqueId();
 
-        if(id){
+        if (id) {
             const body = {
                 deviceId: id,
                 category: data.category._id,
@@ -27,7 +35,7 @@ const VotingItem = ({ data, votes, setVotes }) => {
             }
 
             BackendFetch('/api/vote', 'POST', (data) => {
-                if(data){
+                if (data) {
                     console.log("succesfully voted")
                 }
             }, body)
@@ -37,8 +45,8 @@ const VotingItem = ({ data, votes, setVotes }) => {
     }
 
     return (
-        <TouchableOpacity style={[styles.votingItem, styles.votedItem]} onPress={onPressVote}>
-            <View style={[styles.ribbon]} />
+        <TouchableOpacity style={[styles.votingItem, voted && styles.votedItem]} onPress={onPressVote}>
+            {voted && <View style={[styles.ribbon]} />}
             <Text style={styles.voitingItemText}> Nr. {data.startnumber}, {data.name} </Text>
         </TouchableOpacity>
     );

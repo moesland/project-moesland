@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
         borderWidth: 1.5,
+        borderColor: 'white',
     },
     voitingItemText: {
         textAlign: 'center',
