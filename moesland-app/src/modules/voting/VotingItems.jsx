@@ -4,11 +4,12 @@ import styles from '../../styles/votingStyles';
 import { getUniqueId } from '../../services/infoStorage';
 import { BackendFetch } from '../../services/MoeslandApi';
 
-const VotingItem = ({ data }) => {
+const VotingItem = ({ data, votes, setVotes }) => {
     const [voting, setVoting] = useState(false);
-
+   
 
     const onPressVote = async () => {
+        console.log(votes);
         if(voting) {
             return;
         }
@@ -36,7 +37,8 @@ const VotingItem = ({ data }) => {
     }
 
     return (
-        <TouchableOpacity style={styles.votingItem} onPress={onPressVote}>
+        <TouchableOpacity style={[styles.votingItem, styles.votedItem]} onPress={onPressVote}>
+            <View style={[styles.ribbon]} />
             <Text style={styles.voitingItemText}> Nr. {data.startnumber}, {data.name} </Text>
         </TouchableOpacity>
     );

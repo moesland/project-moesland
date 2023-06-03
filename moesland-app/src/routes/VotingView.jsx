@@ -19,12 +19,11 @@ const VoteView = () => {
     const id = await getUniqueId();
 
     await BackendFetch(`/api/vote?deviceId=${id}`, 'GET', (data) => {
-      console.log(formatVotes(data));
-      setVotes(data);
+      setVotes(formatVotes(data));
     })
   }
 
-  // Group the votes by event, category, and vote
+  // Group by event -> category -> vote
   const formatVotes = (data) => {
     return data.reduce((result, vote) => {
       const eventId = vote.event;
@@ -65,7 +64,7 @@ const VoteView = () => {
           </View>
           <FlatList
             data={event.categories}
-            renderItem={({ item }) => <VotingCategoryList data={item} />}
+            renderItem={({ item }) => <VotingCategoryList data={item} votes={votes} setVotes={setVotes}/>}
             keyExtractor={item => item._id}
           />
         </View>

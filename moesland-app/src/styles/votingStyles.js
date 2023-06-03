@@ -8,21 +8,22 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 5,
     },
-    categoryTitle:{
+    categoryTitle: {
         textAlign: 'center',
         fontSize: 20,
         marginVertical: 20,
     },
-    votingItem:{
+    votingItem: {
         backgroundColor: 'white',
         flex: 1,
         borderRadius: 5,
         padding: 10,
         margin: 2,
         marginLeft: 5,
-        marginRight: 5
+        marginRight: 5,
+        borderWidth: 1.5,
     },
-    voitingItemText:{
+    voitingItemText: {
         textAlign: 'center',
     },
     paradeTitle: {
@@ -33,6 +34,20 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     paradeTitleContainer: {
+    },
+    votedItem: {
+        borderColor: '#50C878',
+    },
+    ribbon: {
+        position: 'absolute',
+        right: 10,
+        top: '50%',
+        width: 20,
+        height: 20,
+        backgroundColor: '#FFD700',
+        transform: [{ rotate: '45deg' }],
+        borderLeftColor: 'yellow', 
+        zIndex: 1,
     }
 });
 
