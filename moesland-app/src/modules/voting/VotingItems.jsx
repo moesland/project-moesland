@@ -5,28 +5,42 @@ import { getUniqueId } from '../../services/infoStorage';
 import { BackendFetch } from '../../services/MoeslandApi';
 
 const VotingItem = ({ data, votes, setVotes }) => {
-    const [voting, setVoting] = useState(false);
     const [voted, setVoted] = useState(false);
+    const [votedParticipant, setVotedParticipant] = useState(null)
 
     useEffect(() => {
+        votingResult();
+    }, [votes, data]);
+
+    const votingResult = () => {
         if (votes && data.event._id in votes && data.category._id in votes[data.event._id]) {
             const result = votes[data.event._id][data.category._id];
+            setVotedParticipant(result);
             if (result) {
                 setVoted(result.participant === data._id);
             }
         };
-    }, [votes, data]);
+    }
 
-    const onPressVote = async () => {
-        if (voting) {
-            return;
+    const reAdjustVotingResults = (data) => {
+       
+    }
+
+    const removeVote = async () => {
+        if(votedParticipant) {
+            await BackendFetch(`/api/vote/${votedParticipant._id}`, 'DELETE', (data) => {
+                if (data) {
+                    console.log("Successfully vote deleted")
+                }
+            })
         }
 
-        setVoting(true);
+    }
 
+    const addVote = async () => {
         const id = await getUniqueId();
 
-        if (id) {
+        if (id && !voted) {
             const body = {
                 deviceId: id,
                 category: data.category._id,
@@ -34,14 +48,18 @@ const VotingItem = ({ data, votes, setVotes }) => {
                 event: data.event._id
             }
 
-            BackendFetch('/api/vote', 'POST', (data) => {
+            await BackendFetch('/api/vote', 'POST', (data) => {
                 if (data) {
-                    console.log("succesfully voted")
+                    console.log("Successfully voted")
+                    reAdjustVotingResults(data)
                 }
             }, body)
         }
+    }
 
-        setVoting(false);
+    const onPressVote = async () => {
+        await removeVote();
+        await addVote();
     }
 
     return (

@@ -19,7 +19,6 @@ const VoteView = () => {
     const id = await getUniqueId();
 
     await BackendFetch(`/api/vote?deviceId=${id}`, 'GET', (data) => {
-      console.log(formatVotes(data));
       setVotes(formatVotes(data));
     })
   }
