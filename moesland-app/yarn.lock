@@ -3283,6 +3283,11 @@ expo-modules-core@1.2.4:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
+expo-secure-store@*:
+  version "12.1.1"
+  resolved "https://registry.npmjs.org/expo-secure-store/-/expo-secure-store-12.1.1.tgz"
+  integrity sha512-phD8e8mlJWaESUBCpHq0GjS3OiqZ7g+I6SpTGQpt+xSS0pEE1ZUBXnIF+WR2OvoseKiS9ODzDl85CUlut/eNKw==
+
 expo-status-bar@~1.4.4:
   version "1.4.4"
   resolved "https://registry.npmjs.org/expo-status-bar/-/expo-status-bar-1.4.4.tgz"
