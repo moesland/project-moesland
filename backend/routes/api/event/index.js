@@ -1,6 +1,7 @@
 const express = require('express');
 const { getAllEvents, getEventsByDate, getOngoingEvents } = require('../../../repository/event');
 const participationRepo = require('../../../repository/participation');
+
 const router = express.Router();
 
 router.use(express.json());
@@ -20,19 +21,20 @@ router.get('/', async (req, res) => {
   }
 });
 
-
 router.get('/participants', async (req, res) => {
   try {
     const date = new Date();
-    let events = await getOngoingEvents(date);
-    
+    const events = await getOngoingEvents(date);
+
     const updatedEvents = await Promise.all(events.map(async (event) => {
       const participates = await participationRepo.getAll({ event: event._id });
       const categories = [];
 
-      participates.forEach(participate => {
-        const existingCategory = categories.find(category => category._id === participate.category._id);
-        
+      participates.forEach((participate) => {
+        const existingCategory = categories.find(
+          (category) => category._id === participate.category._id,
+        );
+
         if (!existingCategory) {
           const newCategory = { ...participate.category._doc, participates: [participate] };
           categories.push(newCategory);

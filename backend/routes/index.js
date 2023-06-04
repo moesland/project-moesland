@@ -1,5 +1,5 @@
 const express = require('express');
-const { authenticateTokenRole, authenticateToken } = require('../middlewares/auth');
+const { authenticateTokenRole } = require('../middlewares/auth');
 const { requestLimiter } = require('../middlewares/security');
 
 const router = express.Router();

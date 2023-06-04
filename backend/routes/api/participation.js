@@ -1,6 +1,6 @@
 const express = require('express');
-const { authenticateTokenRole, authenticateToken } = require('../../middlewares/auth');
 const { body, validationResult } = require('express-validator');
+const { authenticateToken } = require('../../middlewares/auth');
 const participationRepo = require('../../repository/participation');
 
 const router = express.Router();

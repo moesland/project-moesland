@@ -8,7 +8,7 @@ module.exports = {
     const currentDate = new Date(date);
     const events = await Event.find({
       startdate: { $lte: currentDate },
-      enddate: { $gte: currentDate }
+      enddate: { $gte: currentDate },
     });
     return events;
   },
