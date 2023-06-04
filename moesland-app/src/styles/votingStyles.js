@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   extraSpace: {
     minHeight: '90%',
-  }
+  },
 });
 
 export default styles;
