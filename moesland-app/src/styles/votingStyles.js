@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     color: '#50C878',
     zIndex: 1,
   },
+  extraSpace: {
+    minHeight: '90%',
+  }
 });
 
 export default styles;

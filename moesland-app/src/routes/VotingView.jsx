@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, FlatList, StyleSheet, View, Text } from 'react-native';
+import { SafeAreaView, FlatList, ScrollView, View, Text } from 'react-native';
 import VotingCategoryList from '../modules/voting/VotingCategoryList';
 import styles from '../styles/votingStyles';
 import { BackendFetch } from '../services/MoeslandApi';
@@ -31,10 +31,10 @@ const VoteView = () => {
       if (event.isParade === true && event.latitude !== undefined && event.longitude !== undefined) {
         if (event.radius === 0) {
           return true; // Infinite radius, include the event
-      } else {
+        } else {
           const distance = calculateDistance(event.latitude, event.longitude, location.latitude, location.longitude);
           return distance <= event.radius;
-      }
+        }
       }
       return false;
     })
@@ -71,24 +71,29 @@ const VoteView = () => {
 
   return (
     <SafeAreaView style={styles.paradeContainer}>
-      {events && events.map(event => (
-        <View style={styles.paradeContainer} key={event._id}>
-          <View style={styles.paradeTitleContainer}>
-            <Text style={styles.paradeTitle}>{event.title}</Text>
-          </View>
-          <FlatList
-            data={event.categories}
-            renderItem={({ item }) => <VotingCategoryList data={item} votes={votes} setVotes={setVotes} />}
-            keyExtractor={item => item._id}
-          />
-        </View>
-      ))}
+      {events &&
+        <ScrollView style={styles.extraSpace}>
+          {events.map(event => (
+            <View style={styles.paradeContainer} key={event._id}>
+              <View style={styles.paradeTitleContainer}>
+                <Text style={styles.paradeTitle}>{event.title}</Text>
+              </View>
 
-      {(!events || events.length < 1) &&
+              {event.categories.map(event => (
+                <VotingCategoryList key={event._id} data={event} votes={votes} setVotes={setVotes} />
+              ))}
+
+            </View>
+          ))}
+        </ScrollView>
+      }
+
+      {(!events || events.length > 1) &&
         <View style={styles.noParticipantsContainer}>
           <Text style={styles.noParticipantsText}> Er zijn geen deelnames om te stemmen. </Text>
         </View>
       }
+
 
     </SafeAreaView>
   );

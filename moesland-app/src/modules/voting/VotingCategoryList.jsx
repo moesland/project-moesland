@@ -4,7 +4,7 @@ import styles from '../../styles/votingStyles';
 import VotingItem from './VotingItems';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const VotingCategoryList = ({data, votes, setVotes}) => {
+const VotingCategoryList = ({ data, votes, setVotes }) => {
     const [display, setDisplay] = useState(false);
 
     const toggleList = () => {
@@ -13,17 +13,13 @@ const VotingCategoryList = ({data, votes, setVotes}) => {
 
     return (
         <ScrollView>
-            <TouchableOpacity style={[styles.categoryContainer, {backgroundColor: `${data.color}95`}]} onPress={toggleList}>
+            <TouchableOpacity style={[styles.categoryContainer, { backgroundColor: `${data.color}95` }]} onPress={toggleList}>
                 <Text style={styles.categoryTitle}>{data.name}</Text>
             </TouchableOpacity>
 
-            {display &&
-                <FlatList
-                    data={data.participates}
-                    renderItem={({ item }) => <VotingItem data={item} votes={votes} setVotes={setVotes} />}
-                    extraData={item => item._id}
-                />
-            }
+            {display && data.participates.map(participate => (
+                <VotingItem key={participate._id} data={participate} votes={votes} setVotes={setVotes} />
+            ))}
         </ScrollView>
     );
 };
