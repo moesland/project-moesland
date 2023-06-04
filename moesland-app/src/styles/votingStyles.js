@@ -49,6 +49,18 @@ const styles = StyleSheet.create({
         transform: [{ rotate: '45deg' }],
         borderLeftColor: 'yellow', 
         zIndex: 1,
+    },
+    noParticipantsContainer: {
+        flexGrow: 1,
+        height: '100%',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    noParticipantsText: {
+        fontSize: 23,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: 'gray',
     }
 });
 

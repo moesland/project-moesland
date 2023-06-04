@@ -85,8 +85,8 @@ const VoteView = () => {
       ))}
 
       {(!events || events.length < 1) &&
-        <View>
-          <Text> Er zijn geen deelnames om te stemmen. </Text>
+        <View style={styles.noParticipantsContainer}>
+          <Text style={styles.noParticipantsText}> Er zijn geen deelnames om te stemmen. </Text>
         </View>
       }
 
