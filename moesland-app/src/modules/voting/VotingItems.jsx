@@ -76,7 +76,7 @@ const VotingItem = ({ data, votes, setVotes }) => {
 
     return (
         <TouchableOpacity style={[styles.votingItem, voted && styles.votedItem]} onPress={onPressVote}>
-            {voted && <View style={[styles.ribbon]} />}
+            {voted && <Text style={[styles.greenCheck]} > ✓ </Text>}
             <Text style={styles.voitingItemText}> Nr. {data.startnumber}, {data.name} </Text>
         </TouchableOpacity>
     );

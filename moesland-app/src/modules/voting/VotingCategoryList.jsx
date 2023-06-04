@@ -13,8 +13,7 @@ const VotingCategoryList = ({data, votes, setVotes}) => {
 
     return (
         <ScrollView>
-            <TouchableOpacity style={[styles.categoryContainer]} onPress={toggleList}>
-                <LinearGradient colors={[`${data.color}`, `${data.color}75`, `${data.color}50`]} style={styles.background}/>
+            <TouchableOpacity style={[styles.categoryContainer, {backgroundColor: `${data.color}95`}]} onPress={toggleList}>
                 <Text style={styles.categoryTitle}>{data.name}</Text>
             </TouchableOpacity>
 

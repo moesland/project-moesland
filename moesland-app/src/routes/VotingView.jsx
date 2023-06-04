@@ -70,9 +70,9 @@ const VoteView = () => {
 
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.paradeContainer}>
       {events && events.map(event => (
-        <View key={event._id}>
+        <View style={styles.paradeContainer} key={event._id}>
           <View style={styles.paradeTitleContainer}>
             <Text style={styles.paradeTitle}>{event.title}</Text>
           </View>

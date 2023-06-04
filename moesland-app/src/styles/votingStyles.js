@@ -4,19 +4,16 @@ const styles = StyleSheet.create({
     categoryContainer: {
         backgroundColor: 'white',
         flex: 1,
-        borderRadius: 5,
-        padding: 10,
         margin: 5,
     },
     categoryTitle: {
         textAlign: 'center',
         fontSize: 20,
-        marginVertical: 20,
+        marginVertical: 10,
     },
     votingItem: {
         backgroundColor: 'white',
         flex: 1,
-        borderRadius: 5,
         padding: 10,
         margin: 2,
         marginLeft: 5,
@@ -34,7 +31,8 @@ const styles = StyleSheet.create({
         marginVertical: 18,
         fontWeight: 'bold',
     },
-    paradeTitleContainer: {
+    paradeContainer: {
+        marginHorizontal: 2,
     },
     votedItem: {
         borderColor: '#50C878',
@@ -70,6 +68,14 @@ const styles = StyleSheet.create({
         bottom: 0,
         borderRadius: 5,
     },
+    greenCheck: {
+        right: 5,
+        position: 'absolute',
+        fontSize: 25, 
+        fontWeight: 'bold',
+        color: '#50C878',
+        zIndex: 1,
+    }
 });
 
 export default styles;
