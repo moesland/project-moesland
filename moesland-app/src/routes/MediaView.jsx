@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { BACKEND_URL } from '@env';
-import PhotoContent from './PhotoContentView';
+import PhotoContent from '../modules/PhotoContentView';
 
 export default MediaView = () => {
   const [selectedImage, setSelectedImage] = useState(null);
