@@ -14,7 +14,7 @@ export const BackendFetch = async (path, method, callback, body = null) => {
         
         const data = await response.json();
         
-        callback(data);
+        await callback(data);
     } catch (error) {
         console.error('Error fetching:', error);
     }
