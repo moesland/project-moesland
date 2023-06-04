@@ -40,7 +40,7 @@ export default function DeclinedPhotoManagement() {
             'Authorization': 'Bearer ' + token
         });
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?isDeclined=true', { method: 'GET', headers: headers })
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?approvalStatus=declined', { method: 'GET', headers: headers })
             .then(response => response.json())
             .then(data => {
                 setGalleryImages(data);
@@ -49,15 +49,15 @@ export default function DeclinedPhotoManagement() {
     }
 
     const restoreItem = async (item) => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token');
         const headers = new Headers({
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/json',
         });
         const body = JSON.stringify({ id: item.userImageId });
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/user-image/restore", {
-            method: "POST",
+        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/restore', {
+            method: 'POST',
             body: body,
             headers: headers,
         });
