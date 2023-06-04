@@ -13,24 +13,31 @@ const VotingItem = ({ data, votes, setVotes }) => {
     }, [votes, data]);
 
     const votingResult = () => {
-        if (votes && data.event._id in votes && data.category._id in votes[data.event._id]) {
-            const result = votes[data.event._id][data.category._id];
+        if (votes) {
+            let result = null;
+
+            if (votes[data.event._id]) {
+                result = votes[data.event._id][data.category._id];
+            }
+
             setVotedParticipant(result);
+
             if (result) {
                 setVoted(result.participant === data._id);
+            } else {
+                setVoted(false);
             }
-        };
-    }
-
-    const reAdjustVotingResults = (data) => {
-       
+        }
     }
 
     const removeVote = async () => {
-        if(votedParticipant) {
+        if (votedParticipant) {
             await BackendFetch(`/api/vote/${votedParticipant._id}`, 'DELETE', (data) => {
                 if (data) {
                     console.log("Successfully vote deleted")
+                    const updatedVotes = { ...votes };
+                    delete updatedVotes[data.event][data.category];
+                    setVotes(updatedVotes);
                 }
             })
         }
@@ -50,8 +57,13 @@ const VotingItem = ({ data, votes, setVotes }) => {
 
             await BackendFetch('/api/vote', 'POST', (data) => {
                 if (data) {
-                    console.log("Successfully voted")
-                    reAdjustVotingResults(data)
+                    console.log("Successfully voted");
+                    const updatedVotes = { ...votes };
+                    if (updatedVotes[data.event] == undefined) {
+                        updatedVotes[data.event] = {}
+                    }
+                    updatedVotes[data.event][data.category] = data;
+                    setVotes(updatedVotes);
                 }
             }, body)
         }
