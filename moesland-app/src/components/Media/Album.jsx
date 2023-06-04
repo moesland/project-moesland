@@ -2,15 +2,20 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, RefreshControl, View } from 'react-native';
 import { fetchPhotosForAlbum } from '../../services/FlickrApi';
 import AlbumPhotoItem from './AlbumPhotoItem';
+import { PHOTOS_PER_PAGE } from '../../constants/media';
 
 export default Album = ({ navigation, route }) => {
   const [photos, setPhotos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(0);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  const { albumId } = route.params;
+  const { albumId, photoCount } = route.params;
 
   useEffect(() => {
+    const maxPage = Math.ceil(photoCount / PHOTOS_PER_PAGE);
+    setMaxPage(maxPage);
+
     getPhotosForAlbum();
   }, []);
 
@@ -30,6 +35,10 @@ export default Album = ({ navigation, route }) => {
   });
 
   const loadMorePhotos = async () => {
+    if (currentPage >= maxPage) {
+      return;
+    }
+
     const nextPage = currentPage + 1;
     setCurrentPage(nextPage);
 

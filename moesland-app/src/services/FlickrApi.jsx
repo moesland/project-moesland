@@ -1,11 +1,10 @@
+import { ALBUMS_PER_PAGE, PHOTOS_PER_PAGE } from '../constants/media';
+
 const apiKey = process.env.FLICKR_API_KEY;
 const userId = '139654880@N02';
 
-const albumsPerPage = 8;
-const photosPerPage = 32;
-
 const fetchAlbums = async (page) => {
-  const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getList&api_key=${apiKey}&page=${page}&per_page=${albumsPerPage}&user_id=${userId}&format=json&nojsoncallback=1`;
+  const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getList&api_key=${apiKey}&page=${page}&per_page=${ALBUMS_PER_PAGE}&user_id=${userId}&format=json&nojsoncallback=1`;
 
   try {
     const response = await fetch(apiUrl);
@@ -43,7 +42,7 @@ const fetchCoverPhotoForAlbum = async (albumPrimaryId) => {
 };
 
 const fetchPhotosForAlbum = async (albumId, page) => {
-  const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=${albumId}&page=${page}&per_page=${photosPerPage}&format=json&nojsoncallback=1`;
+  const apiUrl = `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=${albumId}&page=${page}&per_page=${PHOTOS_PER_PAGE}&format=json&nojsoncallback=1`;
 
   try {
     const response = await fetch(apiUrl);
