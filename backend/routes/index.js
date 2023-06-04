@@ -36,6 +36,6 @@ router.use('/api/event/update', requestLimiter, require('./api/event/update'));
 
 router.use('/api/participation', requestLimiter, authenticateToken, require('./api/participation'));
 
-router.use('/api/vote', requestLimiter, require('./api/vote'));
+router.use('/api/vote', require('./api/vote'));
 
 module.exports = router;
