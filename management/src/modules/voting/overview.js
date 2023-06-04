@@ -112,7 +112,7 @@ const Overview = () => {
             </div>
             <div className="col-md-6">
               <label htmlFor="eventTitleFilter" className="form-label">
-                Filter op evenementstitel:
+                Filter op evenement:
               </label>
               <select
                 className="form-select"
