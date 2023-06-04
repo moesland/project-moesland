@@ -26,13 +26,21 @@ const styles = StyleSheet.create({
     color: '#8b9fb0',
     fontWeight: 'bold',
   },
-  title: {
+  firstTitle: {
     fontSize: 16,
     color: 'black',
   },
-  description: {
+  title: {
+    fontSize: 14,
+    color: '#6D869C',
+  },
+  firstDescription: {
     fontSize: 12,
     color: '#6D869C',
+  },
+  description: {
+    fontSize: 12,
+    color: '#8b9fb0',
   },
   itemHeader: {
     flexDirection: 'row',

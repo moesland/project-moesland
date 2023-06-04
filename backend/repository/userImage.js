@@ -7,8 +7,16 @@ module.exports = {
     return UserImage.findOne({ _id: { $eq: id } })
       .catch((err) => console.log('Cannot find user image by id in UserImage dataset.', err));
   },
-  async getAllUserImages(query) {
-    return UserImage.find(query).populate('image')
+  async getAllUserImages() {
+    return UserImage.find({}).populate('image')
+      .catch((err) => console.error(err));
+  },
+  async getAllPendingUserImages() {
+    return UserImage.find({ approvalStatus: 'pending' }).populate('image')
+      .catch((err) => console.error(err));
+  },
+  async getAllDeclinedUserImages() {
+    return UserImage.find({ approvalStatus: 'declined' }).populate('image')
       .catch((err) => console.error(err));
   },
   async createUserImage(image) {
