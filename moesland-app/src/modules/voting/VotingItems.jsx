@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, Text, View, ScrollView, FlatList, Pressable } from 'react-native';
 import styles from '../../styles/votingStyles';
 import { getUniqueId } from '../../services/infoStorage';
-import { BackendFetch } from '../../services/MoeslandApi';
+import { fetchDataFromBackend } from '../../services/MoeslandApi';
 
 const VotingItem = ({ data, votes, setVotes }) => {
     const [voted, setVoted] = useState(false);
@@ -32,7 +32,7 @@ const VotingItem = ({ data, votes, setVotes }) => {
 
     const removeVote = async () => {
         if (votedParticipant) {
-            await BackendFetch(`/api/vote/${votedParticipant._id}`, 'DELETE', (data) => {
+            await fetchDataFromBackend(`/api/vote/${votedParticipant._id}`, 'DELETE', (data) => {
                 if (data) {
                     console.log("Successfully vote deleted")
                     const updatedVotes = { ...votes };
@@ -55,7 +55,7 @@ const VotingItem = ({ data, votes, setVotes }) => {
                 event: data.event._id
             }
 
-            await BackendFetch('/api/vote', 'POST', (data) => {
+            await fetchDataFromBackend('/api/vote', 'POST', (data) => {
                 if (data) {
                     console.log("Successfully voted");
                     const updatedVotes = { ...votes };

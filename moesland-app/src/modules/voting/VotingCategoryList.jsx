@@ -12,15 +12,19 @@ const VotingCategoryList = ({ data, votes, setVotes }) => {
     }
 
     return (
-        <ScrollView>
+        <View>
             <TouchableOpacity style={[styles.categoryContainer, { backgroundColor: `${data.color}95` }]} onPress={toggleList}>
                 <Text style={styles.categoryTitle}>{data.name}</Text>
             </TouchableOpacity>
 
-            {display && data.participates.map(participate => (
-                <VotingItem key={participate._id} data={participate} votes={votes} setVotes={setVotes} />
-            ))}
-        </ScrollView>
+            {display &&
+                <FlatList
+                    data={data.participates}
+                    renderItem={({ item }) => <VotingItem data={item} votes={votes} setVotes={setVotes} />}
+                    keyExtractor={item => item._id}
+                />
+            }
+        </View>
     );
 };
 

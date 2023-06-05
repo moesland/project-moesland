@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, FlatList, ScrollView, View, Text } from 'react-native';
 import VotingCategoryList from '../modules/voting/VotingCategoryList';
 import styles from '../styles/votingStyles';
-import { BackendFetch } from '../services/MoeslandApi';
+import { fetchDataFromBackend } from '../services/MoeslandApi';
 import { getUniqueId } from '../services/infoStorage';
 import { calculateDistance, getCurrentLocation } from '../services/locationService';
 
@@ -13,7 +13,7 @@ const VoteView = () => {
   const fetchEventData = async () => {
     let location = await getCurrentLocation();
 
-    await BackendFetch('/api/event/participants', 'GET', (data) => {
+    await fetchDataFromBackend('/api/event/participants', 'GET', (data) => {
       setEvents(formatEvents(data, location));
     })
   }
@@ -21,7 +21,7 @@ const VoteView = () => {
   const fetchVoteData = async () => {
     const id = await getUniqueId();
 
-    await BackendFetch(`/api/vote?deviceId=${id}`, 'GET', (data) => {
+    await fetchDataFromBackend(`/api/vote?deviceId=${id}`, 'GET', (data) => {
       setVotes(formatVotes(data));
     })
   }
@@ -60,32 +60,37 @@ const VoteView = () => {
 
   useEffect(() => {
     fetchEventData();
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (events) {
       fetchVoteData();
     }
-  }, [events])
+  }, [events]);
 
+  const eventItem = ({item}) => {
+    return (
+      <View style={styles.paradeContainer} key={item._id}>
+        <View style={styles.paradeTitleContainer}>
+          <Text style={styles.paradeTitle}>{item.title}</Text>
+        </View>
 
+        {item.categories.map(category => (
+          <VotingCategoryList key={category._id} data={category} votes={votes} setVotes={setVotes} />
+        ))}
+
+      </View>
+    )
+  }
+  
   return (
     <SafeAreaView style={styles.paradeContainer}>
       {events &&
-        <ScrollView style={styles.extraSpace}>
-          {events.map(event => (
-            <View style={styles.paradeContainer} key={event._id}>
-              <View style={styles.paradeTitleContainer}>
-                <Text style={styles.paradeTitle}>{event.title}</Text>
-              </View>
-
-              {event.categories.map(event => (
-                <VotingCategoryList key={event._id} data={event} votes={votes} setVotes={setVotes} />
-              ))}
-
-            </View>
-          ))}
-        </ScrollView>
+        <FlatList
+          data={events}
+          renderItem={eventItem}
+          keyExtractor={event => event._id}
+        />
       }
 
       {(!events || events.length > 1) &&
