@@ -174,3 +174,10 @@
   display: inline-block;
   border-radius: 4px;
 }
+
+.gold{
+  background-color: #E1AD01;
+  -webkit-box-shadow: 5px 15px 11px -6px #7a7a7d;
+  font-weight: bold;
+  box-shadow: 0px 10px 9px -6px #7a7a7d;
+}

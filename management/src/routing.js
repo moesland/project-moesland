@@ -13,6 +13,7 @@ import PhotoManagement from './pages/photoManagement/photoManagement';
 import DeclinedPhotoManagement from './pages/photoManagement/declinedPhotoManagement';
 import Participation from './pages/participation';
 import ParticipationCategory from './pages/participation/participationCategory/overview';
+import VotingOverview from './pages/participation/voting/overview';
 
 const Routing = () => {
   return (
@@ -29,6 +30,8 @@ const Routing = () => {
         <Route path='/rejected-photo-management' element={<DeclinedPhotoManagement/>} />
         <Route path='/participation' element={<Participation/>} />
         <Route path='/participation-category' element={<ParticipationCategory/>} />
+        <Route path='/voting-overview' element={<VotingOverview/>} />
+
       </Route>
 
       <Route element={<ProtectedRoute isAuthenticated={false}/>}>
