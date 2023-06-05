@@ -5,6 +5,28 @@ const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/user/get-list:
+ *   get:
+ *     summary: Get all users
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - User
+ *
+ *     responses:
+ *       200:
+ *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/models/user'
+ *       500:
+ *         description: Could not find users.
+ */
 router.get('/', async (req, res) => {
   try {
     const users = await getAllUsers();

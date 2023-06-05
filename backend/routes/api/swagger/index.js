@@ -10,6 +10,7 @@ router.use(express.json());
 
 // Define Swagger options
 const swaggerOptions = {
+  apis: ['./routes/api/**/*.js'],
   definition: {
     openapi: '3.0.0',
     info: {
@@ -94,6 +95,9 @@ const swaggerOptions = {
           _id: {
             type: 'string',
           },
+          username: {
+            type: 'string',
+          },
           email: {
             type: 'string',
           },
@@ -105,9 +109,64 @@ const swaggerOptions = {
           },
         },
       },
+      token: {
+        type: 'object',
+        properties: {
+          token: {
+            type: 'string',
+          },
+        },
+      },
+      role: {
+        type: 'object',
+        properties: {
+          _id: {
+            type: 'string',
+          },
+          rolename: {
+            type: 'string',
+          },
+        },
+      },
+      participation: {
+        type: 'object',
+        properties: {
+          _id: {
+            type: 'string',
+          },
+          startnumber: {
+            type: 'number',
+          },
+          name: {
+            type: 'string',
+          },
+          category: {
+            type: 'string',
+          },
+          event: {
+            type: 'string',
+          },
+        },
+      },
+      participationCategory: {
+        type: 'object',
+        properties: {
+          _id: {
+            type: 'string',
+          },
+          name: {
+            type: 'string',
+          },
+          description: {
+            type: 'string',
+          },
+          color: {
+            type: 'string',
+          },
+        },
+      },
     },
   },
-  apis: ['./routes/api/**/*.js'],
 };
 
 // Initialize swagger-jsdoc

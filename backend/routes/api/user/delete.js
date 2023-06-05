@@ -7,6 +7,36 @@ const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/user/delete:
+ *   post:
+ *     summary: Delete a user
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - User
+ *     requestBody:
+ *       description: User object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: User email
+ *     responses:
+ *       200:
+ *         description: User deleted successfully!
+ *       500:
+ *         description: Could not delete user.
+ *       401:
+ *         description: Unauthorized.
+ */
 router.post('/', [
   body('email').isEmail(),
 ], async (req, res) => {

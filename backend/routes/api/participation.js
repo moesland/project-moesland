@@ -6,10 +6,88 @@ const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/participation:
+ *   get:
+ *     summary: Get all participations
+ *     tags:
+ *       - Participation
+ *     parameters:
+ *       - name: startnumber
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: number
+ *       - name: name
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: string
+ *       - name: category
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: string
+ *       - name: event
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Participations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/models/participation'
+ *       500:
+ *         description: Could not get participations.
+ */
 router.get('/', async (req, res) => {
   res.status(200).json(await participationRepo.getAll(req.query));
 });
 
+/**
+ * @swagger
+ * /api/participation:
+ *   post:
+ *     summary: Add a participation
+ *     tags:
+ *       - Participation
+ *     requestBody:
+ *       description: Participation object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - startnumber
+ *              - name
+ *              - category
+ *              - event
+ *             properties:
+ *               startnumber:
+ *                 type: number
+ *                 description: Participation start number
+ *               name:
+ *                 type: string
+ *                 description: Participation name
+ *               category:
+ *                 type: string
+ *                 description: Participation category
+ *               event:
+ *                 type: string
+ *                 description: Participation event
+ *     responses:
+ *       201:
+ *         description: Participation added successfully!
+ *       400:
+ *         description: Bad request.
+ *       422:
+ *         description: Could not add participation.
+ */
 router.post('/', [
   body('startnumber').isNumeric().notEmpty().withMessage('Start number must be a non-empty number'),
   body('name').notEmpty().withMessage('Name must not be empty'),

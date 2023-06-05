@@ -60,6 +60,15 @@ router.use(express.json());
  *               radius:
  *                 type: number
  *                 description: Event radius
+ *     responses:
+ *       200:
+ *         description: Event updated
+ *       400:
+ *         description: Invalid event
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
  */
 router.post('/', [
   body('title').trim().isString().notEmpty(),

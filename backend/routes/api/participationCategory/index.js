@@ -5,6 +5,23 @@ const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/participation-category:
+ *   get:
+ *     summary: Get all parade participation categories
+ *     tags:
+ *       - Participation Category
+ *     responses:
+ *       200:
+ *         description: Parade participation categories
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/models/participationCategory'
+ *       500:
+ *         description: Error fetching parade categories
+ */
 router.get('/', async (req, res) => {
   try {
     return res.status(200).json(await getAllParadeParticipationCategories());

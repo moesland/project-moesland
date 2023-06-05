@@ -15,6 +15,32 @@ const {
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/participation-category/update:
+ *   post:
+ *     summary: Update a participation category
+ *     tags:
+ *       - Participation Category
+ *     requestBody:
+ *       description: Participation category object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/models/participationCategory'
+ *             example:
+ *             name: 'Kleine Loopgroep'
+ *             description: 'Loopgroepen onder de 11 personen'
+ *             color: '#FF0000'
+ *     responses:
+ *       200:
+ *         description: Participation category updated successfully.
+ *       404:
+ *         description: Participation category doesn't exist.
+ *       500:
+ *         description: Could not update participation category.
+ */
 router.post(
   '/',
   [
