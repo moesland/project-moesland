@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { BACKEND_URL } from '@env';
 import styles from '../styles/PhotoContentViewStyles';
+import { Camera } from 'expo-camera'; // Import Camera from expo-camera
 
 const getMimeTypeFromExtension = (filePath) => {
   const extension = filePath.split('.').pop().toLowerCase();
@@ -21,6 +22,8 @@ const getMimeTypeFromExtension = (filePath) => {
 export default PhotoContent = () => {
   const takePicture = async () => {
     try {
+      await Camera.requestCameraPermissionsAsync(); // Request camera permission from expo-camera
+
       const result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
