@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
     const { date } = req.query;
 
     if (date) {
-      await getEventsByDate(date);
       return res.status(200).json(await getEventsByDate(date));
     }
 
