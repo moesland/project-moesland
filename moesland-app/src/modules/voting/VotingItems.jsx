@@ -58,7 +58,7 @@ const VotingItem = ({ data, votes, setVotes }) => {
                 if (data) {
                     console.log("Successfully voted");
                     const updatedVotes = { ...votes };
-                    if (updatedVotes[data.event] == undefined) {
+                    if (updatedVotes[data.event] === undefined) {
                         updatedVotes[data.event] = {}
                     }
                     updatedVotes[data.event][data.category] = data;
