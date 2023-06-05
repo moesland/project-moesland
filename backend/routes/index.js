@@ -6,8 +6,10 @@ const router = express.Router();
 
 // default
 router.get('/', (req, res) => {
-  res.send('hello from home route');
+  res.send('backend api is running!');
 });
+
+router.use('/api/api-docs', requestLimiter, require('./api/swagger'));
 
 // Add all other routes here
 router.use('/api/auth', requestLimiter, require('./api/auth'));

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const participationScema = new mongoose.Schema({
+const participationSchema = new mongoose.Schema({
   startnumber: {
     type: Number,
     required: true,
@@ -30,4 +30,4 @@ const participationScema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Participation', participationScema);
+module.exports = mongoose.model('Participation', participationSchema);

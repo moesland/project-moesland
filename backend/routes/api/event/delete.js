@@ -6,6 +6,29 @@ const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/event/delete:
+ *   post:
+ *     summary: Delete an event
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Event
+ *     requestBody:
+ *       description: Event object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - _id
+ *             properties:
+ *               _id:
+ *                 type: string
+ *                 description: Event id
+ */
 router.post('/', async (req, res) => {
   const { _id } = req.body;
   try {
