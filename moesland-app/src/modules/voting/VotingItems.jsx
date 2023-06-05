@@ -41,7 +41,6 @@ const VotingItem = ({ data, votes, setVotes }) => {
                 }
             })
         }
-
     }
 
     const addVote = async () => {
