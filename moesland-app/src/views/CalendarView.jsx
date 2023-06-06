@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Text, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
-import styles from '../styles/CalendarStyles';
-import { testIDs } from '../constants/calendarTestIDs';
+import styles from '../styles/views/CalendarViewStyles';
+import testIDs from '../constants/calendarTestIDs';
 import fetchEvents from '../services/EventApi';
 import { LocaleConfig } from 'react-native-calendars';
 
