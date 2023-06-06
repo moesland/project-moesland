@@ -3,7 +3,7 @@ import { SafeAreaView, FlatList, TouchableOpacity, View, Text } from 'react-nati
 import VotingCategoryList from '../modules/voting/VotingCategoryList';
 import styles from '../styles/votingStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { fetchEventData, fetchVoteData } from '../services/VoteApi';
+import { fetchEventData, fetchVoteData, sendVoteRequest } from '../services/VoteApi';
 import VotingItem from '../modules/voting/VotingItems';
 
 const VoteView = () => {
@@ -12,14 +12,33 @@ const VoteView = () => {
   const [voteRequests, setVoteRequests] = useState({});
   const [newRequests, setNewRequests] = useState(false);
 
-  useEffect(() => {
-    const fetchEvent = async () => {
-      const data = await fetchEventData();
-      setEvents(data);
+  const onHandleUpdate = async () => {
+    const updated = await sendVoteRequest(voteRequests);
+    if(updated) {
+      setVoteRequests({});
+      fetchVotes();
     }
+  }
 
+  const fetchVotes = async () => {
+    const data = await fetchVoteData();
+    setVotes(data);
+  }
+
+  const fetchEvent = async () => {
+    const data = await fetchEventData();
+    setEvents(data);
+  }
+
+  useEffect(() => {
     fetchEvent();
   }, []);
+
+  useEffect(() => {
+    if (events) {
+      fetchVotes();
+    }
+  }, [events]);
 
   useEffect(() => {
     if (
@@ -32,17 +51,6 @@ const VoteView = () => {
       setNewRequests(false);
     }
   }, [voteRequests])
-
-  useEffect(() => {
-    if (events) {
-      const fetchVotes = async () => {
-        const data = await fetchVoteData();
-        setVotes(data);
-      }
-
-      fetchVotes();
-    }
-  }, [events]);
 
   const eventItem = ({ item }) => {
     const votingItem = ({ item }) => {
@@ -80,7 +88,7 @@ const VoteView = () => {
       }
 
       {(newRequests) &&
-        <TouchableOpacity style={styles.confirmContainer}>
+        <TouchableOpacity style={styles.confirmContainer} onPress={onHandleUpdate}>
           <Ionicons name='checkmark-circle' size={60} color='#50C878' />
         </TouchableOpacity>
       }

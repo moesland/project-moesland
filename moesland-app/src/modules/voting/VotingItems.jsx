@@ -6,6 +6,7 @@ import { getUniqueId } from '../../services/infoStorage';
 const VotingItem = ({ data, votes, voteRequests, setVoteRequests }) => {
     const [voted, setVoted] = useState(false);
     const [changeRequested, setChangeRequested] = useState(false);
+    const [votedParticipant, setVotedParticipant] = useState(null);
 
     useEffect(() => {
         votingResult();
@@ -16,7 +17,11 @@ const VotingItem = ({ data, votes, voteRequests, setVoteRequests }) => {
         if (votes) {
             if (votes[data.event._id] && votes[data.event._id][data.category._id]) {
                 const result = votes[data.event._id][data.category._id];
+        
+                setVotedParticipant(result);
                 setVoted(result.participant === data._id);
+            } else {
+                setVoted(false);
             }
         }
         
@@ -62,12 +67,15 @@ const VotingItem = ({ data, votes, voteRequests, setVoteRequests }) => {
 
     const addRequest = (id, voteRequest, requestTransaction) => {
         if (!voteRequest || voteRequest.participant !== data._id) {
+            const method = votedParticipant ? (voted ? 'delete' : 'edit') : 'post';
+
             requestTransaction[data.event._id][data.category._id] = {
+                _id: votedParticipant ? votedParticipant._id : null,
                 deviceId: id,
                 category: data.category._id,
                 participant: data._id,
                 event: data.event._id,
-                method: voted ? 'delete' : 'post'
+                method
             };
         } 
     }

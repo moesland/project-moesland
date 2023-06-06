@@ -38,5 +38,6 @@ router.use('/api/participation', requestLimiter, require('./api/participation'))
 router.use('/api/vote', requestLimiter, require('./api/vote'));
 
 router.use('/api/vote', require('./api/vote'));
+router.use('/api/vote/bulk', require('./api/vote/bulk'));
 
 module.exports = router;

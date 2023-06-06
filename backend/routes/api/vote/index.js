@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const voteRepository = require('../../repository/vote');
+const voteRepository = require('../../../repository/vote');
 
 const router = express.Router();
 
