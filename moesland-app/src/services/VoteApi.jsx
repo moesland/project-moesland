@@ -52,7 +52,7 @@ const separateVoteRequests = (voteRequests) => {
     const postRequests = [];
     const deleteRequests = [];
     
-    console.log(voteRequests);
+    //console.log(voteRequests);
 
     for (const voteId in voteRequests) {
         const vote = voteRequests[voteId];
