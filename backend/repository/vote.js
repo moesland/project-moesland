@@ -21,15 +21,15 @@ const update = async (id, data) => {
 
 const bulkDelete = async (votes) => {
   const cleanData = sanitize(votes);
-  
-  return Vote.deleteMany({_id: { $in: cleanData }});
-}
+
+  return Vote.deleteMany({ _id: { $in: cleanData } });
+};
 
 const bulkAdd = async (votes) => {
   const cleanData = sanitize(votes);
 
   return Vote.insertMany(cleanData);
-}
+};
 
 module.exports = {
   getAllExtra,

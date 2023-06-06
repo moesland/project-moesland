@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   paradeContainer: {
     marginHorizontal: 2,
     minHeight: '100%',
-    paddingBottom: '15%'
+    paddingBottom: '15%',
   },
   votedItem: {
     borderColor: '#50C878',
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
   changeRequested: {
     borderColor: '#FFD580',
-  }
+  },
 });
 
 export default styles;
