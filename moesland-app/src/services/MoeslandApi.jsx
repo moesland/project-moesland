@@ -1,4 +1,4 @@
-export const fetchDataFromBackend = async (path, method, callback, body = null) => {
+export const fetchDataFromBackend = async (path, method, callback = null, body = null) => {
     try {
         const response = await fetch(process.env.BACKEND_URL + path, {
             method: method,
@@ -11,10 +11,14 @@ export const fetchDataFromBackend = async (path, method, callback, body = null) 
         if (!response.ok) {
             throw new Error(`Request failed with status ${response.status}`);
         }
-        
+                
         const data = await response.json();
         
-        await callback(data);
+        if(callback !== null) {
+            await callback(data);
+        }
+        
+        return data;
     } catch (error) {
         console.error('Error fetching:', error);
     }

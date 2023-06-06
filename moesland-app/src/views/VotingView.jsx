@@ -1,70 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, FlatList, ScrollView, View, Text } from 'react-native';
+import { SafeAreaView, FlatList, TouchableOpacity, View, Text } from 'react-native';
 import VotingCategoryList from '../modules/voting/VotingCategoryList';
 import styles from '../styles/votingStyles';
-import { fetchDataFromBackend } from '../services/MoeslandApi';
-import { getUniqueId } from '../services/infoStorage';
-import { calculateDistance, getCurrentLocation } from '../services/locationService';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { fetchEventData, fetchVoteData } from '../services/VoteApi';
 
 const VoteView = () => {
   const [events, setEvents] = useState([]);
   const [votes, setVotes] = useState({});
-
-  const fetchEventData = async () => {
-    let location = await getCurrentLocation();
-
-    await fetchDataFromBackend('/api/event/participants', 'GET', (data) => {
-      setEvents(formatEvents(data, location));
-    })
-  }
-
-  const fetchVoteData = async () => {
-    const id = await getUniqueId();
-
-    await fetchDataFromBackend(`/api/vote?deviceId=${id}`, 'GET', (data) => {
-      setVotes(formatVotes(data));
-    })
-  }
-
-  const formatEvents = (data, location) => {
-    return data.filter((event) => {
-      if (event.isParade === true && event.latitude !== undefined && event.longitude !== undefined) {
-        if (event.radius === 0) {
-          return true; // Infinite radius, include the event
-        } else {
-          const distance = calculateDistance(event.latitude, event.longitude, location.latitude, location.longitude);
-          return distance <= event.radius;
-        }
-      }
-      return false;
-    })
-  }
-
-  const formatVotes = (data) => {
-    return data.reduce((result, vote) => {
-      const eventId = vote.event;
-      const categoryId = vote.category;
-
-      if (!result[eventId]) {
-        result[eventId] = {};
-      }
-
-      if (!result[eventId][categoryId]) {
-        result[eventId][categoryId] = vote;
-      }
-
-      return result;
-    }, {});
-  }
-
+  const [newVotes, setNewVotes] = useState({});
 
   useEffect(() => {
-    fetchEventData();
+    const fetchEvent = async () => {
+      const data = await fetchEventData();
+      setEvents(data);
+    }
+    
+    fetchEvent();
   }, []);
 
   useEffect(() => {
     if (events) {
-      fetchVoteData();
+      const fetchVotes = async () => {
+        const data = await fetchVoteData();
+        setVotes(data);
+      }
+    
+      fetchVotes();
     }
   }, [events]);
 
@@ -99,6 +61,11 @@ const VoteView = () => {
         </View>
       }
 
+      {(true) && 
+        <TouchableOpacity style={styles.confirmContainer}>
+            <Ionicons name='checkmark-circle' size={60} color='#50C878' />
+        </TouchableOpacity>
+      }
 
     </SafeAreaView>
   );
