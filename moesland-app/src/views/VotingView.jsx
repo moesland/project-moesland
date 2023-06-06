@@ -4,20 +4,34 @@ import VotingCategoryList from '../modules/voting/VotingCategoryList';
 import styles from '../styles/votingStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { fetchEventData, fetchVoteData } from '../services/VoteApi';
+import VotingItem from '../modules/voting/VotingItems';
 
 const VoteView = () => {
   const [events, setEvents] = useState([]);
   const [votes, setVotes] = useState({});
-  const [newVotes, setNewVotes] = useState({});
+  const [voteRequests, setVoteRequests] = useState({});
+  const [newRequests, setNewRequests] = useState(false);
 
   useEffect(() => {
     const fetchEvent = async () => {
       const data = await fetchEventData();
       setEvents(data);
     }
-    
+
     fetchEvent();
   }, []);
+
+  useEffect(() => {
+    if (
+      voteRequests &&
+      Object.keys(voteRequests).length > 0 &&
+      Object.values(voteRequests).some(request => Object.keys(request).length > 0)
+    ) {
+      setNewRequests(true);
+    } else {
+      setNewRequests(false);
+    }
+  }, [voteRequests])
 
   useEffect(() => {
     if (events) {
@@ -25,12 +39,16 @@ const VoteView = () => {
         const data = await fetchVoteData();
         setVotes(data);
       }
-    
+
       fetchVotes();
     }
   }, [events]);
 
-  const eventItem = ({item}) => {
+  const eventItem = ({ item }) => {
+    const votingItem = ({ item }) => {
+      return (<VotingItem key={item._id} data={item} votes={votes} voteRequests={voteRequests} setVoteRequests={setVoteRequests} />)
+    }
+
     return (
       <View style={styles.paradeContainer} key={item._id}>
         <View style={styles.paradeTitleContainer}>
@@ -38,13 +56,13 @@ const VoteView = () => {
         </View>
 
         {item.categories.map(category => (
-          <VotingCategoryList key={category._id} data={category} votes={votes} setVotes={setVotes} />
+          <VotingCategoryList key={category._id} data={category} votingItem={votingItem} />
         ))}
 
       </View>
     )
   }
-  
+
   return (
     <SafeAreaView style={styles.paradeContainer}>
       {events &&
@@ -61,9 +79,9 @@ const VoteView = () => {
         </View>
       }
 
-      {(true) && 
+      {(newRequests) &&
         <TouchableOpacity style={styles.confirmContainer}>
-            <Ionicons name='checkmark-circle' size={60} color='#50C878' />
+          <Ionicons name='checkmark-circle' size={60} color='#50C878' />
         </TouchableOpacity>
       }
 

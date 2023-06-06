@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, Text, View, ScrollView, FlatList, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { TouchableOpacity, Text, View, FlatList } from 'react-native';
 import styles from '../../styles/votingStyles';
-import VotingItem from './VotingItems';
-import { LinearGradient } from 'expo-linear-gradient';
 
-const VotingCategoryList = ({ data, votes, setVotes }) => {
+const VotingCategoryList = ({ data, votingItem }) => {
     const [display, setDisplay] = useState(false);
 
     const toggleList = () => {
@@ -20,7 +18,7 @@ const VotingCategoryList = ({ data, votes, setVotes }) => {
             {display &&
                 <FlatList
                     data={data.participates}
-                    renderItem={({ item }) => <VotingItem data={item} votes={votes} setVotes={setVotes} />}
+                    renderItem={votingItem}
                     keyExtractor={item => item._id}
                 />
             }

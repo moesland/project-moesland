@@ -1,80 +1,86 @@
 import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, Text, View, ScrollView, FlatList, Pressable } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 import styles from '../../styles/votingStyles';
 import { getUniqueId } from '../../services/infoStorage';
-import { fetchDataFromBackend } from '../../services/MoeslandApi';
 
-const VotingItem = ({ data, votes, setVotes }) => {
+const VotingItem = ({ data, votes, voteRequests, setVoteRequests }) => {
     const [voted, setVoted] = useState(false);
-    const [votedParticipant, setVotedParticipant] = useState(null)
+    const [changeRequested, setChangeRequested] = useState(false);
 
     useEffect(() => {
         votingResult();
-    }, [votes, data]);
+        requestResult();
+    }, [votes, voteRequests, data]);
 
     const votingResult = () => {
         if (votes) {
-            let result = null;
-
-            if (votes[data.event._id]) {
-                result = votes[data.event._id][data.category._id];
-            }
-
-            setVotedParticipant(result);
-
-            if (result) {
+            if (votes[data.event._id] && votes[data.event._id][data.category._id]) {
+                const result = votes[data.event._id][data.category._id];
                 setVoted(result.participant === data._id);
+            }
+        }
+        
+    }
+
+    const requestResult = () => {
+        if(voteRequests){
+            if (voteRequests[data.event._id] && voteRequests[data.event._id][data.category._id]) {
+                const result = voteRequests[data.event._id][data.category._id];
+                setChangeRequested(result.participant === data._id);
             } else {
-                setVoted(false);
+                setChangeRequested(false);
             }
         }
     }
 
-    const removeVote = async () => {
-        if (votedParticipant) {
-            await fetchDataFromBackend(`/api/vote/${votedParticipant._id}`, 'DELETE', (data) => {
-                if (data) {
-                    console.log("Successfully vote deleted")
-                    const updatedVotes = { ...votes };
-                    delete updatedVotes[data.event][data.category];
-                    setVotes(updatedVotes);
-                }
-            })
-        }
-    }
-
-    const addVote = async () => {
+    const onHandleRequest = async () => {
         const id = await getUniqueId();
 
-        if (id && !voted) {
-            const body = {
+        if(!id) {
+            return;
+        }
+
+        const voteRequest = voteRequests[data.event._id] && voteRequests[data.event._id][data.category._id] || null;
+        const requestTransaction = setupRequest(voteRequest);
+
+        addRequest(id, voteRequest, requestTransaction);
+        deleteRequest(voteRequest, requestTransaction);
+        setVoteRequests(requestTransaction);
+    }
+
+    const setupRequest = (voteRequest) => {
+        const updatedVoteRequest = { ...voteRequests };
+
+        if(voteRequest === null) {
+            if (updatedVoteRequest[data.event._id] === undefined) {
+                updatedVoteRequest[data.event._id] = {}
+            }
+        }
+
+        return updatedVoteRequest;
+    }
+
+    const addRequest = (id, voteRequest, requestTransaction) => {
+        if (!voteRequest || voteRequest.participant !== data._id) {
+            requestTransaction[data.event._id][data.category._id] = {
                 deviceId: id,
                 category: data.category._id,
                 participant: data._id,
-                event: data.event._id
-            }
+                event: data.event._id,
+                method: voted ? 'delete' : 'post'
+            };
+        } 
+    }
 
-            await fetchDataFromBackend('/api/vote', 'POST', (data) => {
-                if (data) {
-                    console.log("Successfully voted");
-                    const updatedVotes = { ...votes };
-                    if (updatedVotes[data.event] === undefined) {
-                        updatedVotes[data.event] = {}
-                    }
-                    updatedVotes[data.event][data.category] = data;
-                    setVotes(updatedVotes);
-                }
-            }, body)
+    const deleteRequest = (voteRequest, requestTransaction) => {
+        if (voteRequest && voteRequest.participant === data._id){
+            delete requestTransaction[data.event._id][data.category._id];
         }
     }
 
-    const onPressVote = async () => {
-        await removeVote();
-        await addVote();
-    }
 
     return (
-        <TouchableOpacity style={[styles.votingItem, voted && styles.votedItem]} onPress={onPressVote}>
+        <TouchableOpacity style={[styles.votingItem, voted && styles.votedItem, changeRequested && styles.changeRequested]} onPress={onHandleRequest}>
             {voted && <Text style={[styles.greenCheck]} > ✓ </Text>}
             <Text style={styles.voitingItemText}> Nr. {data.startnumber}, {data.name} </Text>
         </TouchableOpacity>

@@ -83,6 +83,9 @@ const styles = StyleSheet.create({
     bottom: 105,
     right: 7,
   },
+  changeRequested: {
+    borderColor: '#FFD580',
+  }
 });
 
 export default styles;
