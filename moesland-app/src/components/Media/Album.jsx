@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, View } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, Text, View } from 'react-native';
 import { fetchPhotosForAlbum } from '../../services/FlickrApi';
 import AlbumPhotoItem from './AlbumPhotoItem';
 import { PHOTOS_PER_PAGE } from '../../constants/media';
@@ -69,17 +69,24 @@ export default Album = ({ navigation, route }) => {
   });
 
   return (
-    <FlatList
-      data={photos}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={renderItem}
-      numColumns={3}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    <View>
+      {photos.length === 0 ? (
+        <Text>Er zijn geen foto's om te tonen.</Text>
+      ) : (
+        <FlatList
+          data={photos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          numColumns={3}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          onEndReached={loadMorePhotos}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={renderFooter}
+        />
+      )
       }
-      onEndReached={loadMorePhotos}
-      onEndReachedThreshold={0.5}
-      ListFooterComponent={renderFooter}
-    />
+    </View>
   );
 };
