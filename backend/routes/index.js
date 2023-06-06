@@ -19,7 +19,7 @@ router.use('/api/user', require('./api/user'));
 router.use('/api/user/add', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/user/add'));
 router.use('/api/user/update', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/user/update'));
 router.use('/api/user/delete', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/user/delete'));
-router.use('/api/user/get-list', authenticateTokenRole('SuperAdmin'), require('./api/user/getList'));
+router.use('/api/user/get-list', authenticateTokenRole('SuperAdmin'), requestLimiter, require('./api/user/getList'));
 router.use('/api/user/role', require('./api/user/role'));
 
 router.use('/api/news-article', requestLimiter, require('./api/newsArticle'));
