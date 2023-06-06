@@ -97,7 +97,7 @@ export default class AgendaScreen extends PureComponent {
     );
   }
 
-  renderItem = (eventItem, isFirst) => {
+  renderItem = (eventItem) => {
     let startTime = eventItem.startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     let endTime = eventItem.endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 
@@ -110,8 +110,8 @@ export default class AgendaScreen extends PureComponent {
           <Text style={styles.time}>{startTime} - {endTime}</Text>
           <Text style={styles.time}>{eventItem.location}</Text>
         </View>
-        <Text style={isFirst ? styles.firstTitle : styles.title}>{eventItem.name}</Text>
-        <Text style={isFirst ? styles.firstDescription : styles.description}>{eventItem.description}</Text>
+        <Text style={styles.title}>{eventItem.name}</Text>
+        <Text style={styles.description}>{eventItem.description}</Text>
       </View>
     );
   }
