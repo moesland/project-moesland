@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, View } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, Text, View } from 'react-native';
 import { fetchAlbums, fetchCoverPhotoForAlbum } from '../../services/FlickrApi';
 import styles from '../../styles/components/GalleryStyles';
 import AlbumItem from './AlbumItem';
@@ -82,18 +82,25 @@ export default Gallery = ({ navigation }) => {
   });
 
   return (
-    <FlatList
-      data={albums}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={renderItem}
-      numColumns={2}
-      contentContainerStyle={styles.container}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+    <View>
+      {albums.length === 0 ? (
+        <Text style={styles.text}>Er zijn geen albums om te tonen.</Text>
+      ) : (
+        <FlatList
+          data={albums}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
+          numColumns={2}
+          contentContainerStyle={styles.container}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          onEndReached={loadMoreAlbums}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={renderFooter}
+        />
+      )
       }
-      onEndReached={loadMoreAlbums}
-      onEndReachedThreshold={0.5}
-      ListFooterComponent={renderFooter}
-    />
+    </View>
   );
 };
