@@ -4,13 +4,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MOESLAND_GREEN, FOOTER_BACKGROUND_COLOR } from './src/constants/colors';
-import NewsItemListView from './src/routes/NewsItemListView';
-import NewsItemDetailView from './src/routes/NewsItemDetailView';
+
+import NewsItemListView from './src/views/NewsItemListView';
+import NewsItemDetailView from './src/views/NewsItemDetailView';
 import ToolbarView from './src/components/ToolbarView';
-import MediaView from './src/routes/MediaView';
-import CalendarView from './src/routes/CalendarView';
-import VotingView from './src/routes/VotingView';
-import ContactView from './src/routes/ContactView';
+import MediaView from './src/views/MediaView';
+import AlbumView from './src/views/AlbumView';
+import PhotoView from './src/views/PhotoView';
+import CalendarView from './src/views/CalendarView';
+import VotingView from './src/views/VotingView';
+import ContactView from './src/views/ContactView';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,6 +28,20 @@ export default function App() {
       >
         <Stack.Screen name="NewsItemListView" component={NewsItemListView} />
         <Stack.Screen name="NewsItemDetailView" component={NewsItemDetailView} />
+      </Stack.Navigator>
+    );
+  }
+
+  function MediaStack() {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="MediaView" component={MediaView} />
+        <Stack.Screen name="AlbumView" component={AlbumView} />
+        <Stack.Screen name="PhotoView" component={PhotoView} />
       </Stack.Navigator>
     );
   }
@@ -65,7 +82,7 @@ export default function App() {
       >
         <Tab.Screen name="Nieuws" component={NewsStack} />
         <Tab.Screen name="Agenda" component={CalendarView} />
-        <Tab.Screen name="Media" component={MediaView} />
+        <Tab.Screen name="Media" component={MediaStack} />
         <Tab.Screen name="Stemmen" component={VotingView} />
         <Tab.Screen name="Contact" component={ContactView} />
       </Tab.Navigator>
