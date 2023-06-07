@@ -8,6 +8,15 @@ router.use(express.json());
 
 router.get('/', async (req, res) => {
   try {
+    const votes = await voteRepository.getAll(req.query);
+    res.status(200).json(votes);
+  } catch (err) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.get('/extra', async (req, res) => {
+  try {
     const votes = await voteRepository.getAllExtra(req.query);
     res.status(200).json(votes);
   } catch (err) {
