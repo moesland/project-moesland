@@ -165,6 +165,25 @@ const swaggerOptions = {
           },
         },
       },
+      newsArticle: {
+        type: 'object',
+        properties: {
+          _id: {
+            type: 'string',
+          },
+          title: {
+            type: 'string',
+          },
+          content: {
+            type: 'string',
+            format: 'json',
+          },
+          bannerImage: {
+            type: 'string',
+            format: 'binary',
+          },
+        },
+      },
     },
   },
 };

@@ -14,36 +14,6 @@ const auth = require('../../../middlewares/auth');
 
 router.use(express.json());
 
-/**
- * @swagger
- * /api/news-article/create:
- *   post:
- *     summary: Create a news article.
- *     tags: [NewsArticle]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *               content:
- *                 type: string
- *               bannerImage:
- *                 type: string
- *                 format: binary
- *     responses:
- *       201:
- *         description: News article created successfully!
- *       500:
- *         description: Could not create news article.
- *       401:
- *         description: Unauthorized.
- */
 router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (req, res) => {
   try {
     const { title, content } = req.body;

@@ -37,12 +37,12 @@ router.use(express.json());
  *               password:
  *                 type: string
  *                 description: User password
- *    responses:
- *      200:
- *        description: User updated successfully!
- *      500:
- *        description: Could not update user.
- *      401:
+ *     responses:
+ *       200:
+ *         description: User updated successfully!
+ *       500:
+ *         description: Could not update user.
+ *       401:
  *        description: Unauthorized.
  */
 router.post('/', [
