@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const voteRepository = require('../../repository/vote');
+const voteRepository = require('../../../repository/vote');
 
 const router = express.Router();
 
@@ -16,9 +16,9 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', [
-  body('timestamp').isDate().withMessage('Timestamp should be a valid date'),
   body('deviceId').notEmpty().withMessage('Device ID must not be empty'),
   body('category').isMongoId().notEmpty().withMessage('Category must be a non-empty MongoDB ID'),
+  body('event').isMongoId().notEmpty().withMessage('event must be a non-empty MongoDB ID'),
   body('participant').isMongoId().notEmpty().withMessage('Participant must be a non-empty MongoDB ID'),
 ], async (req, res, next) => {
   try {
@@ -36,6 +36,7 @@ router.post('/', [
 router.put('/:id', [
   body('timestamp').notEmpty().isDate().withMessage('Timestamp should be a valid date'),
   body('deviceId').notEmpty().withMessage('Device ID must not be empty'),
+  body('event').isMongoId().notEmpty().withMessage('event must be a non-empty MongoDB ID'),
   body('category').isMongoId().notEmpty().withMessage('Category must be a non-empty MongoDB ID'),
   body('participant').isMongoId().notEmpty().withMessage('Participant must be a non-empty MongoDB ID'),
 ], async (req, res, next) => {

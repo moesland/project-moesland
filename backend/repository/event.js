@@ -4,6 +4,14 @@ const Event = mongoose.model('Event');
 const sanitize = require('mongo-sanitize');
 
 module.exports = {
+  async getOngoingEvents(date) {
+    const currentDate = new Date(date);
+    const events = await Event.find({
+      startdate: { $lte: currentDate },
+      enddate: { $gte: currentDate },
+    });
+    return events;
+  },
   async getEventById(id) {
     return Event.findOne({ _id: { $eq: id } })
       .catch((err) => console.log('Cannot find events by id in Event dataset.', err));
