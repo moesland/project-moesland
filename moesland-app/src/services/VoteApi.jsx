@@ -38,7 +38,7 @@ export const fetchEventData = async () => {
     const location = await getCurrentLocation();
     const data = await fetchDataFromBackend('/api/event/participants', 'GET');
 
-    return formatEvents(data, location);
+    return formatEvents(data, location.coords);
 }
 
 export const fetchVoteData = async () => {
