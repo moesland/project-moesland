@@ -156,7 +156,7 @@ const Overview = () => {
                   }`}
                 >
                   <td className="participant-name">
-                    {index === 0 && currentPage === 1 ? '🥇' : ''}
+                    {participant === firstGroups[participant.category?.name] && currentPage === 1 ? '🥇' : ''}
                     {participant.participant.name}
                   </td>
                   <td className="category-name">
