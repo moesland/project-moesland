@@ -82,7 +82,7 @@ export default Gallery = ({ navigation }) => {
   });
 
   return (
-    <View>
+    <View style={styles.view}>
       {albums.length === 0 ? (
         <Text style={styles.text}>Er zijn geen albums om te tonen.</Text>
       ) : (
