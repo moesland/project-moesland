@@ -9,7 +9,7 @@ const Overview = () => {
   const itemsPerPage = 10;
 
   useEffect(() => {
-    BackendFetch('/api/vote/extra', 'GET', (data) => {
+    BackendFetch('/api/vote', 'GET', (data) => {
       setVotingData(data);
     });
   }, []);
