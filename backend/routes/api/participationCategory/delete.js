@@ -9,6 +9,38 @@ const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/participation-category/delete:
+ *   post:
+ *     summary: Delete a participation category
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Participation Category
+ *     requestBody:
+ *       description: Participation category object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - _id
+ *             properties:
+ *               _id:
+ *                 type: string
+ *                 description: Participation category _id
+ *     responses:
+ *       200:
+ *         description: Participation category deleted successfully!
+ *       500:
+ *         description: Could not delete participation category.
+ *       404:
+ *         description: Participation category doesn't exist.
+ *       401:
+ *         description: Unauthorized.
+ */
 router.post('/', async (req, res) => {
   const { _id } = req.body;
   try {

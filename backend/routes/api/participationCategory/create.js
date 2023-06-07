@@ -15,6 +15,40 @@ const {
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/participation-category/create:
+ *   post:
+ *     summary: Create a new participation category
+ *     tags:
+ *       - Participation Category
+ *     requestBody:
+ *       description: Participation category object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               color:
+ *                 type: string
+ *           example:
+ *             name: 'Kleine Loopgroep'
+ *             description: 'Loopgroepen onder de 11 personen'
+ *             color: '#FF0000'
+ *     responses:
+ *       201:
+ *         description: Participation category created successfully.
+ *       400:
+ *         description: Bad request, check the request body.
+ *       401:
+ *         description: Unauthorized, invalid token.
+ *       500:
+ *         description: Could not create participation category.
+ */
 router.post(
   '/',
   [
