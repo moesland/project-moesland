@@ -5,6 +5,26 @@ const User = require('../../../models/user');
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/user:
+ *   post:
+ *     summary: Create a new user
+ *     tags:
+ *       - User
+ *     requestBody:
+ *       description: User object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/models/user'
+ *     responses:
+ *       200:
+ *         description: User saved successfully!
+ *       500:
+ *         description: Error saving user.
+ */
 router.post('/', (req, res) => {
   const {
     id, password, email, username, roleId,

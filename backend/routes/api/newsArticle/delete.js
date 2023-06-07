@@ -5,6 +5,29 @@ const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/news-article/delete:
+ *   post:
+ *     summary: Delete a news article
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - NewsArticle
+ *     requestBody:
+ *       description: NewsArticle object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - id
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 description: NewsArticle id
+ */
 router.post('/', async (req, res) => {
   try {
     const { _id } = req.body;

@@ -6,6 +6,33 @@ const { getRoleById } = require('../../../repository/role');
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/user/role:
+ *   get:
+ *     summary: Get user role
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - User
+ *     parameters:
+ *       - name: username
+ *         in: query
+ *         required: true
+ *         schema:
+ *           type: string
+ *
+ *
+ *     responses:
+ *       200:
+ *         description: User role
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/models/role'
+ *       500:
+ *         description: Could not get user.
+ */
 router.get('/', async (req, res) => {
   try {
     const { username } = req.query;

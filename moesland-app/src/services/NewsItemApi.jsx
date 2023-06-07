@@ -60,7 +60,6 @@ const formatDateString = (inputDateString) => {
 
 const fetchNewsItems = async () => {
   try {
-    console.log('fetching News Items');
     const json = await fetchNewsItemsFromBackend();
 
     const newsItems = json.map((item) => {

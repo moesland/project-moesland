@@ -31,6 +31,17 @@ const eventData = [
     longitude: 5.63194,
     radius: 300,
   },
+  {
+    title: 'Globaal Event XXL',
+    description: 'Een globale evenement wat altijd en overal actief zijn',
+    startdate: new Date(),
+    enddate: new Date().setFullYear(new Date().getFullYear() + 1),
+    location: 'Stamcafe van Schaijk',
+    isParade: true,
+    latitude: 51.74583,
+    longitude: 5.63194,
+    radius: 0,
+  },
 ];
 
 const seedEvents = async () => {

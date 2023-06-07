@@ -1,16 +1,96 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
+const { authenticateToken } = require('../../middlewares/auth');
 const participationRepo = require('../../repository/participation');
 
 const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/participation:
+ *   get:
+ *     summary: Get all participations
+ *     tags:
+ *       - Participation
+ *     parameters:
+ *       - name: startnumber
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: number
+ *       - name: name
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: string
+ *       - name: category
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: string
+ *       - name: event
+ *         in: query
+ *         required: false
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Participations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/models/participation'
+ *       500:
+ *         description: Could not get participations.
+ */
 router.get('/', async (req, res) => {
   res.status(200).json(await participationRepo.getAll(req.query));
 });
 
-router.post('/', [
+
+/**
+ * @swagger
+ * /api/participation:
+ *   post:
+ *     summary: Add a participation
+ *     tags:
+ *       - Participation
+ *     requestBody:
+ *       description: Participation object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - startnumber
+ *              - name
+ *              - category
+ *              - event
+ *             properties:
+ *               startnumber:
+ *                 type: number
+ *                 description: Participation start number
+ *               name:
+ *                 type: string
+ *                 description: Participation name
+ *               category:
+ *                 type: string
+ *                 description: Participation category
+ *               event:
+ *                 type: string
+ *                 description: Participation event
+ *     responses:
+ *       201:
+ *         description: Participation added successfully!
+ *       400:
+ *         description: Bad request.
+ *       422:
+ *         description: Could not add participation.
+ */
+router.post('/', authenticateToken, [
   body('startnumber').isNumeric().notEmpty().withMessage('Start number must be a non-empty number'),
   body('name').notEmpty().withMessage('Name must not be empty'),
   body('category').isMongoId().notEmpty().withMessage('Category must be a non-empty MongoDB ID'),
@@ -31,7 +111,7 @@ router.post('/', [
   }
 });
 
-router.put('/:id', [
+router.put('/:id', authenticateToken, [
   body('startnumber').optional().isNumeric().withMessage('Start number must be a number'),
   body('name').optional().notEmpty().withMessage('Name must not be empty'),
   body('category').optional().isMongoId().withMessage('Category must be a MongoDB ID'),
@@ -52,7 +132,7 @@ router.put('/:id', [
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', authenticateToken, async (req, res, next) => {
   try {
     const { id } = req.params;
     const deletedParticipation = await participationRepo.remove(id);
