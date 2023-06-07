@@ -19,6 +19,55 @@ router.post('/validate-role', authenticateTokenRole('SuperAdmin'), async (req, r
   res.status(200).json({ authorized: true, role: 'SuperAdmin' });
 });
 
+// swagger
+/**
+ * @swagger
+ * /api/auth:
+ *   post:
+ *     summary: Authenticate a user, generate a token you can use with the 'Authorize' button
+ *     tags:
+ *       - Auth
+ *     requestBody:
+ *       description: User object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - username
+ *              - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: User username
+ *                 example: admin
+ *               password:
+ *                 type: string
+ *                 description: User password
+ *                 example: admin
+ *     responses:
+ *       200:
+ *         description: Returns the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 username:
+ *                   type: string
+ *                   description: User username
+ *                 email:
+ *                   type: string
+ *                   description: User email
+ *                 authToken:
+ *                   type: string
+ *                   description: User authToken
+ *       400:
+ *         description: Invalid username or password
+ *       401:
+ *         description: Invalid username or password
+ */
 router.post('/', async (req, res) => {
   const { username, password } = req.body;
 

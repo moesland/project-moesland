@@ -6,6 +6,29 @@ const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/event:
+ *   get:
+ *     summary: Get all events
+ *     tags:
+ *       - Event
+ *     parameters:
+ *       - in: query
+ *         name: date
+ *         schema:
+ *           type: string
+ *         description: Date of the event
+ *     responses:
+ *       200:
+ *         description: List of events
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/models/event'
+ */
 router.get('/', async (req, res) => {
   try {
     const { date } = req.query;

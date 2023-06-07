@@ -6,6 +6,70 @@ const { getEventById, updateEventById } = require('../../../repository/event');
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/event/update:
+ *   post:
+ *     summary: Update an event
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Event
+ *     requestBody:
+ *       description: Event object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - id
+ *              - title
+ *              - description
+ *              - startdate
+ *              - enddate
+ *              - isParade
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 description: Event id
+ *               title:
+ *                 type: string
+ *                 description: Event title
+ *               description:
+ *                 type: string
+ *                 description: Event description
+ *               startdate:
+ *                 type: string
+ *                 description: Event startdate
+ *               enddate:
+ *                 type: string
+ *                 description: Event enddate
+ *               location:
+ *                 type: string
+ *                 description: Event location
+ *               isParade:
+ *                 type: boolean
+ *                 description: Is the event a parade
+ *               latitude:
+ *                 type: number
+ *                 description: Event latitude
+ *               longitude:
+ *                 type: number
+ *                 description: Event longitude
+ *               radius:
+ *                 type: number
+ *                 description: Event radius
+ *     responses:
+ *       200:
+ *         description: Event updated
+ *       400:
+ *         description: Invalid event
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Server error
+ */
 router.post('/', [
   body('title').trim().isString().notEmpty(),
   body('description').trim().isString().notEmpty(),

@@ -8,6 +8,44 @@ const { addUser, getUserByEmail, getUserByUsername } = require('../../../reposit
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/user/add:
+ *   post:
+ *     summary: Add a user
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - User
+ *     requestBody:
+ *       description: User object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - username
+ *              - email
+ *              - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: User username
+ *               email:
+ *                 type: string
+ *                 description: User email
+ *               password:
+ *                 type: string
+ *                 description: User password
+ *     responses:
+ *       200:
+ *         description: User added successfully!
+ *       500:
+ *         description: Could not add user.
+ *       401:
+ *         description: Unauthorized.
+ */
 router.post('/', [
   body('username').trim().isString().notEmpty(),
   body('email').isEmail(),
