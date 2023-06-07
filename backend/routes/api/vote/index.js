@@ -6,6 +6,75 @@ const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/vote:
+ *   get:
+ *     summary: Get all votes
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Vote
+ *     parameters:
+ *       - in: query
+ *         name: deviceId
+ *         schema:
+ *           type: string
+ *         description: Device ID
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *         description: Category ID
+ *       - in: query
+ *         name: event
+ *         schema:
+ *           type: string
+ *         description: Event ID
+ *       - in: query
+ *         name: participant
+ *         schema:
+ *           type: string
+ *         description: Participant ID
+ *       - in: query
+ *         name: timestamp
+ *         schema:
+ *           type: string
+ *         description: Timestamp
+ *     responses:
+ *       200:
+ *         description: Array of votes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 required:
+ *                   - deviceId
+ *                   - category
+ *                   - event
+ *                   - participant
+ *                   - timestamp
+ *                 properties:
+ *                   deviceId:
+ *                     type: string
+ *                     description: Device ID
+ *                   category:
+ *                     type: string
+ *                     description: Category ID
+ *                   event:
+ *                     type: string
+ *                     description: Event ID
+ *                   participant:
+ *                     type: string
+ *                     description: Participant ID
+ *                   timestamp:
+ *                     type: string
+ *                     description: Timestamp
+ *       500:
+ *         description: Internal Server Error
+ */
 router.get('/', async (req, res) => {
   try {
     const votes = await voteRepository.getAll(req.query);
@@ -15,6 +84,75 @@ router.get('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/vote/extra:
+ *   get:
+ *     summary: Get all extra votes
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Vote
+ *     parameters:
+ *       - in: query
+ *         name: deviceId
+ *         schema:
+ *           type: string
+ *         description: Device ID
+ *       - in: query
+ *         name: category
+ *         schema:
+ *           type: string
+ *         description: Category ID
+ *       - in: query
+ *         name: event
+ *         schema:
+ *           type: string
+ *         description: Event ID
+ *       - in: query
+ *         name: participant
+ *         schema:
+ *           type: string
+ *         description: Participant ID
+ *       - in: query
+ *         name: timestamp
+ *         schema:
+ *           type: string
+ *         description: Timestamp
+ *     responses:
+ *       200:
+ *         description: Array of votes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 required:
+ *                   - deviceId
+ *                   - category
+ *                   - event
+ *                   - participant
+ *                   - timestamp
+ *                 properties:
+ *                   deviceId:
+ *                     type: string
+ *                     description: Device ID
+ *                   category:
+ *                     type: string
+ *                     description: Category ID
+ *                   event:
+ *                     type: string
+ *                     description: Event ID
+ *                   participant:
+ *                     type: string
+ *                     description: Participant ID
+ *                   timestamp:
+ *                     type: string
+ *                     description: Timestamp
+ *       500:
+ *         description: Internal Server Error
+ */
 router.get('/extra', async (req, res) => {
   try {
     const votes = await voteRepository.getAllExtra(req.query);
@@ -24,6 +162,78 @@ router.get('/extra', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/vote:
+ *   post:
+ *     summary: Add a vote
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Vote
+ *     requestBody:
+ *       description: Vote object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - deviceId
+ *              - category
+ *              - event
+ *              - participant
+ *              - timestamp
+ *             properties:
+ *               deviceId:
+ *                 type: string
+ *                 description: Device ID
+ *               category:
+ *                 type: string
+ *                 description: Category ID
+ *               event:
+ *                 type: string
+ *                 description: Event ID
+ *               participant:
+ *                 type: string
+ *                 description: Participant ID
+ *               timestamp:
+ *                 type: string
+ *                 description: Timestamp
+ *     responses:
+ *       201:
+ *         description: Created vote
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - deviceId
+ *                 - category
+ *                 - event
+ *                 - participant
+ *                 - timestamp
+ *               properties:
+ *                 deviceId:
+ *                   type: string
+ *                   description: Device ID
+ *                 category:
+ *                   type: string
+ *                   description: Category ID
+ *                 event:
+ *                   type: string
+ *                   description: Event ID
+ *                 participant:
+ *                   type: string
+ *                   description: Participant ID
+ *                 timestamp:
+ *                   type: string
+ *                   description: Timestamp
+ *       400:
+ *         description: Bad Request
+ *       500:
+ *         description: Internal Server Error
+ */
 router.post('/', [
   body('deviceId').notEmpty().withMessage('Device ID must not be empty'),
   body('category').isMongoId().notEmpty().withMessage('Category must be a non-empty MongoDB ID'),
@@ -42,6 +252,86 @@ router.post('/', [
   }
 });
 
+/**
+ * @swagger
+ * /api/vote/{id}:
+ *   put:
+ *     summary: Update a vote
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Vote
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         description: Vote ID
+ *     requestBody:
+ *       description: Vote object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - deviceId
+ *              - category
+ *              - event
+ *              - participant
+ *              - timestamp
+ *             properties:
+ *               deviceId:
+ *                 type: string
+ *                 description: Device ID
+ *               category:
+ *                 type: string
+ *                 description: Category ID
+ *               event:
+ *                 type: string
+ *                 description: Event ID
+ *               participant:
+ *                 type: string
+ *                 description: Participant ID
+ *               timestamp:
+ *                 type: string
+ *                 description: Timestamp
+ *     responses:
+ *       200:
+ *         description: Updated vote
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - deviceId
+ *                 - category
+ *                 - event
+ *                 - participant
+ *                 - timestamp
+ *               properties:
+ *                 deviceId:
+ *                   type: string
+ *                   description: Device ID
+ *                 category:
+ *                   type: string
+ *                   description: Category ID
+ *                 event:
+ *                   type: string
+ *                   description: Event ID
+ *                 participant:
+ *                   type: string
+ *                   description: Participant ID
+ *                 timestamp:
+ *                   type: string
+ *                   description: Timestamp
+ *       400:
+ *         description: Bad Request
+ *       404:
+ *         description: Not Found
+ *       500:
+ *         description: Internal Server Error
+ */
 router.put('/:id', [
   body('timestamp').notEmpty().isDate().withMessage('Timestamp should be a valid date'),
   body('deviceId').notEmpty().withMessage('Device ID must not be empty'),
@@ -67,6 +357,55 @@ router.put('/:id', [
   }
 });
 
+/**
+ * @swagger
+ * /api/vote/{id}:
+ *   delete:
+ *     summary: Delete a vote
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Vote
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         description: Vote ID
+ *     responses:
+ *       200:
+ *         description: Deleted vote
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required:
+ *                 - deviceId
+ *                 - category
+ *                 - event
+ *                 - participant
+ *                 - timestamp
+ *               properties:
+ *                 deviceId:
+ *                   type: string
+ *                   description: Device ID
+ *                 category:
+ *                   type: string
+ *                   description: Category ID
+ *                 event:
+ *                   type: string
+ *                   description: Event ID
+ *                 participant:
+ *                   type: string
+ *                   description: Participant ID
+ *                 timestamp:
+ *                   type: string
+ *                   description: Timestamp
+ *       404:
+ *         description: Not Found
+ *       500:
+ *         description: Internal Server Error
+ */
 router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;

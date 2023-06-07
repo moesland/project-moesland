@@ -50,8 +50,9 @@ const Overview = () => {
     setCurrentPage(1); // Reset the current page to 1 when the event title filter is changed
   };
 
+
   // Filter participants based on selected category and event title
-  const filteredParticipants = sortedParticipants.filter(participant => {
+  const filteredParticipants = sortedParticipants.filter(participant => {   
     const categoryMatch =
       !selectedCategory || participant.category?.name === selectedCategory;
     const eventTitleMatch =
@@ -59,6 +60,13 @@ const Overview = () => {
     return categoryMatch && eventTitleMatch;
   });
 
+  const firstGroups = {};
+  filteredParticipants.forEach(participant => {
+    const categoryName = participant.category?.name;
+    if (!firstGroups[categoryName]) {
+      firstGroups[categoryName] = participant;
+    }
+  });
   // Calculate the index range of items to display for the current page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -144,11 +152,11 @@ const Overview = () => {
                 <tr
                   key={index}
                   className={`participant-name ${
-                    index === 0 && currentPage === 1 ? 'gold' : ''
+                    participant === firstGroups[participant.category?.name] && currentPage === 1 ? 'gold' : ''
                   }`}
                 >
                   <td className="participant-name">
-                    {index === 0 && currentPage === 1 ? '🥇' : ''}
+                    {participant === firstGroups[participant.category?.name] && currentPage === 1 ? '🥇' : ''}
                     {participant.participant.name}
                   </td>
                   <td className="category-name">

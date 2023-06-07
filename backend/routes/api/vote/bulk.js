@@ -5,6 +5,33 @@ const router = express.Router();
 
 router.use(express.json());
 
+/**
+ * @swagger
+ * /api/vote/bulk:
+ *   post:
+ *     summary: Bulk operation on votes
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - Vote
+ *     requestBody:
+ *       description: Vote object
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *              - operation
+ *              - votes
+ *             properties:
+ *               operation:
+ *                 type: string
+ *                 description: Bulk operation
+ *               votes:
+ *                 type: array
+ *                 description: Votes
+ */
 router.post('/', async (req, res, next) => {
   try {
     const { operation, votes } = req.body;
