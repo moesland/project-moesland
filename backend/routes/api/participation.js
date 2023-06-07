@@ -1,5 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
+const { authenticateToken } = require('../../middlewares/auth');
 const participationRepo = require('../../repository/participation');
 
 const router = express.Router();
@@ -48,6 +49,7 @@ router.get('/', async (req, res) => {
   res.status(200).json(await participationRepo.getAll(req.query));
 });
 
+
 /**
  * @swagger
  * /api/participation:
@@ -88,7 +90,7 @@ router.get('/', async (req, res) => {
  *       422:
  *         description: Could not add participation.
  */
-router.post('/', [
+router.post('/', authenticateToken, [
   body('startnumber').isNumeric().notEmpty().withMessage('Start number must be a non-empty number'),
   body('name').notEmpty().withMessage('Name must not be empty'),
   body('category').isMongoId().notEmpty().withMessage('Category must be a non-empty MongoDB ID'),
@@ -109,7 +111,7 @@ router.post('/', [
   }
 });
 
-router.put('/:id', [
+router.put('/:id', authenticateToken, [
   body('startnumber').optional().isNumeric().withMessage('Start number must be a number'),
   body('name').optional().notEmpty().withMessage('Name must not be empty'),
   body('category').optional().isMongoId().withMessage('Category must be a MongoDB ID'),
@@ -130,7 +132,7 @@ router.put('/:id', [
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', authenticateToken, async (req, res, next) => {
   try {
     const { id } = req.params;
     const deletedParticipation = await participationRepo.remove(id);

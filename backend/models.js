@@ -8,3 +8,4 @@ require('./models/participation');
 require('./models/image');
 require('./models/userImage');
 require('./models/event');
+require('./models/vote');
