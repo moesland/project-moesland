@@ -3,18 +3,14 @@ import { BackendFetch } from "../../services/ApiClient";
 
 const Overview = () => {
   const [votingData, setVotingData] = useState(undefined);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedEventTitle, setSelectedEventTitle] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   useEffect(() => {
-    BackendFetch('/api/vote', 'GET', (data) => {
+    BackendFetch('/api/vote/extra', 'GET', (data) => {
       setVotingData(data);
-
-      // Set the initial selected category to the first unique category
-      const uniqueCategories = Array.from(
-        new Set(data.map(voting => voting.category?.name))
-      );
-      setSelectedCategory(uniqueCategories[0] || '');
     });
   }, []);
 
@@ -41,19 +37,6 @@ const Overview = () => {
   const sortedParticipants = Object.values(groupedParticipants).sort((a, b) => {
     return b.events.length - a.events.length;
   });
-    
- // Get unique category names for the category filter dropdown
-  const uniqueCategories = Array.from(
-    new Set(sortedParticipants.map(participant => participant.category?.name))
-  );
-
-  // Get unique event titles for the event title filter dropdown
-  const uniqueEventTitles = Array.from(
-    new Set(sortedParticipants.flatMap(participant => participant.events.map(event => event.title)))
-  );
-
-  const [selectedCategory, setSelectedCategory] = useState('Carnavalswagens');
-  const [selectedEventTitle, setSelectedEventTitle] = useState('');
 
   // Handle category filter change
   const handleCategoryFilterChange = (event) => {
@@ -67,8 +50,9 @@ const Overview = () => {
     setCurrentPage(1); // Reset the current page to 1 when the event title filter is changed
   };
 
+
   // Filter participants based on selected category and event title
-  const filteredParticipants = sortedParticipants.filter(participant => {
+  const filteredParticipants = sortedParticipants.filter(participant => {   
     const categoryMatch =
       !selectedCategory || participant.category?.name === selectedCategory;
     const eventTitleMatch =
@@ -76,10 +60,27 @@ const Overview = () => {
     return categoryMatch && eventTitleMatch;
   });
 
+  const firstGroups = {};
+  filteredParticipants.forEach(participant => {
+    const categoryName = participant.category?.name;
+    if (!firstGroups[categoryName]) {
+      firstGroups[categoryName] = participant;
+    }
+  });
   // Calculate the index range of items to display for the current page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredParticipants.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Get unique category names for the category filter dropdown
+  const uniqueCategories = Array.from(
+    new Set(sortedParticipants.map(participant => participant.category?.name))
+  );
+
+  // Get unique event titles for the event title filter dropdown
+  const uniqueEventTitles = Array.from(
+    new Set(sortedParticipants.flatMap(participant => participant.events.map(event => event.title)))
+  );
 
   // Calculate the total number of pages
   const totalPages = Math.ceil(filteredParticipants.length / itemsPerPage);
@@ -109,7 +110,7 @@ const Overview = () => {
                 value={selectedCategory}
                 onChange={handleCategoryFilterChange}
               >
-                
+                <option value="">All</option>
                 {uniqueCategories.map((category, index) => (
                   <option key={index} value={category}>
                     {category}
@@ -134,7 +135,7 @@ const Overview = () => {
                   </option>
                 ))}
               </select>
-            </div>  
+            </div>
           </div>
           <table className="table table-striped mt-2">
             <thead>
@@ -151,7 +152,7 @@ const Overview = () => {
                 <tr
                   key={index}
                   className={`participant-name ${
-                    index === 0 && currentPage === 1 ? 'gold' : ''
+                    participant === firstGroups[participant.category?.name] && currentPage === 1 ? 'gold' : ''
                   }`}
                 >
                   <td className="participant-name">
