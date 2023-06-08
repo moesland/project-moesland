@@ -10,28 +10,28 @@ export default PhotoDownloadAndShare = (props) => {
 
     const requestDownloadPermission = async () => {
         try {
-          const { status } = await MediaLibrary.requestPermissionsAsync();
-      
-          if (status === 'granted') {
-            downloadImage();
-          } else {
-            Alert.alert(
-                'Toegang geweigerd',
-                'U moet toestemming geven om de afbeelding op te slaan.',
-                [
-                  { text: 'Annuleren', style: 'cancel' },
-                  { text: 'Open Instellingen', onPress: openSettings },
-                ]
-              );
-          }
+            const { status } = await MediaLibrary.requestPermissionsAsync();
+
+            if (status === 'granted') {
+                downloadImage();
+            } else {
+                Alert.alert(
+                    'Toegang geweigerd',
+                    'U moet toestemming geven om de afbeelding op te slaan.',
+                    [
+                        { text: 'Annuleren', style: 'cancel' },
+                        { text: 'Open Instellingen', onPress: openSettings },
+                    ]
+                );
+            }
         } catch (error) {
-          console.log('Error requesting permission:', error);
+            console.log('Error requesting permission:', error);
         }
-      };
-      
-      const openSettings = () => {
+    };
+
+    const openSettings = () => {
         Linking.openSettings();
-      };
+    };
 
     const downloadImage = async () => {
         const filename = "image.jpg"
