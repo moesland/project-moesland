@@ -1,4 +1,4 @@
-import { Image, View, Button } from "react-native";
+import { Image, View } from "react-native";
 import styles from "../styles/views/PhotoViewStyles";
 import PhotoDownloadAndShare from "../components/Media/PhotoDownloadAndShare";
 

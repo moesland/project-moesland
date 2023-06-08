@@ -2,24 +2,23 @@ import React from 'react';
 import { Pressable, Text, View } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import styles from '../../styles/components/PhotoDownloadAndShareStyles';
+import { shareAsync } from 'expo-sharing';
+import * as MediaLibrary from 'expo-media-library'
+import Toast from 'react-native-simple-toast';
 
 export default PhotoDownloadAndShare = (props) => {
-    const { imageSrc } = props.imageSrc;
-
-    const downloadImage = async (imageUrl) => {
-        const filename = "testimage.jpg"
+    const downloadImage = async () => {
+        const filename = "image.jpg"
         const fileUri = FileSystem.documentDirectory + filename;
 
         let downloadObject = FileSystem.createDownloadResumable(
-            imageUrl,
+            props.imageSrc,
             fileUri
         );
 
         try {
             const { uri } = await downloadObject.downloadAsync();
-            await MediaLibrary.saveToLibraryAsync(uri); // Save the downloaded image to the gallery
-            console.log('Image downloaded and saved to the gallery.');
-
+            await MediaLibrary.saveToLibraryAsync(uri);
             Toast.show('Afbeelding gedownload.', Toast.SHORT);
 
         } catch (error) {
@@ -27,24 +26,22 @@ export default PhotoDownloadAndShare = (props) => {
         }
     };
 
-    const shareImage = async (imageUrl) => {
-        console.log(imageUrl);
+    const shareImage = async () => {
         const filename = "share"
         const result = await FileSystem.downloadAsync(
-            imageUrl,
+            props.imageSrc,
             FileSystem.documentDirectory + filename
         );
 
-        console.log(result.uri)
         shareAsync(result.uri);
     }
 
     return (
         <View style={styles.container}>
-            <Pressable onPress={() => downloadImage(imageSrc)} style={styles.button}>
+            <Pressable onPress={downloadImage} style={styles.button}>
                 <Text style={styles.text}>DOWNLOADEN</Text>
             </Pressable>
-            <Pressable onPress={() => shareImage(imageSrc)} style={styles.button}>
+            <Pressable onPress={shareImage} style={styles.button}>
                 <Text style={styles.text}>DELEN</Text>
             </Pressable>
         </View>
