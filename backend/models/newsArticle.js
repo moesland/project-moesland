@@ -16,6 +16,17 @@ const newsArticleSchema = new mongoose.Schema({
   content: {
     type: String,
     required: true,
+    validate: {
+      async validator(content) {
+        try {
+          JSON.parse(content);
+          return true;
+        } catch (err) {
+          return false;
+        }
+      },
+      message: 'Content must be a valid JSON object',
+    },
   },
 });
 
