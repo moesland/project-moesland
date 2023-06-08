@@ -3,6 +3,7 @@ import styles from "../styles/views/PhotoViewStyles";
 import * as FileSystem from 'expo-file-system'
 import * as MediaLibrary from 'expo-media-library'
 import { shareAsync } from 'expo-sharing';
+import Toast from 'react-native-simple-toast';
 
 export default PhotoView = (props) => {
   const { imageSrc } = props.route.params;
@@ -21,34 +22,30 @@ export default PhotoView = (props) => {
       await MediaLibrary.saveToLibraryAsync(uri); // Save the downloaded image to the gallery
       console.log('Image downloaded and saved to the gallery.');
 
+      Toast.show('Afbeelding gedownload.', Toast.SHORT);
+
     } catch (error) {
       console.log('Error downloading or saving the image:', error);
     }
   };
 
-  const save = (uri) => {
-    shareAsync(uri);
-  }
+  const shareImage = async (imageUrl) => {
+    console.log(imageUrl);
+    const filename = "share"
+    const result = await FileSystem.downloadAsync(
+      imageUrl,
+      FileSystem.documentDirectory + filename
+    );
 
-  const showToast = () => {
-    Toast.show({
-      type: 'success',
-      text1: 'Hello',
-      text2: 'This is some something 👋'
-    });
+    console.log(result.uri)
+    shareAsync(result.uri);
   }
 
   return (
     <View style={styles.container}>
       <Image source={{ uri: imageSrc }} style={styles.photo} />
-      <Button title="Download Image" onPress={() => downloadImage(imageSrc)} />
-      <Button
-      title='Show toast'
-      onPress={showToast}
-    />
-    <Button title="Download Image" onPress={() => downloadImage(imageSrc)} />
-    <Button title="Download Image" onPress={() => downloadImage(imageSrc)} />
-    <Button title="Download Image" onPress={() => downloadImage(imageSrc)} />
+      <Button title="Downloaden" onPress={() => downloadImage(imageSrc)} />
+      <Button title="Delen" onPress={() => shareImage(imageSrc)} />
     </View>
   );
 };
