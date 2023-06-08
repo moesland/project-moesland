@@ -29,11 +29,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": true
     },
     "android": {
       "permissions": [
-        "CAMERA"
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE"
       ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

@@ -84,7 +84,7 @@ export default Gallery = ({ navigation }) => {
   return (
     <View style={styles.view}>
       {albums.length === 0 ? (
-        <Text style={styles.text}>Er zijn geen albums om te tonen.</Text>
+        <ActivityIndicator size="large" color="#50a038"></ActivityIndicator>
       ) : (
         <FlatList
           data={albums}

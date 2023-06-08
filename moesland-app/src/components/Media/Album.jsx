@@ -71,7 +71,7 @@ export default Album = ({ navigation, route }) => {
   return (
     <View>
       {photos.length === 0 ? (
-        <Text>Er zijn geen foto's om te tonen.</Text>
+        <ActivityIndicator size="large" color="#50a038"></ActivityIndicator>
       ) : (
         <FlatList
           data={photos}
