@@ -18,7 +18,7 @@ module.exports = {
     const cleanContentType = sanitize(contentType);
 
     return Image.findOneAndUpdate(
-      { id: { $eq: id } },
+      { _id: { $eq: id } },
       { name: cleanName, data: cleanData, contentType: cleanContentType },
     )
       .catch((err) => console.error(err));
