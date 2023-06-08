@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View, Alert, Linking } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import styles from '../../styles/components/PhotoDownloadAndShareStyles';
 import { shareAsync } from 'expo-sharing';
@@ -7,6 +7,32 @@ import * as MediaLibrary from 'expo-media-library'
 import Toast from 'react-native-simple-toast';
 
 export default PhotoDownloadAndShare = (props) => {
+
+    const requestDownloadPermission = async () => {
+        try {
+          const { status } = await MediaLibrary.requestPermissionsAsync();
+      
+          if (status === 'granted') {
+            downloadImage();
+          } else {
+            Alert.alert(
+                'Toegang geweigerd',
+                'U moet toestemming geven om de afbeelding op te slaan.',
+                [
+                  { text: 'Annuleren', style: 'cancel' },
+                  { text: 'Open Instellingen', onPress: openSettings },
+                ]
+              );
+          }
+        } catch (error) {
+          console.log('Error requesting permission:', error);
+        }
+      };
+      
+      const openSettings = () => {
+        Linking.openSettings();
+      };
+
     const downloadImage = async () => {
         const filename = "image.jpg"
         const fileUri = FileSystem.documentDirectory + filename;
@@ -38,7 +64,7 @@ export default PhotoDownloadAndShare = (props) => {
 
     return (
         <View style={styles.container}>
-            <Pressable onPress={downloadImage} style={styles.button}>
+            <Pressable onPress={requestDownloadPermission} style={styles.button}>
                 <Text style={styles.text}>DOWNLOADEN</Text>
             </Pressable>
             <Pressable onPress={shareImage} style={styles.button}>
