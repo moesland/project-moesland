@@ -27,7 +27,7 @@ router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (re
 
     const filePath = path.join(__dirname, '../../..', 'uploads', sanitize(req.file.filename));
     if (!fs.existsSync(filePath)) {
-      return res.status(500).send(`Could not create news article: file does not exist, path:${escape(filePath)}`);
+      return res.status(500).send(`Could not create news article: file does not exist, path: ${escape(filePath)}`);
     }
 
     const imageBuffer = fs.readFileSync(filePath);
