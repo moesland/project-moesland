@@ -1,0 +1,8 @@
+.custom-filter-input {
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+}
+
+.custom-toggle-list {
+    max-height: 175px;
+}

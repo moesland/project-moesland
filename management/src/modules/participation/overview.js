@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { BackendFetch } from "../../services/ApiClient";
+import FilterBar from './filterbar';
 
 const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
     const [participationData, setParticipationData] = useState(undefined);
+    const [displayData, setDisplayData] = useState();
+
 
     useEffect(() => {
         BackendFetch('/api/participation', 'GET', (data) => {
@@ -10,15 +13,21 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
         });
     }, []);
 
+    useEffect(() => {
+        if (participationData) {
+            setDisplayData(participationData)
+        }
+    }, [participationData])
 
     return <>
-        {!participationData &&
+        {!displayData &&
             <div>
                 <h1>DATA LOADING...</h1>
             </div>
         }
-        {participationData &&
+        {displayData &&
             <>
+                <FilterBar sourceData={participationData} setDisplayData={setDisplayData} />
                 <table className="table table-striped">
                     <thead>
                         <tr className="bg-moesland text-white">
@@ -31,7 +40,7 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
                     </thead>
 
                     <tbody id="tableBody">
-                        {participationData.map(participation => (
+                        {displayData.map(participation => (
                             <tr key={participation._id} >
                                 <th className="event-title">{participation.event.title}</th>
                                 <th className="category-name">{participation.category?.name || "Geen categorie"}</th>

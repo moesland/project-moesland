@@ -38,7 +38,7 @@ const Participation = () => {
             <div className="container mt-3 text-center">
                 <h1 className="font-moesland">Deelnemers</h1>
 
-                <div className="float-start mb-3">
+                <div className="d-flex justify-content-start mb-3">
                     <button className="btn btn-moesland" onClick={toggleAddModal}>Nieuwe Deelnemer</button>
                 </div>
                 <Overview key={dataUpdated} toggleEditModal={toggleEditModal} toggleDeleteModal={toggleDeleteModal} />
