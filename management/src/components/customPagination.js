@@ -52,13 +52,13 @@ const CustomPagination = ({ source, setPagination, maxPerPage }) => {
 
     return (
         <>
-            <nav>
-                <ul className="pagination all-pointer">
+            <nav className=''>
+                <ul className="pagination all-pointer justify-content-center">
                     <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                         <div className="page-link" onClick={prevPage}>Vorige</div>
                     </li>
                     {[...Array(totalPages > 10 ? 5 : totalPages).keys()].map((page) =>
-                        <li key={page} className={`page-item ${currentPage === page + 1 ? 'active' : ''}`}>
+                        <li key={page} className={`page-item ${currentPage === page + 1 ? 'custom-active' : ''}`}>
                             <div className="page-link" onClick={() => changePage(page + 1)}>{page + 1}</div>
                         </li>
                     )}
@@ -72,8 +72,8 @@ const CustomPagination = ({ source, setPagination, maxPerPage }) => {
                                 </li>
                             }
 
-                            <li className="page-item">
-                                <div className={`page-link ${isInBetween() ? 'active' : ''}`} onClick={() => setShowInput(!showInput)}>
+                            <li className={`page-item ${isInBetween() ? 'custom-active' : ''}`}>
+                                <div className={`page-link`} onClick={() => setShowInput(!showInput)}>
                                     {isInBetween() ? (<> {currentPage} </>) : (<>...</>)}
                                 </div>
                                 {showInput &&
@@ -91,7 +91,7 @@ const CustomPagination = ({ source, setPagination, maxPerPage }) => {
 
 
                             {[...Array(5).keys()].map((page) =>
-                                <li key={page} className={`page-item ${currentPage === totalPages - 4 + page ? 'active' : ''}`}>
+                                <li key={page} className={`page-item ${currentPage === totalPages - 4 + page ? 'custom-active' : ''}`}>
                                     <div className="page-link" onClick={() => changePage(totalPages - 4 + page)}>{totalPages - 4 + page}</div>
                                 </li>
                             )}

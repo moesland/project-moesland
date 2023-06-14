@@ -16,6 +16,19 @@
     cursor: pointer;
 }
 
+.all-pointer > li > div {
+    color: darkgreen;
+}
+
+.all-pointer > li > div:hover {
+    color: black;
+}
+
+.custom-active > div {
+    background-color: green !important;
+    color: white !important;
+}
+
 .custom-filter-input {
     border: 1px solid black !important;
     border-radius: 0px !important;
