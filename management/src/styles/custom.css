@@ -11,3 +11,26 @@
     font-size: 2rem;
     color: white;
 }
+
+.all-pointer > li > div{
+    cursor: pointer;
+}
+
+.custom-filter-input {
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+}
+
+.custom-toggle-list {
+    max-height: 175px;
+}
+
+.page-search {
+    position: absolute; 
+    width: 110px;
+    margin-top: 5px;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+}

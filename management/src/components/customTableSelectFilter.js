@@ -1,4 +1,4 @@
-import "../styles/customfilter.css";
+import "../styles/custom.css";
 import React, { useEffect, useState } from 'react';
 
 

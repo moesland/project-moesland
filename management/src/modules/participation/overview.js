@@ -63,7 +63,7 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
                     </tbody>
                 </table>
 
-                <CustomPagination source={displayData} setPagination={setPagination} maxPerPage={10}/>
+                <CustomPagination source={displayData} setPagination={setPagination} maxPerPage={1}/>
             </>
         }
     </>

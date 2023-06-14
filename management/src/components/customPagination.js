@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import "../styles/custom.css";
 
-const CustomPagination = ({source, setPagination, maxPerPage}) => {
+const CustomPagination = ({ source, setPagination, maxPerPage }) => {
     const [currentPage, setCurrentPage] = useState(1);
+    const [inputPage, setInputPage] = useState("");
+    const [showInput, setShowInput] = useState(false);
     const totalPages = Math.ceil(source.length / maxPerPage);
 
     useEffect(() => {
         const start = (currentPage - 1) * maxPerPage;
         const end = start + maxPerPage;
-        setPagination({start, end});
+        setPagination({ start, end });
+        setShowInput(false);
+        setInputPage("");
     }, [source, currentPage, maxPerPage, setPagination]);
 
     const nextPage = () => {
@@ -24,24 +29,81 @@ const CustomPagination = ({source, setPagination, maxPerPage}) => {
 
     const changePage = (page) => {
         setCurrentPage(page);
+        setShowInput(false);
     };
 
+    const handleInput = e => {
+        setInputPage(e.target.value);
+    };
+
+    const submitInput = (e) => {
+        if(e.key === "Enter") {
+            const page = parseInt(inputPage);
+            if (page > 0 && page <= totalPages) {
+                setCurrentPage(page);
+                setShowInput(false);
+            }
+        }
+    };
+
+    const isInBetween = () => {
+        return currentPage > 5 && currentPage < totalPages - 4;
+    }
+
     return (
-        <nav aria-label="Page navigation example">
-            <ul className="pagination">
-                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                    <div className="page-link" onClick={prevPage}>Previous</div>
-                </li>
-                {[...Array(totalPages).keys()].map((page) => 
-                    <li key={page} className={`page-item ${currentPage === page + 1 ? 'active' : ''}`}>
-                        <div className="page-link" onClick={() => changePage(page + 1)}>{page + 1}</div>
+        <>
+            <nav>
+                <ul className="pagination all-pointer">
+                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                        <div className="page-link" onClick={prevPage}>Vorige</div>
                     </li>
-                )}
-                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                    <div className="page-link" onClick={nextPage}>Next</div>
-                </li>
-            </ul>
-        </nav>
+                    {[...Array(totalPages > 10 ? 5 : totalPages).keys()].map((page) =>
+                        <li key={page} className={`page-item ${currentPage === page + 1 ? 'active' : ''}`}>
+                            <div className="page-link" onClick={() => changePage(page + 1)}>{page + 1}</div>
+                        </li>
+                    )}
+                    {totalPages > 10 &&
+                        <>
+                            {(currentPage > 6 && currentPage < totalPages - 4) &&
+                                <li className="page-item">
+                                    <div className={`page-link`} onClick={() => setShowInput(!showInput)}>
+                                        <> ... </>
+                                    </div>
+                                </li>
+                            }
+
+                            <li className="page-item">
+                                <div className={`page-link ${isInBetween() ? 'active' : ''}`} onClick={() => setShowInput(!showInput)}>
+                                    {isInBetween() ? (<> {currentPage} </>) : (<>...</>)}
+                                </div>
+                                {showInput &&
+                                    <input className='page-search' type="number" onChange={handleInput} onKeyDown={submitInput} autoFocus />
+                                }
+                            </li>
+
+                            {(currentPage < totalPages - 4 && currentPage > 5) &&
+                                <li className="page-item">
+                                    <div className={`page-link`} onClick={() => setShowInput(!showInput)}>
+                                        <> ... </>
+                                    </div>
+                                </li>
+                            }
+
+
+                            {[...Array(5).keys()].map((page) =>
+                                <li key={page} className={`page-item ${currentPage === totalPages - 4 + page ? 'active' : ''}`}>
+                                    <div className="page-link" onClick={() => changePage(totalPages - 4 + page)}>{totalPages - 4 + page}</div>
+                                </li>
+                            )}
+                        </>
+                    }
+                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                        <div className="page-link" onClick={nextPage}>Volgende</div>
+                    </li>
+                </ul>
+            </nav>
+
+        </>
     )
 }
 
