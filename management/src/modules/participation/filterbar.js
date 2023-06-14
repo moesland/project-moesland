@@ -30,6 +30,9 @@ const FilterBar = ({sourceData, setDisplayData}) => {
 
     return (
         <div className='d-flex'>
+            <div className="text-center d-flex align-items-center me-2 fs-4">
+                Filteren:
+            </div>
             <CustomTableSelectFilter
                 inputText={"Evenement"}
                 list={formatOnEvents(sourceData)}

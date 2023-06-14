@@ -23,11 +23,11 @@ const CustomTableSelectFilter = ({ inputText, list, listSelector, setFiltering }
     }, [selectedOptions, setFiltering]);
 
     return (
-        <div className="d-flex">
+        <div className="d-flex me-2 mb-1">
             <div className="dropdown custom-filter-container">
-                <div className="btn dropdown-toggle custom-filter-input" onClick={toggleList}>{inputText}</div>
+                <div className="btn dropdown-toggle custom-filter-input fw-bold" onClick={toggleList}>{inputText} </div>
                 {listDisplay &&
-                    <div className="custom-toggle-list dropdown-menu show d-flex flex-column rounded-0 overflow-auto">
+                    <div className="shadow custom-toggle-list dropdown-menu show d-flex flex-column rounded-0 overflow-auto">
                         {list.map((data) => (
                             <div key={data[listSelector.id]} className="d-flex flex-row">
                                 <input
@@ -36,7 +36,7 @@ const CustomTableSelectFilter = ({ inputText, list, listSelector, setFiltering }
                                     id={data[listSelector.id]}
                                     onChange={(e) => handleCheckboxChange(data[listSelector.id], e.target.checked)}
                                 />
-                                <label className="form-check-label flex-grow-1" htmlFor={data[listSelector.id]}>
+                                <label className="form-check-label flex-grow-1 mx-2" htmlFor={data[listSelector.id]}>
                                     {data[listSelector.text]}
                                 </label>
                             </div>

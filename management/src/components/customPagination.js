@@ -8,6 +8,10 @@ const CustomPagination = ({ source, setPagination, maxPerPage }) => {
     const totalPages = Math.ceil(source.length / maxPerPage);
 
     useEffect(() => {
+        setCurrentPage(1);
+    }, [source])
+
+    useEffect(() => {
         const start = (currentPage - 1) * maxPerPage;
         const end = start + maxPerPage;
         setPagination({ start, end });

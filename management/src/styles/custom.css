@@ -36,6 +36,7 @@
 
 .custom-toggle-list {
     max-height: 175px;
+    min-width: 200px !important;
 }
 
 .page-search {

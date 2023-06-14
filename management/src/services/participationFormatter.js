@@ -14,7 +14,6 @@ export const formatOnEvents = (data) => {
 
 export const formatOnCategory = (data) => {
     const uniqueIds = [];
-    console.log(data);
     return data.map((paticipate) => (paticipate.category)).reduce((accumulator, current) => {
 
       if (!uniqueIds.includes(current._id)) {
