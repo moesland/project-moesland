@@ -3,7 +3,7 @@ import { BackendFetch } from "../../services/ApiClient";
 import FilterBar from './filterbar';
 import CustomPagination from '../../components/customPagination';
 
-const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
+const Overview = ({ toggleEditModal, toggleDeleteModal, toggleAddModal }) => {
     const [participationData, setParticipationData] = useState(undefined);
     const [displayData, setDisplayData] = useState();
     const [pagination, setPagination] = useState({start: 0, end: Number.MAX_SAFE_INTEGER})
@@ -29,7 +29,15 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
         }
         {displayData &&
             <>
-                <FilterBar sourceData={participationData} setDisplayData={setDisplayData} />
+                <div className='mb-1 d-flex align-items-center align-self-center justify-content-between'>
+                    <FilterBar sourceData={participationData} setDisplayData={setDisplayData} />
+
+                    <div className="d-flex">
+                        <button className="btn btn-moesland" onClick={toggleAddModal}>Nieuwe Deelnemer</button>
+                    </div>
+                </div>
+                
+
                 <table className="table table-striped">
                     <thead>
                         <tr className="bg-moesland text-white">
