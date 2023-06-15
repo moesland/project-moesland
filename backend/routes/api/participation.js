@@ -49,7 +49,6 @@ router.get('/', async (req, res) => {
   res.status(200).json(await participationRepo.getAll(req.query));
 });
 
-
 /**
  * @swagger
  * /api/participation:

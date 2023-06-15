@@ -11,3 +11,40 @@
     font-size: 2rem;
     color: white;
 }
+
+.all-pointer > li > div{
+    cursor: pointer;
+}
+
+.all-pointer > li > div {
+    color: darkgreen;
+}
+
+.all-pointer > li > div:hover {
+    color: black;
+}
+
+.custom-active > div {
+    background-color: green !important;
+    color: white !important;
+}
+
+.custom-filter-input {
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+}
+
+.custom-toggle-list {
+    max-height: 175px;
+    min-width: 200px !important;
+}
+
+.page-search {
+    position: absolute; 
+    width: 110px;
+    margin-top: 5px;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+}

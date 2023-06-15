@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { BackendFetch } from "../../services/ApiClient";
+import FilterBar from './filterbar';
+import CustomPagination from '../../components/customPagination';
 
-const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
+const Overview = ({ toggleEditModal, toggleDeleteModal, toggleAddModal }) => {
     const [participationData, setParticipationData] = useState(undefined);
+    const [displayData, setDisplayData] = useState();
+    const [pagination, setPagination] = useState({start: 0, end: Number.MAX_SAFE_INTEGER})
+
 
     useEffect(() => {
         BackendFetch('/api/participation', 'GET', (data) => {
@@ -10,15 +15,29 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
         });
     }, []);
 
+    useEffect(() => {
+        if (participationData) {
+            setDisplayData(participationData)
+        }
+    }, [participationData])
 
     return <>
-        {!participationData &&
+        {!displayData &&
             <div>
                 <h1>DATA LOADING...</h1>
             </div>
         }
-        {participationData &&
+        {displayData &&
             <>
+                <div className='mb-1 d-flex align-items-center align-self-center justify-content-between'>
+                    <FilterBar sourceData={participationData} setDisplayData={setDisplayData} />
+
+                    <div className="d-flex">
+                        <button className="btn btn-moesland" onClick={toggleAddModal}>Nieuwe Deelnemer</button>
+                    </div>
+                </div>
+                
+
                 <table className="table table-striped">
                     <thead>
                         <tr className="bg-moesland text-white">
@@ -31,7 +50,7 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
                     </thead>
 
                     <tbody id="tableBody">
-                        {participationData.map(participation => (
+                        {displayData.slice(pagination.start, pagination.end).map(participation => (
                             <tr key={participation._id} >
                                 <th className="event-title">{participation.event.title}</th>
                                 <th className="category-name">{participation.category?.name || "Geen categorie"}</th>
@@ -51,6 +70,8 @@ const Overview = ({ toggleEditModal, toggleDeleteModal }) => {
                         ))}
                     </tbody>
                 </table>
+                
+                <CustomPagination source={displayData} setPagination={setPagination} maxPerPage={10}/>
             </>
         }
     </>

@@ -31,11 +31,6 @@ const styles = StyleSheet.create({
     marginVertical: 18,
     fontWeight: 'bold',
   },
-  paradeContainer: {
-    marginHorizontal: 2,
-    minHeight: '100%',
-    paddingBottom: '15%',
-  },
   votedItem: {
     borderColor: '#50C878',
   },
@@ -85,6 +80,11 @@ const styles = StyleSheet.create({
   },
   changeRequested: {
     borderColor: '#FFD580',
+  },
+  eventContainer: {
+    marginHorizontal: 2,
+    marginBottom: '5%',
+    minHeight: '100%',
   },
 });
 
