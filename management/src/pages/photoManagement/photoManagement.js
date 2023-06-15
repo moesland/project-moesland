@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Buffer } from 'buffer';
+import { approveUserImage, declineUserImage, getUserImages } from "../../services/userImage";
 
 export default function PhotoManagement() {
     const images = [];
@@ -35,12 +36,7 @@ export default function PhotoManagement() {
     const fetchUserImages = async () => {
         setFetched(false);
 
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            'Authorization': 'Bearer ' + token
-        });
-
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?approvalStatus=pending', { method: 'GET', headers: headers })
+        await getUserImages('?approvalStatus=pending')
             .then(response => response.json())
             .then(data => {
                 setGalleryImages(data);
@@ -49,13 +45,6 @@ export default function PhotoManagement() {
     }
 
     const approveItem = async (item) => {
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            Authorization: 'Bearer ' + token,
-            'Content-Type': 'application/json',
-        });
-        const body = JSON.stringify({ id: item.userImageId });
-
         const index = images.findIndex(i => i.userImageId === item.userImageId);
         const data = images[index].original;
         const link = document.createElement('a');
@@ -65,30 +54,17 @@ export default function PhotoManagement() {
         link.click();
         document.body.removeChild(link);
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/approve', {
-            method: 'POST',
-            body: body,
-            headers: headers,
-        });
-
-        fetchUserImages();
+        await approveUserImage(item)
+            .then(async () => {
+                await fetchUserImages();
+            });
     };
 
     const denyItem = async (item) => {
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        });
-        const body = JSON.stringify({ id: item.userImageId });
-
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/decline', {
-            method: 'POST',
-            body: body,
-            headers: headers
-        });
-
-        fetchUserImages();
+        await declineUserImage(item)
+            .then(async () => {
+                await fetchUserImages();
+            });
     };
 
     const renderItem = (item) => {

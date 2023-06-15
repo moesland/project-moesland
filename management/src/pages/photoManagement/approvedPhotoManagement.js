@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Buffer } from 'buffer';
 import JSZip from "jszip";
+import { getUserImages } from "../../services/userImage";
 
 export default function ApprovedPhotoManagement() {
     const [images, setImages] = useState([]);
@@ -39,12 +40,7 @@ export default function ApprovedPhotoManagement() {
     const fetchUserImages = async () => {
         setFetched(false);
 
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            'Authorization': 'Bearer ' + token
-        });
-
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?approvalStatus=approved', { method: 'GET', headers: headers })
+        await getUserImages('?approvalStatus=approved')
             .then(response => response.json())
             .then(data => {
                 setGalleryImages(data);

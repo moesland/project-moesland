@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Buffer } from 'buffer';
+import { deleteUserImage, getUserImages, restoreUserImage } from "../../services/userImage";
 
 export default function DeclinedPhotoManagement() {
     const images = [];
@@ -35,12 +36,7 @@ export default function DeclinedPhotoManagement() {
     const fetchUserImages = async () => {
         setFetched(false);
 
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            'Authorization': 'Bearer ' + token
-        });
-
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?approvalStatus=declined', { method: 'GET', headers: headers })
+        await getUserImages('?approvalStatus=declined')
             .then(response => response.json())
             .then(data => {
                 setGalleryImages(data);
@@ -49,37 +45,17 @@ export default function DeclinedPhotoManagement() {
     }
 
     const restoreItem = async (item) => {
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            Authorization: 'Bearer ' + token,
-            'Content-Type': 'application/json',
-        });
-        const body = JSON.stringify({ id: item.userImageId });
-
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/restore', {
-            method: 'POST',
-            body: body,
-            headers: headers,
-        });
-
-        fetchUserImages();
+        await restoreUserImage(item)
+            .then(async () => {
+                await fetchUserImages();
+            });
     };
 
     const deleteItem = async (item) => {
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        });
-        const body = JSON.stringify({ id: item.userImageId });
-
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/delete', {
-            method: 'POST',
-            body: body,
-            headers: headers
-        });
-
-        fetchUserImages();
+        await deleteUserImage(item)
+            .then(async () => {
+                await fetchUserImages();
+            });
     };
 
     const renderItem = (item) => {
