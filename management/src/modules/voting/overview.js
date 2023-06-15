@@ -6,15 +6,11 @@ import CustomPagination from '../../components/customPagination';
 const Overview = () => {
   const [votingData, setVotingData] = useState(undefined);
   const [displayData, setDisplayData] = useState([]);
-  const [participationData, setParticipationData] = useState(undefined);
   const [pagination, setPagination] = useState({ start: 0, end: Number.MAX_SAFE_INTEGER });
   const [counts, setCounts] = useState({});
   const [groupedData, setGroupedData] = useState([]);
 
   useEffect(() => {
-    BackendFetch('/api/participation', 'GET', (data) => {
-      setParticipationData(data);
-    });
     BackendFetch('/api/vote/extra', 'GET', (data) => {
       setVotingData(data);
     });
@@ -65,8 +61,8 @@ const Overview = () => {
               </tr>
             </thead>
             <tbody id="tableBody">
-              {groupedData.map((participant, index) => (
-                <tr key={index}>
+              {groupedData.slice(pagination.start, pagination.end).map((participant, index) => (
+                <tr key={index} className={index === 0 ? 'gold' : ''}>
                   <td className="participant-name">
                     {participant.participant.name}
                   </td>
@@ -83,7 +79,7 @@ const Overview = () => {
               ))}
             </tbody>
           </table>
-          {/* <CustomPagination source={displayData} setPagination={setPagination} maxPerPage={10}/> */}
+          <CustomPagination source={votingData} setPagination={setPagination} maxPerPage={10}/>
         </>
       )}
     </>
