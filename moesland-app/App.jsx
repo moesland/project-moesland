@@ -13,7 +13,6 @@ import AlbumView from './src/views/AlbumView';
 import PhotoView from './src/views/PhotoView';
 import CalendarView from './src/views/CalendarView';
 import VotingView from './src/views/VotingView';
-import ContactView from './src/views/ContactView';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -85,7 +84,6 @@ export default function App() {
           <Tab.Screen name="Agenda" component={CalendarView} />
           <Tab.Screen name="Media" component={MediaStack} />
           <Tab.Screen name="Stemmen" component={VotingView} />
-          <Tab.Screen name="Contact" component={ContactView} />
         </Tab.Navigator>
       </NavigationContainer>
     </RootSiblingParent>
