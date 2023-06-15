@@ -70,6 +70,7 @@ const Album = ({ navigation, route }) => {
         </View>
       );
     }
+    return null;
   }, [loading, refreshing]);
 
   return (

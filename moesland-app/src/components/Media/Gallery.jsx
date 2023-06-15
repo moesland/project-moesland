@@ -19,7 +19,7 @@ const Gallery = ({ navigation }) => {
   useEffect(() => {
     const albumPrimaryIds = albums.map(album => album.primary)
     albumPrimaryIds.forEach(primaryId => lazyFetchCoverPhoto(primaryId));
-  }, [albums, lazyFetchCoverPhoto]);
+  }, [albums]);
 
   const getAlbums = async () => {
     setLoading(true);
@@ -44,13 +44,13 @@ const Gallery = ({ navigation }) => {
         [albumPrimaryId]: photo,
       }));
     }
-  });
+  }, []);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     await getAlbums();
     setRefreshing(false);
-  });
+  }, []);
 
   const loadMoreAlbums = async () => {
     const nextPage = currentPage + 1;
@@ -70,7 +70,7 @@ const Gallery = ({ navigation }) => {
     return (
       <AlbumItem navigation={navigation} album={item} coverPhoto={coverPhoto} />
     );
-  });
+  }, [coverPhotos, navigation]);
 
   const renderFooter = useCallback(() => {
     if (loading || refreshing) {
