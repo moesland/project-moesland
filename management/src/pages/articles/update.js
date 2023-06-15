@@ -57,22 +57,14 @@ export default function Create() {
         formData.append('originalImageId', state.article.bannerImage._id);
         formData.append('bannerImage', imageFile);
 
-        const token = localStorage.getItem('token');
-
-        const response = await fetch('http://localhost:5000/api/news-article/update', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-
-        if (response.ok) {
-            window.alert('Nieuwsartikel is aangepast!');
-            navigate('/articles/');
-        } else {
-            window.alert('Fout bij het aanpassen.');
-        }
+        await updateNewsArticle(formData)
+            .then(() => {
+                window.alert('Nieuwsartikel is aangepast!');
+                navigate('/articles/');
+            })
+            .catch(() => {
+                window.alert('Fout bij het aanpassen.');
+            });
     }
 
     return (
