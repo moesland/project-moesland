@@ -1,9 +1,10 @@
-import { Image, View } from "react-native";
-import styles from "../styles/views/PhotoViewStyles";
-import PhotoDownloadAndShare from "../components/Media/PhotoDownloadAndShare";
+import React from 'react';
+import { Image, View } from 'react-native';
+import PhotoDownloadAndShare from '../components/Media/PhotoDownloadAndShare';
+import styles from '../styles/views/PhotoViewStyles';
 
-export default PhotoView = (props) => {
-  const { imageSrc } = props.route.params;
+const PhotoView = ({ route }) => {
+  const { imageSrc } = route.params;
 
   return (
     <View style={styles.container}>
@@ -12,3 +13,5 @@ export default PhotoView = (props) => {
     </View>
   );
 };
+
+export default PhotoView;

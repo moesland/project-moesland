@@ -1,10 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-import styles from '../styles/views/MediaViewStyles';
-import PhotoUpload from '../components/Media/PhotoUpload';
 import Gallery from '../components/Media/Gallery';
+import PhotoUpload from '../components/Media/PhotoUpload';
+import styles from '../styles/views/MediaViewStyles';
 
-export default MediaView = ({ navigation }) => {
+const MediaView = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Gallery navigation={navigation} />
@@ -12,3 +12,5 @@ export default MediaView = ({ navigation }) => {
     </View>
   );
 };
+
+export default MediaView;

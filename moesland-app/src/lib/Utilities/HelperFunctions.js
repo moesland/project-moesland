@@ -17,3 +17,9 @@ export const calculateImageHeightForScreenSize = () => {
   const screenHeight = Dimensions.get('window').height;
   return screenHeight * 0.125;
 };
+
+// convert a timestamp to Date object
+export const timeToString = (time) => {
+  const date = new Date(time);
+  return date.toISOString().split('T')[0];
+}
