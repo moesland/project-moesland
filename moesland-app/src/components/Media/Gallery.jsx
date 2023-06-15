@@ -5,7 +5,7 @@ import styles from '../../styles/components/GalleryStyles';
 import AlbumItem from './AlbumItem';
 import LoadingMediaView from './LoadingMediaView'
 
-export default Gallery = ({ navigation }) => {
+const Gallery = ({ navigation }) => {
   const [albums, setAlbums] = useState([]);
   const [coverPhotos, setCoverPhotos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,6 +80,7 @@ export default Gallery = ({ navigation }) => {
         </View>
       );
     }
+    return null;
   });
 
   return (
@@ -105,3 +106,5 @@ export default Gallery = ({ navigation }) => {
     </View>
   );
 };
+
+export default Gallery;

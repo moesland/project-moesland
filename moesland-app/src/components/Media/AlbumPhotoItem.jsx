@@ -1,12 +1,18 @@
 import { Image, Pressable } from 'react-native';
 import styles from '../../styles/components/AlbumPhotoItemStyles';
 
-export default AlbumPhotoItem = ({ navigation, photo, imageSrc }) => {
-  return (
-    <Pressable key={photo.id} style={styles.itemContainer} onPress={() => navigation.navigate('PhotoView', {
+const AlbumPhotoItem = ({ navigation, photo, imageSrc }) => {
+  const handlePress = () => {
+    navigation.navigate('PhotoView', {
       imageSrc: imageSrc,
-    })}>
+    });
+  };
+
+  return (
+    <Pressable key={photo.id} style={styles.itemContainer} onPress={handlePress}>
       <Image source={{ uri: imageSrc }} style={styles.image} />
     </Pressable>
   );
 };
+
+export default AlbumPhotoItem;

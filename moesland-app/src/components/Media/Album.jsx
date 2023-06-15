@@ -5,7 +5,7 @@ import { fetchPhotosForAlbum } from '../../services/FlickrApi';
 import { PHOTOS_PER_PAGE } from '../../constants/media';
 import LoadingMediaView from './LoadingMediaView';
 
-export default Album = ({ navigation, route }) => {
+const Album = ({ navigation, route }) => {
   const [photos, setPhotos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState(0);
@@ -43,21 +43,24 @@ export default Album = ({ navigation, route }) => {
     const nextPage = currentPage + 1;
     setCurrentPage(nextPage);
 
-    await fetchPhotosForAlbum(albumId, nextPage)
-      .then(newPhotos => {
-        if (newPhotos.length > 0) {
-          setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
-        }
-      });
+    const newPhotos = await fetchPhotosForAlbum(albumId, nextPage);
+    if (newPhotos.length > 0) {
+      setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
+    }
   };
 
   const renderItem = useCallback(({ item }) => {
     const imageSrc = `https://live.staticflickr.com/${item.server}/${item.id}_${item.secret}.jpg`;
 
     return (
-      <AlbumPhotoItem navigation={navigation} photo={item} imageSrc={imageSrc} />
+      <AlbumPhotoItem
+        key={item.id}
+        navigation={navigation}
+        photo={item}
+        imageSrc={imageSrc}
+      />
     );
-  });
+  }, [navigation]);
 
   const renderFooter = useCallback(() => {
     if (loading || refreshing) {
@@ -67,7 +70,7 @@ export default Album = ({ navigation, route }) => {
         </View>
       );
     }
-  });
+  }, [loading, refreshing]);
 
   return (
     <View>
@@ -91,3 +94,5 @@ export default Album = ({ navigation, route }) => {
     </View>
   );
 };
+
+export default Album

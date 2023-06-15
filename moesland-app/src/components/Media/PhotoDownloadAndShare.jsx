@@ -1,13 +1,12 @@
 import React from 'react';
-import { Pressable, Text, View, Alert, Linking } from 'react-native';
+import { View, Text, Pressable, Alert, Linking } from 'react-native';
 import * as FileSystem from 'expo-file-system';
-import styles from '../../styles/components/PhotoDownloadAndShareStyles';
+import * as MediaLibrary from 'expo-media-library';
 import { shareAsync } from 'expo-sharing';
-import * as MediaLibrary from 'expo-media-library'
 import Toast from 'react-native-root-toast';
+import styles from '../../styles/components/PhotoDownloadAndShareStyles';
 
-export default PhotoDownloadAndShare = (props) => {
-
+const PhotoDownloadAndShare = (props) => {
     const requestDownloadPermission = async () => {
         try {
             const { status } = await MediaLibrary.requestPermissionsAsync();
@@ -25,7 +24,7 @@ export default PhotoDownloadAndShare = (props) => {
                 );
             }
         } catch (error) {
-            console.log('Error requesting permission:', error);
+            console.log('Error downloading or saving the image:', error);
         }
     };
 
@@ -47,7 +46,7 @@ export default PhotoDownloadAndShare = (props) => {
             await MediaLibrary.saveToLibraryAsync(uri);
             Toast.show('Afbeelding gedownload.', {
                 duration: Toast.durations.SHORT,
-              });
+            });
 
         } catch (error) {
             console.log('Error downloading or saving the image:', error);
@@ -75,3 +74,5 @@ export default PhotoDownloadAndShare = (props) => {
         </View>
     );
 };
+
+export default PhotoDownloadAndShare;
