@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, RefreshControl, Text, View } from 'react-native';
-import { fetchPhotosForAlbum } from '../../services/FlickrApi';
+import { FlatList, RefreshControl, View } from 'react-native';
 import AlbumPhotoItem from './AlbumPhotoItem';
+import { fetchPhotosForAlbum } from '../../services/FlickrApi';
 import { PHOTOS_PER_PAGE } from '../../constants/media';
-import LoadingMediaView from './LoadingMediaView'
+import LoadingMediaView from './LoadingMediaView';
 
 export default Album = ({ navigation, route }) => {
   const [photos, setPhotos] = useState([]);
