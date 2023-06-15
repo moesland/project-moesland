@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, Text, View } from 'react-native';
+import { FlatList, RefreshControl, Text, View } from 'react-native';
 import { fetchAlbums, fetchCoverPhotoForAlbum } from '../../services/FlickrApi';
 import styles from '../../styles/components/GalleryStyles';
 import AlbumItem from './AlbumItem';
+import LoadingMediaView from './LoadingMediaView'
 
 export default Gallery = ({ navigation }) => {
   const [albums, setAlbums] = useState([]);
@@ -75,7 +76,7 @@ export default Gallery = ({ navigation }) => {
     if (loading || refreshing) {
       return (
         <View>
-          <ActivityIndicator />
+          <LoadingMediaView />
         </View>
       );
     }
@@ -84,7 +85,7 @@ export default Gallery = ({ navigation }) => {
   return (
     <View style={styles.view}>
       {albums.length === 0 ? (
-        <ActivityIndicator size="large" color="#50a038"></ActivityIndicator>
+        <LoadingMediaView />
       ) : (
         <FlatList
           data={albums}

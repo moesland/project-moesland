@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
-import styles from '../styles/components/LoadingMediaViewStyles';
+import styles from '../../styles/components/LoadingMediaViewStyles';
 
 const LoadingMediaView = () => {
   return (
