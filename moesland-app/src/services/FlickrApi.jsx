@@ -1,6 +1,7 @@
 import { ALBUMS_PER_PAGE, PHOTOS_PER_PAGE } from '../constants/media';
+import { BACKEND_URL, FLICKR_API_KEY } from "../../env";
 
-const apiKey = process.env.FLICKR_API_KEY;
+const apiKey = FLICKR_API_KEY;
 const userId = '139654880@N02';
 
 const fetchAlbums = async (page) => {

@@ -1,6 +1,8 @@
+import { BACKEND_URL, FLICKR_API_KEY } from "../../env";
+
 export const fetchDataFromBackend = async (path, method, callback = null, body = null) => {
     try {
-        const response = await fetch(process.env.BACKEND_URL + path, {
+        const response = await fetch(BACKEND_URL + path, {
             method: method,
             headers: {
                 'Content-Type': 'application/json'

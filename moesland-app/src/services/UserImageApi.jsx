@@ -1,5 +1,8 @@
+import { BACKEND_URL, FLICKR_API_KEY } from "../../env";
+
+
 const uploadUserImage = async (imageName, imageData, imageType) => {
-  await fetch(`${process.env.BACKEND_URL}/api/user-image/create`, {
+  await fetch(`${BACKEND_URL}/api/user-image/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

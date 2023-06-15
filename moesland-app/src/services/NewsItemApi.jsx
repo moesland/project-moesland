@@ -2,13 +2,15 @@ import { Buffer } from 'buffer';
 import NewsItemModel from '../models/NewsItemModel';
 import NewsItemContentModel from '../models/NewsItemContentModel';
 import uuid from 'react-native-uuid';
+import { BACKEND_URL, FLICKR_API_KEY } from "../../env";
+
 
 const generateUUID = () => {
   return uuid.v4();
 };
 
 const fetchNewsItemsFromBackend = async () => {
-  const response = await fetch(`${process.env.BACKEND_URL}/api/news-article/`, { method: 'GET' });
+  const response = await fetch(`${BACKEND_URL}/api/news-article/`, { method: 'GET' });
   const json = await response.json();
   return json;
 };
