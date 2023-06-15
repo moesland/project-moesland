@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import Gallery from '../components/Media/Gallery';
-import PhotoUpload from '../components/Media/PhotoUpload';
+import Gallery from '../modules/Media/Gallery';
+import PhotoUpload from '../modules/Media/PhotoUpload';
 import styles from '../styles/views/MediaViewStyles';
 
 const MediaView = ({ navigation }) => {

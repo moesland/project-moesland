@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Image, FlatList, Pressable, RefreshControl } from 'react-native';
 import fetchNewsItems from '../services/NewsItemApi';
 import styles from '../styles/views/NewsItemListViewStyles';
-import { calculateImageHeightForScreenSize } from '../lib/Utilities/HelperFunctions';
+import { calculateImageHeightForScreenSize } from '../Utilities/HelperFunctions';
 
 const NewsItemListView = ({ navigation }) => {
 

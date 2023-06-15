@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import Album from '../components/Media/Album';
+import Album from '../modules/Media/Album';
 import styles from '../styles/views/AlbumViewStyles';
 
 const AlbumView = ({ navigation, route }) => {

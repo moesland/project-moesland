@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, View } from 'react-native';
-import PhotoDownloadAndShare from '../components/Media/PhotoDownloadAndShare';
+import PhotoDownloadAndShare from '../modules/Media/PhotoDownloadAndShare';
 import styles from '../styles/views/PhotoViewStyles';
 
 const PhotoView = ({ route }) => {
