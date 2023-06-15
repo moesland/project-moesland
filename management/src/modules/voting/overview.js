@@ -27,7 +27,7 @@ const Overview = () => {
       if (!participantCounts[participantId]) {
         participantCounts[participantId] = 0;
         groupedParticipants.push(participant);
-      }
+      } 
 
       participantCounts[participantId]++;
     }
