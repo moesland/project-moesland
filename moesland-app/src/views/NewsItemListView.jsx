@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Image, FlatList, Pressable, RefreshControl } from 'react-native';
+import { View, SafeAreaView, ScrollView, Text, Image, FlatList, Pressable, RefreshControl } from 'react-native';
 import fetchNewsItems from '../api/NewsItemApi';
 import styles from '../styles/views/NewsItemListViewStyles';
 import { calculateImageHeightForScreenSize } from '../utilities/HelperFunctions';
@@ -58,8 +58,9 @@ const NewsItemListView = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <FlatList
+        style={styles.newsList}
         data={newsItems}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
@@ -68,7 +69,13 @@ const NewsItemListView = ({ navigation }) => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
-    </View>
+      
+      {(!newsItems || newsItems.length < 1) &&
+        <View style={styles.noNewsContainer}>
+          <Text style={styles.noNewsText}> Er zijn geen op dit moment geen nieuws </Text>
+        </View>
+      }
+    </SafeAreaView>
   );
 }
 
