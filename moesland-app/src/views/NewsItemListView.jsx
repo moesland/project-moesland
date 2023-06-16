@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, Image, FlatList, Pressable, RefreshControl } from 'react-native';
-import fetchNewsItems from '../services/NewsItemApi';
+import fetchNewsItems from '../api/NewsItemApi';
 import styles from '../styles/views/NewsItemListViewStyles';
 import { calculateImageHeightForScreenSize } from '../utilities/HelperFunctions';
 

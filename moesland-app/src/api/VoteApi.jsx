@@ -1,6 +1,6 @@
-import { calculateDistance, getCurrentLocation } from './locationService';
-import { getUniqueId } from './infoStorage';
-import { fetchDataFromBackend } from './MoeslandApi';
+import { calculateDistance, getCurrentLocation } from '../services/LocationService';
+import { getUniqueId } from '../services/InfoStorage';
+import { fetchFromMoesland } from '../services/ApiService';
 
 export const sendVoteRequest = async (voteRequests) => {
     let result = false;
@@ -14,7 +14,7 @@ export const sendVoteRequest = async (voteRequests) => {
     //console.log("Delete Requests:", deleteRequests);
 
     if(deleteRequests && deleteRequests.length > 0) {
-        await fetchDataFromBackend('/api/vote/bulk', 'POST', (data) => {
+        await fetchFromMoesland('/api/vote/bulk', 'POST', (data) => {
             if(data){
                 result = true
                 //console.log("Bulk vote delete");
@@ -23,7 +23,7 @@ export const sendVoteRequest = async (voteRequests) => {
     }
 
     if(postRequests && postRequests.length > 0) {
-        await fetchDataFromBackend('/api/vote/bulk', 'POST', (data) => {
+        await fetchFromMoesland('/api/vote/bulk', 'POST', (data) => {
             if(data) {
                 result = true
                 //console.log("Bulk vote add");
@@ -36,14 +36,14 @@ export const sendVoteRequest = async (voteRequests) => {
 
 export const fetchEventData = async () => {
     const location = await getCurrentLocation();
-    const data = await fetchDataFromBackend('/api/event/participants', 'GET');
+    const data = await fetchFromMoesland('/api/event/participants', 'GET');
 
     return formatEvents(data, location.coords);
 }
 
 export const fetchVoteData = async () => {
     const id = await getUniqueId();
-    const data = await fetchDataFromBackend(`/api/vote?deviceId=${id}`, 'GET');
+    const data = await fetchFromMoesland(`/api/vote?deviceId=${id}`, 'GET');
 
     return formatVotes(data);
 }

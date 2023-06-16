@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, RefreshControl, Text, View } from 'react-native';
-import { fetchAlbums, fetchCoverPhotoForAlbum } from '../../services/FlickrApi';
+import { fetchAlbums, fetchCoverPhotoForAlbum } from '../../api/FlickrApi';
 import styles from '../../styles/components/GalleryStyles';
 import AlbumItem from './AlbumItem';
 import LoadingMediaView from './LoadingMediaView'

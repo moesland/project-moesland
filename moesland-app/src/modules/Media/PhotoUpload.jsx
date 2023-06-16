@@ -3,7 +3,7 @@ import { Pressable, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import styles from '../../styles/components/PhotoUploadStyles';
-import { uploadUserImage } from '../../services/UserImageApi';
+import { uploadUserImage } from '../../api/UserImageApi';
 import { Camera } from 'expo-camera';
 
 const PhotoUpload = () => {

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, RefreshControl, View } from 'react-native';
 import AlbumPhotoItem from './AlbumPhotoItem';
-import { fetchPhotosForAlbum } from '../../services/FlickrApi';
+import { fetchPhotosForAlbum } from '../../api/FlickrApi';
 import { PHOTOS_PER_PAGE } from '../../constants/media';
 import LoadingMediaView from './LoadingMediaView';
 

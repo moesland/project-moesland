@@ -4,7 +4,7 @@ import { Agenda } from 'react-native-calendars';
 import { LocaleConfig } from 'react-native-calendars';
 import styles from '../styles/views/CalendarViewStyles';
 import testIDs from '../constants/calendarTestIDs';
-import fetchEvents from '../services/EventApi';
+import fetchEvents from '../api/EventApi';
 import { timeToString } from '../utilities/HelperFunctions';
 
 
