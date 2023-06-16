@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, Image, Linking } from 'react-native';
 import styles from '../styles/views/NewsItemContentViewStyles';
-import { calculateImageHeightForAspectRatio } from '../Utilities/HelperFunctions';
+import { calculateImageHeightForAspectRatio } from '../utilities/HelperFunctions';
 
 export default NewsItemContent = ({ content }) => {
   const { text, attributes } = content;

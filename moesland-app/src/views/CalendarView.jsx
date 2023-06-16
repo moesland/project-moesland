@@ -5,7 +5,7 @@ import { LocaleConfig } from 'react-native-calendars';
 import styles from '../styles/views/CalendarViewStyles';
 import testIDs from '../constants/calendarTestIDs';
 import fetchEvents from '../services/EventApi';
-import { timeToString } from '../Utilities/HelperFunctions';
+import { timeToString } from '../utilities/HelperFunctions';
 
 
 export default class AgendaScreen extends PureComponent {
