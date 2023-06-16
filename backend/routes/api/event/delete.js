@@ -1,7 +1,7 @@
 const express = require('express');
 const escapeHtml = require('escape-html');
 const { getEventById, deleteEvent } = require('../../../repository/event');
-
+const { getAllExtra, bulkDelete } = require('../../../repository/vote');
 const router = express.Router();
 
 router.use(express.json());
@@ -39,10 +39,13 @@ router.use(express.json());
 router.post('/', async (req, res) => {
   const { _id } = req.body;
   try {
-    const event = await getEventById(_id);
+    const event = await getEventById(_id);    
     if (event) {
+      const votes = await getAllExtra({ event: event._id });
+      const voteIds = votes.map((vote) => vote._id);
+      await bulkDelete(voteIds);
       await deleteEvent(event);
-      return res.status(200).send('Event deleted successfully!');
+      return res.status(200).send('Event and associated votes deleted successfully!');
     }
     return res.status(404).send('Event doesn\'t exist.');
   } catch (err) {
