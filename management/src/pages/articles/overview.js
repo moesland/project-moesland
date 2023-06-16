@@ -16,8 +16,9 @@ export default function ArticleOverview() {
 
     const refreshData = async () => {
         await getNewsArticles()
-            .then(response => response.json())
-            .then(data => { setArticles(data) });
+            .then(data => {
+                setArticles(data);
+            });
     }
 
     const openCreate = () => {

@@ -1,10 +1,10 @@
-const getUserImages = async (query) => {
-    const token = localStorage.getItem('token');
-    const headers = new Headers({
-        'Authorization': 'Bearer ' + token
-    });
+const { BackendFetch } = require('./ApiClient');
 
-    return await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + `/api/user-image${query}`, { method: 'GET', headers: headers });
+const getUserImages = async (query) => {
+    let images;
+    await BackendFetch(`/api/user-image${query}`, 'GET', data => images = data);
+
+    return images;
 };
 
 const approveUserImage = async (userImage) => {

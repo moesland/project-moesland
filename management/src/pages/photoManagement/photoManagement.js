@@ -37,7 +37,6 @@ export default function PhotoManagement() {
         setFetched(false);
 
         await getUserImages('?approvalStatus=pending')
-            .then(response => response.json())
             .then(data => {
                 setGalleryImages(data);
                 setFetched(true);

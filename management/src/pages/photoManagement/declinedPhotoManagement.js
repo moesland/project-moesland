@@ -37,7 +37,6 @@ export default function DeclinedPhotoManagement() {
         setFetched(false);
 
         await getUserImages('?approvalStatus=declined')
-            .then(response => response.json())
             .then(data => {
                 setGalleryImages(data);
                 setFetched(true);

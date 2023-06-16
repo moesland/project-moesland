@@ -6,7 +6,7 @@ import ModalDelete from '../../modules/userImage/modalDelete';
 
 export default function ApprovedPhotoManagement() {
     const [images, setImages] = useState([]);
-    const [galleryImages, setGalleryImages] = useState([]);
+    const [galleryImages, setGalleryImages] = useState(undefined);
     const [fetched, setFetched] = useState(false);
     const selectedImages = [];
     const [selectedItem, setSelectedItem] = useState(undefined);
@@ -44,7 +44,6 @@ export default function ApprovedPhotoManagement() {
         setFetched(false);
 
         await getUserImages('?approvalStatus=approved')
-            .then(response => response.json())
             .then(data => {
                 setGalleryImages(data);
                 setFetched(true);
@@ -138,7 +137,7 @@ export default function ApprovedPhotoManagement() {
             <div className="app mt-3">
                 <h1 className="font-moesland text-center">Goedgekeurde gebruikersfoto's</h1>
 
-                {galleryImages.length > 0 ? (
+                {galleryImages ? (galleryImages.length > 0 ? (
                     <div className="container">
                         <div className="row mb-3">
                             <div className="col">
@@ -171,8 +170,10 @@ export default function ApprovedPhotoManagement() {
                     </div>
                 ) : (
                     <div className="container">
-                        <p>Er zijn geen goedgekeurde foto's.</p>
+                        <p className="text-center">Er zijn geen goedgekeurde foto's.</p>
                     </div>
+                )) : (
+                    <p className="text-center">Gebruikersfoto's laden...</p>
                 )
                 }
             </div>

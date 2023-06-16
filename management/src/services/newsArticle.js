@@ -1,5 +1,10 @@
+const { BackendFetch } = require("./ApiClient");
+
 const getNewsArticles = async () => {
-    return await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/news-article", { method: "GET" })
+    let articles;
+    await BackendFetch('/api/news-article', 'GET', data => articles = data);
+
+    return articles;
 };
 
 const createNewsArticle = async (body) => {
