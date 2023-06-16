@@ -9,7 +9,7 @@ export const fetchDataFromBackend = async (path, method, callback = null, body =
         });
 
         if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
+            throw new Error(`Request failed with statuscode ${response.status}`);
         }
                 
         const data = await response.json();

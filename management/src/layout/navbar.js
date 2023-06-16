@@ -30,7 +30,7 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light font-moesland">
+        <nav className="navbar navbar-expand navbar-light bg-light font-moesland">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/">Moesland</a>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">

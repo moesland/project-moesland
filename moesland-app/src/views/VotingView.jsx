@@ -11,6 +11,7 @@ const VoteView = () => {
   const [votes, setVotes] = useState({});
   const [voteRequests, setVoteRequests] = useState({});
   const [newRequests, setNewRequests] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const onHandleUpdate = async () => {
     const updated = await sendVoteRequest(voteRequests);
@@ -50,7 +51,16 @@ const VoteView = () => {
     } else {
       setNewRequests(false);
     }
-  }, [voteRequests])
+  }, [voteRequests]);
+
+
+  const onHandleRefresh = async () => {
+    setRefreshing(true);
+    
+    await fetchEvent();
+    
+    setRefreshing(false);
+  }
 
   const eventItem = ({ item }) => {
     const votingItem = ({ item }) => {
@@ -58,7 +68,7 @@ const VoteView = () => {
     }
 
     return (
-      <View style={styles.paradeContainer} key={item._id}>
+      <View key={item._id}>
         <View style={styles.paradeTitleContainer}>
           <Text style={styles.paradeTitle}>{item.title}</Text>
         </View>
@@ -72,10 +82,13 @@ const VoteView = () => {
   }
 
   return (
-    <SafeAreaView style={styles.paradeContainer}>
+    <View style={styles.eventContainer}>
       {events &&
         <FlatList
+          style={styles.eventListContainer}
           data={events}
+          onRefresh={onHandleRefresh}
+          refreshing={refreshing}
           renderItem={eventItem}
           keyExtractor={event => event._id}
         />
@@ -93,7 +106,7 @@ const VoteView = () => {
         </TouchableOpacity>
       }
 
-    </SafeAreaView>
+    </View>
   );
 };
 
