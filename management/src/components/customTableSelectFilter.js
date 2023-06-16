@@ -33,6 +33,7 @@ const CustomTableSelectFilter = ({ inputText, list, listSelector, setFiltering }
                                 <input
                                     className="form-check-input mx-2"
                                     type="checkbox"
+                                    checked={selectedOptions.includes(data[listSelector.id])}
                                     id={data[listSelector.id]}
                                     onChange={(e) => handleCheckboxChange(data[listSelector.id], e.target.checked)}
                                 />
