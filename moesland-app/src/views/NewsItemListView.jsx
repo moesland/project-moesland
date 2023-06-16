@@ -72,7 +72,7 @@ const NewsItemListView = ({ navigation }) => {
       
       {(!newsItems || newsItems.length < 1) &&
         <View style={styles.noNewsContainer}>
-          <Text style={styles.noNewsText}> Er zijn geen op dit moment geen nieuws </Text>
+          <Text style={styles.noNewsText}> Er zijn op dit moment geen nieuwsberichten. </Text>
         </View>
       }
     </SafeAreaView>
