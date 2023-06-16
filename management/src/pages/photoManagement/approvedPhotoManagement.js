@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Buffer } from 'buffer';
 import JSZip from "jszip";
 import { getUserImages } from "../../services/userImage";
+import ModalDelete from '../../modules/userImage/modalDelete';
 
 export default function ApprovedPhotoManagement() {
     const [images, setImages] = useState([]);
     const [galleryImages, setGalleryImages] = useState([]);
     const [fetched, setFetched] = useState(false);
     const selectedImages = [];
+    const [selectedItem, setSelectedItem] = useState(undefined);
+    const [modalDeleteShow, setModalDeleteShow] = useState(false);
 
     useEffect(() => {
         fetchUserImages();
@@ -123,14 +126,19 @@ export default function ApprovedPhotoManagement() {
         } else {
             selectedImages.push(id);
         }
-    }
+    };
+
+    const toggleShowModalDelete = (image) => {
+        setModalDeleteShow(!modalDeleteShow);
+        setSelectedItem(image);
+    };
 
     return (
         <>
             <div className="app mt-3">
                 <h1 className="font-moesland text-center">Goedgekeurde gebruikersfoto's</h1>
 
-                {galleryImages.length > 0 &&
+                {galleryImages.length > 0 ? (
                     <div className="container">
                         <div className="row mb-3">
                             <div className="col">
@@ -140,26 +148,36 @@ export default function ApprovedPhotoManagement() {
                         </div>
 
                         <table className="container">
-                            {images.map(i => (
-                                <tr className="row mb-2" key={i.userImageId}>
-                                    <td className="col-1 d-flex justify-content-end">
-                                        <input type="checkbox" className="form-check-input" onChange={() => changeSelection(i.userImageId)} />
-                                    </td>
-                                    <td className="col-2 p-0">
-                                        <img className="w-100"
-                                            src={i.original}
-                                            alt={i.originalAlt}
-                                            data-description={i.description} />
-                                    </td>
-                                    <td className="col-4">
-                                        <button className="btn btn-primary" onClick={() => downloadSingle(i)}>Download</button>
-                                    </td>
-                                </tr>
-                            ))}
+                            <tbody>
+                                {images.map(image => (
+                                    <tr className="row mb-2" key={image.userImageId}>
+                                        <td className="col-1 d-flex justify-content-end">
+                                            <input type="checkbox" className="form-check-input" onChange={() => changeSelection(image.userImageId)} />
+                                        </td>
+                                        <td className="col-2 p-0">
+                                            <img className="w-100"
+                                                src={image.original}
+                                                alt={image.originalAlt}
+                                                data-description={image.description} />
+                                        </td>
+                                        <td className="col-4">
+                                            <button className="btn btn-primary" onClick={() => downloadSingle(image)}>Download</button>
+                                            <button className="btn btn-danger mx-2" onClick={() => toggleShowModalDelete(image)}>Verwijderen</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
                         </table>
                     </div>
+                ) : (
+                    <div className="container">
+                        <p>Er zijn geen goedgekeurde foto's.</p>
+                    </div>
+                )
                 }
             </div>
+
+            {modalDeleteShow && <ModalDelete toggleModal={toggleShowModalDelete} selectedItem={selectedItem} refreshOverview={fetchUserImages} />}
         </>
     );
 }

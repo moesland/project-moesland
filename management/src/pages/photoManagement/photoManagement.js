@@ -6,7 +6,7 @@ import { approveUserImage, declineUserImage, getUserImages } from "../../service
 
 export default function PhotoManagement() {
     const images = [];
-    const [galleryImages, setGalleryImages] = useState([]);
+    const [galleryImages, setGalleryImages] = useState(undefined);
     const [fetched, setFetched] = useState(false);
 
     useEffect(() => {
@@ -100,7 +100,7 @@ export default function PhotoManagement() {
                 <h1 className="font-moesland text-center">Gebruikersfoto's</h1>
 
                 <div className="image-gallery-wrapper mt-2">
-                    {galleryImages.length > 0 ? (
+                    {galleryImages ? (galleryImages.length > 0 ? (
                         <ImageGallery
                             thumbnailPosition="top"
                             items={images}
@@ -111,6 +111,8 @@ export default function PhotoManagement() {
                         />
                     ) : (
                         <p className="text-center">Geen gebruikersfoto's gevonden.</p>
+                    )) : (
+                        <p className="text-center">Gebruikersfoto's laden...</p>
                     )}
                 </div>
             </div>

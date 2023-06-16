@@ -6,7 +6,7 @@ import { deleteUserImage, getUserImages, restoreUserImage } from "../../services
 
 export default function DeclinedPhotoManagement() {
     const images = [];
-    const [galleryImages, setGalleryImages] = useState([]);
+    const [galleryImages, setGalleryImages] = useState(undefined);
     const [fetched, setFetched] = useState(false);
 
     useEffect(() => {
@@ -31,7 +31,7 @@ export default function DeclinedPhotoManagement() {
                 });
             });
         }
-    }
+    };
 
     const fetchUserImages = async () => {
         setFetched(false);
@@ -42,17 +42,17 @@ export default function DeclinedPhotoManagement() {
                 setGalleryImages(data);
                 setFetched(true);
             });
-    }
+    };
 
-    const restoreItem = async (item) => {
-        await restoreUserImage(item)
+    const deleteItem = async (item) => {
+        await deleteUserImage(item)
             .then(async () => {
                 await fetchUserImages();
             });
     };
 
-    const deleteItem = async (item) => {
-        await deleteUserImage(item)
+    const restoreItem = async (item) => {
+        await restoreUserImage(item)
             .then(async () => {
                 await fetchUserImages();
             });
@@ -91,7 +91,7 @@ export default function DeclinedPhotoManagement() {
                 <h1 className="font-moesland text-center">Afgekeurde gebruikersfoto's</h1>
 
                 <div className="image-gallery-wrapper mt-2">
-                    {galleryImages.length > 0 ? (
+                    {galleryImages ? (galleryImages.length > 0 ? (
                         <ImageGallery
                             thumbnailPosition="top"
                             items={images}
@@ -102,6 +102,8 @@ export default function DeclinedPhotoManagement() {
                         />
                     ) : (
                         <p className="text-center">Geen gebruikersfoto's gevonden.</p>
+                    )) : (
+                        <p className="text-center">Gebruikersfoto's laden...</p>
                     )}
                 </div>
             </div>
