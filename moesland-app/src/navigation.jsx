@@ -1,14 +1,13 @@
 import CustomNavigation, { createStack } from './modules/menu/CustomNavigation';
+import { Tab } from './modules/menu/CustomNavigation';
 
 import MediaView from './views/MediaView';
 import AlbumView from './views/AlbumView';
 import PhotoView from './views/PhotoView';
 import CalendarView from './views/CalendarView';
 import VotingView from './views/VotingView';
-
 import NewsItemListView from './views/NewsItemListView';
 import NewsItemDetailView from './views/NewsItemDetailView';
-import { Tab } from './modules/menu/CustomNavigation';
 
 const IconTabList = [
     { routeName: 'Nieuws', image: 'newspaper-outline', focusImage: 'newspaper' },
