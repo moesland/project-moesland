@@ -2,6 +2,7 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const { authenticateToken } = require('../../middlewares/auth');
 const participationRepo = require('../../repository/participation');
+const { getAllExtra, bulkDelete } = require('../../repository/vote');
 
 const router = express.Router();
 
@@ -134,11 +135,15 @@ router.put('/:id', authenticateToken, [
 router.delete('/:id', authenticateToken, async (req, res, next) => {
   try {
     const { id } = req.params;
-    const deletedParticipation = await participationRepo.remove(id);
-    if (!deletedParticipation) {
-      return res.status(404).json({ error: 'Resource not found' });
+    const participant = await participationRepo.findOne(id);
+
+    if(participant){
+      const votes = await getAllExtra({ participant: participant._id });
+      const voteIds = votes.map((vote) => vote._id);
+      await bulkDelete(voteIds);
+      await participationRepo.remove(id);
     }
-    return res.status(200).json(deletedParticipation);
+    return res.status(200).json(participant);
   } catch (err) {
     return next(err);
   }

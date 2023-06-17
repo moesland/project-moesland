@@ -5,6 +5,7 @@ import ModalAdd from '../../modules/events/modalAdd';
 import ModalDelete from '../../modules/events/modalDelete';
 import ModalUpdate from '../../modules/events/modalUpdate';
 import { getUsableDatesAndTimes, isSameDay } from './utils.js';
+import { BackendFetch } from "../../services/ApiClient";
 
 const EventOverview = () => {
     const [date, setDate] = useState(new Date());
@@ -35,38 +36,32 @@ const EventOverview = () => {
         const day = selectedDate.getDate();
         const formattedDate = `${year}-${month}-${day}`;
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/event/?date=' + formattedDate, { method: 'GET' })
-            .then(response => response.json())
-            .then(data => {
-                // Sort the data by start date
-                const sortedData = data.sort((b, a) => new Date(a.startdate) - new Date(b.startdate));
-                setEventData(sortedData);
-            });
+        BackendFetch('/api/event/?date=' + formattedDate, 'GET', (data) => {
+            // Sort the data by start date
+            const sortedData = data.sort((b, a) => new Date(a.startdate) - new Date(b.startdate));
+            setEventData(sortedData);
+        });
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/event', { method: 'GET' })
-            .then(response => response.json())
-            .then(data => {
-                // Sort the data by start date
-                const sortedData = data.sort((b, a) => new Date(a.startdate) - new Date(b.startdate));
+        BackendFetch('/api/event', 'GET', (data) =>{
+            // Sort the data by start date
+            const sortedData = data.sort((b, a) => new Date(a.startdate) - new Date(b.startdate));
 
-                // Extract dates from eventData
-                const datesToAddContentTo = sortedData.map(event => event.startdate);
+            // Extract dates from eventData
+            const datesToAddContentTo = sortedData.map(event => event.startdate);
 
-                // Set datesToMark to the extracted dates
-                setDatesToMark(datesToAddContentTo);
-            });
+            // Set datesToMark to the extracted dates
+            setDatesToMark(datesToAddContentTo);
+        })
     };
 
     const getAllEvents = async () => {
         const isOnlyParades = onlyParades === true ? '?isParade=true' : '';
-
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + `/api/event${isOnlyParades}`, { method: 'GET' })
-            .then(response => response.json())
-            .then(data => {
-                // Sort the data by start date
-                const sortedData = data.sort((b, a) => new Date(a.startdate) - new Date(b.startdate));
-                setAllEvents(sortedData);
-            });
+        
+        BackendFetch(`/api/event${isOnlyParades}`, 'GET', (data) =>{
+            // Sort the data by start date
+            const sortedData = data.sort((b, a) => new Date(a.startdate) - new Date(b.startdate));
+            setAllEvents(sortedData);
+        });
     };
 
     const ToggleShowAddEventModal = () => {
