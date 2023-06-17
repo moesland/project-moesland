@@ -17,7 +17,7 @@ export default class NewsItemListView extends Component {
         this.setState({ imageHeight: calculatedImageHeight });
       })
       .catch((error) => {
-        console.log(`Error calculating image height: ${error}`);
+        console.error(`Error calculating image height: ${error}`);
       });
   }
 

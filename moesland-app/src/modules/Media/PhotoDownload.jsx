@@ -23,7 +23,7 @@ const PhotoDownload = (props) => {
                 );
             }
         } catch (error) {
-            console.log('Error downloading or saving the image:', error);
+            console.error('Error downloading or saving the image:', error);
         }
     };
 
@@ -48,7 +48,7 @@ const PhotoDownload = (props) => {
             });
 
         } catch (error) {
-            console.log('Error downloading or saving the image:', error);
+            console.error('Error downloading or saving the image:', error);
         }
     };
 

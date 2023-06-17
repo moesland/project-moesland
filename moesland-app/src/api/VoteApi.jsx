@@ -10,14 +10,10 @@ export const sendVoteRequest = async (voteRequests) => {
     const deleteRequests = formattedRequests.deleteRequests;
     const postRequests = formattedRequests.postRequests
 
-    //console.log("Post Requests:", postRequests);
-    //console.log("Delete Requests:", deleteRequests);
-
     if(deleteRequests && deleteRequests.length > 0) {
         await fetchFromMoesland('/api/vote/bulk', 'POST', (data) => {
             if(data){
                 result = true
-                //console.log("Bulk vote delete");
             }
         }, {operation: 'delete', votes: deleteRequests});
     }
@@ -26,7 +22,6 @@ export const sendVoteRequest = async (voteRequests) => {
         await fetchFromMoesland('/api/vote/bulk', 'POST', (data) => {
             if(data) {
                 result = true
-                //console.log("Bulk vote add");
             }
         }, {operation: 'add', votes: postRequests});
     }
@@ -52,8 +47,6 @@ const separateVoteRequests = (voteRequests) => {
     const postRequests = [];
     const deleteRequests = [];
     
-    //console.log(voteRequests);
-
     for (const voteId in voteRequests) {
         const vote = voteRequests[voteId];
         for (const requestId in vote) {

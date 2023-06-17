@@ -35,7 +35,7 @@ export default NewsItemContent = ({ content }) => {
           setImageHeight(calculatedImageHeight);
         })
         .catch((error) => {
-          console.log(`Error calculating image height: ${error}`);
+          console.error(`Error calculating image height: ${error}`);
         });
     }
   }, [content]);
