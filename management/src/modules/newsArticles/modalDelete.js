@@ -1,23 +1,13 @@
 import React from "react";
-import { BackendClientRequest } from "../../services/ApiClient";
+import { deleteNewsArticle } from "../../services/newsArticle";
 
 export default function ModalDelete({ toggleModal, selectedItem, refreshOverview }) {
     const deleteArticle = async () => {
-        const path = "/api/news-article/delete";
-        const body = {
-            _id: selectedItem._id
-        };
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        });
-        await BackendClientRequest(
-            path, body, headers, "POST"
-        );
-
-        refreshOverview();
-        toggleModal();
+        await deleteNewsArticle(selectedItem._id)
+            .then(() => {
+                refreshOverview();
+                toggleModal();
+            });
     }
 
     return (

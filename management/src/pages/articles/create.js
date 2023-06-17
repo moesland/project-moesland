@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from "react-router-dom";
+import { createNewsArticle } from "../../services/newsArticle";
 
 export default function Create() {
     const [bannerImage, setBannerImage] = useState('');
@@ -55,22 +56,14 @@ export default function Create() {
         formData.append('content', content);
         formData.append('bannerImage', imageFile);
 
-        const token = localStorage.getItem('token');
-
-        const response = await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/news-article/create', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-
-        if (response.ok) {
-            window.alert('Nieuwsartikel is aangemaakt!');
-            navigate('/articles/');
-        } else {
-            window.alert('Fout bij het aanmaken');
-        }
+        await createNewsArticle(formData)
+            .then(() => {
+                window.alert('Nieuwsartikel is aangemaakt!');
+                navigate('/articles/');
+            })
+            .catch(() => {
+                window.alert('Fout bij het aanmaken');
+            });
     }
 
     return (
