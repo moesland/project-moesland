@@ -1,4 +1,4 @@
-import { calculateDistance, getCurrentLocation } from '../services/LocationService';
+import { calculateDistance,  getCurrentLocation } from '../services/LocationService';
 import { getUniqueId } from '../services/InfoStorage';
 import { fetchFromMoesland } from '../services/ApiService';
 

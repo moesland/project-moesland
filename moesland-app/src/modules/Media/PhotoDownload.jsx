@@ -2,11 +2,10 @@ import React from 'react';
 import { View, Text, Pressable, Alert, Linking } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
-import { shareAsync } from 'expo-sharing';
 import Toast from 'react-native-root-toast';
-import styles from '../../styles/components/PhotoDownloadAndShareStyles';
+import styles from '../../styles/components/PhotoDownloadStyles';
 
-const PhotoDownloadAndShare = (props) => {
+const PhotoDownload = (props) => {
     const requestDownloadPermission = async () => {
         try {
             const { status } = await MediaLibrary.requestPermissionsAsync();
@@ -53,26 +52,13 @@ const PhotoDownloadAndShare = (props) => {
         }
     };
 
-    const shareImage = async () => {
-        const filename = "share"
-        const result = await FileSystem.downloadAsync(
-            props.imageSrc,
-            FileSystem.documentDirectory + filename
-        );
-
-        shareAsync(result.uri);
-    }
-
     return (
         <View style={styles.container}>
             <Pressable onPress={requestDownloadPermission} style={styles.button}>
                 <Text style={styles.text}>DOWNLOADEN</Text>
             </Pressable>
-            <Pressable onPress={shareImage} style={styles.button}>
-                <Text style={styles.text}>DELEN</Text>
-            </Pressable>
         </View>
     );
 };
 
-export default PhotoDownloadAndShare;
+export default PhotoDownload;

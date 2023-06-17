@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, View } from 'react-native';
-import PhotoDownloadAndShare from '../modules/Media/PhotoDownloadAndShare';
+import PhotoDownload from '../modules/Media/PhotoDownload';
 import styles from '../styles/views/PhotoViewStyles';
 
 const PhotoView = ({ route }) => {
@@ -9,7 +9,7 @@ const PhotoView = ({ route }) => {
   return (
     <View style={styles.container}>
       <Image source={{ uri: imageSrc }} style={styles.photo} />
-      <PhotoDownloadAndShare imageSrc={imageSrc} />
+      <PhotoDownload imageSrc={imageSrc} />
     </View>
   );
 };
