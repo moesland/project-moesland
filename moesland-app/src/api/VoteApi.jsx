@@ -1,5 +1,5 @@
-import { calculateDistance,  getCurrentLocation } from '../services/locationService';
-import { getUniqueId } from '../services/infoStorage';
+import { calculateDistance,  getCurrentLocation } from '../services/LocationService';
+import { getUniqueId } from '../services/InfoStorage';
 import { fetchFromMoesland } from '../services/ApiService';
 
 export const sendVoteRequest = async (voteRequests) => {

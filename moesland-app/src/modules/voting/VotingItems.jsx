@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import styles from '../../styles/votingStyles';
-import { getUniqueId } from '../../services/infoStorage';
+import { getUniqueId } from '../../services/InfoStorage';
 
 const VotingItem = ({ data, votes, voteRequests, setVoteRequests }) => {
     const [voted, setVoted] = useState(false);
