@@ -6,7 +6,7 @@ import { deleteUserImage, getUserImages, restoreUserImage } from "../../services
 
 export default function DeclinedPhotoManagement() {
     const images = [];
-    const [galleryImages, setGalleryImages] = useState(undefined);
+    const [galleryImages, setGalleryImages] = useState();
     const [fetched, setFetched] = useState(false);
 
     useEffect(() => {

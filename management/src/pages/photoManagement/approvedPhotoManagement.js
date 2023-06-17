@@ -6,10 +6,10 @@ import ModalDelete from '../../modules/userImage/modalDelete';
 
 export default function ApprovedPhotoManagement() {
     const [images, setImages] = useState([]);
-    const [galleryImages, setGalleryImages] = useState(undefined);
+    const [galleryImages, setGalleryImages] = useState();
     const [fetched, setFetched] = useState(false);
     const selectedImages = [];
-    const [selectedItem, setSelectedItem] = useState(undefined);
+    const [selectedItem, setSelectedItem] = useState();
     const [modalDeleteShow, setModalDeleteShow] = useState(false);
 
     useEffect(() => {

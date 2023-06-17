@@ -6,7 +6,7 @@ import { approveUserImage, declineUserImage, getUserImages } from "../../service
 
 export default function PhotoManagement() {
     const images = [];
-    const [galleryImages, setGalleryImages] = useState(undefined);
+    const [galleryImages, setGalleryImages] = useState();
     const [fetched, setFetched] = useState(false);
 
     useEffect(() => {
