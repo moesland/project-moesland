@@ -1,6 +1,6 @@
-import { BACKEND_URL, FLICKR_API_KEY } from "../../env";
+import { BACKEND_URL} from "../../env";
 
-export const fetchDataFromBackend = async (path, method, callback = null, body = null) => {
+export const fetchFromMoesland = async (path, method, callback = null, body = null) => {
     try {
         const response = await fetch(BACKEND_URL + path, {
             method: method,
@@ -11,7 +11,7 @@ export const fetchDataFromBackend = async (path, method, callback = null, body =
         });
 
         if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
+            throw new Error(`Request failed with statuscode ${response.status}`);
         }
                 
         const data = await response.json();

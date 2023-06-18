@@ -2,17 +2,15 @@ import { Buffer } from 'buffer';
 import NewsItemModel from '../models/NewsItemModel';
 import NewsItemContentModel from '../models/NewsItemContentModel';
 import uuid from 'react-native-uuid';
-import { BACKEND_URL, FLICKR_API_KEY } from "../../env";
-
+import { fetchFromMoesland } from '../services/ApiService';
 
 const generateUUID = () => {
   return uuid.v4();
 };
 
 const fetchNewsItemsFromBackend = async () => {
-  const response = await fetch(`${BACKEND_URL}/api/news-article/`, { method: 'GET' });
-  const json = await response.json();
-  return json;
+  const data = await fetchFromMoesland('/api/news-article/', 'GET');
+  return data;
 };
 
 const parseContentOps = (content, previousContentModel) => content.ops.map((op) => {

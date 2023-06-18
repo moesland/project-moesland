@@ -11,12 +11,8 @@ router.post('/', async (req, res) => {
   try {
     const userImage = await getUserImageById(id);
     if (userImage) {
-      if (userImage.approvalStatus === 'declined') {
-        await deleteUserImage(userImage);
-        res.status(200).send('User image deleted successfully!');
-      } else {
-        res.status(500).send('Could not delete user image: is not declined');
-      }
+      await deleteUserImage(userImage);
+      res.status(200).send('User image deleted successfully!');
     } else {
       res.status(500).send('Could not delete user image.');
     }

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { Buffer } from 'buffer';
+import { deleteUserImage, getUserImages, restoreUserImage } from "../../services/userImage";
 
 export default function DeclinedPhotoManagement() {
     const images = [];
-    const [galleryImages, setGalleryImages] = useState([]);
+    const [galleryImages, setGalleryImages] = useState();
     const [fetched, setFetched] = useState(false);
 
     useEffect(() => {
@@ -30,56 +31,30 @@ export default function DeclinedPhotoManagement() {
                 });
             });
         }
-    }
+    };
 
     const fetchUserImages = async () => {
         setFetched(false);
 
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            'Authorization': 'Bearer ' + token
-        });
-
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image?approvalStatus=declined', { method: 'GET', headers: headers })
-            .then(response => response.json())
+        await getUserImages('?approvalStatus=declined')
             .then(data => {
                 setGalleryImages(data);
                 setFetched(true);
             });
-    }
-
-    const restoreItem = async (item) => {
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            Authorization: 'Bearer ' + token,
-            'Content-Type': 'application/json',
-        });
-        const body = JSON.stringify({ id: item.userImageId });
-
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/restore', {
-            method: 'POST',
-            body: body,
-            headers: headers,
-        });
-
-        fetchUserImages();
     };
 
     const deleteItem = async (item) => {
-        const token = localStorage.getItem('token');
-        const headers = new Headers({
-            'Authorization': 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        });
-        const body = JSON.stringify({ id: item.userImageId });
+        await deleteUserImage(item)
+            .then(async () => {
+                await fetchUserImages();
+            });
+    };
 
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/user-image/delete', {
-            method: 'POST',
-            body: body,
-            headers: headers
-        });
-
-        fetchUserImages();
+    const restoreItem = async (item) => {
+        await restoreUserImage(item)
+            .then(async () => {
+                await fetchUserImages();
+            });
     };
 
     const renderItem = (item) => {
@@ -115,7 +90,7 @@ export default function DeclinedPhotoManagement() {
                 <h1 className="font-moesland text-center">Afgekeurde gebruikersfoto's</h1>
 
                 <div className="image-gallery-wrapper mt-2">
-                    {galleryImages.length > 0 ? (
+                    {galleryImages ? (galleryImages.length > 0 ? (
                         <ImageGallery
                             thumbnailPosition="top"
                             items={images}
@@ -126,6 +101,8 @@ export default function DeclinedPhotoManagement() {
                         />
                     ) : (
                         <p className="text-center">Geen gebruikersfoto's gevonden.</p>
+                    )) : (
+                        <p className="text-center">Gebruikersfoto's laden...</p>
                     )}
                 </div>
             </div>

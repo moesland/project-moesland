@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import ModalDelete from '../../modules/article/modalDelete.js';
+import ModalDelete from '../../modules/newsArticles/modalDelete.js';
 import { useNavigate } from "react-router-dom";
+import { getNewsArticles } from '../../services/newsArticle.js';
 
 export default function ArticleOverview() {
     const [articles, setArticles] = useState(undefined);
@@ -14,9 +15,10 @@ export default function ArticleOverview() {
     }, []);
 
     const refreshData = async () => {
-        await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + "/api/news-article", { method: "GET" })
-            .then(response => response.json())
-            .then(data => { setArticles(data) });
+        await getNewsArticles()
+            .then(data => {
+                setArticles(data);
+            });
     }
 
     const openCreate = () => {

@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  container: {
+    flex: 1,
+  },
 });
 
 export default styles;

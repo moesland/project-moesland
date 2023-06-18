@@ -1,10 +1,9 @@
-import { BACKEND_URL } from '../../env';
 import EventModel from '../models/EventModel';
+import { fetchFromMoesland } from '../services/ApiService';
 
 const fetchEventsFromBackend = async () => {
-  const response = await fetch(`${BACKEND_URL}/api/event/`, { method: 'GET' });
-  const json = await response.json();
-  return json;
+  const data = await fetchFromMoesland('/api/event/', 'GET');
+  return data;
 };
 
 const fetchEvents = async () => {

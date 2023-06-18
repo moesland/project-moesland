@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
 import { Text, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
+import { LocaleConfig } from 'react-native-calendars';
 import styles from '../styles/views/CalendarViewStyles';
 import testIDs from '../constants/calendarTestIDs';
-import fetchEvents from '../services/EventApi';
-import { LocaleConfig } from 'react-native-calendars';
+import fetchEvents from '../api/EventApi';
+import { timeToString } from '../utilities/HelperFunctions';
+
 
 export default class AgendaScreen extends PureComponent {
   state = {
@@ -25,7 +27,7 @@ export default class AgendaScreen extends PureComponent {
         const endDate = event.enddate.getTime();
 
         for (let time = startDate; time <= endDate; time += 24 * 60 * 60 * 1000) {
-          const strTime = this.timeToString(time);
+          const strTime = timeToString(time);
 
           if (!items[strTime]) {
             items[strTime] = [];
@@ -55,13 +57,13 @@ export default class AgendaScreen extends PureComponent {
 
       // Fill dates with [] when no events exist
       const dates = Object.keys(items);
-      var currentDate = new Date();
+      let currentDate = new Date();
       currentDate.setFullYear(currentDate.getFullYear() - 1);
       const endDate = new Date();
       endDate.setFullYear(endDate.getFullYear() + 1);
 
       while (currentDate <= endDate) {
-        const strTime = this.timeToString(currentDate.getTime());
+        const strTime = timeToString(currentDate.getTime());
 
         if (!dates.includes(strTime)) {
           items[strTime] = [];
@@ -82,10 +84,11 @@ export default class AgendaScreen extends PureComponent {
   examples = fetchEvents()
 
   render() {
+    const { items } = this.state;
     return (
       <Agenda
         testID={testIDs.agenda.CONTAINER}
-        items={this.state.items}
+        items={items}
         loadItemsForMonth={this.loadItems}
         selected={new Date().toString()}
         minDate='2023-01-01'
@@ -126,11 +129,6 @@ export default class AgendaScreen extends PureComponent {
 
   rowHasChanged = (prevItem, newItem) => {
     return prevItem.name !== newItem.name;
-  }
-
-  timeToString(time) {
-    const date = new Date(time);
-    return date.toISOString().split('T')[0];
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import styles from '../../styles/votingStyles';
-import { getUniqueId } from '../../services/infoStorage';
+import { getUniqueId } from '../../services/InfoStorage';
 
 const VotingItem = ({ data, votes, voteRequests, setVoteRequests }) => {
     const [voted, setVoted] = useState(false);
@@ -90,7 +90,7 @@ const VotingItem = ({ data, votes, voteRequests, setVoteRequests }) => {
     return (
         <TouchableOpacity style={[styles.votingItem, voted && styles.votedItem, changeRequested && styles.changeRequested]} onPress={onHandleRequest}>
             {voted && <Text style={[styles.greenCheck]} > ✓ </Text>}
-            <Text style={styles.voitingItemText}> Nr. {data.startnumber}, {data.name} </Text>
+            <Text style={styles.voitingItemText}> {data.startnumber} - {data.name} </Text>
         </TouchableOpacity>
     );
 };

@@ -32,6 +32,23 @@ const styles = StyleSheet.create({
     marginRight: 5,
     opacity: 0.1,
   },
+  newsList: {
+    minHeight: '33%',
+  },
+  noNewsContainer: {
+    flexGrow: 1,
+    width: '100%',
+    top: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute'
+  },
+  noNewsText: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'gray',
+  }
 });
 
 export default styles;

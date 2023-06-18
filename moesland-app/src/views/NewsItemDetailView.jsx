@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Image, Text } from 'react-native';
 import NewsItemContentView from '../components/NewsItemContentView';
 import styles from '../styles/views/NewsItemDetailViewStyles';
-import { calculateImageHeightForAspectRatio } from '../lib/Utilities/HelperFunctions';
+import { calculateImageHeightForAspectRatio } from '../utilities/HelperFunctions';
 
 export default class NewsItemListView extends Component {
   state = {
@@ -17,7 +17,7 @@ export default class NewsItemListView extends Component {
         this.setState({ imageHeight: calculatedImageHeight });
       })
       .catch((error) => {
-        console.log(`Error calculating image height: ${error}`);
+        console.error(`Error calculating image height: ${error}`);
       });
   }
 
