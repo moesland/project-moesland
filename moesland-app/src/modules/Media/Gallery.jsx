@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, RefreshControl, Text, View } from 'react-native';
-import { fetchAlbums, fetchCoverPhotoForAlbum } from '../../services/FlickrApi';
+import { FlatList, RefreshControl, Text, View } from 'react-native';
+import { fetchAlbums, fetchCoverPhotoForAlbum } from '../../api/FlickrApi';
 import styles from '../../styles/components/GalleryStyles';
 import AlbumItem from './AlbumItem';
+import LoadingMediaView from './LoadingMediaView'
 
-export default Gallery = ({ navigation }) => {
+const Gallery = ({ navigation }) => {
   const [albums, setAlbums] = useState([]);
   const [coverPhotos, setCoverPhotos] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,7 +19,7 @@ export default Gallery = ({ navigation }) => {
   useEffect(() => {
     const albumPrimaryIds = albums.map(album => album.primary)
     albumPrimaryIds.forEach(primaryId => lazyFetchCoverPhoto(primaryId));
-  }, [albums, lazyFetchCoverPhoto]);
+  }, [albums]);
 
   const getAlbums = async () => {
     setLoading(true);
@@ -43,13 +44,13 @@ export default Gallery = ({ navigation }) => {
         [albumPrimaryId]: photo,
       }));
     }
-  });
+  }, []);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     await getAlbums();
     setRefreshing(false);
-  });
+  }, []);
 
   const loadMoreAlbums = async () => {
     const nextPage = currentPage + 1;
@@ -69,22 +70,23 @@ export default Gallery = ({ navigation }) => {
     return (
       <AlbumItem navigation={navigation} album={item} coverPhoto={coverPhoto} />
     );
-  });
+  }, [coverPhotos, navigation]);
 
   const renderFooter = useCallback(() => {
     if (loading || refreshing) {
       return (
         <View>
-          <ActivityIndicator />
+          <LoadingMediaView />
         </View>
       );
     }
+    return null;
   });
 
   return (
     <View style={styles.view}>
       {albums.length === 0 ? (
-        <Text style={styles.text}>Er zijn geen albums om te tonen.</Text>
+        <LoadingMediaView />
       ) : (
         <FlatList
           data={albums}
@@ -104,3 +106,5 @@ export default Gallery = ({ navigation }) => {
     </View>
   );
 };
+
+export default Gallery;

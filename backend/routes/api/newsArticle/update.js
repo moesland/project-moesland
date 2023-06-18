@@ -50,7 +50,12 @@ router.post('/', [
     }
 
     if (bannerImage) {
-      await updateImageById(originalImageId, bannerImage.name, bannerImage.data, bannerImage.contentType);
+      await updateImageById(
+        originalImageId,
+        bannerImage.name,
+        bannerImage.data,
+        bannerImage.contentType,
+      );
     }
     await updateNewsArticleById(id, title, content);
     return res.status(200).json('News article updated successfully!');

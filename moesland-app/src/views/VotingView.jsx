@@ -3,7 +3,7 @@ import { SafeAreaView, FlatList, TouchableOpacity, View, Text } from 'react-nati
 import VotingCategoryList from '../modules/voting/VotingCategoryList';
 import styles from '../styles/votingStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { fetchEventData, fetchVoteData, sendVoteRequest } from '../services/VoteApi';
+import { fetchEventData, fetchVoteData, sendVoteRequest } from '../api/VoteApi';
 import VotingItem from '../modules/voting/VotingItems';
 
 const VoteView = () => {
@@ -96,7 +96,7 @@ const VoteView = () => {
 
       {(!events || events.length < 1) &&
         <View style={styles.noParticipantsContainer}>
-          <Text style={styles.noParticipantsText}> Er zijn geen deelnames om te stemmen. </Text>
+          <Text style={styles.noParticipantsText}> Er zijn geen deelnames om op te stemmen. </Text>
         </View>
       }
 

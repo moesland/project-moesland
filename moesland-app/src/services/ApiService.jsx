@@ -1,4 +1,4 @@
-export const fetchDataFromBackend = async (path, method, callback = null, body = null) => {
+export const fetchFromMoesland = async (path, method, callback = null, body = null) => {
     try {
         const response = await fetch(process.env.BACKEND_URL + path, {
             method: method,

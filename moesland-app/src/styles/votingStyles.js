@@ -47,9 +47,11 @@ const styles = StyleSheet.create({
   },
   noParticipantsContainer: {
     flexGrow: 1,
-    height: '100%',
+    width: '100%',
+    top: '40%',
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'absolute'
   },
   noParticipantsText: {
     fontSize: 23,
