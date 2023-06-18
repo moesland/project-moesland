@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ModalAdd from '../../../modules/participationCategory/modalAdd';
 import ModalUpdate from '../../../modules/participationCategory/modalUpdate';
 import ModalDelete from '../../../modules/participationCategory/modalDelete';
+import { BackendFetch } from "../../../services/ApiClient";
 
 const ParticipationCategoryOverview = () => {
   const [participationCategoryData, setParticipationCategoryData] = useState();
@@ -15,11 +16,9 @@ const ParticipationCategoryOverview = () => {
   }, []);
 
   const refreshData = async () => {
-    await fetch(process.env.REACT_APP_BACKEND_ROOT_URL + '/api/participation-category', { method: 'GET' })
-      .then(response => response.json())
-      .then(data => {
-        setParticipationCategoryData(data);
-      });
+    BackendFetch('/api/participation-category', 'GET', (data) => {
+      setParticipationCategoryData(data);
+    });
   };
 
   const ToggleShowAddParticipationCategoryModal = () => {

@@ -31,11 +31,6 @@ const styles = StyleSheet.create({
     marginVertical: 18,
     fontWeight: 'bold',
   },
-  paradeContainer: {
-    marginHorizontal: 2,
-    minHeight: '100%',
-    paddingBottom: '15%',
-  },
   votedItem: {
     borderColor: '#50C878',
   },
@@ -52,9 +47,11 @@ const styles = StyleSheet.create({
   },
   noParticipantsContainer: {
     flexGrow: 1,
-    height: '100%',
+    width: '100%',
+    top: '40%',
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'absolute',
   },
   noParticipantsText: {
     fontSize: 23,
@@ -85,6 +82,11 @@ const styles = StyleSheet.create({
   },
   changeRequested: {
     borderColor: '#FFD580',
+  },
+  eventContainer: {
+    marginHorizontal: 2,
+    marginBottom: '5%',
+    minHeight: '100%',
   },
 });
 

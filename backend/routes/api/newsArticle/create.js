@@ -18,12 +18,16 @@ router.post('/', auth.authenticateToken, upload.single('bannerImage'), async (re
   try {
     const { title, content } = req.body;
     if (!title || !content) {
-      return res.status(500).send('Could not create news article.');
+      return res.status(500).send('Could not create news article: title or content is not defined.');
+    }
+
+    if (!req.file) {
+      return res.status(500).send('Could not create news article: no image file provided.');
     }
 
     const filePath = path.join(__dirname, '../../..', 'uploads', sanitize(req.file.filename));
     if (!fs.existsSync(filePath)) {
-      return res.status(500).send(`Could not create news article: file does not exist, path:${escape(filePath)}`);
+      return res.status(500).send(`Could not create news article: file does not exist, path: ${escape(filePath)}`);
     }
 
     const imageBuffer = fs.readFileSync(filePath);

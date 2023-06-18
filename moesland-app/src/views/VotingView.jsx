@@ -3,7 +3,7 @@ import { SafeAreaView, FlatList, TouchableOpacity, View, Text } from 'react-nati
 import VotingCategoryList from '../modules/voting/VotingCategoryList';
 import styles from '../styles/votingStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { fetchEventData, fetchVoteData, sendVoteRequest } from '../services/VoteApi';
+import { fetchEventData, fetchVoteData, sendVoteRequest } from '../api/VoteApi';
 import VotingItem from '../modules/voting/VotingItems';
 
 const VoteView = () => {
@@ -11,6 +11,7 @@ const VoteView = () => {
   const [votes, setVotes] = useState({});
   const [voteRequests, setVoteRequests] = useState({});
   const [newRequests, setNewRequests] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const onHandleUpdate = async () => {
     const updated = await sendVoteRequest(voteRequests);
@@ -50,7 +51,16 @@ const VoteView = () => {
     } else {
       setNewRequests(false);
     }
-  }, [voteRequests])
+  }, [voteRequests]);
+
+
+  const onHandleRefresh = async () => {
+    setRefreshing(true);
+    
+    await fetchEvent();
+    
+    setRefreshing(false);
+  }
 
   const eventItem = ({ item }) => {
     const votingItem = ({ item }) => {
@@ -58,7 +68,7 @@ const VoteView = () => {
     }
 
     return (
-      <View style={styles.paradeContainer} key={item._id}>
+      <View key={item._id}>
         <View style={styles.paradeTitleContainer}>
           <Text style={styles.paradeTitle}>{item.title}</Text>
         </View>
@@ -72,10 +82,13 @@ const VoteView = () => {
   }
 
   return (
-    <SafeAreaView style={styles.paradeContainer}>
+    <View style={styles.eventContainer}>
       {events &&
         <FlatList
+          style={styles.eventListContainer}
           data={events}
+          onRefresh={onHandleRefresh}
+          refreshing={refreshing}
           renderItem={eventItem}
           keyExtractor={event => event._id}
         />
@@ -83,7 +96,7 @@ const VoteView = () => {
 
       {(!events || events.length < 1) &&
         <View style={styles.noParticipantsContainer}>
-          <Text style={styles.noParticipantsText}> Er zijn geen deelnames om te stemmen. </Text>
+          <Text style={styles.noParticipantsText}> Er zijn geen deelnames om op te stemmen. </Text>
         </View>
       }
 
@@ -93,7 +106,7 @@ const VoteView = () => {
         </TouchableOpacity>
       }
 
-    </SafeAreaView>
+    </View>
   );
 };
 
