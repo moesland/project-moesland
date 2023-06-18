@@ -52,7 +52,9 @@ router.post('/', async (req, res) => {
 
     if (participationCategory) {
       const votes = await voteRepo.getAllExtra({ category: participationCategory._id });
-      const participations = await participationRepo.getAll({ category: participationCategory._id });
+      const participations = await participationRepo.getAll({
+        category: participationCategory._id,
+      });
 
       const voteIds = votes.map((vote) => vote._id);
       const participationIds = participations.map((participation) => participation._id);
