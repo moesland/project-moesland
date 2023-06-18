@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     top: '40%',
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute'
+    position: 'absolute',
   },
   noParticipantsText: {
     fontSize: 23,

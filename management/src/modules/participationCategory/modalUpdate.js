@@ -8,11 +8,6 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
 
     const [color, setColor] = useState(selectedItem.color);
 
-    const handleChangeComplete = (color) => {
-        this.setState({ color: color.hex });
-        setValue("color", color.hex);
-    };
-
     const onSubmit = async (data) => {
         // If data doesn't contain a color, set the color to the current color.
         // (When not hanging the color, the color in data will not be set)
@@ -65,11 +60,9 @@ const ModalUpdate = ({ toggleModal, selectedItem, refreshOverview }) => {
                                 <div className="form-group pt-3 pb-3">
                                     <label>Nieuwe kleur</label>
                                     <SketchPicker color={color}
-                                                  // onChangeComplete={ handleChangeComplete } />
                                                   onChangeComplete={(color) => setColor(color.hex)}
                                                   onChange={(color) => setValue("color", color.hex)}
                                     />
-                                    {/* <textarea defaultValue={selectedItem.color} id="edit-participation-category-color-id" className="form-control" placeholder="Omschrijving" name="edit-participation-category-color-name" {...register("color")}></textarea> */}
                                     <small id="edit-participation-category-color-error" className="form-text text-danger edit-participation-category-color-error" >{errors.color?.message}</small>
                                 </div>
                             </div>

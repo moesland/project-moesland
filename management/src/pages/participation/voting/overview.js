@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Overview from '../../../modules/voting/overview'
 
 const VotingOverview = () => {

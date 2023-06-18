@@ -74,11 +74,9 @@
                                   <div className="form-group pt-3">
                                       <label>Nieuwe kleur</label>
                                       <SketchPicker color={color}
-                                        // onChangeComplete={ handleChangeComplete } />
                                                     onChangeComplete={(color) => setColor(color.hex)}
                                                     onChange={(color) => setValue("color", color.hex)}
                                       />
-                                      {/* <textarea defaultValue={selectedItem.color} id="edit-participation-category-color-id" className="form-control" placeholder="Omschrijving" name="edit-participation-category-color-name" {...register("color")}></textarea> */}
                                       <small id="edit-participation-category-color-error" className="form-text text-danger edit-participation-category-color-error" >{errors.color?.message}</small>
                                   </div>
                               </div>

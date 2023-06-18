@@ -137,7 +137,7 @@ router.delete('/:id', authenticateToken, async (req, res, next) => {
     const { id } = req.params;
     const participant = await participationRepo.findOne(id);
 
-    if(participant){
+    if (participant) {
       const votes = await getAllExtra({ participant: participant._id });
       const voteIds = votes.map((vote) => vote._id);
       await bulkDelete(voteIds);

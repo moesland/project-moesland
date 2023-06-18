@@ -31,5 +31,5 @@ module.exports = {
   remove,
   update,
   findOne,
-  bulkDelete
+  bulkDelete,
 };
