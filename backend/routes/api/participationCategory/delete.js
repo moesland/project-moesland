@@ -8,6 +8,7 @@ const {
 // const { getAll, bulkDelete } = require('../../../repository/participation');
 const voteRepo = require('../../../repository/vote');
 const participationRepo = require('../../../repository/participation');
+
 const router = express.Router();
 
 router.use(express.json());
@@ -48,7 +49,7 @@ router.post('/', async (req, res) => {
   const { _id } = req.body;
   try {
     const participationCategory = await getParticipationCategoryById(_id);
-    
+
     if (participationCategory) {
       const votes = await voteRepo.getAllExtra({ category: participationCategory._id });
       const participations = await participationRepo.getAll({ category: participationCategory._id });
@@ -58,7 +59,7 @@ router.post('/', async (req, res) => {
 
       await voteRepo.bulkDelete(voteIds);
       await participationRepo.bulkDelete(participationIds);
-      
+
       await deleteParticipationCategory(participationCategory);
       return res.status(200).send('Participation category deleted successfully.');
     }

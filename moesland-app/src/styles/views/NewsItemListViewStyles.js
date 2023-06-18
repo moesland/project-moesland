@@ -41,14 +41,14 @@ const styles = StyleSheet.create({
     top: '45%',
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute'
+    position: 'absolute',
   },
   noNewsText: {
     fontSize: 23,
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'gray',
-  }
+  },
 });
 
 export default styles;

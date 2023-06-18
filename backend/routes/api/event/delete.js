@@ -1,9 +1,11 @@
 const express = require('express');
 const escapeHtml = require('escape-html');
 const { getEventById, deleteEvent } = require('../../../repository/event');
+
 const router = express.Router();
 const voteRepo = require('../../../repository/vote');
 const participationRepo = require('../../../repository/participation');
+
 router.use(express.json());
 
 /**
@@ -39,7 +41,7 @@ router.use(express.json());
 router.post('/', async (req, res) => {
   const { _id } = req.body;
   try {
-    const event = await getEventById(_id);    
+    const event = await getEventById(_id);
     if (event) {
       const votes = await voteRepo.getAllExtra({ event: event._id });
       const participations = await participationRepo.getAll({ event: event._id });
