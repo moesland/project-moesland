@@ -41,5 +41,4 @@ const handleUserImage = async (body, action) => {
     });
 };
 
-// module.exports = { getUserImages, approveUserImage, declineUserImage, restoreUserImage, deleteUserImage };
 export { getUserImages, approveUserImage, declineUserImage, restoreUserImage, deleteUserImage };
