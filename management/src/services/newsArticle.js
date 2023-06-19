@@ -47,4 +47,5 @@ const deleteNewsArticle = async (id) => {
     });
 };
 
-module.exports = { getNewsArticles, createNewsArticle, updateNewsArticle, deleteNewsArticle };
+//module.exports = { getNewsArticles, createNewsArticle, updateNewsArticle, deleteNewsArticle };
+export { getNewsArticles, createNewsArticle, updateNewsArticle, deleteNewsArticle}
